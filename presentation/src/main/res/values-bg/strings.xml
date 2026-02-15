@@ -371,4 +371,29 @@
     <string name="qkreply_menu_collapse">По-малко</string>
     <string name="qkreply_menu_view">Отваряне на разговора</string>
     <string name="theme_material">Material</string>
+    <string name="theme_hex">HEX</string>
+    <string name="theme_apply">Прилагане</string>
+    <string name="button_yes">Да</string>
+    <string name="button_continue">Продължаване</string>
+    <string name="button_cancel">Отказ</string>
+    <string name="button_stop">Спиране</string>
+    <string name="button_set">Задаване</string>
+    <string name="button_undo">Отменяне</string>
+    <string name="button_clear">Изчистване</string>
+    <string name="toast_copied">Копирано</string>
+    <plurals name="toast_archived">
+        <item quantity="one">Архивиран е %d разговор</item>
+        <item quantity="other">Архивирани са %d разговора</item>
+    </plurals>
+    <plurals name="toast_unarchived">
+        <item quantity="one">Разархивиран е %d разговор</item>
+        <item quantity="other">Разархивирани са %d разговора</item>
+    </plurals>
+    <plurals name="notification_new_messages">
+        <item quantity="one">%s ново съобщение</item>
+        <item quantity="other">%s нови съобщения</item>
+    </plurals>
+    <string name="notification_message_failed_title">Съобщението не е изпратено</string>
+    <string name="notification_message_failed_text">Съобщението до %s не е изпратено</string>
+    <string name="notification_foreground_worker_title">Получаване на съобщения</string>
 </resources>
