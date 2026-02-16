@@ -396,4 +396,18 @@
     <string name="notification_message_failed_title">Съобщението не е изпратено</string>
     <string name="notification_message_failed_text">Съобщението до %s не е изпратено</string>
     <string name="notification_foreground_worker_title">Получаване на съобщения</string>
+    <string name="notification_foreground_worker_text">На Андроид 12 и по-ранен е необходимо известие, позволяващо получаването на съобщения във фонов режим.</string>
+    <string name="notification_message_failed_action">Повторно изпращане</string>
+    <string name="speak_no_messages">Липсват съобщения</string>
+    <string name="speak_unseen_messages">Изговаряне на непрочетените съобщения</string>
+    <string name="messageLinkHandling_dialog_title">Предупреждение за изходяща препратка</string>
+    <string name="messageLinkHandling_dialog_body">Някои препратки може да са зловредни или неочаквано да ви препратят. Прегледайте препратката преди да продължите:\n\n%1$s\n\nЖелаете ли да продължите?</string>
+    <string name="messageLinkHandling_dialog_positive">Да, посещаване на препратката</string>
+    <string name="messageLinkHandling_dialog_negative">Не</string>
+    <string name="error_stt_toast">Грешка при зареждане на услугата за говор към текст.</string>
+    <string name="stt_toast_extra_prompt">Изговаряне на съобщението</string>
+    <string name="messages_text_share_file_error">Грешка при споделяне</string>
+    <string name="main_sync_emojis">Анализ на емоциите…</string>
+    <string name="message_management_title">Управление на съобщения</string>
+    <string name="compose_reactions_title">Емоции</string>
 </resources>
