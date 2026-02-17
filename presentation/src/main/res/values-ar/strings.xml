@@ -59,7 +59,7 @@
     <string name="main_permission_required">الإذن مطلوب</string>
     <string name="main_permission_sms">QUIK يحتاج إلى إذن لإرسال وعرض الرسائل النصية</string>
     <string name="main_permission_contacts">QUIK يحتاج إلى إذن لعرض جهات الاتصال لديك</string>
-    <string name="main_permission_notifications">QUIK needs permission to display notifications</string>
+    <string name="main_permission_notifications">يحتاج تطبيق QUIK إلى إذن لعرض الإشعارات</string>
     <string name="main_permission_allow">سماح</string>
     <string name="drawer_inbox">صندوق الوارد</string>
     <string name="drawer_archived">المؤرشفة</string>
@@ -72,7 +72,7 @@
     <string name="drawer_plus_banner_summary">فتح ميزات رائعة جديدة ، و دعم التطوير</string>
     <string name="rate_title">هل QUIK ممتع ؟</string>
     <string name="rate_summary">أظهر محبتك وقيّمنا على متجر Google Play!</string>
-    <string name="rate_okay">حسناً</string>
+    <string name="rate_okay">حسناً!</string>
     <string name="rate_dismiss">استبعاد</string>
     <string name="dialog_delete_title">حذف</string>
     <plurals name="dialog_delete_message">
@@ -89,7 +89,7 @@
         <item>حذف</item>
     </string-array>
     <string name="compose_number_picker_title">اختر رقم الهاتف</string>
-    <string name="compose_number_picker_default">الوضع الافتراضي</string>
+    <string name="compose_number_picker_default">%s ∙ افتراضي</string>
     <string name="compose_number_picker_once">فقط واحد</string>
     <string name="compose_number_picker_always">دائما</string>
     <string name="compose_title_selected">%d مختارة</string>
@@ -98,7 +98,7 @@
     <string name="compose_send_group_summary">المتلقون والردود سيكونان مرئيين للجميع</string>
     <string name="compose_messages_empty">هذا أول المحادثة. قل شيئا لطيفاً!</string>
     <string name="compose_vcard_label">بطاقة جهة الاتصال</string>
-    <string name="compose_scheduled_for">مجدولة لـ</string>
+    <string name="compose_scheduled_for">الموعد المحدد:</string>
     <string name="compose_scheduled_future">الوقت المحدّد يجب أن يكون مستقبلاً!</string>
     <string name="compose_scheduled_plus">يلزمك فك QUIK+ لاستخدام التراسل المجدول</string>
     <string name="compose_scheduled_toast">أضيفت إلى الرسائل المجدولة</string>
@@ -127,7 +127,7 @@
     <string name="compose_contact_cd">إرفاق جهة اتصال</string>
     <string name="compose_contact_error">خطأ في قراءة جهة الاتصال</string>
     <!-- Example: SIM 1 (Verizon) selected-->
-    <string name="compose_sim_changed_toast">تحديد الشريحة</string>
+    <string name="compose_sim_changed_toast">تم اختيار شريحة SIM %1$d (%2$s)</string>
     <string name="compose_sim_cd">%s محددة، غيّر شريحة SIM</string>
     <string name="compose_send_cd">إرسال الرسالة</string>
     <string name="message_status_sending">الإرسال جارٍ…</string>
@@ -150,8 +150,8 @@
     <string name="backup_restoring">استعادة من النسخة الاحتياطية</string>
     <string name="backup_loading">تحميل…</string>
     <string name="backup_never">أبداً</string>
-    <string name="backup_location_title">Backup location</string>
-    <string name="backup_location_summary">Set folder</string>
+    <string name="backup_location_title">موقع النسخ الاحتياطي</string>
+    <string name="backup_location_summary">تعيين المجلد</string>
     <string name="backup_restore_title">استعادة</string>
     <string name="backup_restore_summary">اختر نسخة احتياطية</string>
     <string name="backup_restore_error_plus">يرجى إلغاء تأمين QUIK+ للتمكن من استخدام النسخ الاحتياطي والاستعادة</string>
@@ -160,11 +160,11 @@
     <string name="backup_restore_confirm_title">الاستعادة من النسخ الاحتياطي</string>
     <string name="backup_restore_stop_title">إيقاف الاستعادة</string>
     <string name="backup_restore_stop_message">الرسائل التي تمت استعادتها ستبقى في جهازك</string>
-    <string name="backup_select_location_rationale_title">Select backup location</string>
-    <string name="backup_select_location_rationale_message">Please select a folder to save your backups to</string>
+    <string name="backup_select_location_rationale_title">حدد موقع النسخ الاحتياطي</string>
+    <string name="backup_select_location_rationale_message">يرجى تحديد مجلد لحفظ النسخ الاحتياطية فيه</string>
     <string name="backup_details">%1$s\n%2$d messages</string>
     <string name="backup_selected_backup_error_title">Error</string>
-    <string name="backup_selected_backup_error_message">Couldn\'t read backup file</string>
+    <string name="backup_selected_backup_error_message">تعذر قراءة ملف النسخ الاحتياطي</string>
     <string name="backup_selected_backup_details_title">Backup details</string>
     <string name="backup_restore_dialog_title">النسخ الاحتياطية</string>
     <string name="backup_restore_dialog_empty">لا توجد أي نسخة احتياطية</string>
@@ -180,7 +180,7 @@
     <string name="scheduled_empty_description">الإرسال الآلي لأي رسالة في الوقت الذي ترغب بالضبط</string>
     <string name="scheduled_empty_message_1">مهلاً..متى عيد ميلادك؟</string>
     <string name="scheduled_empty_message_2">إنه في 23 ديسمبر</string>
-    <string name="scheduled_empty_message_3">عيد ميلاد سعيد! أنظر ما أجمل صديقك QUIK ، يتذكر عيد ميلادك</string>
+    <string name="scheduled_empty_message_3">عيد ميلاد سعيد! انظر كم أنا صديق رائع، أتذكر عيد ميلادك</string>
     <!--&#x200A; is a special character required at the end of this string to fix its formatting in the app -->
     <string name="scheduled_empty_message_3_timestamp">الإرسال في 23 ديسمبر</string>
     <string name="scheduled_compose_cd">جدولة رسالة</string>
@@ -247,12 +247,12 @@
     <string name="settings_auto_delete_warning">مسح الرسائل القديمة تلقائيا؟</string>
     <string name="settings_auto_delete_warning_message">إذا قمت بالمتابعة، سيتم حذف %1$d رسالة الآن</string>
     <plurals name="settings_auto_delete_summary">
-        <item quantity="zero">بعد 1 يوم</item>
-        <item quantity="one">After 1 day</item>
-        <item quantity="two">After %d days</item>
-        <item quantity="few">After %d days</item>
-        <item quantity="many">After %d days</item>
-        <item quantity="other">After %d days</item>
+        <item quantity="zero">بعد %d يوم</item>
+        <item quantity="one">بعد %d يوم</item>
+        <item quantity="two">بعد %d يوم</item>
+        <item quantity="few">بعد %d أيام</item>
+        <item quantity="many">بعد %d أيام</item>
+        <item quantity="other">بعد %d أيام</item>
     </plurals>
     <string name="settings_long_as_mms_title">ارسل الرسائل الطويلة كرسائل الوسائط المتعددة</string>
     <string name="settings_long_as_mms_summary">اذا فشلت رسالتك النصية الطويلة, او ارسلت بلترتيب الخاطئ, يمكنك ارسالها كرسالة MMS بدلا من ذلك, سوف يتم احتساب رسوم اضافية</string>
@@ -266,15 +266,15 @@
     <string name="settings_delay_duration_hint">أدخل المدة (ثوان)</string>
     <string name="blocking_title">المحظورات</string>
     <string name="blocking_drop_title">مسح الرسائل</string>
-    <string name="blocking_drop_summary">Drop incoming messages from blocked senders instead of hiding them</string>
+    <string name="blocking_drop_summary">قم بحذف الرسائل الواردة من المرسلين المحظورين بدلاً من إخفائها</string>
     <string name="blocking_conversations">المحادثات المحظورة</string>
     <string name="blocking_manager_title">مدير المحظورات</string>
-    <string name="blocking_manager_qksms_summary">Built-in blocking functionality in QUIK</string>
-    <string name="blocking_manager_call_blocker_summary">Block spam messages, numbers &amp; unknown calls with blacklist &amp; Schedule</string>
-    <string name="blocking_manager_call_control_summary">Automatically filter your calls and messages in one convenient place! Community IQ™ allows you to prevent unwanted messages from community known spammers</string>
+    <string name="blocking_manager_qksms_summary">وظيفة حظر مدمجة في برنامج QUIK</string>
+    <string name="blocking_manager_call_blocker_summary">حظر الرسائل المزعجة والأرقام والمكالمات غير المعروفة باستخدام القائمة السوداء وجدولة المكالمات</string>
+    <string name="blocking_manager_call_control_summary">قم بتصفية مكالماتك ورسائلك تلقائيًا في مكان واحد مناسب! تتيح لك ميزة Community IQ™ منع الرسائل غير المرغوب فيها من مرسلي الرسائل المزعجة المعروفين في مجتمعك</string>
     <string name="blocking_manager_sia_summary">الترشيح التلقائي للرسائل من الأرقام غير المرغوبة باستخدام تطبيق \"Should I Answer\"</string>
     <string name="blocking_manager_copy_title">نسخ الارقام المحظورة</string>
-    <string name="blocking_manager_copy_summary">Continue to %s and copy over your existing blocked numbers</string>
+    <string name="blocking_manager_copy_summary">تابع إلى %s وانسخ أرقامك المحظورة الموجودة لديك</string>
     <string name="blocked_numbers_title">الارقام المحظورة</string>
     <string name="blocked_numbers_empty">ارقامك المحظورة سوف تظهر هنا</string>
     <string name="blocked_numbers_add_cd">حظر رقم جديد</string>
@@ -296,10 +296,10 @@
     <plurals name="blocking_unblock_external">
         <item quantity="zero">الاستمرار الى %s واتاحة هذا الرقم</item>
         <item quantity="one">الاستمرار الى %s واتاحة هذا الرقم</item>
-        <item quantity="two">الاستمرار الى %s واتاحة هذا الرقم</item>
-        <item quantity="few">الاستمرار الى %s واتاحة هذا الرقم</item>
-        <item quantity="many">الاستمرار الى %s واتاحة هذا الرقم</item>
-        <item quantity="other">الاستمرار الى %s واتاحة هذا الرقم</item>
+        <item quantity="two">الاستمرار الى %s واتاحة هذه الارقام</item>
+        <item quantity="few">الاستمرار الى %s واتاحة هذه الارقام</item>
+        <item quantity="many">الاستمرار الى %s واتاحة هذه الارقام</item>
+        <item quantity="other">الاستمرار الى %s واتاحة هذه الارقام</item>
     </plurals>
     <string name="about_title">حول</string>
     <string name="about_version_title">النسخة</string>
@@ -430,4 +430,118 @@
         <item>ههههههه</item>
         <item>هذا مناسب</item>
     </string-array>
+    <string name="menu_mms_part_share">شارك</string>
+    <string name="menu_mms_part_forward">إعادة توجيه</string>
+    <string name="main_menu_select_all">حدد الكل</string>
+    <string name="main_menu_send_now">أرسل الآن</string>
+    <string name="main_menu_edit_message">تعديل الرسالة</string>
+    <string name="main_menu_rename_conversation">إعادة تسمية المحادثة</string>
+    <string name="main_sync_emojis">تحليل ردود فعل الرموز التعبيرية…</string>
+    <string name="main_sender_draft">مسودة: %s</string>
+    <string name="menu_mms_part_open">افتح خارجياً</string>
+    <string name="scheduled_menu_send_now">أرسل الآن</string>
+    <string name="scheduled_menu_edit_message">تعديل الرسالة</string>
+    <string name="message_management_title">إدارة الرسائل</string>
+    <plurals name="dialog_delete_chat">
+        <item quantity="zero">هل أنت متأكد من رغبتك في حذف هذه الرسالة؟</item>
+        <item quantity="one">هل أنت متأكد من رغبتك في حذف هذه الرسالة؟</item>
+        <item quantity="two">هل أنت متأكد من رغبتك في حذف %d رسالتين؟</item>
+        <item quantity="few">هل أنت متأكد من رغبتك في حذف %d رسائل؟</item>
+        <item quantity="many">هل أنت متأكد من رغبتك في حذف %d رسالة؟</item>
+        <item quantity="other">هل أنت متأكد من رغبتك في حذف %d رسالة؟</item>
+    </plurals>
+    <plurals name="dialog_send_now">
+        <item quantity="zero">هل أنت متأكد من رغبتك في إرسال هذه الرسالة الآن؟</item>
+        <item quantity="one">هل أنت متأكد من رغبتك في إرسال هذه الرسالة الآن؟</item>
+        <item quantity="two">هل أنت متأكد من رغبتك في إرسال %d رسالتين الآن؟</item>
+        <item quantity="few">هل أنت متأكد من رغبتك في إرسال %d رسالة الآن؟</item>
+        <item quantity="many">هل أنت متأكد من رغبتك في إرسال %d رسالة الآن؟</item>
+        <item quantity="other">هل أنت متأكد من رغبتك في إرسال %d رسالة الآن؟</item>
+    </plurals>
+    <string name="dialog_edit_scheduled_message_title">تعديل الرسالة</string>
+    <string name="dialog_edit_scheduled_message">سيؤدي تعديل هذه الرسالة إلى حذفها من الجدول.\n\nتأكد من إعادة إرسالها في الشاشة التالية، وإلا ستُفقد.\n\nهل تريد المتابعة؟</string>
+    <string name="dialog_edit_scheduled_message_positive_button">نعم، عدّل الرسالة</string>
+    <string name="dialog_clear_compose">هل تريد مسح الرسالة؟ لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="dialog_clear_compose_title">امسح الرسالة</string>
+    <string name="compose_send_group_summary_on">ستكون أسماء المستلمين والردود مرئية للجميع</string>
+    <string name="compose_send_group_summary_off">سيتم إرسال الرسائل بشكل منفصل إلى جميع المستلمين</string>
+    <string name="compose_scheduled_view">الرسائل المجدولة لهذه المحادثة</string>
+    <string name="compose_no_valid_recipients">لا يمكن إرسالها إلى المشاركين الآخرين</string>
+    <string name="compose_menu_show_status">عرض الحالة</string>
+    <string name="compose_reactions_title">الردود</string>
+    <string name="compose_attach_file_cd">أرفق أي ملف</string>
+    <string name="compose_audio_message_cd">سجل الرسالة الصوتية</string>
+    <string name="compose_schedule_cancel_cd">إلغاء الرسائل المجدولة</string>
+    <string name="compose_record_audio_msg_cd">سجل رسالة صوتية</string>
+    <string name="compose_record_audio_msg_abort_cd">ألغي الرسالة الصوتية</string>
+    <string name="compose_record_audio_msg_attach_cd">إرفاق رسائل صوتية</string>
+    <string name="compose_record_audio_msg_play_pause_cd">تشغيل أو إيقاف الرسالة الصوتية مؤقتًا</string>
+    <string name="compose_message_cancel">إلغاء</string>
+    <string name="compose_message_send_now">أرسل الآن</string>
+    <string name="compose_message_sim">رقم الشريحة</string>
+    <string name="compose_message_item">بند الرسالة</string>
+    <string name="compose_message_attachment">الملحق</string>
+    <string name="compose_toast_drag_stt">انقل زر تحويل الكلام إلى نص إلى أي مكان تريده</string>
+    <string name="message_body_too_long_to_display">⚠ الرسالة طويلة. انسخها أو احفظها لعرض النص الكامل</string>
+    <string name="clipboard_too_large_to_copy">حجم البيانات يتجاوز الحد المسموح به في الحافظة</string>
+    <string name="clipboard_unable_to_copy_to">تعذر النسخ إلى الحافظة</string>
+    <string name="scheduled_send_cd">تمت جدولة هذه الرسائل</string>
+    <string name="attachment_missing">مفقود</string>
+    <string name="settings_system_show_stt_title">إظهار زر تحويل الكلام إلى نص</string>
+    <string name="settings_notification_previews_summary">إظهار الاسم والرسالة</string>
+    <string name="settings_notification_silent_title">صامت إن لم يكن جهة اتصال</string>
+    <string name="settings_notification_silent_summary">يقوم هذا الخيار بكتم الإشعارات الخاصة بالرسائل التي لا يوجد مستلمون لها في جهات اتصالك</string>
+    <string name="settings_unread_at_top_title">غير مقروء في الأعلى</string>
+    <string name="settings_unread_at_top_summary">عرض المحادثات غير المقروءة في الأعلى</string>
+    <string name="settings_mms_weblink_title">معالجة الروابط في الرسائل</string>
+    <string name="settings_disable_screenshots_title">تعطيل لقطات الشاشة</string>
+    <string name="settings_diable_screenshots_summary">امنع نظام التشغيل والتطبيقات الأخرى من التقاط لقطات شاشة للتطبيق.</string>
+    <string name="message_content_filters_title">تصفية محتوى الرسائل</string>
+    <string name="message_content_filters_empty">ستظهر فلاتر محتوى رسالتك هنا</string>
+    <string name="message_content_filters_add_cd">إنشاء فلتر جديد</string>
+    <string name="message_content_filters_dialog_title">إرسال رسائل مطابقة</string>
+    <string name="message_content_filters_dialog_hint">كلمة أو عبارة أو تعبير نمطي</string>
+    <string name="message_content_filters_dialog_regex_switch">التعبير النمطي</string>
+    <string name="message_content_filters_dialog_contacts_switch">أضف جهات الاتصال</string>
+    <string name="message_content_filters_dialog_create">انشئ</string>
+    <string name="deduplicate_messages_category">تكرار الرسائل</string>
+    <string name="deduplicate_messages_title">إزالة الرسائل المكررة</string>
+    <string name="deduplicate_messages_summary">يقوم بفحص قاعدة بيانات الرسائل وحذف جميع الرسائل التي تطابق الرسائل الأصلية تمامًا</string>
+    <string name="deduplicate_message_confirmation_dialog_message">سيتم فحص قاعدة بيانات رسائلك بحثًا عن الرسائل المكررة، ثم ستُحذف هذه الرسائل.\nسيؤدي هذا إلى حذف الرسائل تلقائيًا، لذا يُرجى المتابعة فقط إذا كنتَ على دراية بالعواقب.</string>
+    <string name="auto_deduplicate_messages_title">إزالة الرسائل المكررة تلقائياً</string>
+    <string name="auto_deduplicate_messages_summary">ستتم إزالة الرسائل المكررة أثناء المزامنة. يُرجى العلم أن هذا سيؤدي إلى حذف الرسائل تلقائيًا، وعلى الرغم من أن احتمال وجود رسالة مكررة خاطئة ضئيل جدًا، إلا أنه يبقى واردًا.\nيُرجى توخي الحذر.</string>
+    <string name="deduplicating_messages_finished">تم الانتهاء من إزالة الرسائل المكررة!</string>
+    <string name="deduplicating_messages_no_messages">لم يتم العثور على رسائل مكررة.</string>
+    <string name="deduplicating_messages_failed">فشلت عملية إزالة الرسائل المكررة، يرجى المحاولة مرة أخرى</string>
+    <string name="all_conversations_widget_title">جميع المحادثات</string>
+    <string name="button_clear">مسح</string>
+    <plurals name="toast_archived">
+        <item quantity="zero">محادثة مؤرشفة</item>
+        <item quantity="one">محادثة مؤرشفة</item>
+        <item quantity="two">محادثات مؤرشفة عدد %d</item>
+        <item quantity="few">محادثات مؤرشفة عدد %d</item>
+        <item quantity="many">محادثات مؤرشفة عدد %d</item>
+        <item quantity="other">محادثات مؤرشفة عدد %d</item>
+    </plurals>
+    <plurals name="toast_unarchived">
+        <item quantity="zero">محادثة غير مؤرشفة</item>
+        <item quantity="one">محادثة غير مؤرشفة</item>
+        <item quantity="two">محادثات غير مؤرشفة %d</item>
+        <item quantity="few">محادثات غير مؤرشفة %d</item>
+        <item quantity="many">محادثات غير مؤرشفة %d</item>
+        <item quantity="other">محادثات غير مؤرشفة %d</item>
+    </plurals>
+    <string name="notification_foreground_worker_title">استلام الرسائل</string>
+    <string name="notification_foreground_worker_text">في نظام Android 12 والإصدارات الأقدم، يلزم وجود إشعار للعمل في الخلفية الذي يتيح استقبال الرسائل.</string>
+    <string name="notification_message_failed_action">أعد الإرسال</string>
+    <string name="speak_no_messages">لا توجد رسائل</string>
+    <string name="speak_unseen_messages">تكلم رسائل غير مرئية</string>
+    <string name="messageLinkHandling_dialog_title">تحذير بشأن الروابط الخارجية</string>
+    <string name="messageLinkHandling_dialog_body">قد تكون بعض الروابط غير آمنة أو تُعيد توجيهك بشكل غير متوقع. راجع الرابط أدناه قبل المتابعة:\n\n%1$s\n\nهل تريد المتابعة؟</string>
+    <string name="messageLinkHandling_dialog_positive">نعم، افتح الرابط</string>
+    <string name="messageLinkHandling_dialog_negative">لا</string>
+    <string name="error_stt_toast">عذراً، حدث خطأ أثناء تحميل موفر خدمة تحويل الكلام إلى نص.</string>
+    <string name="stt_toast_extra_prompt">تحدث رسالتك</string>
+    <string name="messages_text_share_file_error">عذراً! حدث خطأ ما أثناء المشاركة</string>
+    <string name="message_content_filters_dialog_case_switch">حساس لحالة الأحرف</string>
 </resources>
