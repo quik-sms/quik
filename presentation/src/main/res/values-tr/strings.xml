@@ -495,4 +495,16 @@
     <string name="compose_send_group_summary_off">İletiler tüm alıcılara ayrı ayrı gönderilecektir</string>
     <string name="notification_foreground_worker_title">İleti alma</string>
     <string name="notification_foreground_worker_text">Android 12 ve daha eski sürümlerde, ileti almayı sağlayan arka plan çalışması için bir bildirim gereklidir.</string>
+    <string name="main_sync_emojis">Emoji tepkileri ayrıştırılıyor…</string>
+    <string name="message_management_title">İleti Yönetimi</string>
+    <string name="compose_reactions_title">Tepkiler</string>
+    <string name="deduplicate_messages_category">İletileri Tekilleştir</string>
+    <string name="deduplicate_messages_title">Tekrar Eden İletileri Sil</string>
+    <string name="deduplicate_messages_summary">İleti veritabanını tara ve orijinal iletiyle birebir örtüşen tüm iletileri sil</string>
+    <string name="deduplicate_message_confirmation_dialog_message">İleti veritabanınız tekrar eden iletiler için taranacak ve ardından bunlar silinecektir. \nBu, iletileri otomatik olarak silecektir o yüzden eğer sonuçlarının farkındaysanız devam edin.</string>
+    <string name="auto_deduplicate_messages_title">İletileri Otomatikman Tekilleştir</string>
+    <string name="auto_deduplicate_messages_summary">Tekilleştirme işlemi eşitleme sırasında yapılacak. Lütfen unutmayın ki bu işlem iletileri otomatikman silecektir ve her ne kadar hatalı \'tekrar eden ileti\' algılama ihtimali düşük olsa da bu mümkündür.\nLütfen bunun farkında olarak devam edin.</string>
+    <string name="deduplicating_messages_finished">İletilerin tekilleştirilmesi tamamlandı!</string>
+    <string name="deduplicating_messages_failed">İletilerin tekilleştirilmesi başarısız oldu, lütfen yeniden deneyin</string>
+    <string name="deduplicating_messages_no_messages">Tekrar eden ileti bulunamadı.</string>
 </resources>
