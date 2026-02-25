@@ -92,8 +92,14 @@ class NotificationManagerImpl @Inject constructor(
     }
 
     // Required for running workers on Android 12 and older
-    override fun getForegroundNotificationForWorkersOnOlderAndroids() =
-        NotificationCompat.Builder(context, DEFAULT_CHANNEL_ID)
+    override fun getForegroundNotificationForWorkersOnOlderAndroids(): Notification {
+        val contentIntent = Intent(context, ComposeActivity::class.java)
+        val taskStackBuilder = TaskStackBuilder.create(context)
+            .addParentStack(ComposeActivity::class.java)
+            .addNextIntent(contentIntent)
+        val contentPI = taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
+        return NotificationCompat.Builder(context, DEFAULT_CHANNEL_ID)
             .setContentTitle(context.getString(R.string.notification_foreground_worker_title))
             .setContentText(context.getString(R.string.notification_foreground_worker_text))
             .setShowWhen(false)
@@ -104,7 +110,9 @@ class NotificationManagerImpl @Inject constructor(
             .setPriority(NotificationCompat.PRIORITY_MIN)
             .setOngoing(true)
             .setSilent(true)
+            .setContentIntent(contentPI)
             .build()
+    }
 
     /**
      * Updates the notification for a particular conversation
