@@ -69,4 +69,14 @@ class PhoneNumberUtilsTest {
         assertFalse(phoneNumberUtils.compare("123 456 7890", "234 567 8901"))
     }
 
+    @Test
+    fun compare_formatted_SenderID_returnsTrue() {
+        assertTrue(phoneNumberUtils.compare("Vi-CARE-S", "ViCARES"))
+    }
+
+    @Test
+    fun compare_different_SenderID_returnsFalse() {
+        assertFalse(phoneNumberUtils.compare("VM-ViCARE-S", "VZ-ViCARE-S"))
+    }
+
 }
