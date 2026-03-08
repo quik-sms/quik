@@ -36,9 +36,6 @@ captures/
 *.iml
 .idea/*
 
-# Keystore files
-*.jks
-
 # Mac .DS_STORE files
 *.DS_STORE
 
@@ -53,8 +50,12 @@ freeline.py
 freeline/
 freeline_project_description.json
 
-# secrets
+# secrets / keystore files
 my-release-key.keystore
 my-release-key.keystore.base64
 .secrets
 android-keystore/keystore.b64
+keystore.p12
+config.yml
+*.jks
+
