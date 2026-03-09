@@ -24,13 +24,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: true
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.x'
 
@@ -95,7 +95,7 @@ jobs:
           PY
 
       - name: Upload modified build.gradle
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: version-bump-artifact
           path: presentation/build.gradle
@@ -112,7 +112,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: true
@@ -185,7 +185,7 @@ jobs:
           PY
 
       - name: Upload changelog.json
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: changelog-json-artifact
           path: data/src/main/assets/changelog.json
@@ -196,19 +196,19 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: true
 
       - name: Download modified build.gradle
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: version-bump-artifact
           path: presentation/
 
       - name: Download modified changelog
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: changelog-json-artifact
           path: data/src/main/assets/

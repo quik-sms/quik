@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{ env.RELEASE_REF }}
@@ -60,7 +60,7 @@ jobs:
       - name: Checkout published F-Droid repo (if available)
         id: checkout_pages
         continue-on-error: true
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: gh-pages
           path: gh-pages
@@ -78,7 +78,7 @@ jobs:
           fi
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -136,7 +136,7 @@ jobs:
           PY
 
       - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/actions/wrapper-validation@v3
 
       - name: Build signed release APK
         run: ./gradlew clean assembleRelease assembleFdroid
@@ -175,7 +175,7 @@ jobs:
           echo "checksums_path=checksums.txt" >> "$GITHUB_OUTPUT"
 
       - name: Upload all build outputs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: build-artifacts
           path: |
@@ -215,7 +215,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: build-artifacts
           path: downloaded/

@@ -51,7 +51,7 @@ jobs:
 
       - name: Check out repository
         if: steps.cfg.outputs.ready == 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: master
 
