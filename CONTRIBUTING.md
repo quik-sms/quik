@@ -62,6 +62,31 @@ To update the wiki, simply navigate to the [wiki tab](https://github.com/octoshr
 **We have a build action on each pull request.**\
 **If build fails, please edit the pull request in order to make the build succeed.**
 
+## Merge Requirements
+
+### Commit Messages
+We use the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard for our commit messages, so please follow these guidelines as much as possible. In addition, please try to keep your commits atomic and as clear and specific as possible. The following scopes are recommended:
+- backup
+- blocking
+- build
+- ci
+- compose
+- contacts
+- conversations
+- data
+- di
+- docs
+- domain
+- gallery
+- i18n
+- notif
+- reaction
+- scheduled
+- settings
+- smsmms
+- ui
+
+When in doubt just take a look at the commit history, or ask us. We are happy to help.
 
 ## Helpful Tips
 ### Getting Your Pull Request Merged
