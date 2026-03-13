@@ -45,7 +45,7 @@
     <string name="main_menu_read">Okundu olarak işaretle</string>
     <string name="main_menu_unread">Okunmadı olarak işaretle</string>
     <string name="main_menu_block">Engelle</string>
-    <string name="main_syncing">İletiler eşitleniyor.. </string>
+    <string name="main_syncing">İletiler eşitleniyor…</string>
     <string name="main_sender_you">Sen: %s</string>
     <string name="main_message_results_title">İletilerdeki sonuçlar</string>
     <string name="main_message_results">%d ileti</string>
@@ -57,8 +57,8 @@
     <string name="main_default_sms_message">QUIK varsayılan SMS uygulaması yap</string>
     <string name="main_default_sms_change">Değiştir</string>
     <string name="main_permission_required">İzin gerekli</string>
-    <string name="main_permission_sms">QUIK\'in göndermesi ve SMS iletilerini görüntülemesi için izni olması gerekir.</string>
-    <string name="main_permission_contacts">QUIK kişilerinizi görüntülemek için izni olması gerekir.</string>
+    <string name="main_permission_sms">QUIK\'in göndermesi ve SMS iletilerini görüntülemesi için izni olması gerekir</string>
+    <string name="main_permission_contacts">QUIK kişilerinizi görüntülemek için izni olması gerekir</string>
     <string name="main_permission_notifications">QUIK needs permission to display notifications</string>
     <string name="main_permission_allow">İzin ver</string>
     <string name="drawer_inbox">Gelen Kutusu</string>
@@ -126,7 +126,7 @@
     <string name="compose_sim_changed_toast">SIM %1$d (%2$s) seçili</string>
     <string name="compose_sim_cd">Seçili, %s SIM kartı değiştirin</string>
     <string name="compose_send_cd">İleti gönder</string>
-    <string name="message_status_sending">Gönderiliyor...</string>
+    <string name="message_status_sending">Gönderiliyor…</string>
     <string name="message_status_delivered">Teslim Edildi %s</string>
     <string name="message_status_failed">Gönderilemedi. Yeniden denemek için dokunun</string>
     <string name="info_title">Ayrıntılar</string>
@@ -144,15 +144,15 @@
     <string name="backup_title">Yedekleme ve geri yükleme</string>
     <string name="backup_backing_up">İletileri yedekleme</string>
     <string name="backup_restoring">Yedekten geri yükleme</string>
-    <string name="backup_loading">Yükleniyor...</string>
+    <string name="backup_loading">Yükleniyor…</string>
     <string name="backup_never">Asla</string>
     <string name="backup_location_title">Backup location</string>
     <string name="backup_location_summary">Set folder</string>
     <string name="backup_restore_title">Geri yükle</string>
     <string name="backup_restore_summary">Bir yedekleme\'yi seçin</string>
-    <string name="backup_restore_error_plus">Lütfen yedeklemeyi ve geri yüklemeyi kullanmak için QUIK+\'ı açınız.</string>
-    <string name="backup_restore_error_backup">Yedekleme devam ediyor...</string>
-    <string name="backup_restore_error_restore">Geri yükleme devam ediyor...</string>
+    <string name="backup_restore_error_plus">Lütfen yedeklemeyi ve geri yüklemeyi kullanmak için QUIK+\'ı açınız</string>
+    <string name="backup_restore_error_backup">Yedekleme devam ediyor…</string>
+    <string name="backup_restore_error_restore">Geri yükleme devam ediyor…</string>
     <string name="backup_restore_confirm_title">Yedeklemeyi geri yükle</string>
     <string name="backup_restore_stop_title">Geri yüklemeyi durdur</string>
     <string name="backup_restore_stop_message">Zaten geri yüklenmiş iletiler cihazınızda kalacaktır</string>
@@ -168,7 +168,7 @@
     <string name="backup_now">Şimdi yedekle</string>
     <string name="backup_progress_parsing">Yedekleme ayrılıyor…</string>
     <string name="backup_progress_running">%d%d ileti</string>
-    <string name="backup_progress_saving">Yedekleme kaydediliyor...</string>
+    <string name="backup_progress_saving">Yedekleme kaydediliyor…</string>
     <string name="backup_progress_syncing">İletiler senkronize ediliyor…</string>
     <string name="backup_progress_finished">Tamamlandı!</string>
     <string name="backup_notification_channel_name">Yedekleme ve geri yükleme</string>
@@ -296,7 +296,7 @@
     <string name="qksms_plus_description_title">Gelişimini desteklemek, her şey kilitsiz</string>
     <string name="qksms_plus_description_summary">Seni  kurtarmak için sadece %s açlıktan ölen bir geliştirici</string>
     <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">Süresiz kullanmak 1$s %2$s</string>
+    <string name="qksms_plus_upgrade">Süresiz kullanmak %1$s %2$s</string>
     <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
     <string name="qksms_plus_upgrade_donate">Kilidi aç ve Satın Al %1$s %2$s</string>
     <string name="qksms_plus_thanks_title">QUIK desteği için teşekkür ederiz!!</string>
@@ -310,7 +310,7 @@
     <string name="qksms_plus_emoji_title">Özel otomatik ifadeler</string>
     <string name="qksms_plus_emoji_summary">Özel otomatik ifadeler kısayolları oluştur</string>
     <string name="qksms_plus_backup_title">İleti yedekleme</string>
-    <string name="qksms_plus_backup_summary">İletileriniz otomatik olarak yedekleyin. Telefonunuzu değiştirir veya kaybolursa endişelenmeyin.</string>
+    <string name="qksms_plus_backup_summary">İletileriniz otomatik olarak yedekleyin. Telefonunuzu değiştirir veya kaybolursa endişelenmeyin</string>
     <string name="qksms_plus_scheduled_title">Zamanlanmış iletiler</string>
     <string name="qksms_plus_scheduled_summary">Belirli bir saatte ve tarihte otomatik olarak gönderilecek iletileri planla</string>
     <string name="qksms_plus_delayed_title">Gecikmeli gönderme</string>
@@ -325,7 +325,7 @@
     <string name="qksms_plus_respond_summary">Önceden ayarlanmış bir yanıt ile gelen iletilere otomatik olarak yanıtla</string>
     <string name="qksms_plus_more_title">Daha fazla</string>
     <string name="qksms_plus_more_summary">QUIK etkin geliştirme altında ve satın alırsan tüm gelecek QUIK+ özellikleri dahil olacaktır!</string>
-    <string name="widget_loading">Yükleniyor...</string>
+    <string name="widget_loading">Yükleniyor…</string>
     <string name="widget_more">Daha fazla konuşma göster</string>
     <string name="qkreply_menu_read">Okundu olarak işaretle</string>
     <string name="qkreply_menu_call">Ara</string>
@@ -446,7 +446,7 @@
     <string name="compose_message_sim">SIM numarası</string>
     <string name="compose_message_attachment">Ek</string>
     <string name="compose_toast_drag_stt">Sesle yazma butonunu istediğiniz yere taşıyın</string>
-    <string name="message_body_too_long_to_display">⚠ İleti çok uzun. Metnin tümü için Kopyala ya da Kaydet.</string>
+    <string name="message_body_too_long_to_display">⚠ İleti çok uzun. Metnin tümü için Kopyala ya da Kaydet</string>
     <string name="compose_no_valid_recipients">Diğer katılımcılara gönderilemez</string>
     <string name="compose_message_item">İleti öğesi</string>
     <string name="clipboard_too_large_to_copy">Veri boyutu pano sınırını aşıyor</string>
@@ -495,4 +495,16 @@
     <string name="compose_send_group_summary_off">İletiler tüm alıcılara ayrı ayrı gönderilecektir</string>
     <string name="notification_foreground_worker_title">İleti alma</string>
     <string name="notification_foreground_worker_text">Android 12 ve daha eski sürümlerde, ileti almayı sağlayan arka plan çalışması için bir bildirim gereklidir.</string>
+    <string name="main_sync_emojis">Emoji tepkileri ayrıştırılıyor…</string>
+    <string name="message_management_title">İleti Yönetimi</string>
+    <string name="compose_reactions_title">Tepkiler</string>
+    <string name="deduplicate_messages_category">İletileri Tekilleştir</string>
+    <string name="deduplicate_messages_title">Tekrar Eden İletileri Sil</string>
+    <string name="deduplicate_messages_summary">İleti veritabanını tara ve orijinal iletiyle birebir örtüşen tüm iletileri sil</string>
+    <string name="deduplicate_message_confirmation_dialog_message">İleti veritabanınız tekrar eden iletiler için taranacak ve ardından bunlar silinecektir. \nBu, iletileri otomatik olarak silecektir o yüzden eğer sonuçlarının farkındaysanız devam edin.</string>
+    <string name="auto_deduplicate_messages_title">İletileri Otomatikman Tekilleştir</string>
+    <string name="auto_deduplicate_messages_summary">Tekilleştirme işlemi eşitleme sırasında yapılacak. Lütfen unutmayın ki bu işlem iletileri otomatikman silecektir ve her ne kadar hatalı \'tekrar eden ileti\' algılama ihtimali düşük olsa da bu mümkündür.\nLütfen bunun farkında olarak devam edin.</string>
+    <string name="deduplicating_messages_finished">İletilerin tekilleştirilmesi tamamlandı!</string>
+    <string name="deduplicating_messages_failed">İletilerin tekilleştirilmesi başarısız oldu, lütfen yeniden deneyin</string>
+    <string name="deduplicating_messages_no_messages">Tekrar eden ileti bulunamadı.</string>
 </resources>
