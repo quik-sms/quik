@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+echo "⏳ Running Pre-commit Checks..."
+
+OVERLAPPING_FILES=$(comm -12 <(git diff --name-only | sort) <(git diff --name-only --cached | sort))
+
+echo "🔍 Checking code style with Spotless..."
+
+set +e
+./gradlew spotlessCheck --quiet
+SPOTLESS_EXIT_CODE=$?
+set -e
+
+if [ $SPOTLESS_EXIT_CODE -ne 0 ]; then
+    if [ -n "$OVERLAPPING_FILES" ]; then
+        echo ""
+        echo "⚠️ Formatting errors detected, but you have partially staged files:"
+        echo "$OVERLAPPING_FILES"
+        echo ""
+        echo "Auto-fixing was skipped to protect your unstaged changes from being committed."
+        echo "Run './gradlew spotlessApply' to fix the file(s) and re-stage your changes."
+        exit 1
+    else
+        echo "🔧 Auto-fixing formatting issues..."
+        ./gradlew spotlessApply --continue --quiet
+
+        STAGED_FILES=$(git diff --name-only --cached)
+        for file in $STAGED_FILES; do
+            if [ -f "$file" ]; then
+                git add "$file"
+            fi
+        done
+        echo "✅ Formatting auto-fixed and staged!"
+    fi
+else
+    echo "✅ Code style is Spotless!"
+fi
+
+echo "🔍 Checking code quality with Android Lint..."
+
+set +e
+./gradlew lint
+LINT_EXIT_CODE=$?
+set -e
+
+if [ $LINT_EXIT_CODE -ne 0 ]; then
+    echo ""
+    echo "❌ Commit rejected due to Android Lint errors."
+    echo "Please review the reports in the build/reports/ directory of each module."
+    echo "After fixing, re-stage your changes."
+    exit 1
+fi
+
+echo "✅ Android Lint passed!"
+
+exit 0

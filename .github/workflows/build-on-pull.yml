@@ -27,9 +27,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew assembleDebug
 
-    - name: Run Android Lint
-      run: ./gradlew lint
-
     - name: Run Tests
       run: ./gradlew test
 
