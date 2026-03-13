@@ -82,6 +82,8 @@ class NotificationManagerImpl @Inject constructor(
         const val BACKUP_RESTORE_CHANNEL_ID = "notifications_backup_restore"
         const val RECEIVING_WORKER_CHANNEL_ID = "notifications_receiving_worker"
 
+        val MARK_TYPE_COUNT = MessageMarkReceiver.MarkType.values().size
+
         val VIBRATE_PATTERN = longArrayOf(0, 200, 0, 200)
     }
 
@@ -90,6 +92,14 @@ class NotificationManagerImpl @Inject constructor(
     init {
         // Make sure the default channel has been initialized
         createNotificationChannel()
+    }
+
+    /**
+     * In order to not have conflicting pending intents for the same receiver,
+     * let's generate one for each type of marking action.
+     */
+    fun MessageMarkReceiver.MarkType.getRequestCode(threadId: Long): Int {
+        return threadId.toInt() * MARK_TYPE_COUNT + ordinal
     }
 
     // Required for running workers on Android 12 and older
@@ -146,7 +156,10 @@ class NotificationManagerImpl @Inject constructor(
         val seenIntent = Intent(context, MessageMarkReceiver::class.java)
             .putExtra("threadId", threadId)
             .putExtra("type", MessageMarkReceiver.MarkType.Seen.ordinal)
-        val seenPI = PendingIntent.getBroadcast(context, threadId.toInt(), seenIntent,
+        val seenPI = PendingIntent.getBroadcast(
+            context,
+            MessageMarkReceiver.MarkType.Seen.getRequestCode(threadId),
+            seenIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         // We can't store a null preference, so map it to a null Uri if the pref string is empty
@@ -276,7 +289,10 @@ class NotificationManagerImpl @Inject constructor(
                             val intent = Intent(context, MessageMarkReceiver::class.java)
                                 .putExtra("threadId", threadId)
                                 .putExtra("type", MessageMarkReceiver.MarkType.Archived.ordinal)
-                            val pi = PendingIntent.getBroadcast(context, threadId.toInt(), intent,
+                            val pi = PendingIntent.getBroadcast(
+                                context,
+                                MessageMarkReceiver.MarkType.Archived.getRequestCode(threadId),
+                                intent,
                                     PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
                             NotificationCompat.Action.Builder(R.drawable.ic_archive_white_24dp, actionLabels[action], pi)
                                     .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_ARCHIVE).build()
@@ -305,7 +321,10 @@ class NotificationManagerImpl @Inject constructor(
                             val intent = Intent(context, MessageMarkReceiver::class.java)
                                 .putExtra("threadId", threadId)
                                 .putExtra("type", MessageMarkReceiver.MarkType.Read.ordinal)
-                            val pi = PendingIntent.getBroadcast(context, threadId.toInt(), intent,
+                            val pi = PendingIntent.getBroadcast(
+                                context,
+                                MessageMarkReceiver.MarkType.Read.getRequestCode(threadId),
+                                intent,
                                     PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
                             NotificationCompat.Action.Builder(R.drawable.ic_check_white_24dp, actionLabels[action], pi)
                                     .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_MARK_AS_READ).build()
