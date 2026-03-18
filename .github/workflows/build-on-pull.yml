@@ -1,0 +1,59 @@
+name: Build and Test on Pull Request
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+
+    - name: Validate Gradle Wrapper
+      uses: gradle/actions/wrapper-validation@v3
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: gradle
+
+    - name: Build with Gradle
+      run: ./gradlew assembleDebug
+
+    - name: Run Android Lint
+      run: ./gradlew lint
+
+    - name: Run Tests
+      run: ./gradlew test
+
+    - name: List APK Output Directory 
+      run: ls -R presentation/build/outputs/apk/debug
+
+    - name: Rename APK
+      shell: bash
+      run: |
+        set -euo pipefail
+        shopt -s nullglob
+        mapfile -t apk_files < <(printf '%s\n' presentation/build/outputs/apk/debug/QUIK-v*-debug.apk)
+        if [[ "${#apk_files[@]}" -eq 0 ]]; then
+          echo "No APK found matching QUIK-v*-debug.apk" >&2
+          exit 1
+        fi
+        if [[ "${#apk_files[@]}" -gt 1 ]]; then
+          echo "Multiple APKs found: ${apk_files[*]}" >&2
+          exit 1
+        fi
+        mv "${apk_files[0]}" presentation/build/outputs/apk/debug/QUIK-debug.apk
+
+    - name: Upload App
+      uses: actions/upload-artifact@v7
+      with:
+        name: apk-debug
+        path: presentation/build/outputs/apk/debug/QUIK-debug.apk

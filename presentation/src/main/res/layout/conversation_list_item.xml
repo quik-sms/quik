@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019 Moez Bhatti <moez.bhatti@gmail.com>
+  ~
+  ~ This file is part of QKSMS.
+  ~
+  ~ QKSMS is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ QKSMS is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="12dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="8dp"
+    android:nextFocusRight="@+id/compose">
+
+    <dev.octoshrimpy.quik.common.widget.GroupAvatarView
+        android:id="@+id/avatars"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
+
+    <dev.octoshrimpy.quik.common.widget.QkTextView
+        android:id="@+id/title"
+        style="@style/TextPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:lines="1"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toTopOf="@id/snippet"
+        app:layout_constraintEnd_toStartOf="@id/date"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/avatars"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="@tools:sample/full_names"
+        android:textDirection="ltr" />
+
+    <dev.octoshrimpy.quik.common.widget.QkTextView
+        android:id="@+id/snippet"
+        style="@style/TextSecondary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/scheduled"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="@tools:sample/lorem/random" />
+
+    <ImageView
+        android:id="@+id/pinned"
+        android:layout_width="20dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="4dp"
+        android:paddingTop="2dp"
+        android:src="@drawable/ic_baseline_push_pin_24"
+        app:tint="?android:attr/textColorTertiary"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/scheduled"
+        app:layout_constraintTop_toTopOf="@id/snippet"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/scheduled"
+        android:layout_width="20dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="4dp"
+        android:src="@drawable/ic_event_black_24dp"
+        android:tint="?android:attr/textColorTertiary"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/unread"
+        app:layout_constraintTop_toTopOf="@id/snippet"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/unread"
+        android:layout_width="20dp"
+        android:layout_height="16sp"
+        android:paddingStart="8dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:src="@drawable/circle"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/snippet"
+        tools:tint="@color/tools_theme"
+        tools:visibility="visible" />
+
+    <dev.octoshrimpy.quik.common.widget.QkTextView
+        android:id="@+id/date"
+        style="@style/TextTertiary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="100"
+        tools:text="Oct 11" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

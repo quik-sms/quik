@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019 Moez Bhatti <moez.bhatti@gmail.com>
+  ~
+  ~ This file is part of QKSMS.
+  ~
+  ~ QKSMS is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ QKSMS is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
+  --><resources>
+    <string name="shortcut_compose_long_label">Percakapan baru</string>
+    <string name="shortcut_compose_short_label">Buat</string>
+    <string name="shortcut_compose_disabled_message">Pintasan nonaktif</string>
+    <string name="title_archived">Diarsipkan</string>
+    <string name="title_settings">Setelan</string>
+    <string name="title_notification_prefs">Notifikasi</string>
+    <string name="title_theme">Tema</string>
+    <string name="title_conversations">Cari kotak masuk…</string>
+    <string name="title_compose">Ketik nama atau nomor</string>
+    <string name="setup_skip">Lewati</string>
+    <string name="setup_next">Lanjut</string>
+    <string name="menu_add_person">Tambah kontak</string>
+    <string name="menu_call">Panggil</string>
+    <string name="menu_info">Detail</string>
+    <string name="menu_mms_part_save">Simpan ke galeri</string>
+    <string name="compose_menu_share">Berbagi</string>
+    <string name="main_drawer_open_cd">Buka laci navigasi</string>
+    <string name="main_title_selected">%d dipilih</string>
+    <string name="main_menu_clear">Bersihkan</string>
+    <string name="main_menu_archive">Arsipkan</string>
+    <string name="main_menu_unarchive">Batalkan arsip</string>
+    <string name="main_menu_delete">Hapus</string>
+    <string name="main_menu_add_contact">Tambah ke kontak</string>
+    <string name="main_menu_pin">Pin ke atas</string>
+    <string name="main_menu_unpin">Lepas pin</string>
+    <string name="main_menu_read">Tandai dibaca</string>
+    <string name="main_menu_unread">Tandai belum dibaca</string>
+    <string name="main_menu_block">Blokir</string>
+    <string name="main_syncing">Menyinkronkan pesan…</string>
+    <string name="main_sender_you">Anda: %s</string>
+    <string name="main_message_results_title">Hasil dalam pesan</string>
+    <string name="main_message_results">%d pesan</string>
+    <string name="inbox_empty_text">Percakapan anda akan ditampilkan di sini</string>
+    <string name="inbox_search_empty_text">Tidak ada hasil</string>
+    <string name="archived_empty_text">Arsip percakapan anda akan ditampilkan di sini</string>
+    <string name="main_fab_cd">Mulai percakapan baru</string>
+    <string name="main_default_sms_title">Love texting again</string>
+    <string name="main_default_sms_message">Tetapkan QUIK sebagai aplikasi SMS default anda</string>
+    <string name="main_default_sms_change">Ubah</string>
+    <string name="main_permission_required">Membutuhkan izin</string>
+    <string name="main_permission_sms">QUIK membutuhkan izin untuk mengirim dan membaca pesan SMS</string>
+    <string name="main_permission_contacts">QUIK membutuhkan izin untuk membaca kontak anda</string>
+    <string name="main_permission_notifications">QUIK needs permission to display notifications</string>
+    <string name="main_permission_allow">Izinkan</string>
+    <string name="drawer_inbox">Kotak masuk</string>
+    <string name="drawer_archived">Diarsipkan</string>
+    <string name="drawer_scheduled">Terjadwal</string>
+    <string name="drawer_blocking">Pemblokiran</string>
+    <string name="drawer_more">Lainnya</string>
+    <string name="drawer_settings">Setelan</string>
+    <string name="drawer_help">Bantuan &amp; umpanbalik</string>
+    <string name="drawer_invite">Undang teman</string>
+    <string name="drawer_plus_banner_summary">Buka fitur-fitur baru yang menakjubkan, dan dukung pengembangan</string>
+    <string name="rate_title">Menikmati QUIK?</string>
+    <string name="rate_summary">Share some love and rate us on Google Play!</string>
+    <string name="rate_okay">OKE!</string>
+    <string name="rate_dismiss">ABAIKAN</string>
+    <string name="dialog_delete_title">Hapus</string>
+    <plurals name="dialog_delete_message">
+        <item quantity="other">Apakah anda yakin ingin menghapus percakapan ini?</item>
+    </plurals>
+    <string-array name="message_options">
+        <item>Salin teks</item>
+        <item>Teruskan</item>
+        <item>Hapus</item>
+    </string-array>
+    <string name="compose_number_picker_title">Pilih nomor telepon</string>
+    <string name="compose_number_picker_default">%s ∙ Default</string>
+    <string name="compose_number_picker_once">Hanya sekali</string>
+    <string name="compose_number_picker_always">Selalu</string>
+    <string name="compose_title_selected">%d dipilih</string>
+    <string name="compose_subtitle_results">%1$d dari %2$d hasil</string>
+    <string name="compose_send_group_title">Kirim sebagai pesan grup</string>
+    <string name="compose_send_group_summary">Penerima dan balasan akan ditampilkan ke semua orang</string>
+    <string name="compose_messages_empty">Ini adalah awal percakapan anda. Katakan sesuatu yang baik!</string>
+    <string name="compose_vcard_label">Kartu nama</string>
+    <string name="compose_scheduled_for">Jadwalkan pada</string>
+    <string name="compose_scheduled_future">Waktu yang dipilih harus berada di masa depan!</string>
+    <string name="compose_scheduled_plus">Anda harus membuka akses QUIK+ untuk menggunakan pesan terjadwal</string>
+    <string name="compose_scheduled_toast">Ditambahkan ke pesan terjadwal</string>
+    <string name="compose_hint">Tulis pesan…</string>
+    <string name="compose_menu_copy">Salin teks</string>
+    <string name="compose_menu_forward">Teruskan</string>
+    <string name="compose_menu_delete">Hapus</string>
+    <string name="compose_menu_previous">Sebelumnya</string>
+    <string name="compose_menu_next">Berikutnya</string>
+    <string name="compose_menu_clear">Bersihkan</string>
+    <string name="compose_details_title">Detail pesan</string>
+    <string name="compose_details_type">Tipe: %s</string>
+    <string name="compose_details_from">Dari: %s</string>
+    <string name="compose_details_to">Ke: %s</string>
+    <string name="compose_details_subject">Subyek: %s</string>
+    <string name="compose_details_priority">Prioritas: %s</string>
+    <string name="compose_details_size">Ukuran: %s</string>
+    <string name="compose_details_sent">Dikirim: %s</string>
+    <string name="compose_details_received">Diterima: %s</string>
+    <string name="compose_details_delivered">Terkirim: %s</string>
+    <string name="compose_details_error_code">Kode galat: %d</string>
+    <string name="compose_attach_cd">Tambah lampiran</string>
+    <string name="compose_gallery_cd">Lampirkan foto</string>
+    <string name="compose_camera_cd">Ambil foto</string>
+    <string name="compose_schedule_cd">Jadwalkan pesan</string>
+    <string name="compose_contact_cd">Lampirkan kontak</string>
+    <string name="compose_contact_error">Galat membaca kontak</string>
+    <!-- Example: SIM 1 (Verizon) selected-->
+    <string name="compose_sim_changed_toast">SIM %1$d (%2$s) dipilih</string>
+    <string name="compose_sim_cd">%s dipilih, ganti kartu SIM</string>
+    <string name="compose_send_cd">Kirim pesan</string>
+    <string name="message_status_sending">Mengirim…</string>
+    <string name="message_status_delivered">%s terkirim</string>
+    <string name="message_status_failed">Gagal mengirim. Ketuk untuk mencoba lagi</string>
+    <string name="info_title">Detail</string>
+    <string name="info_copied_address">Alamat disalin</string>
+    <string name="info_name">Judul percakapan</string>
+    <string name="info_notifications">Notifikasi</string>
+    <string name="info_theme">Tema</string>
+    <string name="info_archive">Arsip</string>
+    <string name="info_unarchive">Batalkan arsip</string>
+    <string name="info_block">Blokir</string>
+    <string name="info_unblock">Buka blokir</string>
+    <string name="info_delete">Hapus percakapan</string>
+    <string name="gallery_error">Tidak bisa memuat media</string>
+    <string name="gallery_toast_saved">Disimpan ke galeri</string>
+    <string name="backup_title">Cadangan dan pemulihan</string>
+    <string name="backup_backing_up">Mencadangankan pesan</string>
+    <string name="backup_restoring">Memulihkan cadangan pesan</string>
+    <string name="backup_loading">Memuat…</string>
+    <string name="backup_never">Tidak pernah</string>
+    <string name="backup_location_title">Backup location</string>
+    <string name="backup_location_summary">Set folder</string>
+    <string name="backup_restore_title">Pulihkan</string>
+    <string name="backup_restore_summary">Pilih cadangan</string>
+    <string name="backup_restore_error_plus">Silakan buka akses QUIK+ untuk menggunakan fitur cadangan dan pemulihan</string>
+    <string name="backup_restore_error_backup">Pencadangan sedang berlangsung…</string>
+    <string name="backup_restore_error_restore">Pemulihan sedang berlangsung…</string>
+    <string name="backup_restore_confirm_title">Pulihkan dari cadangan</string>
+    <string name="backup_restore_stop_title">Setop pemulihan</string>
+    <string name="backup_restore_stop_message">Pesan yang telah dipulihkan akan tetap berada di perangkat anda</string>
+    <string name="backup_select_location_rationale_title">Select backup location</string>
+    <string name="backup_select_location_rationale_message">Please select a folder to save your backups to</string>
+    <string name="backup_details">%1$s\n%2$d messages</string>
+    <string name="backup_selected_backup_error_title">Error</string>
+    <string name="backup_selected_backup_error_message">Couldn\'t read backup file</string>
+    <string name="backup_selected_backup_details_title">Backup details</string>
+    <string name="backup_restore_dialog_title">Cadangan</string>
+    <string name="backup_restore_dialog_empty">Cadangan tidak ditemukan</string>
+    <string name="backup_disclaimer">Saat ini, Cadangan dan Pemulihan hanya mendukung pesan SMS. Dukungan MMS dan cadangan terjadwal akan segera datang!</string>
+    <string name="backup_now">Cadangkan sekarang</string>
+    <string name="backup_progress_parsing">Membaca cadangan…</string>
+    <string name="backup_progress_running">%d/%d pesan</string>
+    <string name="backup_progress_saving">Menyimpan cadangan…</string>
+    <string name="backup_progress_syncing">Menyinkronkan pesan…</string>
+    <string name="backup_progress_finished">Selesai!</string>
+    <string name="backup_notification_channel_name">Cadangan dan pemulihan</string>
+    <string name="scheduled_title">Terjadwal</string>
+    <string name="scheduled_empty_description">Otomatis mengirim pesan pada waktu yang anda inginkan</string>
+    <string name="scheduled_empty_message_1">Hai! Kapan kamu ulang tahun?</string>
+    <string name="scheduled_empty_message_2">23 Desember</string>
+    <string name="scheduled_empty_message_3">Selamat ulang tahun! Aku teman yang baik kan?, selalu ingat ulang tahunmu.</string>
+    <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
+    <string name="scheduled_empty_message_3_timestamp">Mengirim pada tanggal 23 Desember</string>
+    <string name="scheduled_compose_cd">Jadwalkan pesan</string>
+    <string name="scheduled_options_title">Pesan terjadwal</string>
+    <string-array name="scheduled_options">
+        <item>Kirim sekarang</item>
+        <item>Salin teks</item>
+        <item>Hapus</item>
+    </string-array>
+    <string name="settings_category_appearance">Tampilan</string>
+    <string name="settings_category_general">Umum</string>
+    <string name="settings_category_qkreply">Balasan cepat</string>
+    <string name="settings_theme_title">Tema</string>
+    <string name="settings_night_title">Mode malam</string>
+    <string name="settings_black_title">Mode malam hitam pekat</string>
+    <string name="settings_night_start_title">Waktu mulai</string>
+    <string name="settings_night_end_title">Waktu berakhir</string>
+    <string name="settings_automatic_colors_title">Warna kontak otomatis</string>
+    <string name="settings_text_size_title">Ukuran fon</string>
+    <string name="settings_system_font_title">Gunakan fon sistem</string>
+    <string name="settings_auto_emoji_title">Emoji otomatis</string>
+    <string name="settings_notifications_title">Notifikasi</string>
+    <string name="settings_notifications_o_summary">Ketuk untuk ubahsuai</string>
+    <string name="settings_notification_actions_title">Tindakan</string>
+    <string name="settings_notification_action_1">Tombol 1</string>
+    <string name="settings_notification_action_2">Tombol 2</string>
+    <string name="settings_notification_action_3">Tombol 3</string>
+    <string name="settings_notification_previews_title">Pratinjau notifikasi</string>
+    <string name="settings_notification_wake_title">Layar ambien</string>
+    <string name="settings_vibration_title">Getar</string>
+    <string name="settings_ringtone_title">Suara</string>
+    <string name="settings_ringtone_none">Tidak ada</string>
+    <string name="settings_qkreply_title">Balasan cepat</string>
+    <string name="settings_qkreply_summary">Popup untuk pesan baru</string>
+    <string name="settings_qkreply_tap_dismiss_title">Ketuk untuk mengabaikan</string>
+    <string name="settings_qkreply_tap_dismiss_summary">Ketuk di luar popup untuk menutupnya</string>
+    <string name="settings_delayed_title">Pengiriman tertunda</string>
+    <string name="settings_swipe_actions">Tindakan geser</string>
+    <string name="settings_swipe_actions_summary">Atur tindakan geser untuk percakapan</string>
+    <string name="settings_swipe_actions_right">Geser ke kanan</string>
+    <string name="settings_swipe_actions_left">Geser ke kiri</string>
+    <string name="settings_swipe_actions_change">UBAH</string>
+    <string-array name="settings_swipe_actions">
+        <item>Tidak ada</item>
+        <item>Arsipkan</item>
+        <item>Hapus</item>
+        <item>Blokir</item>
+        <item>Panggil</item>
+        <item>Tandai dibaca</item>
+        <item>Tandai belum dibaca</item>
+    </string-array>
+    <string name="settings_delivery_title">Konfirmasi pengiriman</string>
+    <string name="settings_delivery_summary">Mengonfirmasi bahwa pesan telah berhasil dikirim</string>
+    <string name="settings_signature_title">Tanda tangan</string>
+    <string name="settings_signature_summary">Tambahkan tanda tangan di akhir pesan anda</string>
+    <string name="settings_unicode_title">Hapus aksen</string>
+    <string name="settings_unicode_summary">Membuang aksen dari karakter di dalam pesan SMS keluar</string>
+    <string name="settings_mobile_title">Hanya nomor seluler</string>
+    <string name="settings_mobile_summary">Saat menulis pesan, hanya tampilkan nomor seluler</string>
+    <string name="settings_auto_delete">Otomatis menghapus pesan lama</string>
+    <string name="settings_auto_delete_dialog_message">Pesan akan dihapus setelah rentang hari berikut</string>
+    <string name="settings_auto_delete_dialog_hint">Rentang hari</string>
+    <string name="settings_auto_delete_never">Tidak pernah</string>
+    <string name="settings_auto_delete_warning">Otomatis hapus pesan lama?</string>
+    <string name="settings_auto_delete_warning_message">Jika anda lanjutkan, %1$d pesan akan dihapus sekarang</string>
+    <plurals name="settings_auto_delete_summary">
+        <item quantity="other">Setelah %d hari</item>
+    </plurals>
+    <string name="settings_long_as_mms_title">Kirim pesan panjang sebagai MMS</string>
+    <string name="settings_long_as_mms_summary">Jika pesan teks panjang anda gagal dikirim, atau dikirim dalam urutan yang salah, anda bisa mengirimkannya sebagai pesan MMS. Mungkin akan dikenai tagihan tambahan</string>
+    <string name="settings_mms_size_title">Otomatis kompres lampiran MMS</string>
+    <string name="settings_sync_title">Sinkronisasi pesan</string>
+    <string name="settings_sync_summary">Sinkronisasi ulang pesan anda dengan basis data aplikasi SMS Android bawaan</string>
+    <string name="settings_about_title">Tentang QUIK</string>
+    <string name="settings_version">Versi %s</string>
+    <string name="settings_logging_enabled">Log awakutu diaktifkan</string>
+    <string name="settings_logging_disabled">Log awakutu dinonaktifkan</string>
+    <string name="settings_delay_duration_hint">Masukkan durasi (detik)</string>
+    <string name="blocking_title">Pemblokiran</string>
+    <string name="blocking_drop_title">Tolak pesan</string>
+    <string name="blocking_drop_summary">Tolak pesan masuk dari pengirim yang diblokir</string>
+    <string name="blocking_conversations">Percakapan diblokir</string>
+    <string name="blocking_manager_title">Pengelola Pemblokiran</string>
+    <string name="blocking_manager_qksms_summary">Fitur pemblokiran pesan di dalam QUIK</string>
+    <string name="blocking_manager_call_blocker_summary">Blokir pesan spam, nomor &amp; panggilan tak dikenal dengan daftar hitam &amp; Jadwal</string>
+    <string name="blocking_manager_call_control_summary">Otomatis menyaring panggilan dan pesan di dalam satu tempat! Community IQ™ memungkinkan anda memblokir pesan yang tidak diinginkan dari daftar spammer</string>
+    <string name="blocking_manager_sia_summary">Secara otomatis menyaring pesan dari nomor yang tidak diinginkan menggunakan aplikasi \"Should I Answer\"</string>
+    <string name="blocking_manager_copy_title">Salin nomor yang diblokir</string>
+    <string name="blocking_manager_copy_summary">Lanjutkan ke %s dan salin semua nomor yang diblokir</string>
+    <string name="blocked_numbers_title">Nomor yang diblokir</string>
+    <string name="blocked_numbers_empty">Nomor yang anda blokir akan ditampilkan di sini</string>
+    <string name="blocked_numbers_add_cd">Blokir nomor baru</string>
+    <string name="blocked_numbers_dialog_title">Blokir pesan sms dari</string>
+    <string name="blocked_numbers_dialog_hint">Nomor telepon</string>
+    <string name="blocked_numbers_dialog_block">Blokir</string>
+    <string name="blocked_messages_title">Pesan yang diblokir</string>
+    <string name="blocked_messages_empty">Pesan yang anda blokir akan ditampilkan di sini</string>
+    <string name="blocking_block_title">Blokir</string>
+    <string name="blocking_unblock_title">Buka blokir</string>
+    <plurals name="blocking_block_external">
+        <item quantity="other">Lanjutkan ke %s dan blokir nomor ini</item>
+    </plurals>
+    <plurals name="blocking_unblock_external">
+        <item quantity="other">Lanjutkan ke %s dan izinkan nomor ini</item>
+    </plurals>
+    <string name="about_title">Tentang</string>
+    <string name="about_version_title">Versi</string>
+    <string name="about_developer_title">Pengembang</string>
+    <string name="about_source_title">Kode sumber</string>
+    <string name="about_changelog_title">Catatan perubahan</string>
+    <string name="about_contact_title">Kontak</string>
+    <string name="about_license_title">Lisensi</string>
+    <string name="about_copyright_title">Hak cipta</string>
+    <string name="qksms_plus_description_title">Dukung pengembangan, dan buka semua fitur</string>
+    <string name="qksms_plus_description_summary">Anda bisa membantu pengembang hanya dengan %s</string>
+    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
+    <string name="qksms_plus_upgrade">Lifetime upgrade for %1$s %2$s</string>
+    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
+    <string name="qksms_plus_upgrade_donate">Unlock + donate for %1$s %2$s</string>
+    <string name="qksms_plus_thanks_title">Terima kasih telah mendukung QUIK!</string>
+    <string name="qksms_plus_thanks_summary">Anda sekarang bisa mengakses semua fitur QUIK+</string>
+    <string name="qksms_plus_error">Telah terjadi kesalahan, silakan coba kembali</string>
+    <string name="qksms_plus_free_title">QUIK+ selalu gratis untuk pengguna F-Droid! Jika anda ingin mendukung pengembangan, jangan ragu untuk donasi.</string>
+    <string name="qksms_plus_donate">Donasi via PayPal</string>
+    <string name="qksms_plus_coming_soon">Segera hadir</string>
+    <string name="qksms_plus_themes_title">Tema premium</string>
+    <string name="qksms_plus_themes_summary">Unlock beautiful theme colors not available on the Material Design palette</string>
+    <string name="qksms_plus_emoji_title">Emoji otomatis khusus</string>
+    <string name="qksms_plus_emoji_summary">Buat pintasan emoji otomatis khusus</string>
+    <string name="qksms_plus_backup_title">Cadangan pesan</string>
+    <string name="qksms_plus_backup_summary">Cadangkan otomatis pesan anda. Tidak perlu khawatir kehilangan riwayat pesan jika anda mengganti telepon atau telepon hilang</string>
+    <string name="qksms_plus_scheduled_title">Pesan terjadwal</string>
+    <string name="qksms_plus_scheduled_summary">Menjadwalkan pesan untuk secara otomatis dikirim pada waktu dan tanggal tertentu</string>
+    <string name="qksms_plus_delayed_title">Pengiriman tertunda</string>
+    <string name="qksms_plus_delayed_summary">Tunggu beberapa detik sebelum mengirim pesan</string>
+    <string name="qksms_plus_night_title">Mode malam otomatis</string>
+    <string name="qksms_plus_night_summary">Aktifkan mode malam berdasarkan waktu</string>
+    <string name="qksms_plus_blacklist_title">Pemblokiran lanjutan</string>
+    <string name="qksms_plus_blacklist_summary">Memblokir pesan yang mengandung kata tertentu atau sesuai dengan pola</string>
+    <string name="qksms_plus_forward_title">Penerusan otomatis</string>
+    <string name="qksms_plus_forward_summary">Secara otomatis meneruskan pesan dari pengirim tertentu</string>
+    <string name="qksms_plus_respond_title">Balasan otomatis</string>
+    <string name="qksms_plus_respond_summary">Secara otomatis membalas pesan masuk dengan pesan balasan khusus</string>
+    <string name="qksms_plus_more_title">Lainnya</string>
+    <string name="qksms_plus_more_summary">QUIK sedang dalam pengembangan aktif, dan pembelian anda juga mencakup semua fitur QUIK+ yang akan datang!</string>
+    <string name="widget_loading">Memuat…</string>
+    <string name="widget_more">Lihat percakapan lainnya</string>
+    <string name="qkreply_menu_read">Tandai dibaca</string>
+    <string name="qkreply_menu_call">Panggil</string>
+    <string name="qkreply_menu_delete">Hapus</string>
+    <string name="qkreply_menu_expand">Tampilkan lainnya</string>
+    <string name="qkreply_menu_collapse">Tampilkan sedikit</string>
+    <string name="qkreply_menu_view">Buka percakapan</string>
+    <string name="theme_material">Material</string>
+    <string name="theme_hex">HEX</string>
+    <string name="theme_apply">Terapkan</string>
+    <string-array name="notification_actions">
+        <item>Tidak ada</item>
+        <item>Arsip</item>
+        <item>Hapus</item>
+        <item>Blokir</item>
+        <item>Panggil</item>
+        <item>Tandai dibaca</item>
+        <item>Balas</item>
+    </string-array>
+    <string name="button_yes">Ya</string>
+    <string name="button_continue">Lanjutkan</string>
+    <string name="button_cancel">Batal</string>
+    <string name="button_delete">Hapus</string>
+    <string name="button_save">Simpan</string>
+    <string name="button_stop">Setop</string>
+    <string name="button_more">Lainnya</string>
+    <string name="button_set">Set</string>
+    <string name="button_undo">Urungkan</string>
+    <string name="toast_copied">Disalin</string>
+    <string name="toast_qksms_plus">Anda harus membuka akses QUIK+ untuk menggunakan ini</string>
+    <plurals name="notification_new_messages">
+        <item quantity="other">%s pesan baru</item>
+    </plurals>
+    <string name="notification_message_failed_title">Pesan tidak terkirim</string>
+    <string name="notification_message_failed_text">Pesan ke %s gagal dikirim</string>
+    <string-array name="night_modes">
+        <item>Sistem</item>
+        <item>Nonaktif</item>
+        <item>Selalu aktif</item>
+        <item>Otomatis</item>
+    </string-array>
+    <string-array name="notification_preview_options">
+        <item>Tampilkan nama dan pesan</item>
+        <item>Tampilkan nama</item>
+        <item>Sembunyikan konten</item>
+    </string-array>
+    <string-array name="text_sizes">
+        <item>Kecil</item>
+        <item>Normal</item>
+        <item>Besar</item>
+        <item>Lebih besar</item>
+    </string-array>
+    <string-array name="delayed_sending_labels">
+        <item>Tanpa tundaan</item>
+        <item>3 detik</item>
+        <item>5 detik</item>
+        <item>10 detik</item>
+    </string-array>
+    <string-array name="mms_sizes">
+        <item>Otomatis</item>
+        <item>100KB</item>
+        <item>200KB</item>
+        <item>300KB</item>
+        <item>600KB</item>
+        <item>1000KB</item>
+        <item>2000KB</item>
+        <item>Tanpa kompresi</item>
+    </string-array>
+    <string-array name="qk_responses">
+        <item>Oke</item>
+        <item>Beri saya waktu sebentar</item>
+        <item>Sedang dalam perjalanan</item>
+        <item>Terima kasih</item>
+        <item>Kelihatannya bagus</item>
+        <item>Ada apa?</item>
+        <item>Setuju</item>
+        <item>Tidak</item>
+        <item>Aku cinta kamu</item>
+        <item>Maaf</item>
+        <item>LOL</item>
+        <item>Tidak apa-apa</item>
+    </string-array>
+</resources>

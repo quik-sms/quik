@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019 Moez Bhatti <moez.bhatti@gmail.com>
+  ~
+  ~ This file is part of QKSMS.
+  ~
+  ~ QKSMS is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ QKSMS is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
+  --><resources>
+    <string name="shortcut_compose_long_label">Yeni konuşma</string>
+    <string name="shortcut_compose_short_label">Oluştur</string>
+    <string name="shortcut_compose_disabled_message">Kısayol devre dışı</string>
+    <string name="title_archived">Arşivlenmiş</string>
+    <string name="title_settings">Ayarlar</string>
+    <string name="title_notification_prefs">Bildirimler</string>
+    <string name="title_theme">Tema</string>
+    <string name="title_conversations">Gelen iletilerde ara…</string>
+    <string name="title_compose">Bir isme veya numaraya yazın</string>
+    <string name="setup_skip">Atla</string>
+    <string name="setup_next">Devam</string>
+    <string name="menu_add_person">Kişi ekle</string>
+    <string name="menu_call">Ara</string>
+    <string name="menu_info">Ayrıntılar</string>
+    <string name="menu_mms_part_save">Galeriye Kaydet</string>
+    <string name="compose_menu_share">Paylaş</string>
+    <string name="main_drawer_open_cd">Gezinti çubuğunu aç</string>
+    <string name="main_title_selected">%d Seçili</string>
+    <string name="main_menu_clear">Temizle</string>
+    <string name="main_menu_archive">Arşiv</string>
+    <string name="main_menu_unarchive">Arşivden çıkar</string>
+    <string name="main_menu_delete">Sil</string>
+    <string name="main_menu_add_contact">Kişilere ekle</string>
+    <string name="main_menu_pin">Sabitle</string>
+    <string name="main_menu_unpin">Sabitlemeyi kaldır</string>
+    <string name="main_menu_read">Okundu olarak işaretle</string>
+    <string name="main_menu_unread">Okunmadı olarak işaretle</string>
+    <string name="main_menu_block">Engelle</string>
+    <string name="main_syncing">İletiler eşitleniyor.. </string>
+    <string name="main_sender_you">Sen: %s</string>
+    <string name="main_message_results_title">İletilerdeki sonuçlar</string>
+    <string name="main_message_results">%d ileti</string>
+    <string name="inbox_empty_text">Konuşmalarınız burada görünür</string>
+    <string name="inbox_search_empty_text"> Sonuç Yok</string>
+    <string name="archived_empty_text">Arşivlenmiş konuşmalarınız burada görünür</string>
+    <string name="main_fab_cd">Yeni konuşma başlat</string>
+    <string name="main_default_sms_title">Yine iletileşmeyi seviyorum</string>
+    <string name="main_default_sms_message">QUIK varsayılan SMS uygulaması yap</string>
+    <string name="main_default_sms_change">Değiştir</string>
+    <string name="main_permission_required">İzin gerekli</string>
+    <string name="main_permission_sms">QUIK\'in göndermesi ve SMS iletilerini görüntülemesi için izni olması gerekir.</string>
+    <string name="main_permission_contacts">QUIK kişilerinizi görüntülemek için izni olması gerekir.</string>
+    <string name="main_permission_notifications">QUIK needs permission to display notifications</string>
+    <string name="main_permission_allow">İzin ver</string>
+    <string name="drawer_inbox">Gelen Kutusu</string>
+    <string name="drawer_archived">Arşivle</string>
+    <string name="drawer_scheduled">Zamanlanmış</string>
+    <string name="drawer_blocking">Engellenmiş</string>
+    <string name="drawer_more">Daha fazla</string>
+    <string name="drawer_settings">Ayarlar</string>
+    <string name="drawer_help">Yardım &amp; Geri bildirim</string>
+    <string name="drawer_invite">Arkadaşlarınızı davet edin</string>
+    <string name="drawer_plus_banner_summary">İnanılmaz yeni özelliklerin kilidini aç ve geliştirmeye destek ol</string>
+    <string name="rate_title">QUIK tadını çıkarıyor musun?</string>
+    <string name="rate_summary">Biraz sevgi paylaş ve Google Playden bizi oyla!</string>
+    <string name="rate_okay">TAMAM!</string>
+    <string name="rate_dismiss">GÖREVDEN</string>
+    <string name="dialog_delete_title">Sil</string>
+    <plurals name="dialog_delete_message">
+        <item quantity="one">Sohbeti silmek istediğinizden emin misiniz?</item>
+        <item quantity="other">%d konuşmayı silmek istediğinizden emin misiniz?</item>
+    </plurals>
+    <string-array name="message_options">
+        <item>Metni kopyala</item>
+        <item>Yönlendir</item>
+        <item>Sil</item>
+    </string-array>
+    <string name="compose_number_picker_title">Bir telefon numarası seçin</string>
+    <string name="compose_number_picker_default">%s ∙ Varsayılan</string>
+    <string name="compose_number_picker_once">Sadece bir kez</string>
+    <string name="compose_number_picker_always">Her zaman</string>
+    <string name="compose_title_selected">%d Seçili</string>
+    <string name="compose_subtitle_results">%1$d / %2$d sonuçlar</string>
+    <string name="compose_send_group_title">Grup iletisi olarak gönder</string>
+    <string name="compose_send_group_summary">Alıcılar ve yanıtlar herkese görünür olacak</string>
+    <string name="compose_messages_empty">Senin konuşma başlıyor. Güzel bir şey söyle!</string>
+    <string name="compose_vcard_label">Kişi Kartı</string>
+    <string name="compose_scheduled_for">Planlanan zaman:</string>
+    <string name="compose_scheduled_future">Seçilen zaman gelecekte olmalı!</string>
+    <string name="compose_scheduled_plus">Zamanlanmış iletileşmeyi kullanmak için QUIK+ kilidini açmanız gerekir</string>
+    <string name="compose_scheduled_toast">Zamanlanmış iletilere eklendi</string>
+    <string name="compose_hint">İleti yaz…</string>
+    <string name="compose_menu_copy">Metni kopyala</string>
+    <string name="compose_menu_forward">Yönlendir</string>
+    <string name="compose_menu_delete">Sil</string>
+    <string name="compose_menu_previous">Önceki</string>
+    <string name="compose_menu_next">Sonraki</string>
+    <string name="compose_menu_clear">Temizle</string>
+    <string name="compose_details_title">İleti ayrıntıları</string>
+    <string name="compose_details_type">Tip: %s</string>
+    <string name="compose_details_from">Gönderen: %s</string>
+    <string name="compose_details_to">Alıcı: %s</string>
+    <string name="compose_details_subject">Konu: %s</string>
+    <string name="compose_details_priority">Öncelik: %s</string>
+    <string name="compose_details_size">Boyut: %s</string>
+    <string name="compose_details_sent">Gönderilme: %s</string>
+    <string name="compose_details_received">Alınan: %s</string>
+    <string name="compose_details_delivered">Teslim Edildi: %s</string>
+    <string name="compose_details_error_code">Hata kodu: %d</string>
+    <string name="compose_attach_cd">Dosya Ekle</string>
+    <string name="compose_gallery_cd">Bir fotoğraf ekle</string>
+    <string name="compose_camera_cd">Fotoğraf Çek</string>
+    <string name="compose_schedule_cd">İleti zamanla</string>
+    <string name="compose_contact_cd">Bir kişi ekle</string>
+    <string name="compose_contact_error">Kişi okunurken hata oluştu</string>
+    <!-- Example: SIM 1 (Verizon) selected-->
+    <string name="compose_sim_changed_toast">SIM %1$d (%2$s) seçili</string>
+    <string name="compose_sim_cd">Seçili, %s SIM kartı değiştirin</string>
+    <string name="compose_send_cd">İleti gönder</string>
+    <string name="message_status_sending">Gönderiliyor...</string>
+    <string name="message_status_delivered">Teslim Edildi %s</string>
+    <string name="message_status_failed">Gönderilemedi. Yeniden denemek için dokunun</string>
+    <string name="info_title">Ayrıntılar</string>
+    <string name="info_copied_address">Adres kopyalandı</string>
+    <string name="info_name">Konuşma başlığı</string>
+    <string name="info_notifications">Bildirimler</string>
+    <string name="info_theme">Tema</string>
+    <string name="info_archive">Arşivle</string>
+    <string name="info_unarchive">Arşivden çıkar</string>
+    <string name="info_block">Engelle</string>
+    <string name="info_unblock">Engeli kaldır</string>
+    <string name="info_delete">Yazışmayı sil</string>
+    <string name="gallery_error">Medya yüklenemedi</string>
+    <string name="gallery_toast_saved">Galeriye kaydedildi</string>
+    <string name="backup_title">Yedekleme ve geri yükleme</string>
+    <string name="backup_backing_up">İletileri yedekleme</string>
+    <string name="backup_restoring">Yedekten geri yükleme</string>
+    <string name="backup_loading">Yükleniyor...</string>
+    <string name="backup_never">Asla</string>
+    <string name="backup_location_title">Backup location</string>
+    <string name="backup_location_summary">Set folder</string>
+    <string name="backup_restore_title">Geri yükle</string>
+    <string name="backup_restore_summary">Bir yedekleme\'yi seçin</string>
+    <string name="backup_restore_error_plus">Lütfen yedeklemeyi ve geri yüklemeyi kullanmak için QUIK+\'ı açınız.</string>
+    <string name="backup_restore_error_backup">Yedekleme devam ediyor...</string>
+    <string name="backup_restore_error_restore">Geri yükleme devam ediyor...</string>
+    <string name="backup_restore_confirm_title">Yedeklemeyi geri yükle</string>
+    <string name="backup_restore_stop_title">Geri yüklemeyi durdur</string>
+    <string name="backup_restore_stop_message">Zaten geri yüklenmiş iletiler cihazınızda kalacaktır</string>
+    <string name="backup_select_location_rationale_title">Select backup location</string>
+    <string name="backup_select_location_rationale_message">Please select a folder to save your backups to</string>
+    <string name="backup_details">%1$s\n%2$d messages</string>
+    <string name="backup_selected_backup_error_title">Error</string>
+    <string name="backup_selected_backup_error_message">Couldn\'t read backup file</string>
+    <string name="backup_selected_backup_details_title">Backup details</string>
+    <string name="backup_restore_dialog_title">Yedekler</string>
+    <string name="backup_restore_dialog_empty">Yedekleme bulunamadı</string>
+    <string name="backup_disclaimer">Şu anda sadece SMS yedekleme ve geri yükleme desteklenmektedir. MMS desteği ve zamanlanmış ileti yedeklemeleri çok yakında !</string>
+    <string name="backup_now">Şimdi yedekle</string>
+    <string name="backup_progress_parsing">Yedekleme ayrılıyor…</string>
+    <string name="backup_progress_running">%d%d ileti</string>
+    <string name="backup_progress_saving">Yedekleme kaydediliyor...</string>
+    <string name="backup_progress_syncing">İletiler senkronize ediliyor…</string>
+    <string name="backup_progress_finished">Tamamlandı!</string>
+    <string name="backup_notification_channel_name">Yedekleme ve geri yükleme</string>
+    <string name="scheduled_title">Zamanlanmış</string>
+    <string name="scheduled_empty_description">İstediğiniz bir anda otomatik olarak bir ileti gönderin</string>
+    <string name="scheduled_empty_message_1">Hey! Doğum günün ne zamandı?</string>
+    <string name="scheduled_empty_message_2">23 Aralık\'ta</string>
+    <string name="scheduled_empty_message_3">Doğum günün kutlu olsun! Doğum gününü hatırladığım harika arkadaşım</string>
+    <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
+    <string name="scheduled_empty_message_3_timestamp">23  Aralık\'ta gönder</string>
+    <string name="scheduled_compose_cd">Bir ileti zamanla</string>
+    <string name="scheduled_options_title">Zamanlanmış ileti</string>
+    <string-array name="scheduled_options">
+        <item>Şimdi gönder</item>
+        <item>Metni kopyala</item>
+        <item>Sil</item>
+    </string-array>
+    <string name="settings_category_appearance">Görünüm</string>
+    <string name="settings_category_general">Genel</string>
+    <string name="settings_category_qkreply">QK Yanıt</string>
+    <string name="settings_theme_title">Tema</string>
+    <string name="settings_night_title">Gece Modu</string>
+    <string name="settings_black_title">Saf siyah gece modu</string>
+    <string name="settings_night_start_title">Başlama zamanı</string>
+    <string name="settings_night_end_title">Bitiş Zamanı</string>
+    <string name="settings_automatic_colors_title">Otomatik kişi renkleri</string>
+    <string name="settings_text_size_title">Yazı tipi boyutu</string>
+    <string name="settings_system_font_title">Sistem yazı tipini kullan</string>
+    <string name="settings_auto_emoji_title">Otomatik emoji</string>
+    <string name="settings_notifications_title">Bildirimler</string>
+    <string name="settings_notifications_o_summary">Özelleştirmek için dokunun</string>
+    <string name="settings_notification_actions_title">Eylemler</string>
+    <string name="settings_notification_action_1">Buton 1</string>
+    <string name="settings_notification_action_2">Buton 2</string>
+    <string name="settings_notification_action_3">Buton 3</string>
+    <string name="settings_notification_previews_title">Bildirim ön izleme</string>
+    <string name="settings_notification_wake_title">Uyandırma ekranı</string>
+    <string name="settings_vibration_title">Titreşim</string>
+    <string name="settings_ringtone_title">Ses</string>
+    <string name="settings_ringtone_none">Hiçbiri</string>
+    <string name="settings_qkreply_title">QK Yanıt</string>
+    <string name="settings_qkreply_summary">Yeni iletiler için açılan menü</string>
+    <string name="settings_qkreply_tap_dismiss_title">Kapatmak için dokunun</string>
+    <string name="settings_qkreply_tap_dismiss_summary">Açılır pencereyi kapatmak için pencere dışındaki herhangi bir yere dokunun</string>
+    <string name="settings_delayed_title">Gecikmeli gönderme</string>
+    <string name="settings_swipe_actions">Kaydırma eylemleri</string>
+    <string name="settings_swipe_actions_summary">Konuşmalar için kaydırma eylemlerini yapılandırma</string>
+    <string name="settings_swipe_actions_right">Sağa kaydır</string>
+    <string name="settings_swipe_actions_left">Sola Kaydır</string>
+    <string name="settings_swipe_actions_change">DEĞİŞTİR</string>
+    <string-array name="settings_swipe_actions">
+        <item>Hiçbiri</item>
+        <item>Arşivle</item>
+        <item>Sil</item>
+        <item>Engelle</item>
+        <item>Ara</item>
+        <item>Okundu olarak işaretle</item>
+        <item>Okunmadı olarak işaretle</item>
+    </string-array>
+    <string name="settings_delivery_title">İletim raporları</string>
+    <string name="settings_delivery_summary">İletinizin sorunsuz gönderildiğinin onayını alın</string>
+    <string name="settings_signature_title">İmza</string>
+    <string name="settings_signature_summary">İletilerinizin sonuna bir imza ekleyin</string>
+    <string name="settings_unicode_title">Şeritli aksanlar</string>
+    <string name="settings_unicode_summary">Gönderilen SMS iletilerinden aksanlı karakterleri kaldır</string>
+    <string name="settings_mobile_title">Sadece cep telefonu numaraları</string>
+    <string name="settings_mobile_summary">Bir ileti oluştururken yalnızca cep telefon numaralarını göster</string>
+    <string name="settings_auto_delete">Eski iletileri otomatik olarak sil</string>
+    <string name="settings_auto_delete_dialog_message">Belirtilen sayıda gün geçtikten sonra iletiler silinecek</string>
+    <string name="settings_auto_delete_dialog_hint">Gün sayısı</string>
+    <string name="settings_auto_delete_never">Asla</string>
+    <string name="settings_auto_delete_warning">Eski iletiler otomatik olarak silinsin mi?</string>
+    <string name="settings_auto_delete_warning_message">Devam ederseniz %1$d ileti şimdi silinecek</string>
+    <plurals name="settings_auto_delete_summary">
+        <item quantity="one">1 gün sonra</item>
+        <item quantity="other">%d gün sonra</item>
+    </plurals>
+    <string name="settings_long_as_mms_title">Uzun iletileri MMS olarak gönder</string>
+    <string name="settings_long_as_mms_summary">Uzun metin iletileriniz gönderilemiyorsa veya yanlış sırada gönderiliyorsa, onları MMS iletileri olarak gönderebilirsiniz. Ek ücretler uygulanabilir</string>
+    <string name="settings_mms_size_title">Otomatik-MMS ekleri sıkıştır</string>
+    <string name="settings_sync_title"> İletileri eşitle</string>
+    <string name="settings_sync_summary">İletilerinizi  Android SMS veritabanı ile yeniden senkronize edin</string>
+    <string name="settings_about_title">QUIK Hakkında</string>
+    <string name="settings_version">Sürüm %s</string>
+    <string name="settings_logging_enabled">Hata ayıklama günlüğü etkin</string>
+    <string name="settings_logging_disabled">Hata ayıklama günlüğü devre dışı</string>
+    <string name="settings_delay_duration_hint">Süre (saniye olarak) girin</string>
+    <string name="blocking_title">Engelleyici</string>
+    <string name="blocking_drop_title">Havadan atılan iletiler</string>
+    <string name="blocking_drop_summary">Engellenen gönderenlerden gelen iletileri gizlemek yerine iptal edin</string>
+    <string name="blocking_conversations">Engellenen konuşmalar</string>
+    <string name="blocking_manager_title">Engelleme Yöneticisi</string>
+    <string name="blocking_manager_qksms_summary">QUIK\'de yerleşik engelleme işlevi</string>
+    <string name="blocking_manager_call_blocker_summary">İstenmeyen iletileri, numaraları ve kara listede olan bilinmeyen çağrıları ve Zamanlamaları engelle</string>
+    <string name="blocking_manager_call_control_summary">Aramalarınızı ve iletilerinizi uygun bir yerde otomatik olarak filtreleyin! Topluluk IQ™ bilinen istenmeyen mesajları önlemeye olanak sağlar</string>
+    <string name="blocking_manager_sia_summary">İstenmeyen numaralardan gelen iletileri otomatik olarak filtre</string>
+    <string name="blocking_manager_copy_title">Engellenen numaraları kopyala</string>
+    <string name="blocking_manager_copy_summary">Mevcut engellenen numaralarınızın üzerine %s kopyalamaya devam edin</string>
+    <string name="blocked_numbers_title">Engellenen numaralar</string>
+    <string name="blocked_numbers_empty">Engellenen numaralarınız burada görünecektir</string>
+    <string name="blocked_numbers_add_cd">Yeni bir numarayı engelle</string>
+    <string name="blocked_numbers_dialog_title">Gelen metinleri engelle</string>
+    <string name="blocked_numbers_dialog_hint">Telefon numarası</string>
+    <string name="blocked_numbers_dialog_block">Engelle</string>
+    <string name="blocked_messages_title">Engellenen iletiler</string>
+    <string name="blocked_messages_empty">Engellenen iletileriniz burada görünecektir</string>
+    <string name="blocking_block_title">Engelle</string>
+    <string name="blocking_unblock_title">Engeli kaldır</string>
+    <plurals name="blocking_block_external">
+        <item quantity="one">%s\'ye devam edin ve bu sayıyı engelleyin</item>
+        <item quantity="other">%s\'ye devam edin ve bu sayıları engelleyin</item>
+    </plurals>
+    <plurals name="blocking_unblock_external">
+        <item quantity="one">%s\'ye devam edin ve bu sayıya izin verin</item>
+        <item quantity="other">%s\'ye devam edin ve bu sayılara izin verin</item>
+    </plurals>
+    <string name="about_title">Hakkında</string>
+    <string name="about_version_title">Sürüm</string>
+    <string name="about_developer_title">Geliştirici</string>
+    <string name="about_source_title">Kaynak kodu</string>
+    <string name="about_changelog_title">Yenilikler</string>
+    <string name="about_contact_title">İletişim</string>
+    <string name="about_license_title">Lisanslar</string>
+    <string name="about_copyright_title">Telif hakkı</string>
+    <string name="qksms_plus_description_title">Gelişimini desteklemek, her şey kilitsiz</string>
+    <string name="qksms_plus_description_summary">Seni  kurtarmak için sadece %s açlıktan ölen bir geliştirici</string>
+    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
+    <string name="qksms_plus_upgrade">Süresiz kullanmak 1$s %2$s</string>
+    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
+    <string name="qksms_plus_upgrade_donate">Kilidi aç ve Satın Al %1$s %2$s</string>
+    <string name="qksms_plus_thanks_title">QUIK desteği için teşekkür ederiz!!</string>
+    <string name="qksms_plus_thanks_summary">Şimdi tüm QUIK+ özellikleri açıldı!</string>
+    <string name="qksms_plus_error">Bir hata oluştu. Lütfen tekrar deneyin</string>
+    <string name="qksms_plus_free_title">QUIK+ F-Droid kullanıcıları için ücretsizdir! Eğer gelişmeyi desteklemek istiyorsanız, bağış yapmakta özgürsünüz.</string>
+    <string name="qksms_plus_donate">Paypal ile satın al</string>
+    <string name="qksms_plus_coming_soon">Yakında</string>
+    <string name="qksms_plus_themes_title">Ücretli Temalar</string>
+    <string name="qksms_plus_themes_summary">Malzeme Tasarım paleti üzerinde bulunmayan güzel tema renkleri aç</string>
+    <string name="qksms_plus_emoji_title">Özel otomatik ifadeler</string>
+    <string name="qksms_plus_emoji_summary">Özel otomatik ifadeler kısayolları oluştur</string>
+    <string name="qksms_plus_backup_title">İleti yedekleme</string>
+    <string name="qksms_plus_backup_summary">İletileriniz otomatik olarak yedekleyin. Telefonunuzu değiştirir veya kaybolursa endişelenmeyin.</string>
+    <string name="qksms_plus_scheduled_title">Zamanlanmış iletiler</string>
+    <string name="qksms_plus_scheduled_summary">Belirli bir saatte ve tarihte otomatik olarak gönderilecek iletileri planla</string>
+    <string name="qksms_plus_delayed_title">Gecikmeli gönderme</string>
+    <string name="qksms_plus_delayed_summary">İletinizi göndermeden önce birkaç saniye bekleyin</string>
+    <string name="qksms_plus_night_title">Otomatik gece modu</string>
+    <string name="qksms_plus_night_summary">Günün zamanına göre gece modunu etkinleştir</string>
+    <string name="qksms_plus_blacklist_title">Gelişmiş engelleme</string>
+    <string name="qksms_plus_blacklist_summary">Belirli anahtar sözcükleri içeren veya desen eşleşen iletileri engelleme</string>
+    <string name="qksms_plus_forward_title">Otomatik ilet</string>
+    <string name="qksms_plus_forward_summary">Belirli gönderenlerden gelen iletileri otomatik olarak ilet</string>
+    <string name="qksms_plus_respond_title">Otomatik yanıtla</string>
+    <string name="qksms_plus_respond_summary">Önceden ayarlanmış bir yanıt ile gelen iletilere otomatik olarak yanıtla</string>
+    <string name="qksms_plus_more_title">Daha fazla</string>
+    <string name="qksms_plus_more_summary">QUIK etkin geliştirme altında ve satın alırsan tüm gelecek QUIK+ özellikleri dahil olacaktır!</string>
+    <string name="widget_loading">Yükleniyor...</string>
+    <string name="widget_more">Daha fazla konuşma göster</string>
+    <string name="qkreply_menu_read">Okundu olarak işaretle</string>
+    <string name="qkreply_menu_call">Ara</string>
+    <string name="qkreply_menu_delete">Sil</string>
+    <string name="qkreply_menu_expand">Daha fazla göster</string>
+    <string name="qkreply_menu_collapse">Daha az göster</string>
+    <string name="qkreply_menu_view">Sohbeti aç</string>
+    <string name="theme_material">Malzeme</string>
+    <string name="theme_hex">HEX</string>
+    <string name="theme_apply">Uygula</string>
+    <string-array name="notification_actions">
+        <item>Hiçbiri</item>
+        <item>Arşivle</item>
+        <item>Sil</item>
+        <item>Engelle</item>
+        <item>Ara</item>
+        <item>Okundu olarak işaretle</item>
+        <item>Cevapla</item>
+    </string-array>
+    <string name="button_yes">Evet</string>
+    <string name="button_continue">Devam</string>
+    <string name="button_cancel">İptal</string>
+    <string name="button_delete">Sil</string>
+    <string name="button_save">Kaydet</string>
+    <string name="button_stop">Durdur</string>
+    <string name="button_more">Daha fazla</string>
+    <string name="button_set">Ayarla</string>
+    <string name="button_undo">Geri al</string>
+    <string name="toast_copied">Kopyalandı</string>
+    <string name="toast_qksms_plus">Bunu kullanmak için QUIK+ kilidi gerekir</string>
+    <plurals name="notification_new_messages">
+        <item quantity="one">%s Yeni ileti</item>
+        <item quantity="other">%s Yeni ileti</item>
+    </plurals>
+    <string name="notification_message_failed_title">İleti gönderilemedi</string>
+    <string name="notification_message_failed_text">%s kişisine ileti gönderilemedi</string>
+    <string-array name="night_modes">
+        <item>Sistem</item>
+        <item>Devre dışı</item>
+        <item>Her zaman açık</item>
+        <item>Otomatik</item>
+    </string-array>
+    <string-array name="notification_preview_options">
+        <item>Adı ve ileti göster</item>
+        <item>Adını göster</item>
+        <item>İçeriği gizle</item>
+    </string-array>
+    <string-array name="text_sizes">
+        <item>Küçük</item>
+        <item>Normal</item>
+        <item>Büyük</item>
+        <item>Daha büyük</item>
+    </string-array>
+    <string-array name="delayed_sending_labels">
+        <item>Gecikme yok</item>
+        <item>3 saniye</item>
+        <item>5 saniye</item>
+        <item>10 saniye</item>
+    </string-array>
+    <string-array name="mms_sizes">
+        <item>Otomatik</item>
+        <item>100KB</item>
+        <item>200KB</item>
+        <item>300KB</item>
+        <item>600KB</item>
+        <item>1000KB</item>
+        <item>2000KB</item>
+        <item>Sıkıştırma yok</item>
+    </string-array>
+    <string-array name="qk_responses">
+        <item>Tamam</item>
+        <item>Bana bir dakika ver</item>
+        <item>Yolda</item>
+        <item>Teşekkürler</item>
+        <item>Kulağa güzel geliyor</item>
+        <item>Naber?</item>
+        <item>Kararlaştırıldı</item>
+        <item>Hayır</item>
+        <item>Seni seviyorum</item>
+        <item>Özür dilerim</item>
+        <item>He</item>
+        <item>Tamam o zaman</item>
+    </string-array>
+    <string name="menu_mms_part_share">Paylaş</string>
+    <string name="menu_mms_part_forward">İleri</string>
+    <string name="menu_mms_part_open">Harici olarak aç</string>
+    <string name="main_menu_select_all">Hepsini seç</string>
+    <string name="main_menu_send_now">Şimdi gönder</string>
+    <string name="main_menu_edit_message">İletiyi düzenle</string>
+    <string name="main_menu_rename_conversation">Konuşmayı yeniden adlandır</string>
+    <string name="main_sender_draft">Taslak: %s</string>
+    <string name="scheduled_menu_send_now">Şimdi gönder</string>
+    <string name="scheduled_menu_edit_message">İletiyi düzenle</string>
+    <plurals name="dialog_delete_chat">
+        <item quantity="one">Bu iletiyi silmek istediğinizden emin misiniz?</item>
+        <item quantity="other">%d iletiyi silmek istediğinizden emin misiniz?</item>
+    </plurals>
+    <plurals name="dialog_send_now">
+        <item quantity="one">Bu iletiyi şimdi göndermek istediğinizden emin misiniz?</item>
+        <item quantity="other">%d iletiyi şimdi göndermek istediğinizden emin misiniz?</item>
+    </plurals>
+    <string name="dialog_edit_scheduled_message_title">İletiyi düzenle</string>
+    <string name="dialog_edit_scheduled_message">Bu iletiyi düzenlemek onu takvimden silecektir.\n\nSonraki ekranda tekrardan gönderdiğinizden emin olun yoksa silinecektir.\n\nDevam etmek istiyor musunuz?</string>
+    <string name="dialog_edit_scheduled_message_positive_button">Evet, iletiyi düzenle</string>
+    <string name="dialog_clear_compose_title">İletiyi temizle</string>
+    <string name="dialog_clear_compose">İleti silinsin mi? Bu işlem geri alınamaz.</string>
+    <string name="compose_scheduled_view">Bu sohbet için planlanmış iletiler</string>
+    <string name="compose_menu_show_status">Durumu göster</string>
+    <string name="compose_attach_file_cd">Herhangi bir dosya ekleyin</string>
+    <string name="compose_audio_message_cd">Bir sesli ileti kaydedin</string>
+    <string name="compose_schedule_cancel_cd">Zamanlanmış iletiyi iptal et</string>
+    <string name="compose_record_audio_msg_cd">Sesli ileti kaydet</string>
+    <string name="compose_record_audio_msg_abort_cd">Sesli iletiyi iptal et</string>
+    <string name="compose_record_audio_msg_attach_cd">Sesli ileti ekleyin</string>
+    <string name="compose_record_audio_msg_play_pause_cd">Sesli iletiyi oynat veya durdur</string>
+    <string name="compose_message_cancel">İptal et</string>
+    <string name="compose_message_send_now">Şimdi gönder</string>
+    <string name="compose_message_sim">SIM numarası</string>
+    <string name="compose_message_attachment">Ek</string>
+    <string name="compose_toast_drag_stt">Sesle yazma butonunu istediğiniz yere taşıyın</string>
+    <string name="message_body_too_long_to_display">⚠ İleti çok uzun. Metnin tümü için Kopyala ya da Kaydet.</string>
+    <string name="compose_no_valid_recipients">Diğer katılımcılara gönderilemez</string>
+    <string name="compose_message_item">İleti öğesi</string>
+    <string name="clipboard_too_large_to_copy">Veri boyutu pano sınırını aşıyor</string>
+    <string name="clipboard_unable_to_copy_to">Panoya kopyalanamıyor</string>
+    <string name="scheduled_send_cd">Bu iletiyi planla</string>
+    <string name="attachment_missing">Eksik</string>
+    <string name="settings_system_show_stt_title">Konuşmadan metne düğmesini göster</string>
+    <string name="settings_notification_previews_summary">İsim ve ileti göster</string>
+    <string name="settings_notification_silent_title">Kişilerde yoksa sessiz</string>
+    <string name="settings_notification_silent_summary">Kişilerinizde alıcısı olmayan iletiler için bildirimleri sessize alır</string>
+    <string name="settings_unread_at_top_title">Okunmamış en üstte</string>
+    <string name="settings_unread_at_top_summary">Okunmamış sohbetleri en üstte göster</string>
+    <string name="settings_mms_weblink_title">İletilerdeki bağlantıyı işleme şekli</string>
+    <string name="settings_disable_screenshots_title">Ekran görüntülerini devre dışı bırak</string>
+    <string name="settings_diable_screenshots_summary">İşletim sisteminizin ve diğer uygulamaların bu uygulamada ekran görüntüleri almalarını önleyin.</string>
+    <string name="message_content_filters_title">İleti içerik filtreleri</string>
+    <string name="message_content_filters_empty">İleti içerik filtreleriniz burada gözükecek</string>
+    <string name="message_content_filters_add_cd">Yeni bir filtre oluştur</string>
+    <string name="message_content_filters_dialog_title">Eşleşen iptal edilen iletiler</string>
+    <string name="message_content_filters_dialog_hint">Kelime, cümle ya da sıradan ifade</string>
+    <string name="message_content_filters_dialog_case_switch">BÜYÜK küçük harf duyarlı</string>
+    <string name="message_content_filters_dialog_regex_switch">Sıradan ifade</string>
+    <string name="message_content_filters_dialog_contacts_switch">Kişileri dahil et</string>
+    <string name="message_content_filters_dialog_create">Oluştur</string>
+    <string name="all_conversations_widget_title">Tüm Konuşmalar</string>
+    <string name="button_clear">Temizle</string>
+    <plurals name="toast_archived">
+        <item quantity="one">Konuşma arşivlendi</item>
+        <item quantity="other">%d konuşma arşivlendi</item>
+    </plurals>
+    <plurals name="toast_unarchived">
+        <item quantity="one">Konuşma arşivden çıkarıldı</item>
+        <item quantity="other">%d konuşma arşivden çıkarıldı</item>
+    </plurals>
+    <string name="notification_message_failed_action">Tekrar gönder</string>
+    <string name="speak_no_messages">İleti yok</string>
+    <string name="speak_unseen_messages">Görülmemiş iletileri konuş</string>
+    <string name="messageLinkHandling_dialog_title">Harici Bağlantı Uyarısı</string>
+    <string name="messageLinkHandling_dialog_body">Bazı bağlantılar güvensiz olabilir veya sizi beklenmedik bir şekilde yönlendirebilir. Devam etmeden önce aşağıdaki bağlantıyı inceleyin:\n\n%1$s\n\nDevam etmek istiyor musunuz?</string>
+    <string name="messageLinkHandling_dialog_positive">Evet bağlantıyı aç</string>
+    <string name="messageLinkHandling_dialog_negative">Hayır</string>
+    <string name="error_stt_toast">Özür dileriz. Konuşmadan Metne sağlayıcısını yüklemede hata oluştu.</string>
+    <string name="stt_toast_extra_prompt">İletinizi konuşun</string>
+    <string name="messages_text_share_file_error">Hay aksi! Paylaşırken bir şeyler ters gitti</string>
+    <string name="compose_send_group_summary_on">Alıcılar ve yanıtlar herkes tarafından görülebilecektir</string>
+    <string name="compose_send_group_summary_off">İletiler tüm alıcılara ayrı ayrı gönderilecektir</string>
+    <string name="notification_foreground_worker_title">İleti alma</string>
+    <string name="notification_foreground_worker_text">Android 12 ve daha eski sürümlerde, ileti almayı sağlayan arka plan çalışması için bir bildirim gereklidir.</string>
+</resources>

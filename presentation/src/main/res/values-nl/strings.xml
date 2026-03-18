@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019 Moez Bhatti <moez.bhatti@gmail.com>
+  ~
+  ~ This file is part of QKSMS.
+  ~
+  ~ QKSMS is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ QKSMS is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
+  --><resources>
+    <string name="shortcut_compose_long_label">Nieuwe conversatie</string>
+    <string name="shortcut_compose_short_label">Opstellen</string>
+    <string name="shortcut_compose_disabled_message">Snelkoppeling uitgeschakeld</string>
+    <string name="title_archived">Archief</string>
+    <string name="title_settings">Instellingen</string>
+    <string name="title_notification_prefs">Notificaties</string>
+    <string name="title_theme">Thema</string>
+    <string name="title_conversations">Doorzoek inbox…</string>
+    <string name="title_compose">Type een naam of nummer</string>
+    <string name="setup_skip">Overslaan</string>
+    <string name="setup_next">Verder</string>
+    <string name="menu_add_person">Voeg iemand toe</string>
+    <string name="menu_call">Bel</string>
+    <string name="menu_info">Details</string>
+    <string name="menu_mms_part_save">Opslaan in galerij</string>
+    <string name="compose_menu_share">Delen</string>
+    <string name="main_drawer_open_cd">Open navigatie lade</string>
+    <string name="main_title_selected">%d geselecteerd</string>
+    <string name="main_menu_clear">Wissen</string>
+    <string name="main_menu_archive">Archiveren</string>
+    <string name="main_menu_unarchive">Terugzetten uit archief</string>
+    <string name="main_menu_delete">Verwijderen</string>
+    <string name="main_menu_add_contact">Toevoegen aan contacten</string>
+    <string name="main_menu_pin">Bovenaan vastzetten</string>
+    <string name="main_menu_unpin">Losmaken</string>
+    <string name="main_menu_read">Markeren als gelezen</string>
+    <string name="main_menu_unread">Markeren als ongelezen</string>
+    <string name="main_menu_block">Blokkeren</string>
+    <string name="main_syncing">Berichten synchroniseren…</string>
+    <string name="main_sender_you">Jij: %s</string>
+    <string name="main_message_results_title">Resultaten in berichten</string>
+    <string name="main_message_results">%d berichten</string>
+    <string name="inbox_empty_text">Je conversaties verschijnen hier</string>
+    <string name="inbox_search_empty_text">Geen resultaten</string>
+    <string name="archived_empty_text">Je gearchiveerde conversaties verschijnen hier</string>
+    <string name="main_fab_cd">Start nieuwe conversatie</string>
+    <string name="main_default_sms_title">Love texting again</string>
+    <string name="main_default_sms_message">QUIK uw standaard SMS app maken</string>
+    <string name="main_default_sms_change">Wijzigen</string>
+    <string name="main_permission_required">Toestemming vereist</string>
+    <string name="main_permission_sms">QUIK machtigen voor het verzenden en bekijken van SMS-berichten</string>
+    <string name="main_permission_contacts">QUIK machtigen om uw contactpersonen te bekijken</string>
+    <string name="main_permission_notifications">QUIK heeft toestemming nodig om mededelingen te tonen</string>
+    <string name="main_permission_allow">Toestaan</string>
+    <string name="drawer_inbox">Inbox</string>
+    <string name="drawer_archived">Archief</string>
+    <string name="drawer_scheduled">Gepland</string>
+    <string name="drawer_blocking">Blokkeren</string>
+    <string name="drawer_more">Meer</string>
+    <string name="drawer_settings">Instellingen</string>
+    <string name="drawer_help">Help &amp; feedback</string>
+    <string name="drawer_invite">Vrienden uitnodigen</string>
+    <string name="drawer_plus_banner_summary">Ontgrendel geweldig nieuwe functies en ondersteun verdere ontwikkeling</string>
+    <string name="rate_title">Aan het genieten van QUIK?</string>
+    <string name="rate_summary">Deel je liefde voor QUIK door een beoordeling op Google Play te plaatsen!</string>
+    <string name="rate_okay">Oke!</string>
+    <string name="rate_dismiss">Sluiten</string>
+    <string name="dialog_delete_title">Verwijderen</string>
+    <plurals name="dialog_delete_message">
+        <item quantity="one">Wil je deze conversatie verwijderen?</item>
+        <item quantity="other">Wil je %d conversaties verwijderen?</item>
+    </plurals>
+    <string-array name="message_options">
+        <item>Kopieer tekst</item>
+        <item>Doorsturen</item>
+        <item>Verwijderen</item>
+    </string-array>
+    <string name="compose_number_picker_title">Kies een telefoonnummer</string>
+    <string name="compose_number_picker_default">%s ∙ Standaard</string>
+    <string name="compose_number_picker_once">Eén keer</string>
+    <string name="compose_number_picker_always">Altijd</string>
+    <string name="compose_title_selected">%d geselecteerd</string>
+    <string name="compose_subtitle_results">%1$d van de %2$d resultaten</string>
+    <string name="compose_send_group_title">Versturen als groepsbericht</string>
+    <string name="compose_send_group_summary">Ontvangers en antwoorden zijn zichtbaar voor iedereen</string>
+    <string name="compose_messages_empty">Dit is het begin van je conversatie. Zeg iets leuks!</string>
+    <string name="compose_vcard_label">Contactpersoonkaart</string>
+    <string name="compose_scheduled_for">Geplande tijd:</string>
+    <string name="compose_scheduled_future">De geselecteerde tijd moet in de toekomst liggen!</string>
+    <string name="compose_scheduled_plus">Je hebt QUIK+ nodig om geplande berichten te gebruiken</string>
+    <string name="compose_scheduled_toast">Toegevoegd aan geplande berichten</string>
+    <string name="compose_hint">Type een bericht…</string>
+    <string name="compose_menu_copy">Tekst kopiëren</string>
+    <string name="compose_menu_forward">Doorsturen</string>
+    <string name="compose_menu_delete">Verwijderen</string>
+    <string name="compose_menu_previous">Vorige</string>
+    <string name="compose_menu_next">Volgende</string>
+    <string name="compose_menu_clear">Wissen</string>
+    <string name="compose_details_title">Details van bericht</string>
+    <string name="compose_details_type">Type: %s</string>
+    <string name="compose_details_from">Van: %s</string>
+    <string name="compose_details_to">Naar: %s</string>
+    <string name="compose_details_subject">Onderwerp: %s</string>
+    <string name="compose_details_priority">Prioriteit: %s</string>
+    <string name="compose_details_size">Grootte: %s</string>
+    <string name="compose_details_sent">Verzonden: %s</string>
+    <string name="compose_details_received">Ontvangen: %s</string>
+    <string name="compose_details_delivered">Afgeleverd: %s</string>
+    <string name="compose_details_error_code">Foutcode: %d</string>
+    <string name="compose_attach_cd">Een bijlage toevoegen</string>
+    <string name="compose_gallery_cd">Een foto toevoegen</string>
+    <string name="compose_camera_cd">Een foto nemen</string>
+    <string name="compose_schedule_cd">Bericht plannen</string>
+    <string name="compose_contact_cd">Een contactpersoon toevoegen</string>
+    <string name="compose_contact_error">Fout bij het lezen van contact</string>
+    <!-- Example: SIM 1 (Verizon) selected-->
+    <string name="compose_sim_changed_toast">Simkaart %1$d (%2$s) geselecteerd</string>
+    <string name="compose_sim_cd">%s geselecteerd, wijzig SIM-kaart</string>
+    <string name="compose_send_cd">Verstuur bericht</string>
+    <string name="message_status_sending">Verzenden…</string>
+    <string name="message_status_delivered">Afgeleverd %s</string>
+    <string name="message_status_failed">Fout bij verzenden. Tik om opnieuw te proberen</string>
+    <string name="info_title">Details</string>
+    <string name="info_copied_address">Adres gekopieerd</string>
+    <string name="info_name">Titel van conversatie</string>
+    <string name="info_notifications">Notificaties</string>
+    <string name="info_theme">Thema</string>
+    <string name="info_archive">Archief</string>
+    <string name="info_unarchive">Terugzetten uit archief</string>
+    <string name="info_block">Blokkeren</string>
+    <string name="info_unblock">Blokkering opheffen</string>
+    <string name="info_delete">Conversatie verwijderen</string>
+    <string name="gallery_error">Kan media niet laden</string>
+    <string name="gallery_toast_saved">Opgeslagen in galerij</string>
+    <string name="backup_title">Back-up en herstel</string>
+    <string name="backup_backing_up">Back-up van berichten aan het maken</string>
+    <string name="backup_restoring">Bezig met het terugzetten van berichten</string>
+    <string name="backup_loading">Bezig met laden…</string>
+    <string name="backup_never">Nooit</string>
+    <string name="backup_location_title">Back-up locatie</string>
+    <string name="backup_location_summary">Map instellen</string>
+    <string name="backup_restore_title">Herstellen</string>
+    <string name="backup_restore_summary">Selecteer een back-up</string>
+    <string name="backup_restore_error_plus">Je dient QUIK+ te hebben alvorens je gebruik kan maken van Back-up en herstellen</string>
+    <string name="backup_restore_error_backup">Bezig met het maken van back-up…</string>
+    <string name="backup_restore_error_restore">Bezig met herstellen…</string>
+    <string name="backup_restore_confirm_title">Herstel van back-up</string>
+    <string name="backup_restore_stop_title">Stop herstellen</string>
+    <string name="backup_restore_stop_message">Berichten die al hersteld zijn zullen worden behouden op je toestel</string>
+    <string name="backup_select_location_rationale_title">Selecteer de back-up locatie</string>
+    <string name="backup_select_location_rationale_message">Selecteer een map waar uw de back-ups wilt opslaan</string>
+    <string name="backup_details">%1$s\n%2$d messages</string>
+    <string name="backup_selected_backup_error_title">Error</string>
+    <string name="backup_selected_backup_error_message">Mislukt het back-up bestand te lezen</string>
+    <string name="backup_selected_backup_details_title">Backup details</string>
+    <string name="backup_restore_dialog_title">Back-ups</string>
+    <string name="backup_restore_dialog_empty">Geen back-ups gevonden</string>
+    <string name="backup_disclaimer">Op dit moment wordt alleen SMS ondersteund door back-up en terugzetten. MMS ondersteuning en geplande back-ups zullen spoedig beschikbaar komen!</string>
+    <string name="backup_now">Nu back-up maken</string>
+    <string name="backup_progress_parsing">Back-up samenstellen…</string>
+    <string name="backup_progress_running">%d/%d berichten</string>
+    <string name="backup_progress_saving">Back-up opslaan…</string>
+    <string name="backup_progress_syncing">Synchroniseren van berichten…</string>
+    <string name="backup_progress_finished">Klaar!</string>
+    <string name="backup_notification_channel_name">Back-up en herstel</string>
+    <string name="scheduled_title">Gepland</string>
+    <string name="scheduled_empty_description">Verzend automatisch een bericht, op de door jou ingestelde tijd</string>
+    <string name="scheduled_empty_message_1">Hey! Wanneer was je verjaardag nu weer?</string>
+    <string name="scheduled_empty_message_2">Op 23 december</string>
+    <string name="scheduled_empty_message_3">Gelukkige verjaardag! Zie eens wat voor een vriend ik ben, ik herinner je verjaardag</string>
+    <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
+    <string name="scheduled_empty_message_3_timestamp">Verzenden op 23 december</string>
+    <string name="scheduled_compose_cd">Plan een bericht</string>
+    <string name="scheduled_options_title">Gepland bericht</string>
+    <string-array name="scheduled_options">
+        <item>Nu versturen</item>
+        <item>Tekst kopiëren</item>
+        <item>Verwijderen</item>
+    </string-array>
+    <string name="settings_category_appearance">Uiterlijk</string>
+    <string name="settings_category_general">Algemeen</string>
+    <string name="settings_category_qkreply">QK Reply</string>
+    <string name="settings_theme_title">Thema</string>
+    <string name="settings_night_title">Nachtmodus</string>
+    <string name="settings_black_title">Pure zwarte nachtmodus</string>
+    <string name="settings_night_start_title">Starttijd</string>
+    <string name="settings_night_end_title">Eindtijd</string>
+    <string name="settings_automatic_colors_title">Automatische contactkleuren</string>
+    <string name="settings_text_size_title">Tekst grootte</string>
+    <string name="settings_system_font_title">Gebruik lettertype van systeem</string>
+    <string name="settings_auto_emoji_title">Automatische emoji</string>
+    <string name="settings_notifications_title">Notificaties</string>
+    <string name="settings_notifications_o_summary">Tikken om aan te passen</string>
+    <string name="settings_notification_actions_title">Acties</string>
+    <string name="settings_notification_action_1">Knop 1</string>
+    <string name="settings_notification_action_2">Knop 2</string>
+    <string name="settings_notification_action_3">Knop 3</string>
+    <string name="settings_notification_previews_title">Notificatievoorbeeld</string>
+    <string name="settings_notification_wake_title">Scherm activeren</string>
+    <string name="settings_vibration_title">Trillen</string>
+    <string name="settings_ringtone_title">Geluid</string>
+    <string name="settings_ringtone_none">Geen</string>
+    <string name="settings_qkreply_title">QK Reply</string>
+    <string name="settings_qkreply_summary">Popup voor nieuwe berichten</string>
+    <string name="settings_qkreply_tap_dismiss_title">Tik om te sluiten</string>
+    <string name="settings_qkreply_tap_dismiss_summary">Tik buiten de popup om deze te sluiten</string>
+    <string name="settings_delayed_title">Vertraagd verzenden</string>
+    <string name="settings_swipe_actions">Swipe acties</string>
+    <string name="settings_swipe_actions_summary">Pas de veeg-acties aan voor conversaties</string>
+    <string name="settings_swipe_actions_right">Rechts vegen</string>
+    <string name="settings_swipe_actions_left">Links vegen</string>
+    <string name="settings_swipe_actions_change">WIJZIGEN</string>
+    <string-array name="settings_swipe_actions">
+        <item>Geen</item>
+        <item>Archiveren</item>
+        <item>Verwijderen</item>
+        <item>Blokkeren</item>
+        <item>Bellen</item>
+        <item>Markeren als gelezen</item>
+        <item>Markeren als ongelezen</item>
+    </string-array>
+    <string name="settings_delivery_title">Afleverrapporten</string>
+    <string name="settings_delivery_summary">Bevestig dat berichten met succes zijn verzonden</string>
+    <string name="settings_signature_title">Handtekening</string>
+    <string name="settings_signature_summary">Voeg een handtekening toe aan het eind van je berichten</string>
+    <string name="settings_unicode_title">Verwijder accenten</string>
+    <string name="settings_unicode_summary">Verwijder accenten van karakters voor uitgaande berichten</string>
+    <string name="settings_mobile_title">Alleen GSM-nummers</string>
+    <string name="settings_mobile_summary">Enkel mobiele nummers tonen wanneer je een bericht opstelt</string>
+    <string name="settings_auto_delete">Oude berichten automatisch verwijderen</string>
+    <string name="settings_auto_delete_dialog_message">Berichten zullen worden verwijderd na het opgegeven aantal dagen</string>
+    <string name="settings_auto_delete_dialog_hint">Aantal dagen</string>
+    <string name="settings_auto_delete_never">Nooit</string>
+    <string name="settings_auto_delete_warning">Oude berichten automatisch verwijderen?</string>
+    <string name="settings_auto_delete_warning_message">Als u doorgaat, worden er nu %1$d berichten verwijderd</string>
+    <plurals name="settings_auto_delete_summary">
+        <item quantity="one">Na 1 dag</item>
+        <item quantity="other">Na %d dagen</item>
+    </plurals>
+    <string name="settings_long_as_mms_title">Verstuur lange berichten als MMS</string>
+    <string name="settings_long_as_mms_summary">Als je lange tekstberichten niet kunnen worden verzonden, of in de verkeerde volgorde, kun je ze in plaats daarvan als MMS-berichten versturen. Extra kosten kunnen van toepassing zijn.</string>
+    <string name="settings_mms_size_title">Auto-compress MMS bijlagen</string>
+    <string name="settings_sync_title">Synchroniseer berichten</string>
+    <string name="settings_sync_summary">Hersynchroniseer jouw berichten vanuit de SMS database op je telefoon</string>
+    <string name="settings_about_title">Over QUIK</string>
+    <string name="settings_version">Versie %s</string>
+    <string name="settings_logging_enabled">Foutenregistratie ingeschakeld</string>
+    <string name="settings_logging_disabled">Foutenregistratie uitgeschakeld</string>
+    <string name="settings_delay_duration_hint">Voer duur (seconden) in</string>
+    <string name="blocking_title">Geblokkeerd</string>
+    <string name="blocking_drop_title">Berichten weggooien</string>
+    <string name="blocking_drop_summary">Verwijder inkomende berichten van geblokkeerde afzenders in plaats van ze te verbergen</string>
+    <string name="blocking_conversations">Geblokkeerde gesprekken</string>
+    <string name="blocking_manager_title">Blokkeermanager</string>
+    <string name="blocking_manager_qksms_summary">Ingebouwde blokkeerfunctie in QUIK</string>
+    <string name="blocking_manager_call_blocker_summary">Blokkeer spamberichten, nummers &amp; onbekende oproepen met blacklist &amp; Schedule</string>
+    <string name="blocking_manager_call_control_summary">Filter je oproepen en berichten automatisch op één handige plaats! Community IQ™ stelt je in staat om ongewenste berichten van de bij community bekende spammers te blokkeren</string>
+    <string name="blocking_manager_sia_summary">Automatisch filteren van berichten van ongevraagde nummers met behulp van de app \"Should I Answer\"</string>
+    <string name="blocking_manager_copy_title">Kopieer geblokkeerde nummers</string>
+    <string name="blocking_manager_copy_summary">Ga verder naar %s en kopieer je bestaande geblokkeerde nummers</string>
+    <string name="blocked_numbers_title">Geblokkeerde nummers</string>
+    <string name="blocked_numbers_empty">Je geblokkeerde nummers verschijnen hier</string>
+    <string name="blocked_numbers_add_cd">Blokkeer een nieuw nummer</string>
+    <string name="blocked_numbers_dialog_title">Blokkeer berichten van</string>
+    <string name="blocked_numbers_dialog_hint">Telefoonnummer</string>
+    <string name="blocked_numbers_dialog_block">Blokkeren</string>
+    <string name="blocked_messages_title">Geblokkeerde berichten</string>
+    <string name="blocked_messages_empty">Je geblokkeerde berichten verschijnen hier</string>
+    <string name="blocking_block_title">Blokkeren</string>
+    <string name="blocking_unblock_title">Deblokkeer</string>
+    <plurals name="blocking_block_external">
+        <item quantity="one">Ga verder naar %s en blokkeer dit nummer</item>
+        <item quantity="other">Ga verder naar %s en blokkeer deze nummers</item>
+    </plurals>
+    <plurals name="blocking_unblock_external">
+        <item quantity="one">Ga door naar %s en sta dit nummer toe</item>
+        <item quantity="other">Ga door naar %s en sta deze nummers toe</item>
+    </plurals>
+    <string name="about_title">Over</string>
+    <string name="about_version_title">Versie</string>
+    <string name="about_developer_title">Ontwikkelaar</string>
+    <string name="about_source_title">Broncode</string>
+    <string name="about_changelog_title">Changelog</string>
+    <string name="about_contact_title">Contact</string>
+    <string name="about_license_title">Licentie</string>
+    <string name="about_copyright_title">Copyright</string>
+    <string name="qksms_plus_description_title">Ondersteun ontwikkeling, ontgrendel alles</string>
+    <string name="qksms_plus_description_summary">Je kan de developer al helpen vanaf %s</string>
+    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
+    <string name="qksms_plus_upgrade">Levenslange upgrade voor %1$s %2$s</string>
+    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
+    <string name="qksms_plus_upgrade_donate">Ontgrendel en doneer voor %1$s %2$s</string>
+    <string name="qksms_plus_thanks_title">Bedankt voor het onderhouden van QUIK!</string>
+    <string name="qksms_plus_thanks_summary">Je hebt nu toegang tot alle QUIK+ functies</string>
+    <string name="qksms_plus_error">Er is een fout opgetreden, probeer het opnieuw</string>
+    <string name="qksms_plus_free_title">QUIK+ is gratis voor F-Droid gebruikers. Als je verdere ontwikkelingen wilt helpen, kun je gerust een donatie overwegen.</string>
+    <string name="qksms_plus_donate">Doneren via PayPal</string>
+    <string name="qksms_plus_coming_soon">Binnenkort</string>
+    <string name="qksms_plus_themes_title">Premium thema\'s</string>
+    <string name="qksms_plus_themes_summary">Ontgrendel vele mooie kleuren die niet beschikbaar zijn in het Material Design kleurenschema</string>
+    <string name="qksms_plus_emoji_title">Aangepaste auto-emoji</string>
+    <string name="qksms_plus_emoji_summary">Maak aangepaste auto-emoji sneltoetsen</string>
+    <string name="qksms_plus_backup_title">Berichtenback-up</string>
+    <string name="qksms_plus_backup_summary">Automatische back-up van jouw berichten. Geen zorgen meer over het kwijtraken van jouw berichten bij het verlies van je telefoon of het overschakelen naar een nieuwe telefoon</string>
+    <string name="qksms_plus_scheduled_title">Geplande berichten</string>
+    <string name="qksms_plus_scheduled_summary">Berichten worden automatisch verzonden op de ingestelde tijd</string>
+    <string name="qksms_plus_delayed_title">Vertraagd verzenden</string>
+    <string name="qksms_plus_delayed_summary">Wacht enkele seconden voor het versturen van je bericht</string>
+    <string name="qksms_plus_night_title">Automatische nachtmodus</string>
+    <string name="qksms_plus_night_summary">Schakel de nachtmodus in gebaseerd op de tijd van de dag</string>
+    <string name="qksms_plus_blacklist_title">Geavanceerd blokkeren</string>
+    <string name="qksms_plus_blacklist_summary">Blokkeer berichten die specifieke woorden of patronen bevatten</string>
+    <string name="qksms_plus_forward_title">Auto-doorsturen</string>
+    <string name="qksms_plus_forward_summary">Automatisch doorsturen van berichten van bepaalde afzenders</string>
+    <string name="qksms_plus_respond_title">Auto-antwoorden</string>
+    <string name="qksms_plus_respond_summary">Automatisch reageren op inkomende berichten met een vooraf ingestelde reactie</string>
+    <string name="qksms_plus_more_title">Meer</string>
+    <string name="qksms_plus_more_summary">QUIK is in actieve ontwikkeling, uw aankoop bevat alle toekomstige nieuwigheden exclusief voor QUIK+!</string>
+    <string name="widget_loading">Laden…</string>
+    <string name="widget_more">Bekijk meer conversaties</string>
+    <string name="qkreply_menu_read">Markeren als gelezen</string>
+    <string name="qkreply_menu_call">Bel</string>
+    <string name="qkreply_menu_delete">Verwijderen</string>
+    <string name="qkreply_menu_expand">Toon meer</string>
+    <string name="qkreply_menu_collapse">Toon minder</string>
+    <string name="qkreply_menu_view">Open conversatie</string>
+    <string name="theme_material">Material</string>
+    <string name="theme_hex">HEX</string>
+    <string name="theme_apply">Toepassen</string>
+    <string-array name="notification_actions">
+        <item>Geen</item>
+        <item>Archiveren</item>
+        <item>Verwijderen</item>
+        <item>Blokkeren</item>
+        <item>Bel</item>
+        <item>Markeer als gelezen</item>
+        <item>Beantwoorden</item>
+    </string-array>
+    <string name="button_yes">Ja</string>
+    <string name="button_continue">Doorgaan</string>
+    <string name="button_cancel">Annuleren</string>
+    <string name="button_delete">Verwijderen</string>
+    <string name="button_save">Opslaan</string>
+    <string name="button_stop">Stop</string>
+    <string name="button_more">Meer</string>
+    <string name="button_set">Instellen</string>
+    <string name="button_undo">Ongedaan maken</string>
+    <string name="toast_copied">Gekopieerd</string>
+    <string name="toast_qksms_plus">Je dient QUIK+ te ontgrendelen om dit te gebruiken</string>
+    <plurals name="notification_new_messages">
+        <item quantity="one">Nieuw bericht</item>
+        <item quantity="other">%s nieuwe berichten</item>
+    </plurals>
+    <string name="notification_message_failed_title">Bericht niet verzonden</string>
+    <string name="notification_message_failed_text">Het bericht naar %s is niet verzonden</string>
+    <string-array name="night_modes">
+        <item>Systeem</item>
+        <item>Uitgeschakeld</item>
+        <item>Altijd aan</item>
+        <item>Automatisch</item>
+    </string-array>
+    <string-array name="notification_preview_options">
+        <item>Toon naam en bericht</item>
+        <item>Toon naam</item>
+        <item>Inhoud verbergen</item>
+    </string-array>
+    <string-array name="text_sizes">
+        <item>Klein</item>
+        <item>Normaal</item>
+        <item>Groot</item>
+        <item>Groot</item>
+    </string-array>
+    <string-array name="delayed_sending_labels">
+        <item>Geen vertraging</item>
+        <item>3 seconden</item>
+        <item>5 seconden</item>
+        <item>10 seconden</item>
+    </string-array>
+    <string-array name="mms_sizes">
+        <item>Automatisch</item>
+        <item>100kB</item>
+        <item>200kB</item>
+        <item>300kB</item>
+        <item>600kB</item>
+        <item>1000kB</item>
+        <item>2000kB</item>
+        <item>Geen compressie</item>
+    </string-array>
+    <string-array name="qk_responses">
+        <item>Oké</item>
+        <item>Wacht even</item>
+        <item>Onderweg</item>
+        <item>Bedankt</item>
+        <item>Klinkt goed</item>
+        <item>Alles goed?</item>
+        <item>Ik ga akkoord</item>
+        <item>Nee</item>
+        <item>Hou van je</item>
+        <item>Sorry</item>
+        <item>LOL</item>
+        <item>Dat is oke</item>
+    </string-array>
+    <string name="menu_mms_part_share">Delen</string>
+    <string name="menu_mms_part_forward">Doorsturen</string>
+    <string name="menu_mms_part_open">Extern openen</string>
+    <string name="main_menu_select_all">Alles selecteren</string>
+    <string name="main_menu_send_now">Verzenden</string>
+    <string name="main_menu_edit_message">Bewerk bericht</string>
+    <string name="main_menu_rename_conversation">Hernoem conversatie</string>
+    <string name="main_sender_draft">Concept: %s</string>
+    <string name="scheduled_menu_send_now">Zend nu</string>
+    <string name="scheduled_menu_edit_message">Bewerk bericht</string>
+    <plurals name="dialog_delete_chat">
+        <item quantity="one">Weet je zeker dat je dit bericht wilt verwijderen?</item>
+        <item quantity="other">Weet je zeker dat je %d berichten wilt verwijderen?</item>
+    </plurals>
+    <plurals name="dialog_send_now">
+        <item quantity="one">Weet je zeker dat je dit bericht nu wilt versturen?</item>
+        <item quantity="other">Weet je zeker dat je %d berichten nu wilt versturen?</item>
+    </plurals>
+    <string name="dialog_edit_scheduled_message_title">Bewerk bericht</string>
+    <string name="dialog_edit_scheduled_message">Bewerken van dit bericht zal het verwijderen uit de planner.\n\nControleer en zorg dat het wordt toegevoegd in het volgende scherm, of het gaat verloren.\n\nWilt u doorgaan?</string>
+    <string name="dialog_edit_scheduled_message_positive_button">Ja, bewerk dit bericht</string>
+    <string name="dialog_clear_compose_title">Wissen bericht</string>
+    <string name="dialog_clear_compose">Wis het bericht? Deze actie kan niet ongedaan worden gemaakt.</string>
+    <string name="compose_scheduled_view">Geplande berichten voor deze conversatie</string>
+    <string name="compose_no_valid_recipients">Kan niet versturen naar andere participanten</string>
+    <string name="compose_menu_show_status">Toon status</string>
+    <string name="compose_attach_file_cd">Bestand toevoegen</string>
+    <string name="compose_audio_message_cd">Audio bericht opnemen</string>
+    <string name="compose_schedule_cancel_cd">Annuleer gepland bericht</string>
+    <string name="compose_record_audio_msg_cd">Audio bericht opnemen</string>
+    <string name="compose_record_audio_msg_abort_cd">Annuleer audio bericht</string>
+    <string name="compose_record_audio_msg_attach_cd">Audio bericht toevoegen</string>
+    <string name="compose_record_audio_msg_play_pause_cd">Speel of pauzeer audio bericht</string>
+    <string name="compose_message_cancel">Annuleer</string>
+    <string name="compose_message_send_now">Versturen</string>
+    <string name="compose_message_sim">SIM nummer</string>
+    <string name="compose_message_attachment">Bijlage</string>
+    <string name="compose_toast_drag_stt">Verplaats de spraak-naar-tekst knop naar door u gelieve plaats</string>
+    <string name="message_body_too_long_to_display">⚠ Bericht is te lang. Kopieer of Bewaar voor de volledige tekst</string>
+    <string name="clipboard_too_large_to_copy">Data grote overstijgt kladbord limiet</string>
+    <string name="clipboard_unable_to_copy_to">Mislukt te kopiëren naar kladblok</string>
+    <string name="scheduled_send_cd">Plan dit bericht</string>
+    <string name="attachment_missing">Ontbreekt</string>
+    <string name="settings_system_show_stt_title">Toon de spraak-naar-tekst knop</string>
+    <string name="settings_notification_previews_summary">Toon naam en bericht</string>
+    <string name="settings_notification_silent_title">Stil wanneer geen contact</string>
+    <string name="settings_notification_silent_summary">Stille notificaties voor berichten zonder ontvanger in uw contacten lijst</string>
+    <string name="settings_unread_at_top_title">Ongelezen bovenaan</string>
+    <string name="settings_unread_at_top_summary">Toon ongelezen conversaties bovenaan</string>
+    <string name="settings_mms_weblink_title">Link afhandeling in berichten</string>
+    <string name="settings_disable_screenshots_title">Schermafbeeldingen uitschakelen</string>
+    <string name="settings_diable_screenshots_summary">Verhinder dat uw OS en andere apps afbeeldingen kunnen maken van deze app.</string>
+    <string name="message_content_filters_title">Bericht inhoud filters</string>
+    <string name="message_content_filters_empty">Uw bericht inhoud filters verschijnen hier</string>
+    <string name="message_content_filters_add_cd">Maak een nieuwe filter</string>
+    <string name="message_content_filters_dialog_case_switch">Hoofdlettergevoelig</string>
+    <string name="message_content_filters_dialog_contacts_switch">Contacten toevoegen</string>
+    <string name="all_conversations_widget_title">Alle conversaties</string>
+    <string name="button_clear">Wissen</string>
+    <plurals name="toast_archived">
+        <item quantity="one">Gearchiveerde conversatie</item>
+        <item quantity="other">Gearchiveerd %d conversaties</item>
+    </plurals>
+    <plurals name="toast_unarchived">
+        <item quantity="one">Niet gearchiveerde conversatie</item>
+        <item quantity="other">Niet gearchiveerde conversaties %d</item>
+    </plurals>
+    <string name="notification_message_failed_action">Opnieuw versturen</string>
+    <string name="speak_no_messages">Geen berichten</string>
+    <string name="speak_unseen_messages">Spreek ongelezen berichten</string>
+    <string name="messageLinkHandling_dialog_title">Externe link waarschuwing</string>
+    <string name="messageLinkHandling_dialog_body">Sommige links zijn mogelijk onveilig of sturen u onbedoeld door. Controleer de link hieronder voor u doorgaat:\n\n%1$s\n\nWilt u doorgaan?</string>
+    <string name="messageLinkHandling_dialog_positive">Ja, open de link</string>
+    <string name="messageLinkHandling_dialog_negative">Nee</string>
+    <string name="error_stt_toast">Sorry, er was een fout bij het laden van de spraak-naar-tekst provider.</string>
+    <string name="stt_toast_extra_prompt">Spreek uw bericht</string>
+    <string name="messages_text_share_file_error">Oeps! Iets ging er fout bij het delen</string>
+</resources>

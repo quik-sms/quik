@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019 Moez Bhatti <moez.bhatti@gmail.com>
+  ~
+  ~ This file is part of QKSMS.
+  ~
+  ~ QKSMS is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ QKSMS is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/windowBackground">
+
+    <LinearLayout
+        android:id="@+id/preferences"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <dev.octoshrimpy.quik.common.widget.QkTextView
+            style="@style/PreferenceCategory"
+            android:text="@string/settings_category_appearance" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_color_lens_black_24dp"
+            app:title="@string/settings_theme_title"
+            app:widget="@layout/settings_theme_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/night"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_invert_colors_black_24dp"
+            app:title="@string/settings_night_title"
+            tools:summary="Automatic" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:title="@string/settings_black_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/nightStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:title="@string/settings_night_start_title"
+            tools:summary="6:00PM" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/nightEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:title="@string/settings_night_end_title"
+            tools:summary="9:00AM" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/textSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_format_size_black_24dp"
+            app:title="@string/settings_text_size_title" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/autoColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_person_black_24dp"
+            app:title="@string/settings_automatic_colors_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/systemFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_title_black_24dp"
+            app:title="@string/settings_system_font_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/showStt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_speech_to_text_black"
+            app:title="@string/settings_system_show_stt_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="?android:attr/divider" />
+
+        <dev.octoshrimpy.quik.common.widget.QkTextView
+            style="@style/PreferenceCategory"
+            android:text="@string/settings_category_general" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/notifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_notifications_black_24dp"
+            app:title="@string/settings_notifications_title" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/autoEmoji"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:title="@string/settings_auto_emoji_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/delayed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_av_timer_black_24dp"
+            app:title="@string/settings_delayed_title"
+            tools:summary="No delay" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/swipeActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:icon="@drawable/ic_clear_all_black_24dp"
+            app:summary="@string/settings_swipe_actions_summary"
+            app:title="@string/settings_swipe_actions" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/delivery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_check_white_24dp"
+            app:summary="@string/settings_delivery_summary"
+            app:title="@string/settings_delivery_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/unreadAtTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_unreadattop_all_black_24dp"
+            app:summary="@string/settings_unread_at_top_summary"
+            app:title="@string/settings_unread_at_top_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/signature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_short_text_black_24dp"
+            app:title="@string/settings_signature_title" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/unicode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_translate_black_24dp"
+            app:summary="@string/settings_unicode_summary"
+            app:title="@string/settings_unicode_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/mobileOnly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_smartphone_black_24dp"
+            app:summary="@string/settings_mobile_summary"
+            app:title="@string/settings_mobile_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/longAsMms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_message_black_24dp"
+            app:summary="@string/settings_long_as_mms_summary"
+            app:title="@string/settings_long_as_mms_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/mmsSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:icon="@drawable/ic_photo_size_select_actual_black_24dp"
+            app:title="@string/settings_mms_size_title"
+            tools:summary="100KB" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/messsageLinkHandling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:icon="@android:drawable/stat_sys_warning"
+            app:title="@string/settings_mms_weblink_title"
+            tools:summary="100KB" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/disableScreenshots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_screenshot"
+            app:summary="@string/settings_diable_screenshots_summary"
+            app:title="@string/settings_disable_screenshots_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/fingerprintLock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:icon="@android:drawable/ic_lock_lock"
+            app:summary="@string/settings_fingerprint_lock_summary"
+            app:title="@string/settings_fingerprint_lock_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="?android:attr/divider" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/sync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_sync_black_24dp"
+            app:summary="@string/settings_sync_summary"
+            app:title="@string/settings_sync_title" />
+
+        <ProgressBar
+            android:id="@+id/syncingProgress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:indeterminate="true"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_info_black_24dp"
+            app:title="@string/settings_about_title"
+            tools:summary="@string/settings_version" />
+
+    </LinearLayout>
+
+</ScrollView>

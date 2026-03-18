@@ -1,0 +1,120 @@
+name: Auto-Update MMS configs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 1,4,7,10 *'
+
+concurrency:
+  group: auto-update-mms-configs
+  cancel-in-progress: false
+
+jobs:
+  vvm:
+    runs-on: ubuntu-latest
+    env:
+      APKEEP_VERSION: 0.18.0
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 
+      
+      - name: Cache Cargo dependencies
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.cargo/bin
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-apkeep-${{ env.APKEEP_VERSION }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-apkeep-
+      
+      - name: Set Branch Name
+        run: echo "NEW_BRANCH=update-mms-configs-$(date +%Y%m%d%H%M%S)" >> $GITHUB_ENV
+      
+      - name: Install apkeep
+        shell: bash
+        run: |
+          set -euo pipefail
+          if command -v apkeep >/dev/null 2>&1; then
+            installed_version=$(apkeep --version | awk '{print $2}')
+            if [[ "$installed_version" == "$APKEEP_VERSION" ]]; then
+              echo "apkeep ${APKEEP_VERSION} already installed."
+              exit 0
+            fi
+          fi
+          cargo install apkeep --locked --version "$APKEEP_VERSION"
+        
+      - name: Install APK tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends aapt apktool unzip
+          
+      - name: Download Messaging APK 
+        run: apkeep -a com.google.android.apps.messaging /home/runner/work/quik/quik
+
+      - name: List files in directory
+        run: ls /home/runner/work/quik/quik
+
+      - name: Unzip the Messaging APK from XAPK
+        shell: bash
+        run: |
+          if [ -f /home/runner/work/quik/quik/com.google.android.apps.messaging.xapk ]; then
+            unzip /home/runner/work/quik/quik/com.google.android.apps.messaging.xapk -d /home/runner/work/quik/quik
+          else
+            echo "XAPK file not found, skipping unzip."
+          fi
+
+      - name: Decompile Messaging using apktool
+        run: apktool d com.google.android.apps.messaging.apk -o dump
+        
+      - name: Copy MMS configs
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          rm -rfv android-smsmms/src/main/res/xml-mcc*
+          source_dirs=(dump/res/xml-mcc*)
+          if [[ "${#source_dirs[@]}" -eq 0 ]]; then
+            echo "No MMS config directories found in dump." >&2
+            exit 1
+          fi
+          cp -rv "${source_dirs[@]}" android-smsmms/src/main/res/
+          find android-smsmms/src/main/res/xml-mcc* -name '*_config_override.xml' -print -delete
+
+      - name: Remove Duplicate MMS Config Files
+        shell: bash
+        run: |
+          set -euo pipefail
+          declare -A seen
+          for file in android-smsmms/src/main/res/xml-mcc*/mms_config.xml; do
+            dir_name=$(dirname "$file")
+            if [[ "$dir_name" == *-mnc00 ]]; then
+              # Check for corresponding directory without -mnc suffix
+              base_dir=$(echo "$dir_name" | sed 's/-mnc00//')
+              if [[ -d "$base_dir" ]]; then
+                echo "Duplicate found for $base_dir and $dir_name"
+                rm -rf "$base_dir"
+              fi
+            fi
+          done
+          
+          
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update MMS configs from com.google.android.apps.messaging.apk. 
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          title: "Update MMS configs"
+          body: |
+            This pull request updates the MMS configurations to the latest version. 
+              - Updated by [Auto-Update MMS configs](./.github%2Fworkflows%2Fauto-update-mms-configs.yml)
+          add-paths: android-smsmms/src/main/res/xml-mcc*
+          branch: ${{ env.NEW_BRANCH }}
+          base: master
+          labels: automated

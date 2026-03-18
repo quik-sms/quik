@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019 Moez Bhatti <moez.bhatti@gmail.com>
+  ~
+  ~ This file is part of QKSMS.
+  ~
+  ~ QKSMS is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ QKSMS is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <dev.octoshrimpy.quik.common.widget.QkTextView
+            android:id="@+id/toolbarTitle"
+            style="@style/ToolbarText"
+            tools:text="Notifications" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
+            android:id="@+id/preferences"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/notificationsO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:summary="@string/settings_notifications_o_summary"
+                app:title="@string/settings_notifications_title"
+                tools:visibility="gone" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/notifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/settings_notifications_title"
+                app:widget="@layout/settings_switch_widget" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/previews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/settings_notification_previews_title"
+                tools:summary="@string/settings_notification_previews_summary" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/wake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/settings_notification_wake_title"
+                app:widget="@layout/settings_switch_widget" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/silentNotContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/settings_notification_silent_title"
+                app:summary="@string/settings_notification_silent_summary"
+                app:widget="@layout/settings_switch_widget" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/vibration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/settings_vibration_title"
+                app:widget="@layout/settings_switch_widget" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/ringtone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/settings_ringtone_title" />
+
+            <View
+                android:id="@+id/actionsDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="?android:attr/divider" />
+
+            <dev.octoshrimpy.quik.common.widget.QkTextView
+                android:id="@+id/actionsTitle"
+                style="@style/PreferenceCategory"
+                android:text="@string/settings_notification_actions_title" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/action1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/settings_notification_action_1"
+                tools:summary="Mark read" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/action2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/settings_notification_action_2"
+                tools:summary="Reply" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/action3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/settings_notification_action_3"
+                tools:summary="None" />
+
+            <View
+                android:id="@+id/qkreplyDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="?android:attr/divider" />
+
+            <dev.octoshrimpy.quik.common.widget.QkTextView
+                android:id="@+id/qkreplyTitle"
+                style="@style/PreferenceCategory"
+                android:text="@string/settings_category_qkreply" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/qkreply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:summary="@string/settings_qkreply_summary"
+                app:title="@string/settings_qkreply_title"
+                app:widget="@layout/settings_switch_widget" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/qkreplyTapDismiss"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:summary="@string/settings_qkreply_tap_dismiss_summary"
+                app:title="@string/settings_qkreply_tap_dismiss_title"
+                app:widget="@layout/settings_switch_widget" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@drawable/ab_shadow"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/divider"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

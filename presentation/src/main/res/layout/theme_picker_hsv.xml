@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019 Moez Bhatti <moez.bhatti@gmail.com>
+  ~
+  ~ This file is part of QKSMS.
+  ~
+  ~ QKSMS is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ QKSMS is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
+
+    <dev.octoshrimpy.quik.feature.themepicker.HSVPickerView
+        android:id="@+id/picker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <dev.octoshrimpy.quik.common.widget.QkTextView
+        android:id="@+id/hexLabel"
+        style="@style/TextSecondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/theme_hex"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/picker" />
+
+    <View
+        android:id="@+id/hexSeparator"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:background="?android:attr/divider"
+        app:layout_constraintBottom_toBottomOf="@id/hexLabel"
+        app:layout_constraintStart_toEndOf="@id/hexLabel"
+        app:layout_constraintTop_toTopOf="@id/hexLabel" />
+
+    <dev.octoshrimpy.quik.common.widget.QkTextView
+        android:id="@+id/hexSign"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:text="#"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/hexLabel"
+        app:layout_constraintStart_toEndOf="@id/hexSeparator"
+        app:layout_constraintTop_toTopOf="@id/hexLabel"
+        app:textSize="secondary"
+        tools:ignore="HardcodedText" />
+
+    <dev.octoshrimpy.quik.common.widget.QkEditText
+        android:id="@+id/hex"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:gravity="center"
+        android:paddingEnd="16dp"
+        android:textAllCaps="true"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/hexLabel"
+        app:layout_constraintStart_toEndOf="@id/hexSign"
+        app:layout_constraintTop_toTopOf="@id/hexLabel"
+        app:textSize="secondary"
+        tools:text="1B8AE8" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/applyGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="applyDivider, clear, apply" />
+
+    <View
+        android:id="@+id/applyDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/divider"
+        app:layout_constraintBottom_toTopOf="@id/clear" />
+
+    <ImageView
+        android:id="@+id/clear"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="16dp"
+        android:src="@drawable/ic_cancel_black_24dp"
+        app:tint="?android:attr/textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <dev.octoshrimpy.quik.common.widget.QkTextView
+        android:id="@+id/apply"
+        style="@style/TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_rectangle_2dp"
+        android:elevation="2dp"
+        android:text="@string/theme_apply"
+        app:layout_constraintBottom_toBottomOf="@id/clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/clear"
+        tools:backgroundTint="@color/tools_theme"
+        tools:textColor="@color/textPrimaryDark" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

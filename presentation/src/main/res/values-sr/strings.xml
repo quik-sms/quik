@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019 Moez Bhatti <moez.bhatti@gmail.com>
+  ~
+  ~ This file is part of QKSMS.
+  ~
+  ~ QKSMS is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ QKSMS is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
+  --><resources>
+    <string name="shortcut_compose_long_label">Нови разговор</string>
+    <string name="shortcut_compose_short_label">Нова порука</string>
+    <string name="shortcut_compose_disabled_message">Пречица је онемогућена</string>
+    <string name="title_archived">Архива</string>
+    <string name="title_settings">Подешавања</string>
+    <string name="title_notification_prefs">Обавештења</string>
+    <string name="title_theme">Тема</string>
+    <string name="title_conversations">Претражи примљене поруке</string>
+    <string name="title_compose">Састављање</string>
+    <string name="setup_skip">Прескочи</string>
+    <string name="setup_next">Настави</string>
+    <string name="menu_add_person">Додај контакт</string>
+    <string name="menu_call">Позови</string>
+    <string name="menu_info">Детаљи</string>
+    <string name="menu_mms_part_save">Сачувај у галерију</string>
+    <string name="compose_menu_share">Подели</string>
+    <string name="main_drawer_open_cd">Отвори панел за навигацију</string>
+    <string name="main_title_selected">%d  обележено</string>
+    <string name="main_menu_clear">Обриши</string>
+    <string name="main_menu_archive">Сачувај</string>
+    <string name="main_menu_unarchive">Врати у примљене</string>
+    <string name="main_menu_delete">Обриши</string>
+    <string name="main_menu_add_contact">Додај у контакте</string>
+    <string name="main_menu_pin">Закачи на врх</string>
+    <string name="main_menu_unpin">Откачи</string>
+    <string name="main_menu_read">Означи као прочитано</string>
+    <string name="main_menu_unread">Означи као непрочитано</string>
+    <string name="main_menu_block">Блокирај</string>
+    <string name="main_syncing">Синхронизујем поруке…</string>
+    <string name="main_sender_you">Ја: %s</string>
+    <string name="main_message_results_title">Пронађено у порукама</string>
+    <string name="main_message_results">%d поруке</string>
+    <string name="inbox_empty_text">Овде ће се појавити твоји разговори</string>
+    <string name="inbox_search_empty_text">Нема резултата</string>
+    <string name="archived_empty_text">Овде ће се појавити твоји сачувани разговори</string>
+    <string name="main_fab_cd">Започни нов разговор</string>
+    <string name="main_default_sms_title">Поново заволите СМС.</string>
+    <string name="main_default_sms_message">Постави QUIK као подразумевану СМС апликацију</string>
+    <string name="main_default_sms_change">Промени</string>
+    <string name="main_permission_required">Потребна је дозвола</string>
+    <string name="main_permission_sms">QUIK тражи дозволу да шаље и прима СМС поруке</string>
+    <string name="main_permission_contacts">QUIK тражи приступ твојим контактима</string>
+    <string name="main_permission_notifications">QUIK needs permission to display notifications</string>
+    <string name="main_permission_allow">Дозволи</string>
+    <string name="drawer_inbox">Примљено</string>
+    <string name="drawer_archived">Сачувано</string>
+    <string name="drawer_scheduled">Заказане поруке</string>
+    <string name="drawer_blocking">Блокирање</string>
+    <string name="drawer_more">Још</string>
+    <string name="drawer_settings">Подешавања</string>
+    <string name="drawer_help">Помоћ и повратне информације</string>
+    <string name="drawer_invite">Позови пријатеље</string>
+    <string name="drawer_plus_banner_summary">Откључај нове могућности и подржи развој апликације</string>
+    <string name="rate_title">Да ли уживаш уз QUIK?</string>
+    <string name="rate_summary">Покажи мало љубави и оцени нас на Google Play!</string>
+    <string name="rate_okay">ВАЖИ!</string>
+    <string name="rate_dismiss">ОТКАЖИ</string>
+    <string name="dialog_delete_title">Обриши</string>
+    <plurals name="dialog_delete_message">
+        <item quantity="one">Да ли стварно желите избришете овај разговор?</item>
+        <item quantity="few">Да ли стварно желите избришете ове разговоре?</item>
+        <item quantity="other">Да ли стварно желите избришете %d разговоре?</item>
+    </plurals>
+    <string-array name="message_options">
+        <item>Копирај текст</item>
+        <item>Проследи</item>
+        <item>Обриши</item>
+    </string-array>
+    <string name="compose_number_picker_title">Изабери број телефона</string>
+    <string name="compose_number_picker_default">%s ∙ Подразумевано</string>
+    <string name="compose_number_picker_once">Само једном</string>
+    <string name="compose_number_picker_always">Увек</string>
+    <string name="compose_title_selected">Изабрано: %d</string>
+    <string name="compose_subtitle_results">%1$d од %2$d резултата</string>
+    <string name="compose_send_group_title">Пошаљи као групну поруку</string>
+    <string name="compose_send_group_summary">Примаоци и одговори ће бити свима видљиви</string>
+    <string name="compose_messages_empty">Овде почиње ваш разговор. Реци нешто лепо за почетак!</string>
+    <string name="compose_vcard_label">Контакт картица</string>
+    <string name="compose_scheduled_for">Заказано за</string>
+    <string name="compose_scheduled_future">Изабрано време мора бити у будућности!</string>
+    <string name="compose_scheduled_plus">Да би заказивао поруке мораш откључати QUIK+</string>
+    <string name="compose_scheduled_toast">Додато у заказане поруке</string>
+    <string name="compose_hint">Напиши поруку…</string>
+    <string name="compose_menu_copy">Копирај текст</string>
+    <string name="compose_menu_forward">Проследи</string>
+    <string name="compose_menu_delete">Обриши</string>
+    <string name="compose_menu_previous">Претходно</string>
+    <string name="compose_menu_next">Следеће</string>
+    <string name="compose_menu_clear">Обриши</string>
+    <string name="compose_details_title">Детаљи поруке</string>
+    <string name="compose_details_type">Тип: %s</string>
+    <string name="compose_details_from">Шаље: %s</string>
+    <string name="compose_details_to">Прима: %s</string>
+    <string name="compose_details_subject">Наслов: %s</string>
+    <string name="compose_details_priority">Важност: %s</string>
+    <string name="compose_details_size">Величина: %s</string>
+    <string name="compose_details_sent">Послато: %s</string>
+    <string name="compose_details_received">Примљено: %s</string>
+    <string name="compose_details_delivered">Испоручено: %s</string>
+    <string name="compose_details_error_code">Кôд грешке: %d</string>
+    <string name="compose_attach_cd">Додај прилог</string>
+    <string name="compose_gallery_cd">Приложи фотографију</string>
+    <string name="compose_camera_cd">Сними фотографију</string>
+    <string name="compose_schedule_cd">Планирај поруку</string>
+    <string name="compose_contact_cd">Приложи контакт</string>
+    <string name="compose_contact_error">Грешка при учитавању контакта</string>
+    <!-- Example: SIM 1 (Verizon) selected-->
+    <string name="compose_sim_changed_toast">Изабрана SIM картица %1$d (%2$s)</string>
+    <string name="compose_sim_cd">Изабрано: %s; промените SIM картицу</string>
+    <string name="compose_send_cd">Пошаљи поруку</string>
+    <string name="message_status_sending">Шаљем…</string>
+    <string name="message_status_delivered">Испоручено %s</string>
+    <string name="message_status_failed">Слање неуспешно. Додирните да покушате поново.</string>
+    <string name="info_title">Детаљи</string>
+    <string name="info_copied_address">Адреса је копирана</string>
+    <string name="info_name">Наслов</string>
+    <string name="info_notifications">Обавештења</string>
+    <string name="info_theme">Тема</string>
+    <string name="info_archive">Сачувај</string>
+    <string name="info_unarchive">Врати у примљене</string>
+    <string name="info_block">Блокирај</string>
+    <string name="info_unblock">Одблокирај</string>
+    <string name="info_delete">Обриши разговор</string>
+    <string name="gallery_error">Неуспешно учитавање</string>
+    <string name="gallery_toast_saved">Сачувано у галерију</string>
+    <string name="backup_title">Резервнe копијe</string>
+    <string name="backup_backing_up">Правим копију</string>
+    <string name="backup_restoring">Враћање резервне копије</string>
+    <string name="backup_loading">Учитавање…</string>
+    <string name="backup_never">Никад</string>
+    <string name="backup_location_title">Backup location</string>
+    <string name="backup_location_summary">Set folder</string>
+    <string name="backup_restore_title">Поврати копију</string>
+    <string name="backup_restore_summary">Изабери резервну копију</string>
+    <string name="backup_restore_error_plus">Молимо откључајте QUIK+ да бисте користили опцију за прављење резервне копије</string>
+    <string name="backup_restore_error_backup">Правим резервну копију…</string>
+    <string name="backup_restore_error_restore">Враћам резервну копију…</string>
+    <string name="backup_restore_confirm_title">Поврати резервну копију</string>
+    <string name="backup_restore_stop_title">Заустави повраћај</string>
+    <string name="backup_restore_stop_message">Поруке које су већ повраћене ће остати сачуване на Вашем уређају</string>
+    <string name="backup_select_location_rationale_title">Select backup location</string>
+    <string name="backup_select_location_rationale_message">Please select a folder to save your backups to</string>
+    <string name="backup_details">%1$s\n%2$d messages</string>
+    <string name="backup_selected_backup_error_title">Error</string>
+    <string name="backup_selected_backup_error_message">Couldn\'t read backup file</string>
+    <string name="backup_selected_backup_details_title">Backup details</string>
+    <string name="backup_restore_dialog_title">Резервне копије</string>
+    <string name="backup_restore_dialog_empty">Нема резервних копија</string>
+    <string name="backup_disclaimer">Тренутно су подржане резервне копије само SMS порука. Ускоро очекујте подршку за MMS поруке и заказано прављење резервних копија!</string>
+    <string name="backup_now">Одмах направите копију</string>
+    <string name="backup_progress_parsing">Обрађујем копију…</string>
+    <string name="backup_progress_running">%d/%d порука</string>
+    <string name="backup_progress_saving">Сачувавам резерну копију…</string>
+    <string name="backup_progress_syncing">Синхронизујем поруке…</string>
+    <string name="backup_progress_finished">Завршено!</string>
+    <string name="backup_notification_channel_name">Резервне копије</string>
+    <string name="scheduled_title">Заказано</string>
+    <string name="scheduled_empty_description">Аутоматски пошаљи поруку у тачно одређеном тренутку</string>
+    <string name="scheduled_empty_message_1">Хеј! Кад ти оно беше рођендан?</string>
+    <string name="scheduled_empty_message_2">23. децембра</string>
+    <string name="scheduled_empty_message_3">Срећан рођендан! Видиш како сам добар друг, сетио сам се твог рођедана!</string>
+    <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
+    <string name="scheduled_empty_message_3_timestamp">Шаље се 23. децембра.</string>
+    <string name="scheduled_compose_cd">Закажи слање</string>
+    <string name="scheduled_options_title">Заказана порука</string>
+    <string-array name="scheduled_options">
+        <item>Пошаљи одмах</item>
+        <item>Копирај текст</item>
+        <item>Обриши</item>
+    </string-array>
+    <string name="settings_category_appearance">Уреди изглед</string>
+    <string name="settings_category_general">Опште</string>
+    <string name="settings_category_qkreply">Брзи одговор</string>
+    <string name="settings_theme_title">Тема</string>
+    <string name="settings_night_title">Ноћни мод</string>
+    <string name="settings_black_title">Потпуно црни ноћни мод</string>
+    <string name="settings_night_start_title">Време почетка</string>
+    <string name="settings_night_end_title">Време завршетка</string>
+    <string name="settings_automatic_colors_title">Аутоматске боје за контакте</string>
+    <string name="settings_text_size_title">Величина слова</string>
+    <string name="settings_system_font_title">Користи системски фонт</string>
+    <string name="settings_auto_emoji_title">Аутоматски емотикони</string>
+    <string name="settings_notifications_title">Обавештења</string>
+    <string name="settings_notifications_o_summary">Додирни за уређивање</string>
+    <string name="settings_notification_actions_title">Радње</string>
+    <string name="settings_notification_action_1">Опција 1</string>
+    <string name="settings_notification_action_2">Опција 2</string>
+    <string name="settings_notification_action_3">Опција 3</string>
+    <string name="settings_notification_previews_title">Преглед обавештења</string>
+    <string name="settings_notification_wake_title">Укључи екран</string>
+    <string name="settings_vibration_title">Вибрација</string>
+    <string name="settings_ringtone_title">Звук</string>
+    <string name="settings_ringtone_none">Ниједна</string>
+    <string name="settings_qkreply_title">Брзи одговор</string>
+    <string name="settings_qkreply_summary">Искачући прозор за нове поруке</string>
+    <string name="settings_qkreply_tap_dismiss_title">Додирни да уклониш</string>
+    <string name="settings_qkreply_tap_dismiss_summary">Додирни екран изван искачућег прозора да га уклониш</string>
+    <string name="settings_delayed_title">Одложено слање</string>
+    <string name="settings_swipe_actions">Радње превлачењем</string>
+    <string name="settings_swipe_actions_summary">Подеси радње превлачењем у оквиру разговора</string>
+    <string name="settings_swipe_actions_right">Превлачење удесно</string>
+    <string name="settings_swipe_actions_left">Превлачење улево</string>
+    <string name="settings_swipe_actions_change">ПРОМЕНИ</string>
+    <string-array name="settings_swipe_actions">
+        <item>Ништа</item>
+        <item>Сачувај</item>
+        <item>Обриши</item>
+        <item>Блокирај</item>
+        <item>Позови</item>
+        <item>Означи као прочитано</item>
+        <item>Означи као непрочитано</item>
+    </string-array>
+    <string name="settings_delivery_title">Потврде о испоруци</string>
+    <string name="settings_delivery_summary">Потврди да су поруке успешно послате</string>
+    <string name="settings_signature_title">Потпис</string>
+    <string name="settings_signature_summary">Додај потпис на крај сваке поруке</string>
+    <string name="settings_unicode_title">Уклони акценте</string>
+    <string name="settings_unicode_summary">Уклони акценте са слова у одлазним порукама</string>
+    <string name="settings_mobile_title">Само бројеви из мобилних мрежа</string>
+    <string name="settings_mobile_summary">При састављању порука прикажи само бројеве из мобилних мрежа</string>
+    <string name="settings_auto_delete">Аутоматско брисање старих порука</string>
+    <string name="settings_auto_delete_dialog_message">Поруке ће бити обрисане после наведеног броја дана</string>
+    <string name="settings_auto_delete_dialog_hint">Број дана</string>
+    <string name="settings_auto_delete_never">Никада</string>
+    <string name="settings_auto_delete_warning">Аутоматски обрисати старе поруке?</string>
+    <string name="settings_auto_delete_warning_message">Ако наставите, %1$d порука ће одмах бити обрисано.</string>
+    <plurals name="settings_auto_delete_summary">
+        <item quantity="one">Након 1 дана</item>
+        <item quantity="few">Након %d дана</item>
+        <item quantity="other">Након %d дана</item>
+    </plurals>
+    <string name="settings_long_as_mms_title">Пошаљи дугачке поруке као MMS</string>
+    <string name="settings_long_as_mms_summary">Ако дугачке поруке не могу да се пошаљу или се шаљу погрешним редоследом, можете их послати као MMS, што може имати додатне трошкове.</string>
+    <string name="settings_mms_size_title">Аутоматска оптимизација величине MMS прилога.</string>
+    <string name="settings_sync_title">Синхронизуј поруке</string>
+    <string name="settings_sync_summary">Поново синхронизуј поруке са изворном Андроид SMS базом података.</string>
+    <string name="settings_about_title">О апликацији</string>
+    <string name="settings_version">Верзија %s</string>
+    <string name="settings_logging_enabled">Записи за отклањање грешака су омогућени</string>
+    <string name="settings_logging_disabled">Записи за отклањање грешака су онемогућени</string>
+    <string name="settings_delay_duration_hint">Унеси трајање (у секундама)</string>
+    <string name="blocking_title">Блокирање</string>
+    <string name="blocking_drop_title">Одбиј поруке</string>
+    <string name="blocking_drop_summary">Одбиј поруке које стижу са блокираних бројева уместо да их сакријеш</string>
+    <string name="blocking_conversations">Блокирани разговори</string>
+    <string name="blocking_manager_title">Апликација за блокирање</string>
+    <string name="blocking_manager_qksms_summary">Уграђена могућност блокирања у QUIK</string>
+    <string name="blocking_manager_call_blocker_summary">Блокирај нежељене поруке, бројеве и непознате позиве помоћу листе непожељних бројева</string>
+    <string name="blocking_manager_call_control_summary">Аутоматски филтрирај позиве и поруке на једном месту! Community IQ™ ти омогућује да блокираш нежељене поруке од \"спамера\" познатих заједници</string>
+    <string name="blocking_manager_sia_summary">Аутоматски фитрирај поруке са непожељних бројева користећи \"Should I Answer\" апликацију</string>
+    <string name="blocking_manager_copy_title">Копирај блокиране бројеве</string>
+    <string name="blocking_manager_copy_summary">Отвори %s и пренеси бројеве које си већ блокирао</string>
+    <string name="blocked_numbers_title">Блокирани бројеви</string>
+    <string name="blocked_numbers_empty">Овде ће се појавити бројеви које блокираш</string>
+    <string name="blocked_numbers_add_cd">Блокирај нови број</string>
+    <string name="blocked_numbers_dialog_title">Блокирај поруке са броја</string>
+    <string name="blocked_numbers_dialog_hint">Број телефона</string>
+    <string name="blocked_numbers_dialog_block">Блокирај</string>
+    <string name="blocked_messages_title">Блокиране поруке</string>
+    <string name="blocked_messages_empty">Овде ће се појавити поруке које блокираш</string>
+    <string name="blocking_block_title">Блокирај</string>
+    <string name="blocking_unblock_title">Одблокирај</string>
+    <plurals name="blocking_block_external">
+        <item quantity="one">Отвори %s и блокирај овај број</item>
+        <item quantity="few">Отвори %s и блокирај ове бројеве</item>
+        <item quantity="other">Отвори %s и блокирај ове бројеве</item>
+    </plurals>
+    <plurals name="blocking_unblock_external">
+        <item quantity="one">Отвори %s и дозволи овај број</item>
+        <item quantity="few">Отвори %s и дозволи ове бројеве</item>
+        <item quantity="other">Отвори %s и дозволи ове бројеве</item>
+    </plurals>
+    <string name="about_title">О апликацији</string>
+    <string name="about_version_title">Верзија</string>
+    <string name="about_developer_title">Програмер</string>
+    <string name="about_source_title">Изворни код</string>
+    <string name="about_changelog_title">Историја измена</string>
+    <string name="about_contact_title">Kontakt</string>
+    <string name="about_license_title">Лиценца</string>
+    <string name="about_copyright_title">Ауторска права</string>
+    <string name="qksms_plus_description_title">Подржи развој ове апликације и откључај све опције</string>
+    <string name="qksms_plus_description_summary">За само %s можеш спасити програмера од глади</string>
+    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
+    <string name="qksms_plus_upgrade">Трајна надоградња за само %1$s %2$s</string>
+    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
+    <string name="qksms_plus_upgrade_donate">Откључавање + добровољни прилог за %1$s %2$s</string>
+    <string name="qksms_plus_thanks_title">Хвала што подржавате QUIK!</string>
+    <string name="qksms_plus_thanks_summary">Сада имате приступ свим QUIK+ могућностима</string>
+    <string name="qksms_plus_error">Дошло је до грешке! Молимо покушајте поново.</string>
+    <string name="qksms_plus_free_title">QUIK+ је бесплатан за кориснике F-Droid-а! Ако желиш да подржиш развој апликације, били бисмо ти захвални на добровољном прилогу.</string>
+    <string name="qksms_plus_donate">Добровољни прилог путем PayPal-а</string>
+    <string name="qksms_plus_coming_soon">Ускоро</string>
+    <string name="qksms_plus_themes_title">Премијум теме</string>
+    <string name="qksms_plus_themes_summary">Откључај прелепе боје које нису доступне у Material Design палети</string>
+    <string name="qksms_plus_emoji_title">Уређивање аутоматских емотикона</string>
+    <string name="qksms_plus_emoji_summary">Направите своје аутоматске пречице за емотиконе</string>
+    <string name="qksms_plus_backup_title">Резервне копије порука</string>
+    <string name="qksms_plus_backup_summary">Аутоматски сачувајте своје поруке. Више не морате да бринете да ћете изгубити историју разговора у случају да промените или изгубите телефон!</string>
+    <string name="qksms_plus_scheduled_title">Заказане поруке</string>
+    <string name="qksms_plus_scheduled_summary">Закажите аутоматско слање порука у тачно одређено време</string>
+    <string name="qksms_plus_delayed_title">Одложено слање</string>
+    <string name="qksms_plus_delayed_summary">Сачекајте неколико секунди пре него што пошаљете поруку</string>
+    <string name="qksms_plus_night_title">Аутоматски ноћни мод</string>
+    <string name="qksms_plus_night_summary">Укључи ноћни мод према тренутном времену</string>
+    <string name="qksms_plus_blacklist_title">Напредно блокирање</string>
+    <string name="qksms_plus_blacklist_summary">Блокирај поруке које садрже одређене кључне речи или одговарају шаблону</string>
+    <string name="qksms_plus_forward_title">Аутоматски проследи</string>
+    <string name="qksms_plus_forward_summary">Аутоматски проследи поруке од одређених пошиљалаца</string>
+    <string name="qksms_plus_respond_title">Аутоматски одговори</string>
+    <string name="qksms_plus_respond_summary">Предефинисани аутоматски одговор на долазне поруке</string>
+    <string name="qksms_plus_more_title">Још</string>
+    <string name="qksms_plus_more_summary">QUIK се активно развија и једнократним плаћањем добијаш и све будуће QUIK+ могућности!</string>
+    <string name="widget_loading">Учитавање…</string>
+    <string name="widget_more">Прикажи више разговора</string>
+    <string name="qkreply_menu_read">Означи као прочитано</string>
+    <string name="qkreply_menu_call">Позови</string>
+    <string name="qkreply_menu_delete">Обриши</string>
+    <string name="qkreply_menu_expand">Прикажи више</string>
+    <string name="qkreply_menu_collapse">Прикажи мање</string>
+    <string name="qkreply_menu_view">Прикажи разговор</string>
+    <string name="theme_material">Material</string>
+    <string name="theme_hex">HEX</string>
+    <string name="theme_apply">Примени</string>
+    <string-array name="notification_actions">
+        <item>Ниједна</item>
+        <item>Сачувај</item>
+        <item>Обриши</item>
+        <item>Блокирај</item>
+        <item>Позови</item>
+        <item>Означи као прочитано</item>
+        <item>Одговори</item>
+    </string-array>
+    <string name="button_yes">Да</string>
+    <string name="button_continue">Настави</string>
+    <string name="button_cancel">Откажи</string>
+    <string name="button_delete">Обриши</string>
+    <string name="button_save">Сачувај</string>
+    <string name="button_stop">Заустави</string>
+    <string name="button_more">Још</string>
+    <string name="button_set">Постави</string>
+    <string name="button_undo">Опозови</string>
+    <string name="toast_copied">Копирано</string>
+    <string name="toast_qksms_plus">Откључај QUIK+ за приступ овој опцији</string>
+    <plurals name="notification_new_messages">
+        <item quantity="one">Нова порука</item>
+        <item quantity="few">%s нове/нових порука</item>
+        <item quantity="other">%s нове/нових порука</item>
+    </plurals>
+    <string name="notification_message_failed_title">Порука није послата</string>
+    <string name="notification_message_failed_text">Порука за %s није послата</string>
+    <string-array name="night_modes">
+        <item>Систем</item>
+        <item>Онемогућено</item>
+        <item>Увек укључено</item>
+        <item>Аутоматски</item>
+    </string-array>
+    <string-array name="notification_preview_options">
+        <item>Прикажи име и поруку</item>
+        <item>Прикажи име</item>
+        <item>Сакриј садржај</item>
+    </string-array>
+    <string-array name="text_sizes">
+        <item>Мала</item>
+        <item>Средња</item>
+        <item>Велика</item>
+        <item>Највећа</item>
+    </string-array>
+    <string-array name="delayed_sending_labels">
+        <item>Без одлагања</item>
+        <item>3 секунде</item>
+        <item>5 секунди</item>
+        <item>10 секунди</item>
+    </string-array>
+    <string-array name="mms_sizes">
+        <item>Аутоматско</item>
+        <item>100kB</item>
+        <item>200kB</item>
+        <item>300kB</item>
+        <item>600kB</item>
+        <item>1000kB</item>
+        <item>2000kB</item>
+        <item>Без оптимизације</item>
+    </string-array>
+    <string-array name="qk_responses">
+        <item>У реду</item>
+        <item>Сачекај секунд</item>
+        <item>Стижем</item>
+        <item>Хвала</item>
+        <item>Добро изгледа</item>
+        <item>Шта има?</item>
+        <item>Договорено</item>
+        <item>Не</item>
+        <item>Волим те</item>
+        <item>Извини</item>
+        <item>LOL</item>
+        <item>Добро онда</item>
+    </string-array>
+</resources>
