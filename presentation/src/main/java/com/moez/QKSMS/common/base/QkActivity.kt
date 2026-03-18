@@ -1,21 +1,3 @@
-/*
- * Copyright (C) 2017 Moez Bhatti <moez.bhatti@gmail.com>
- *
- * This file is part of QKSMS.
- *
- * QKSMS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * QKSMS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with QKSMS.  If not, see <http://www.gnu.org/licenses/>.
- */
 package dev.octoshrimpy.quik.common.base
 
 import android.annotation.SuppressLint
@@ -82,15 +64,13 @@ abstract class QkActivity : AppCompatActivity() {
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
         setSupportActionBar(toolbar)
-        title = title // The title may have been set before layout inflation
-        maybeAuthenticate()
+        title = title
     }
 
     override fun setContentView(view: View?) {
         super.setContentView(view)
         setSupportActionBar(toolbar)
-        title = title // The title may have been set before layout inflation
-        maybeAuthenticate()
+        title = title
     }
 
     override fun setTitle(titleId: Int) {
@@ -123,6 +103,8 @@ abstract class QkActivity : AppCompatActivity() {
     }
 
     private fun maybeAuthenticate() {
+        if (biometricLockManager.isAuthenticating()) return
+
         if (!biometricLockManager.shouldAuthenticate(prefs.fingerprintLock.get(), requiresBiometricLock)) {
             hideContentBlocker()
             return
@@ -142,13 +124,13 @@ abstract class QkActivity : AppCompatActivity() {
         contentBlocker = View(this).apply {
             layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             setBackgroundColor(getColor(android.R.color.black))
-            alpha = 0.92f
+            alpha = 1.0f
             isClickable = true
             isFocusable = true
             setOnClickListener { }
         }
 
-        addContentView(
+        (window.decorView as ViewGroup).addView(
             contentBlocker,
             FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,

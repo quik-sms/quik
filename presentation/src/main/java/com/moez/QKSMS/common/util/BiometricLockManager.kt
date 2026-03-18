@@ -19,7 +19,7 @@ class BiometricLockManager @Inject constructor(
 ) : DefaultLifecycleObserver {
 
     @Volatile
-    var needsAuth: Boolean = false
+    var needsAuth: Boolean = true
 
     private val authenticationInProgress = AtomicBoolean(false)
 
@@ -35,6 +35,8 @@ class BiometricLockManager @Inject constructor(
     fun shouldAuthenticate(lockEnabled: Boolean, requiresBiometricLock: Boolean): Boolean {
         return lockEnabled && requiresBiometricLock && needsAuth && !authenticationInProgress.get()
     }
+
+    fun isAuthenticating() = authenticationInProgress.get()
 
     fun authenticate(
         activity: FragmentActivity,
