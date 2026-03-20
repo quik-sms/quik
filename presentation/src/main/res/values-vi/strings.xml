@@ -478,4 +478,26 @@
     <string name="error_stt_toast">Xin lỗi, đã xảy ra lỗi khi tải dịch vụ chuyển giọng nói thành văn bản.</string>
     <string name="stt_toast_extra_prompt">Nói nội dung tin nhắn của bạn</string>
     <string name="messages_text_share_file_error">Ôi! Đã xảy ra lỗi khi chia sẻ</string>
+    <plurals name="dialog_delete_chat">
+        <item quantity="other">Bạn chắc chắn muốn xoá %d tin nhắn này chứ ?</item>
+    </plurals>
+    <plurals name="dialog_send_now">
+        <item quantity="other">Bạn có chắc chắn muốn gửi %d tin nhắn này ngay bây giờ không?</item>
+    </plurals>
+    <string name="compose_reactions_title">Phản ứng</string>
+    <string name="clipboard_too_large_to_copy">Kích thước dữ liệu vượt quá giới hạn của bộ nhớ tạm (clipboard)</string>
+    <string name="clipboard_unable_to_copy_to">Không thể sao chép vào bộ nhớ tạm (clipboard)</string>
+    <string name="attachment_missing">Thiếu</string>
+    <string name="settings_notification_silent_title">Im lặng nếu không phải người trong danh bạ</string>
+    <string name="settings_notification_silent_summary">Tắt thông báo cho các tin nhắn không có người nhận trong danh bạ của bạn</string>
+    <string name="settings_unread_at_top_title">Chưa đọc ở trên cùng</string>
+    <string name="settings_unread_at_top_summary">Hiển thị các cuộc trò chuyện chưa đọc ở trên cùng</string>
+    <string name="about_developer">Một đội ngũ tuyệt vời gồm những con người đến từ khắp nơi trên thế giới!</string>
+    <plurals name="toast_archived">
+        <item quantity="other">Đã lưu trữ %d cuộc trò chuyện</item>
+    </plurals>
+    <plurals name="toast_unarchived">
+        <item quantity="other">Đã bỏ lưu trữ %d cuộc trò chuyện</item>
+    </plurals>
+    <string name="notification_foreground_worker_channel_name">Nhận thông báo về tin nhắn</string>
 </resources>
