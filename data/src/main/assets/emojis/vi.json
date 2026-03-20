@@ -1,1 +1,16 @@
-{}
+{
+    "emoji_reaction_ios_generic_added": "^(?s)Đã phản ứng (.+?) với “(.+?)”$",
+    "emoji_reaction_ios_generic_removed": "^(?s)Đã xóa (.+?) khỏi “(.+?)”$",
+    "emoji_reaction_ios_heart_added": "^(?s)Đã yêu thích “(.+?)”$",
+    "emoji_reaction_ios_heart_removed": "^(?s)Đã bỏ tim khỏi “(.+?)”$",
+    "emoji_reaction_ios_like_added": "^(?s)Đã thích “(.+?)”$",
+    "emoji_reaction_ios_like_removed": "^(?s)Đã bỏ thích khỏi “(.+?)”$",
+    "emoji_reaction_ios_dislike_added": "^(?s)Đã không thích “(.+?)”$",
+    "emoji_reaction_ios_dislike_removed": "^(?s)Đã bỏ không thích khỏi “(.+?)”$",
+    "emoji_reaction_ios_laugh_added": "^(?s)Đã cười với “(.+?)”$",
+    "emoji_reaction_ios_laugh_removed": "^(?s)Đã bỏ phản ứng cười khỏi “(.+?)”$",
+    "emoji_reaction_ios_exclamation_added": "^(?s)Đã nhấn mạnh “(.+?)”$",
+    "emoji_reaction_ios_exclamation_removed": "^(?s)Đã bỏ nhấn mạnh khỏi “(.+?)”$",
+    "emoji_reaction_ios_question_mark_added": "^(?s)Đã đặt dấu hỏi cho “(.+?)”$",
+    "emoji_reaction_ios_question_mark_removed": "^(?s)Đã bỏ dấu hỏi khỏi “(.+?)”$"
+}
