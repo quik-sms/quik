@@ -287,7 +287,7 @@
     </plurals>
     <string name="about_title">Névjegy</string>
     <string name="about_version_title">Verzió</string>
-    <string name="about_developer_title">Fejlesztői</string>
+    <string name="about_developer_title">Fejlesztők</string>
     <string name="about_source_title">Forráskód</string>
     <string name="about_changelog_title">Változáslista</string>
     <string name="about_contact_title">Kapcsolat</string>
@@ -507,4 +507,6 @@
     <string name="deduplicating_messages_no_messages">Nem találhatók ismétlődő üzenetek.</string>
     <string name="deduplicating_messages_failed">Az ismétlődések kiszűrése sikertelen, próbálja meg újra</string>
     <string name="compose_reactions_title">Reakciók</string>
+    <string name="about_developer">Egy csodálatos emberekből álló csapat a világ minden tájáról!</string>
+    <string name="notification_foreground_worker_channel_name">Üzenetfogadás értesítés</string>
 </resources>
