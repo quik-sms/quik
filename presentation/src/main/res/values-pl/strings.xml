@@ -339,7 +339,7 @@
     </plurals>
     <string name="about_title">O QUIK</string>
     <string name="about_version_title">Wersja</string>
-    <string name="about_developer_title">Programista</string>
+    <string name="about_developer_title">Programiści</string>
     <string name="about_source_title">Kod źródłowy</string>
     <string name="about_changelog_title">Lista zmian</string>
     <string name="about_contact_title">Kontakt</string>
@@ -543,4 +543,6 @@
     <string name="deduplicating_messages_finished">Zakończono deduplikację wiadomości!</string>
     <string name="deduplicating_messages_no_messages">Nie znaleziono zduplikowanych wiadomości.</string>
     <string name="deduplicating_messages_failed">Deduplikacja wiadomości nie powiodła się. Spróbuj ponownie</string>
+    <string name="about_developer">Zespół wspaniałych ludzi z całego świata!</string>
+    <string name="notification_foreground_worker_channel_name">Powiadomienie dla modułu obsługującego odbiór wiadomości</string>
 </resources>
