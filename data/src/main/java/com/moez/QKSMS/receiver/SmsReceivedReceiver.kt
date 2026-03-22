@@ -42,8 +42,9 @@ class SmsReceivedReceiver : BroadcastReceiver() {
         AndroidInjection.inject(this, context)
 
         Sms.Intents.getMessagesFromIntent(intent)?.let { messages ->
+            val pendingResult = goAsync()
             // reduce list of messages to single message and save in db
-            val messageId = Single.just(messages)
+            Single.just(messages)
                 .observeOn(Schedulers.io())
                 .map {
                     Timber.v("onReceive() new sms")  // here so runs on io thread
@@ -55,15 +56,18 @@ class SmsReceivedReceiver : BroadcastReceiver() {
                         messages[0].timestampMillis
                     ).id
                 }
-                .blockingGet()
-
-            // start worker with message id as param
-            WorkManager.getInstance(context).enqueue(
-                OneTimeWorkRequestBuilder<ReceiveSmsWorker>()
-                    .setInputData(workDataOf(INPUT_DATA_KEY_MESSAGE_ID to messageId))
-                    .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-                    .build()
-            )
+                .subscribe({ messageId ->
+                    WorkManager.getInstance(context).enqueue(
+                        OneTimeWorkRequestBuilder<ReceiveSmsWorker>()
+                            .setInputData(workDataOf(INPUT_DATA_KEY_MESSAGE_ID to messageId))
+                            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                            .build()
+                    )
+                    pendingResult.finish()
+                }, { error ->
+                    Timber.e(error, "error receiving new sms")
+                    pendingResult.finish()
+                })
         }
     }
 
