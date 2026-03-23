@@ -347,7 +347,7 @@
     </plurals>
     <string name="about_title">À propos</string>
     <string name="about_version_title">Version</string>
-    <string name="about_developer_title">Développeur</string>
+    <string name="about_developer_title">Développeurs</string>
     <string name="about_source_title">Code source</string>
     <string name="about_changelog_title">Liste des modifications</string>
     <string name="about_contact_title">Contact</string>
@@ -400,7 +400,7 @@
     <string name="theme_plus" translatable="false">Custom Color</string>
     <string name="theme_hex">HEX</string>
     <string name="theme_apply">Appliquer</string>
-    <string name="about_developer" translatable="false">Marcos Jones</string>
+    <string name="about_developer" translatable="false">Une équipe de merveilleux développeurs du monde entier !</string>
     <string name="about_source" translatable="false">https://github.com/octoshrimpy/quik</string>
     <string name="about_changelog" translatable="false">https://github.com/octoshrimpy/quik/releases</string>
     <string name="about_contact" translatable="false">quik@octo.sh</string>
@@ -548,4 +548,15 @@
     <string name="compose_send_group_summary_off">Les messages seront envoyés séparément à tous les destinataires</string>
     <string name="notification_foreground_worker_text">Sous Android 12 et les versions antérieures, une notification est requise pour le fonctionnement en arrière-plan qui permet de recevoir des messages.</string>
     <string name="notification_foreground_worker_title">Réception du message</string>
+    <string name="main_sync_emojis">Analyse des réactions emoji…</string>
+    <string name="message_management_title">Gestion des messages</string>
+    <string name="compose_reactions_title">Réactions</string>
+    <string name="deduplicate_messages_category">Dédupliquer les messages</string>
+    <string name="deduplicate_messages_title">Supprimer les messages dupliqués</string>
+    <string name="deduplicate_messages_summary">Analyse la base de données de messages et supprime tous les messages correspondant exactement aux messages originaux</string>
+    <string name="deduplicate_message_confirmation_dialog_message">Votre base de données de messages sera analysée pour détecter les duplications, et ces duplicata seront supprimés.\nCela supprime automatiquement des messages, ne continuez que si vous en comprenez les conséquences.</string>
+    <string name="auto_deduplicate_messages_title">Dédupliquer automatiquement les messages</string>
+    <string name="deduplicating_messages_finished">Déduplication des messages terminée !</string>
+    <string name="deduplicating_messages_no_messages">Aucun message dupliqué trouvé.</string>
+    <string name="deduplicating_messages_failed">La déduplication des messages a échoué, veuillez réessayer</string>
 </resources>
