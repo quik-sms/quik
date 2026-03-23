@@ -328,7 +328,7 @@
     <string name="deduplicating_messages_failed">Грешка при премахване на дублирани съобщения. Пробвайте отново</string>
     <string name="about_title">Относно</string>
     <string name="about_version_title">Издание</string>
-    <string name="about_developer_title">Разработчик</string>
+    <string name="about_developer_title">Разработчици</string>
     <string name="about_source_title">Изходен код</string>
     <string name="about_changelog_title">Дневник на промените</string>
     <string name="about_contact_title">За връзка</string>
@@ -410,4 +410,6 @@
     <string name="main_sync_emojis">Анализ на емоциите…</string>
     <string name="message_management_title">Управление на съобщения</string>
     <string name="compose_reactions_title">Емоции</string>
+    <string name="about_developer">Група прекрасни хора от цял свят!</string>
+    <string name="notification_foreground_worker_channel_name">Известия на нишката, получаваща съобщения</string>
 </resources>
