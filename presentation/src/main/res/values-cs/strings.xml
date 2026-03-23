@@ -295,7 +295,7 @@
     </plurals>
     <string name="about_title">O aplikaci</string>
     <string name="about_version_title">Verze</string>
-    <string name="about_developer_title">Vývojář</string>
+    <string name="about_developer_title">Vývojáři</string>
     <string name="about_source_title">Zdrojový kód</string>
     <string name="about_changelog_title">Přehled změn</string>
     <string name="about_contact_title">Kontakt</string>
@@ -525,4 +525,6 @@
     <string name="deduplicating_messages_no_messages">Nebyly nalezeny žádné duplicitní zprávy.</string>
     <string name="deduplicating_messages_failed">Deduplikace zpráv se nezdařila, zkuste to znovu</string>
     <string name="compose_reactions_title">Reakce</string>
+    <string name="about_developer">Skvělý tým lidí z celého světa!</string>
+    <string name="notification_foreground_worker_channel_name">Oznámení pro pracovníka o přijetí zprávy</string>
 </resources>
