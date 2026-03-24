@@ -23,7 +23,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ShortcutManager
 import android.os.Build
-import androidx.core.app.Person
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import dev.octoshrimpy.quik.common.util.extensions.getThemedIcon
@@ -54,7 +53,10 @@ class ShortcutManagerImpl @Inject constructor(
             if (shortcutManager.isRateLimitingActive) return
 
             val shortcuts: List<ShortcutInfoCompat> = conversationRepo.getTopConversations()
-                    .take(shortcutManager.maxShortcutCountPerActivity - shortcutManager.manifestShortcuts.size)
+                    .take(
+                        shortcutManager.maxShortcutCountPerActivity -
+                                shortcutManager.manifestShortcuts.size
+                    )
                     .map { conversation -> createShortcutForConversation(conversation) }
 
             ShortcutManagerCompat.setDynamicShortcuts(context, shortcuts)
@@ -64,17 +66,17 @@ class ShortcutManagerImpl @Inject constructor(
     /**
      * Get the shortcut for a threadId. Will create it if it doesn't exist.
      */
-    override fun getShortcut(threadId: Long): ShortcutInfoCompat? {
+    override fun getOrCreateShortcut(threadId: Long): ShortcutInfoCompat? {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             var sc = getShortcuts().find { it.id == threadId.toString() }
-            if(sc != null)
+            if (sc != null)
                 sc = updateShortcut(sc)
-            if (sc == null)  {
+            if (sc == null) {
                 val conv = conversationRepo.getConversation(threadId)
                 if (conv == null)
                     return null
                 else
-                    sc =  createShortcutForConversation(conv)
+                    sc = createShortcutForConversation(conv)
             }
             return sc
         } else {
@@ -88,10 +90,8 @@ class ShortcutManagerImpl @Inject constructor(
     override fun reportShortcutUsed(threadId: Long) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             val shortcutManager = context.getSystemService(Context.SHORTCUT_SERVICE) as ShortcutManager
-            if(getShortcut(threadId ) == null) {
-                val conversation = conversationRepo.getOrCreateConversation(threadId)
-                if (conversation == null)
-                    return
+            if (getOrCreateShortcut(threadId ) == null) {
+                val conversation = conversationRepo.getOrCreateConversation(threadId) ?: return
                 val shortcut = createShortcutForConversation(conversation)
                 ShortcutManagerCompat.setDynamicShortcuts(context, listOf(shortcut))
             }
@@ -120,7 +120,7 @@ class ShortcutManagerImpl @Inject constructor(
             }
         }
 
-        val persons: Array<Person> = conversation.recipients.map { it -> it.toPerson(context, colors) }.toTypedArray();
+        val persons = conversation.recipients.map { it.toPerson(context, colors) }.toTypedArray()
 
         val intent = Intent(context, ComposeActivity::class.java)
                 .setAction(Intent.ACTION_VIEW)
@@ -152,10 +152,10 @@ class ShortcutManagerImpl @Inject constructor(
     }
 
     private fun getShortcuts() : List<ShortcutInfoCompat> {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            return ShortcutManagerCompat.getDynamicShortcuts(context)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            ShortcutManagerCompat.getDynamicShortcuts(context)
         } else {
-            return emptyList()
+            emptyList()
         }
     }
 }

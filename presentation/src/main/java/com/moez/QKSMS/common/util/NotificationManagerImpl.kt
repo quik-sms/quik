@@ -356,7 +356,7 @@ class NotificationManagerImpl @Inject constructor(
 
             context.startActivity(intent)
         }
-        val sc = shortcutManager.getShortcut(threadId)
+        val sc = shortcutManager.getOrCreateShortcut(threadId)
         notification.setShortcutInfo(sc)
         notificationManager.notify(threadId.toInt(), notification.build())
 
