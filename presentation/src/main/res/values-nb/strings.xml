@@ -503,4 +503,5 @@
     <string name="compose_message_item">Meldingselement</string>
     <string name="message_content_filters_dialog_title">Fjern matchende meldinger</string>
     <string name="speak_unseen_messages">Snakk usette meldinger</string>
+    <string name="compose_attach_file_cd">Legg til fil</string>
 </resources>
