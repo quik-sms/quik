@@ -69,14 +69,11 @@ class ShortcutManagerImpl @Inject constructor(
     override fun getOrCreateShortcut(threadId: Long): ShortcutInfoCompat? {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             var sc = getShortcuts().find { it.id == threadId.toString() }
-            if (sc != null)
-                sc = updateShortcut(sc)
-            if (sc == null) {
-                val conv = conversationRepo.getConversation(threadId)
-                if (conv == null)
-                    return null
-                else
-                    sc = createShortcutForConversation(conv)
+            sc = if (sc != null) {
+                updateShortcut(sc)
+            } else {
+                val conv = conversationRepo.getConversation(threadId) ?: return null
+                createShortcutForConversation(conv)
             }
             return sc
         } else {
@@ -141,14 +138,12 @@ class ShortcutManagerImpl @Inject constructor(
     }
 
     private fun updateShortcut(shortcut: ShortcutInfoCompat): ShortcutInfoCompat {
-        val conversation = conversationRepo.getConversation(shortcut.id.toLong())
-        if (conversation == null)
-            return shortcut
-        else {
-            val sc = createShortcutForConversation(conversation)
-            ShortcutManagerCompat.pushDynamicShortcut(context, sc)
-            return sc
-        }
+        val conversation = conversationRepo.getConversation(
+            shortcut.id.toLong()
+        ) ?: return shortcut
+        val sc = createShortcutForConversation(conversation)
+        ShortcutManagerCompat.pushDynamicShortcut(context, sc)
+        return sc
     }
 
     private fun getShortcuts() : List<ShortcutInfoCompat> {
