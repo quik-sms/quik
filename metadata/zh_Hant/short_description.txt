@@ -1,1 +1,1 @@
-Open source replacement to the stock SMS app on Android. A revival of QKSMS.
+Android 原生簡訊應用程式的開源替代方案。QKSMS 的延續版本。
