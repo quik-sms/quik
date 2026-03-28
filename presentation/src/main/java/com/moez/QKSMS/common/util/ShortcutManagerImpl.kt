@@ -133,6 +133,28 @@ class ShortcutManagerImpl @Inject constructor(
                 .setLongLived(true)
                 .build()
 
+        // pushDynamicShortcut excludes static shortcuts in total count, so we must check ourselves
+        val shortcutManager = context.getSystemService(Context.SHORTCUT_SERVICE) as ShortcutManager
+        val hasNoShortcut = shortcutManager.dynamicShortcuts.find {
+            it.id == conversation.id.toString()
+        } == null
+        val maxShortcutsReached = shortcutManager.manifestShortcuts.size +
+                shortcutManager.dynamicShortcuts.size >= shortcutManager.maxShortcutCountPerActivity
+
+        if (
+            Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q && hasNoShortcut && maxShortcutsReached
+        ) {
+            var rank = -1
+            var lowestRankShortcut: String? = null
+            for (s in shortcutManager.dynamicShortcuts) {
+                if (s.rank > rank) {
+                    lowestRankShortcut = s.id
+                    rank = s.rank
+                }
+            }
+            shortcutManager.removeDynamicShortcuts(listOf(lowestRankShortcut))
+        }
+
         ShortcutManagerCompat.pushDynamicShortcut(context, sc)
         return sc
     }
