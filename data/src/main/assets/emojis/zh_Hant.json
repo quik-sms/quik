@@ -1,1 +1,16 @@
-{}
+{
+    "emoji_reaction_ios_generic_added": "對「(.+?)」做出 (.+?) 反應",
+    "emoji_reaction_ios_generic_removed": "已移除對「(.+?)」的 (.+?) 反應",
+    "emoji_reaction_ios_heart_added": "對「(.+?)」表達喜愛",
+    "emoji_reaction_ios_heart_removed": "已移除對「(.+?)」的愛心",
+    "emoji_reaction_ios_like_added": "對「(.+?)」按讚",
+    "emoji_reaction_ios_like_removed": "已移除對「(.+?)」的讚",
+    "emoji_reaction_ios_dislike_added": "對「(.+?)」按倒讚",
+    "emoji_reaction_ios_dislike_removed": "已移除對「(.+?)」的倒讚",
+    "emoji_reaction_ios_laugh_added": "對「(.+?)」大笑",
+    "emoji_reaction_ios_laugh_removed": "已移除對「(.+?)」的笑臉反應",
+    "emoji_reaction_ios_exclamation_added": "對「(.+?)」加上驚嘆標記",
+    "emoji_reaction_ios_exclamation_removed": "已移除對「(.+?)」的驚嘆標記",
+    "emoji_reaction_ios_question_mark_added": "對「(.+?)」加上問號標記",
+    "emoji_reaction_ios_question_mark_removed": "已移除對「(.+?)」的問號標記"
+}
