@@ -502,4 +502,5 @@
     <string name="deduplicating_messages_failed">訊息去重失敗，請再試一次</string>
     <string name="compose_reactions_title">反應</string>
     <string name="about_developer">一支來自世界各地的優秀團隊！</string>
+    <string name="notification_foreground_worker_channel_name">接收訊息服務通知</string>
 </resources>
