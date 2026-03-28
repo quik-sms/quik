@@ -507,4 +507,5 @@
     <string name="deduplicating_messages_no_messages">Keine doppelten Nachrichten gefunden.</string>
     <string name="deduplicating_messages_failed">Die Deduplizierung der Nachrichten ist fehlgeschlagen. Bitte versuche es erneut</string>
     <string name="compose_reactions_title">Reaktionen</string>
+    <string name="about_developer">Ein Team aus wunderbaren Menschen aus aller Welt!</string>
 </resources>
