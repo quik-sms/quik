@@ -120,7 +120,7 @@ class ReceiveSmsWorker(appContext: Context, workerParams: WorkerParameters)
         // update shortcuts
         Timber.v("update shortcuts")
         shortcutManager.updateShortcuts()
-        shortcutManager.reportShortcutUsed(conversation.id)
+        shortcutManager.getOrCreateShortcut(conversation.id)
 
         // update the badge and widget
         Timber.v("update badge and widget")
