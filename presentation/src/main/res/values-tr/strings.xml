@@ -287,7 +287,7 @@
     </plurals>
     <string name="about_title">Hakkında</string>
     <string name="about_version_title">Sürüm</string>
-    <string name="about_developer_title">Geliştirici</string>
+    <string name="about_developer_title">Geliştiriciler</string>
     <string name="about_source_title">Kaynak kodu</string>
     <string name="about_changelog_title">Yenilikler</string>
     <string name="about_contact_title">İletişim</string>
@@ -507,4 +507,6 @@
     <string name="deduplicating_messages_finished">İletilerin tekilleştirilmesi tamamlandı!</string>
     <string name="deduplicating_messages_failed">İletilerin tekilleştirilmesi başarısız oldu, lütfen yeniden deneyin</string>
     <string name="deduplicating_messages_no_messages">Tekrar eden ileti bulunamadı.</string>
+    <string name="about_developer">Dünyanın dört bir yanından gelen harika insanlardan oluşan bir ekip!</string>
+    <string name="notification_foreground_worker_channel_name">İleti alma işleyicisi bildirimi</string>
 </resources>
