@@ -22,6 +22,7 @@ import android.telephony.SmsMessage
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDisposable
 import dev.octoshrimpy.quik.R
+import dev.octoshrimpy.quik.common.ExternalNavigator
 import dev.octoshrimpy.quik.common.Navigator
 import dev.octoshrimpy.quik.common.base.QkViewModel
 import dev.octoshrimpy.quik.compat.SubscriptionManagerCompat
@@ -52,6 +53,7 @@ class QkReplyViewModel @Inject constructor(
     private val markRead: MarkRead,
     private val messageRepo: MessageRepository,
     private val navigator: Navigator,
+    private val externalNavigator: ExternalNavigator,
     private val sendNewMessage: SendNewMessage,
     private val subscriptionManager: SubscriptionManagerCompat
 ) : QkViewModel<QkReplyView, QkReplyState>(QkReplyState(threadId = threadId)) {
@@ -126,7 +128,7 @@ class QkReplyViewModel @Inject constructor(
                 state.data?.second?.lastOrNull { !it.isMe() }?.address // most recent non-me msg address
                     ?: conversation.recipients.firstOrNull()?.address  // first recipient in convo
             }
-            .doOnNext { navigator.makePhoneCall(it) }
+            .doOnNext { externalNavigator.makePhoneCall(it) }
             .autoDisposable(view.scope())
             .subscribe { newState { copy(hasError = true) } }
 

@@ -27,7 +27,7 @@ import com.bluelinelabs.conductor.RouterTransaction
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDisposable
 import dev.octoshrimpy.quik.R
-import dev.octoshrimpy.quik.common.Navigator
+import dev.octoshrimpy.quik.common.ExternalNavigator
 import dev.octoshrimpy.quik.common.QkChangeHandler
 import dev.octoshrimpy.quik.common.base.QkController
 import dev.octoshrimpy.quik.common.util.extensions.scrapViews
@@ -51,7 +51,7 @@ class ConversationInfoController(
 
     @Inject override lateinit var presenter: ConversationInfoPresenter
     @Inject lateinit var blockingDialog: BlockingDialog
-    @Inject lateinit var navigator: Navigator
+    @Inject lateinit var externalNavigator : ExternalNavigator
     @Inject lateinit var adapter: ConversationInfoAdapter
 
     private val nameDialog: TextInputDialog by lazy {
@@ -125,7 +125,7 @@ class ConversationInfoController(
     }
 
     override fun requestDefaultSms() {
-        navigator.showDefaultSmsDialog(activity!!)
+        externalNavigator.showDefaultSmsDialog(activity!!)
     }
 
     override fun showDeleteDialog() {

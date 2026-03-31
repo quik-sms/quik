@@ -62,7 +62,7 @@ import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDisposable
 import dagger.android.AndroidInjection
 import dev.octoshrimpy.quik.R
-import dev.octoshrimpy.quik.common.Navigator
+import dev.octoshrimpy.quik.common.ExternalNavigator
 import dev.octoshrimpy.quik.common.base.QkThemedActivity
 import dev.octoshrimpy.quik.common.util.DateFormatter
 import dev.octoshrimpy.quik.common.util.extensions.autoScrollToStart
@@ -101,7 +101,7 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
     @Inject lateinit var chipsAdapter: ChipsAdapter
     @Inject lateinit var dateFormatter: DateFormatter
     @Inject lateinit var messageAdapter: MessagesAdapter
-    @Inject lateinit var navigator: Navigator
+    @Inject lateinit var externalNavigator : ExternalNavigator
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: ComposeActivityBinding
@@ -574,7 +574,7 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
     }
 
     override fun requestDefaultSms() {
-        navigator.showDefaultSmsDialog(this)
+        externalNavigator.showDefaultSmsDialog(this)
     }
 
     override fun requestStoragePermission() {

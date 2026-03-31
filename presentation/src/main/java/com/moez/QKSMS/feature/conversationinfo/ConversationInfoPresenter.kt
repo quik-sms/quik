@@ -23,6 +23,7 @@ import androidx.lifecycle.Lifecycle
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDisposable
 import dev.octoshrimpy.quik.R
+import dev.octoshrimpy.quik.common.ExternalNavigator
 import dev.octoshrimpy.quik.common.Navigator
 import dev.octoshrimpy.quik.common.base.QkPresenter
 import dev.octoshrimpy.quik.common.util.ClipboardUtils
@@ -58,6 +59,7 @@ class ConversationInfoPresenter @Inject constructor(
     private val markArchived: MarkArchived,
     private val markUnarchived: MarkUnarchived,
     private val navigator: Navigator,
+    private val externalNavigator: ExternalNavigator,
     private val permissionManager: PermissionManager
 ) : QkPresenter<ConversationInfoView, ConversationInfoState>(
         ConversationInfoState(threadId = threadId)
@@ -114,8 +116,8 @@ class ConversationInfoPresenter @Inject constructor(
         view.recipientClicks()
                 .mapNotNull(conversationRepo::getRecipient)
                 .doOnNext { recipient ->
-                    recipient.contact?.lookupKey?.let(navigator::showContact)
-                            ?: navigator.addContact(recipient.address)
+                    recipient.contact?.lookupKey?.let(externalNavigator::showContact)
+                            ?: externalNavigator.addContact(recipient.address)
                 }
                 .autoDisposable(view.scope(Lifecycle.Event.ON_DESTROY)) // ... this should be the default
                 .subscribe()
@@ -158,7 +160,7 @@ class ConversationInfoPresenter @Inject constructor(
         view.notificationClicks()
                 .withLatestFrom(conversation) { _, conversation -> conversation }
                 .autoDisposable(view.scope())
-                .subscribe { conversation -> navigator.showNotificationSettings(conversation.id) }
+                .subscribe { conversation -> externalNavigator.showNotificationSettings(conversation.id) }
 
         view.markUnreadClicks()
                 .withLatestFrom(conversation) { _, conversation -> conversation }
