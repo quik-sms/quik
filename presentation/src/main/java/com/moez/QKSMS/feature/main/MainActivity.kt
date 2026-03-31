@@ -45,7 +45,7 @@ import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDisposable
 import dagger.android.AndroidInjection
 import dev.octoshrimpy.quik.R
-import dev.octoshrimpy.quik.common.Navigator
+import dev.octoshrimpy.quik.common.ExternalNavigator
 import dev.octoshrimpy.quik.common.androidxcompat.drawerOpen
 import dev.octoshrimpy.quik.common.base.QkThemedActivity
 import dev.octoshrimpy.quik.common.util.extensions.autoScrollToStart
@@ -75,7 +75,7 @@ class MainActivity : QkThemedActivity(), MainView {
 
     @Inject lateinit var blockingDialog: BlockingDialog
     @Inject lateinit var disposables: CompositeDisposable
-    @Inject lateinit var navigator: Navigator
+    @Inject lateinit var externalNavigator: ExternalNavigator
     @Inject lateinit var conversationsAdapter: ConversationsAdapter
     @Inject lateinit var drawerBadgesExperiment: DrawerBadgesExperiment
     @Inject lateinit var searchAdapter: SearchAdapter
@@ -398,7 +398,7 @@ class MainActivity : QkThemedActivity(), MainView {
         }
 
     override fun requestDefaultSms() =
-        navigator.showDefaultSmsDialog(this)
+        externalNavigator.showDefaultSmsDialog(this)
 
     override fun requestPermissions() {
         val permissions = mutableListOf(
