@@ -291,7 +291,7 @@
     </plurals>
     <string name="about_title">Acerca</string>
     <string name="about_version_title">Versão</string>
-    <string name="about_developer_title">Programador</string>
+    <string name="about_developer_title">Programadores</string>
     <string name="about_source_title">Código fonte</string>
     <string name="about_changelog_title">Alterações</string>
     <string name="about_contact_title">Contactos</string>
@@ -504,4 +504,18 @@
     <string name="messageLinkHandling_dialog_body">Algumas ligações podem ser perigosas ou até mesmo reencaminharem para serviços indesejados. Analise a ligação antes de continuar:\n\n%1$s\n\nDeseja continuar?</string>
     <string name="stt_toast_extra_prompt">Diga a sua mensagem</string>
     <string name="messages_text_share_file_error">Bolas! Ocorreu um erro ao partilhar.</string>
+    <string name="main_sync_emojis">A processar reações emoji…</string>
+    <string name="message_management_title">Gestão de mensagens</string>
+    <string name="compose_reactions_title">Reações</string>
+    <string name="deduplicate_messages_category">Deduplicar mensagens</string>
+    <string name="deduplicate_messages_title">Remover mensagens duplicadas</string>
+    <string name="deduplicate_messages_summary">Analisa a base de dados e remove todas as mensagens que sejam exatamente iguais à mensagem original</string>
+    <string name="deduplicate_message_confirmation_dialog_message">A base de dados de mensagens irá ser analisada e as mensagens duplicadas serão removidas.\nAs mensagens serão eliminadas automaticamente e, por isso, apenas devem continuar se entender as consequências.</string>
+    <string name="auto_deduplicate_messages_title">Deduplicação automática de mensagens</string>
+    <string name="auto_deduplicate_messages_summary">A deduplicação será executada durante a sincronização. Tenha em atenção de que as mensagens serão eliminadas automaticamente e, mesmo que a possibilidade de existirem falsos duplicados seja nula, ainda assim será possível.\nExecute esta ação com muito cuidado.</string>
+    <string name="deduplicating_messages_finished">Mensagens deduplicadas com sucesso!</string>
+    <string name="deduplicating_messages_no_messages">Não foram encontrados duplicados.</string>
+    <string name="deduplicating_messages_failed">Falha ao deduplicar. Por favor, tente novamente.</string>
+    <string name="about_developer">Uma equipa de pessoas maravilhosas de todo o mundo!</string>
+    <string name="notification_foreground_worker_channel_name">Serviço de notificação de receção de mensagens</string>
 </resources>
