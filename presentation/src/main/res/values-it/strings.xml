@@ -245,6 +245,7 @@
     <string name="settings_auto_delete_warning_message">Scegliendo di procedere, %1$d messaggi verranno eliminati ora</string>
     <plurals name="settings_auto_delete_summary">
         <item quantity="one">Dopo 1 giorno</item>
+        <item quantity="many">Dopo %d giorni</item>
         <item quantity="other">Dopo %d giorni</item>
     </plurals>
     <string name="settings_long_as_mms_title">Invia messaggi lunghi come MMS</string>
@@ -280,15 +281,17 @@
     <string name="blocking_unblock_title">Sblocca</string>
     <plurals name="blocking_block_external">
         <item quantity="one">Continua a %s e blocca questo numero</item>
+        <item quantity="many">Continua a %s e blocca questi numeri</item>
         <item quantity="other">Continua a %s e blocca questi numeri</item>
     </plurals>
     <plurals name="blocking_unblock_external">
         <item quantity="one">Continua a %s e permetti questo numero</item>
+        <item quantity="many">Continua a %s e consenti questi numeri</item>
         <item quantity="other">Continua a %s e consenti questi numeri</item>
     </plurals>
     <string name="about_title">Informazioni</string>
     <string name="about_version_title">Versione</string>
-    <string name="about_developer_title">Sviluppatore</string>
+    <string name="about_developer_title">Sviluppatori</string>
     <string name="about_source_title">Codice sorgente</string>
     <string name="about_changelog_title">Elenco delle modifiche</string>
     <string name="about_contact_title">Contatto</string>
@@ -497,9 +500,22 @@
     <string name="compose_send_group_summary_on">I destinatari e le risposte saranno visibili a tutti</string>
     <string name="compose_send_group_summary_off">I messaggi verranno inviati separatamente a tutti i destinatari</string>
     <string name="settings_notification_silent_summary">Disattiva le notifiche per i messaggi senza destinatari presenti nei tuoi contatti</string>
-    <string name="notification_foreground_worker_text">Messaggio in arrivo</string>
+    <string name="notification_foreground_worker_text">Su Android 12 e versioni precedenti, è necessaria una notifica per l\'esecuzione in background che consente la ricezione dei messaggi.</string>
     <string name="dialog_clear_compose_title">Pulisci messaggio</string>
     <string name="button_clear">Pulisci</string>
     <string name="notification_foreground_worker_title">Ricezione messaggio</string>
     <string name="compose_reactions_title">Reazioni</string>
+    <string name="main_sync_emojis">Analisi delle reazioni emoji in corso…</string>
+    <string name="message_management_title">Gestione Messaggi</string>
+    <string name="deduplicate_messages_category">Deduplicazione messaggi</string>
+    <string name="deduplicate_messages_title">Rimuovi Messaggi Duplicati</string>
+    <string name="deduplicate_messages_summary">Scansiona il database dei messaggi ed elimina tutti i messaggi che corrispondono esattamente ai messaggi originali</string>
+    <string name="deduplicate_message_confirmation_dialog_message">Il database dei messaggi verrà scansionato alla ricerca di duplicati, che saranno successivamente rimossi.\nQuesta operazione comporterà l’eliminazione automatica dei messaggi; procedi solo se ne hai compreso le conseguenze.</string>
+    <string name="auto_deduplicate_messages_title">Deduplicazione Automatica Messaggi</string>
+    <string name="auto_deduplicate_messages_summary">La deduplicazione verrà eseguita durante la sincronizzazione. Nota bene: questa operazione comporterà l\'eliminazione automatica dei messaggi e, sebbene la probabilità di falsi duplicati sia estremamente bassa, resta comunque possibile.\nSi raccomanda di procedere con cautela.</string>
+    <string name="deduplicating_messages_finished">Deduplicazione dei messaggi completata!</string>
+    <string name="deduplicating_messages_no_messages">Nessun messaggio duplicato trovato.</string>
+    <string name="deduplicating_messages_failed">Deduplicazione dei messaggi fallita, riprova</string>
+    <string name="about_developer">Un team di persone meravigliose provenienti da tutto il mondo!</string>
+    <string name="notification_foreground_worker_channel_name">Notifica del servizio di ricezione messaggi</string>
 </resources>
