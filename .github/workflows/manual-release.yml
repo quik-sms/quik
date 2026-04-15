@@ -196,6 +196,9 @@ jobs:
 
   open_release_pr:
     needs: [bump-version, generate_release_notes,   generate_app_changelog]
+    permissions:
+        contents: write
+        pull-requests: write
     runs-on: ubuntu-latest
 
     steps:
