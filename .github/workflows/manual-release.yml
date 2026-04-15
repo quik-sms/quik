@@ -103,6 +103,8 @@ jobs:
   generate_release_notes:
     needs: bump-version
     uses: ./.github/workflows/generate-release-notes.yml
+    permissions:
+      contents: write
     with:
       version_name: ${{ needs.bump-version.outputs.new_version_name }}
 

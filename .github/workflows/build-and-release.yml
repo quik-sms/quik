@@ -186,6 +186,8 @@ jobs:
   generate_release_notes:
     needs: build
     uses: ./.github/workflows/generate-release-notes.yml
+    permissions:
+      contents: write
     with:
       release_ref: ${{ inputs.release_ref || 'master' }}
       version_name: ${{ needs.build.outputs.version_name }}
