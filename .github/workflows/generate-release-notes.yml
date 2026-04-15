@@ -23,6 +23,8 @@ jobs:
         outputs:
             release_notes: ${{ steps.notes.outputs.release_notes }}
         runs-on: ubuntu-latest
+        permissions:
+            contents: write
         env:
             RELEASE_REF: ${{ inputs.release_ref || 'master' }}
         steps:
