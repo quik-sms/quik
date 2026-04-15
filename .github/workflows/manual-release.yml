@@ -124,15 +124,17 @@ jobs:
         run: |
           set -euo pipefail
           python3 <<'PY'
+          
           import os, re, pathlib
           notes = os.environ.get("NOTES", "")
-          clean = re.sub(
-              r'(?im)^\s*by\s+\S+\s+in\s+.*$',
-              '',
-              re.sub(r'(?im)^\s*["\']?\*\*Full\s+Changelog\*\*\s*:\s*.*$', '', notes)
-          ).rstrip()
+          
+          cleanPrTitles = re.sub(r'(?im)\s+by\s+@?\S+\s+in\s+https?://\S+', '', notes)
+          cleanNewContributors = re.sub(r'(?is)##\s+New\s+Contributors.*', '', cleanPrTitles).strip()
+          # In case there isn't a 'New Contributors' line we should still remove the full changelog line after it
+          cleanTotalChangelog = re.sub(r'(?im)^\s*["\']?\*\*Full\s+Changelog\*\*\s*:\s*.*$', '', cleanNewContributors)
 
-          pathlib.Path("sanitized_notes.txt").write_text(clean)
+          pathlib.Path("sanitized_notes.txt").write_text(cleanTotalChangelog)
+          
           PY
           {
             echo "clean_notes<<EOF"
