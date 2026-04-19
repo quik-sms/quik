@@ -1,5 +1,33 @@
 [
   {
+    "versionCode": 2238,
+    "versionName": "4.3.6",
+    "fixed": [
+      "## What's Changed",
+      "* Finish migration to ViewBinding",
+      "* compose: Fix sendAsGroup switch not responding on creating conversation",
+      "* Refactor provideSharedAttachments to handle actions",
+      "* Update About page and make it accessible from the drawer",
+      "* chore: Add keystore.p12 and config.yml to gitignore",
+      "* Move foreground notification to its own channel",
+      "* chore(ci): Update all github action dependencies",
+      "* fix(utils): Allow characters to be included after normalizing numbers",
+      "* refactor(blocking): Use a regex icon for filter lists entries",
+      "* fix(utils): Prevent crash from reaching shortcut limit, refactor shortcut code",
+      "* fix(notif): Stop requestCodes for marking messages from colliding",
+      "* fix(compose): Prevent infinite loop on editing scheduled message",
+      "* Attempt various fixes to stop the app dropping messages",
+      "* Translations update from Hosted Weblate",
+      "* Translations update from Hosted Weblate",
+      "* Refactor release notes cleaning process for manual release",
+      "* Fix permissions for generate-release-notes",
+      "* fix(ci): Call generate-release-notes with write permission",
+      "* fix(ci): Update permissions for create pr action",
+      "* Release v4.3.5 (2237)",
+      "* fix(ci): Set permissions for release after merge"
+    ]
+  },
+  {
     "versionCode": 2237,
     "versionName": "4.3.5",
     "fixed": [
