@@ -11,6 +11,8 @@ jobs:
   release:
     if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
     uses: ./.github/workflows/build-and-release.yml
+    permissions:
+      contents: write
     with:
       release_ref: master
       publish_release: true
