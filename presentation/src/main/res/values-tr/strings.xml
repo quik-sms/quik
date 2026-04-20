@@ -59,7 +59,7 @@
     <string name="main_permission_required">İzin gerekli</string>
     <string name="main_permission_sms">QUIK\'in göndermesi ve SMS iletilerini görüntülemesi için izni olması gerekir</string>
     <string name="main_permission_contacts">QUIK kişilerinizi görüntülemek için izni olması gerekir</string>
-    <string name="main_permission_notifications">QUIK needs permission to display notifications</string>
+    <string name="main_permission_notifications">QUIK\'in bildirimleri görüntüleyebilmesi için izin gerekiyor</string>
     <string name="main_permission_allow">İzin ver</string>
     <string name="drawer_inbox">Gelen Kutusu</string>
     <string name="drawer_archived">Arşivle</string>
@@ -146,8 +146,8 @@
     <string name="backup_restoring">Yedekten geri yükleme</string>
     <string name="backup_loading">Yükleniyor…</string>
     <string name="backup_never">Asla</string>
-    <string name="backup_location_title">Backup location</string>
-    <string name="backup_location_summary">Set folder</string>
+    <string name="backup_location_title">Yedek konumu</string>
+    <string name="backup_location_summary">Dosya ayarla</string>
     <string name="backup_restore_title">Geri yükle</string>
     <string name="backup_restore_summary">Bir yedekleme\'yi seçin</string>
     <string name="backup_restore_error_plus">Lütfen yedeklemeyi ve geri yüklemeyi kullanmak için QUIK+\'ı açınız</string>
@@ -156,12 +156,12 @@
     <string name="backup_restore_confirm_title">Yedeklemeyi geri yükle</string>
     <string name="backup_restore_stop_title">Geri yüklemeyi durdur</string>
     <string name="backup_restore_stop_message">Zaten geri yüklenmiş iletiler cihazınızda kalacaktır</string>
-    <string name="backup_select_location_rationale_title">Select backup location</string>
-    <string name="backup_select_location_rationale_message">Please select a folder to save your backups to</string>
-    <string name="backup_details">%1$s\n%2$d messages</string>
-    <string name="backup_selected_backup_error_title">Error</string>
-    <string name="backup_selected_backup_error_message">Couldn\'t read backup file</string>
-    <string name="backup_selected_backup_details_title">Backup details</string>
+    <string name="backup_select_location_rationale_title">Yedekleme konumu seçin</string>
+    <string name="backup_select_location_rationale_message">Lütfen yedeklerinizi kaydetmek için bir klasör seçin</string>
+    <string name="backup_details">%1$s\n%2$d ileti</string>
+    <string name="backup_selected_backup_error_title">Hata</string>
+    <string name="backup_selected_backup_error_message">Yedek dosyası okunamadı</string>
+    <string name="backup_selected_backup_details_title">Yedek ayrıntıları</string>
     <string name="backup_restore_dialog_title">Yedekler</string>
     <string name="backup_restore_dialog_empty">Yedekleme bulunamadı</string>
     <string name="backup_disclaimer">Şu anda sadece SMS yedekleme ve geri yükleme desteklenmektedir. MMS desteği ve zamanlanmış ileti yedeklemeleri çok yakında !</string>
@@ -293,20 +293,20 @@
     <string name="about_contact_title">İletişim</string>
     <string name="about_license_title">Lisanslar</string>
     <string name="about_copyright_title">Telif hakkı</string>
-    <string name="qksms_plus_description_title">Gelişimini desteklemek, her şey kilitsiz</string>
-    <string name="qksms_plus_description_summary">Seni  kurtarmak için sadece %s açlıktan ölen bir geliştirici</string>
+    <string name="qksms_plus_description_title">Gelişimini destekleyin, her şeyi açın</string>
+    <string name="qksms_plus_description_summary">Sadece %s ile aç olan bir geliştiriciyi doyurabilirsiniz</string>
     <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">Süresiz kullanmak %1$s %2$s</string>
+    <string name="qksms_plus_upgrade">%1$s %2$s ücrete ömür boyu yükseltme</string>
     <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">Kilidi aç ve Satın Al %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">QUIK desteği için teşekkür ederiz!!</string>
-    <string name="qksms_plus_thanks_summary">Şimdi tüm QUIK+ özellikleri açıldı!</string>
+    <string name="qksms_plus_upgrade_donate">Kilidi aç + %1$s %2$s\'e bağış yap</string>
+    <string name="qksms_plus_thanks_title">QUIK\'e desteğiniz için teşekkür ederiz!</string>
+    <string name="qksms_plus_thanks_summary">Tüm QUIK+ özellikleri açıldı</string>
     <string name="qksms_plus_error">Bir hata oluştu. Lütfen tekrar deneyin</string>
     <string name="qksms_plus_free_title">QUIK+ F-Droid kullanıcıları için ücretsizdir! Eğer gelişmeyi desteklemek istiyorsanız, bağış yapmakta özgürsünüz.</string>
-    <string name="qksms_plus_donate">Paypal ile satın al</string>
+    <string name="qksms_plus_donate">Paypal ile bağış yap</string>
     <string name="qksms_plus_coming_soon">Yakında</string>
     <string name="qksms_plus_themes_title">Ücretli Temalar</string>
-    <string name="qksms_plus_themes_summary">Malzeme Tasarım paleti üzerinde bulunmayan güzel tema renkleri aç</string>
+    <string name="qksms_plus_themes_summary">Material Design paleti üzerinde bulunmayan güzel tema renkleri aç</string>
     <string name="qksms_plus_emoji_title">Özel otomatik ifadeler</string>
     <string name="qksms_plus_emoji_summary">Özel otomatik ifadeler kısayolları oluştur</string>
     <string name="qksms_plus_backup_title">İleti yedekleme</string>
@@ -333,7 +333,7 @@
     <string name="qkreply_menu_expand">Daha fazla göster</string>
     <string name="qkreply_menu_collapse">Daha az göster</string>
     <string name="qkreply_menu_view">Sohbeti aç</string>
-    <string name="theme_material">Malzeme</string>
+    <string name="theme_material">Material</string>
     <string name="theme_hex">HEX</string>
     <string name="theme_apply">Uygula</string>
     <string-array name="notification_actions">
@@ -357,8 +357,8 @@
     <string name="toast_copied">Kopyalandı</string>
     <string name="toast_qksms_plus">Bunu kullanmak için QUIK+ kilidi gerekir</string>
     <plurals name="notification_new_messages">
-        <item quantity="one">%s Yeni ileti</item>
-        <item quantity="other">%s Yeni ileti</item>
+        <item quantity="one">Yeni ileti</item>
+        <item quantity="other">%s yeni ileti</item>
     </plurals>
     <string name="notification_message_failed_title">İleti gönderilemedi</string>
     <string name="notification_message_failed_text">%s kişisine ileti gönderilemedi</string>
