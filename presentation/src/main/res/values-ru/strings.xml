@@ -295,7 +295,7 @@
     </plurals>
     <string name="about_title">О приложении</string>
     <string name="about_version_title">Версия</string>
-    <string name="about_developer_title">Разработчик</string>
+    <string name="about_developer_title">Разработчики</string>
     <string name="about_source_title">Исходный код</string>
     <string name="about_changelog_title">История изменений</string>
     <string name="about_contact_title">Контакт</string>
@@ -473,7 +473,7 @@
     <string name="settings_notification_silent_summary">Заглушает уведомления для сообщений без получателей из вашего списка контактов</string>
     <string name="settings_unread_at_top_title">Непрочитанные сверху</string>
     <string name="settings_unread_at_top_summary">Показывать непрочитанные разговоры наверху</string>
-    <string name="settings_mms_weblink_title">Обрабатывать ссылки в сообщениях</string>
+    <string name="settings_mms_weblink_title">При нажатии на ссылки в сообщениях</string>
     <string name="settings_disable_screenshots_title">Отключить Скриншоты</string>
     <string name="settings_diable_screenshots_summary">Запретить вашей ОС и другим приложениям делать скриншоты приложения.</string>
     <string name="message_content_filters_title">Фильтры содержимого сообщений</string>
@@ -525,4 +525,6 @@
     <string name="deduplicating_messages_finished">Дедупликация сообщений завершена!</string>
     <string name="deduplicating_messages_no_messages">Дубликатов сообщений не обнаружено.</string>
     <string name="deduplicating_messages_failed">Не удалось выполнить дедупликацию сообщений, повторите попытку</string>
+    <string name="about_developer">Команда замечательных людей со всего мира!</string>
+    <string name="notification_foreground_worker_channel_name">Канал уведомлений при получении сообщений</string>
 </resources>
