@@ -31,7 +31,7 @@ Grab QUIK from the official [github releases page](https://github.com/octoshrimp
 
 
 <a href="https://f-droid.org/repository/browse/?fdid=dev.octoshrimpy.quik.fdroid"><img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="100"></a>
-<a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/{%22id%22:%22dev.octoshrimpy.quik%22,%22url%22:%22https://github.com/octoshrimpy/quik%22,%22author%22:%22octoshrimpy%22,%22name%22:%22QUIK%22,%22additionalSettings%22:%22{\%22apkFilterRegEx\%22:\%22release\%22,\%22invertAPKFilter\%22:false,\%22about\%22:\%22QUIK%20is%20an%20open%20source%20replacement%20for%20the%20stock%20messaging%20app%20on%20Android.%20It%20is%20a%20continuation%20of%20QKSMS.\%22}%22}"><img src="https://raw.githubusercontent.com/ImranR98/Obtainium/b1c8ac6f2ab08497189721a788a5763e28ff64cd/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" height="100"></a>
+<a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/{%22id%22:%22dev.octoshrimpy.quik%22,%22url%22:%22https://github.com/octoshrimpy/quik%22,%22author%22:%22octoshrimpy%22,%22name%22:%22QUIK%22,%22additionalSettings%22:%22{\\%22apkFilterRegEx\\%22:\\%22release\\%22,\\%22invertAPKFilter\\%22:false,\\%22about\\%22:\\%22QUIK%20is%20an%20open%20source%20replacement%20for%20the%20stock%20messaging%20app%20on%20Android.%20It%20is%20a%20continuation%20of%20QKSMS.\\%22}%22}"><img src="https://raw.githubusercontent.com/ImranR98/Obtainium/b1c8ac6f2ab08497189721a788a5763e28ff64cd/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" height="100"></a>
 <a href="https://github.com/octoshrimpy/quik/releases">
 <img src="https://user-images.githubusercontent.com/69304392/148696068-0cfea65d-b18f-4685-82b5-329a330b1c0d.png"
 alt="Download from GitHub releases" height="100" /></a>
@@ -66,6 +66,8 @@ If you'd like to add translations to QUIK, please join the project on [Weblate](
 A special thank you to Jake ([@klinker41](https://github.com/klinker41)) and Luke Klinker ([@klinker24](https://github.com/klinker24)) for their work on [android-smsmms](https://github.com/klinker41/android-smsmms), which has been an unspeakably large help in implementing MMS into QUIK.
 
 A giant thank you to Moez [moezbhatti](https://github.com/moezbhatti) for creating and maintaining QKSMS, of which QUIK would not exist without.
+
+A special thank you to [Gorupa](https://github.com/Gorupa) for localized UX auditing, Hindi translation quality review, and power-user testing from Udaipur, Rajasthan.
 
 ## Contact
 
