@@ -25,62 +25,322 @@
     android:background="?android:attr/windowBackground">
 
     <LinearLayout
-        android:id="@+id/preferences"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
         android:orientation="vertical"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:paddingBottom="24dp">
 
-        <dev.octoshrimpy.quik.common.widget.PreferenceView
-            android:id="@+id/version"
+        <!-- ── App hero block ───────────────────────────────────────── -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/about_version_title"
-            tools:summary="3.0.8" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="24dp"
+            android:paddingBottom="16dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
 
+            <ImageView
+                android:id="@+id/appIcon"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@mipmap/ic_launcher_round"
+                android:contentDescription="@string/app_name" />
+
+            <dev.octoshrimpy.quik.common.widget.QkTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/app_name"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <dev.octoshrimpy.quik.common.widget.QkTextView
+                android:id="@+id/versionBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/rounded_rectangle_22dp"
+                android:backgroundTint="?attr/bubbleColor"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textSize="12sp"
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="v3.0.8" />
+
+        </LinearLayout>
+
+        <!-- ── Section divider ─────────────────────────────────────── -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/separatorLight" />
+
+        <!-- ── Featured Contributors label ─────────────────────────── -->
+        <dev.octoshrimpy.quik.common.widget.QkTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="8dp"
+            android:text="@string/about_contributors_title"
+            android:textSize="12sp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:textColor="?android:attr/textColorSecondary" />
+
+        <!-- ── Featured contributor card 1 — Marcos (octoshrimpy) ──── -->
+        <LinearLayout
+            android:id="@+id/contributorOctoshrimpy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/avatarOctoshrimpy"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="?attr/bubbleColor"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/avatars[0]" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="14dp"
+                android:paddingEnd="8dp">
+
+                <dev.octoshrimpy.quik.common.widget.QkTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_contributor_octoshrimpy_name"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <dev.octoshrimpy.quik.common.widget.QkTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/about_contributor_octoshrimpy_role"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_chevron_right_black_24dp"
+                android:tint="?android:attr/textColorSecondary" />
+
+        </LinearLayout>
+
+        <!-- ── Featured contributor card 2 — Moez (moezbhatti) ──────── -->
+        <LinearLayout
+            android:id="@+id/contributorMoez"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/avatarMoez"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="?attr/bubbleColor"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/avatars[1]" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="14dp"
+                android:paddingEnd="8dp">
+
+                <dev.octoshrimpy.quik.common.widget.QkTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_contributor_moez_name"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <dev.octoshrimpy.quik.common.widget.QkTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/about_contributor_moez_role"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_chevron_right_black_24dp"
+                android:tint="?android:attr/textColorSecondary" />
+
+        </LinearLayout>
+
+        <!-- ── Featured contributor card 3 — Gorupa ─────────────────── -->
+        <LinearLayout
+            android:id="@+id/contributorGorupa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/avatarGorupa"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="?attr/bubbleColor"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/avatars[2]" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="14dp"
+                android:paddingEnd="8dp">
+
+                <dev.octoshrimpy.quik.common.widget.QkTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_contributor_gorupa_name"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <dev.octoshrimpy.quik.common.widget.QkTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/about_contributor_gorupa_role"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_chevron_right_black_24dp"
+                android:tint="?android:attr/textColorSecondary" />
+
+        </LinearLayout>
+
+        <!-- ── All contributors link ───────────────────────────────── -->
         <dev.octoshrimpy.quik.common.widget.PreferenceView
             android:id="@+id/developer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             app:summary="@string/about_developer"
             app:title="@string/about_developer_title" />
 
-        <dev.octoshrimpy.quik.common.widget.PreferenceView
-            android:id="@+id/source"
+        <!-- ── Divider ──────────────────────────────────────────────── -->
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:summary="@string/about_source"
-            app:title="@string/about_source_title" />
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/separatorLight" />
 
-        <dev.octoshrimpy.quik.common.widget.PreferenceView
-            android:id="@+id/changelog"
+        <!-- ── App info section ─────────────────────────────────────── -->
+        <LinearLayout
+            android:id="@+id/preferences"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:summary="@string/about_changelog"
-            app:title="@string/about_changelog_title" />
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
 
-        <dev.octoshrimpy.quik.common.widget.PreferenceView
-            android:id="@+id/contact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:summary="@string/about_contact"
-            app:title="@string/about_contact_title" />
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/about_version_title"
+                tools:summary="3.0.8" />
 
-        <dev.octoshrimpy.quik.common.widget.PreferenceView
-            android:id="@+id/license"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:summary="@string/about_license"
-            app:title="@string/about_license_title" />
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:summary="@string/about_source"
+                app:title="@string/about_source_title" />
 
-        <dev.octoshrimpy.quik.common.widget.PreferenceView
-            android:id="@+id/copyright"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:summary="@string/about_copyright"
-            app:title="@string/about_copyright_title" />
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/changelog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:summary="@string/about_changelog"
+                app:title="@string/about_changelog_title" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:summary="@string/about_contact"
+                app:title="@string/about_contact_title" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/license"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:summary="@string/about_license"
+                app:title="@string/about_license_title" />
+
+            <dev.octoshrimpy.quik.common.widget.PreferenceView
+                android:id="@+id/copyright"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:summary="@string/about_copyright"
+                app:title="@string/about_copyright_title" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
