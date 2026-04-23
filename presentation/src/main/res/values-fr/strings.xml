@@ -560,4 +560,5 @@
     <string name="deduplicating_messages_no_messages">Aucun message dupliqué trouvé.</string>
     <string name="deduplicating_messages_failed">La déduplication des messages a échoué, veuillez réessayer</string>
     <string name="auto_deduplicate_messages_summary">La déduplication sera réalisée pendant la synchronisation. Notez que cela supprimera automatiquement des messages, et bien que les chances de détection d\'un duplicata erroné sont faibles, une erreur n\'est pas impossible.\nFaites preuve de prudence.</string>
+    <string name="notification_foreground_worker_channel_name">Message recevant une notification de travail</string>
 </resources>

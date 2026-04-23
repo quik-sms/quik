@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="messages_text_share_file_error">C\'hem ! Un dra bennak a zo aet a-dreuz e-keit ma oa o rannañ</string>
+    <string name="shortcut_compose_long_label">Kaozeadenn nevez</string>
+    <string name="shortcut_compose_short_label">Skrivañ</string>
+    <string name="shortcut_compose_disabled_message">Berradurioù lazhet</string>
+    <string name="title_archived">Dielloù</string>
+    <string name="title_settings">Arventennoù</string>
+</resources>
