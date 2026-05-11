@@ -120,7 +120,11 @@ object WebAccessServer {
     private fun messagesJson(threadId: Long): String = Realm.getDefaultInstance().use { realm ->
         val conversation = realm.where(Conversation::class.java)
             .equalTo("id", threadId)
+            .equalTo("archived", false)
+            .equalTo("blocked", false)
             .findFirst()
+            ?: return """{"id":$threadId,"title":"","messages":[]}"""
+
         val messages = realm.where(Message::class.java)
             .equalTo("threadId", threadId)
             .equalTo("isEmojiReaction", false)
