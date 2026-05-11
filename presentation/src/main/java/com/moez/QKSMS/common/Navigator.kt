@@ -43,6 +43,7 @@ import dev.octoshrimpy.quik.feature.notificationprefs.NotificationPrefsActivity
 import dev.octoshrimpy.quik.feature.plus.PlusActivity
 import dev.octoshrimpy.quik.feature.scheduled.ScheduledActivity
 import dev.octoshrimpy.quik.feature.settings.SettingsActivity
+import dev.octoshrimpy.quik.feature.webaccess.WebAccessActivity
 import dev.octoshrimpy.quik.manager.BillingManager
 import dev.octoshrimpy.quik.manager.NotificationManager
 import dev.octoshrimpy.quik.manager.PermissionManager
@@ -176,6 +177,11 @@ class Navigator @Inject constructor(
 
     fun showMessageUtils() {
         val intent = Intent(context, MessageUtilsActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun showWebAccess() {
+        val intent = Intent(context, WebAccessActivity::class.java)
         startActivity(intent)
     }
 

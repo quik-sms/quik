@@ -257,6 +257,14 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/webAccess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_message_black_24dp"
+            app:summary="@string/settings_web_access_summary"
+            app:title="@string/settings_web_access_title" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
             android:id="@+id/about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -337,6 +337,17 @@
     <string name="settings_sync_title">Sync messages</string>
     <string name="settings_sync_summary">Re-sync your messages with the native Android SMS database</string>
     <string name="settings_about_title">About QUIK</string>
+    <string name="settings_web_access_title">Web Access</string>
+    <string name="settings_web_access_summary">Read messages from a browser on your local network</string>
+    <string name="web_access_title">Web Access</string>
+    <string name="web_access_summary">Start a local read-only web server, then open the URL from a browser on the same network.</string>
+    <string name="web_access_warning">Anyone who can reach this phone and knows the token can read conversations while Web Access is running. Stop it when finished.</string>
+    <string name="web_access_status_running">Status: running</string>
+    <string name="web_access_status_stopped">Status: stopped</string>
+    <string name="web_access_url">URL: %s</string>
+    <string name="web_access_token">Token: %s</string>
+    <string name="web_access_start">Start Web Access</string>
+    <string name="web_access_stop">Stop Web Access</string>
     <string name="settings_version">Version %s</string>
     <string name="settings_logging_enabled">Debug logging enabled</string>
     <string name="settings_logging_disabled">Debug logging disabled</string>

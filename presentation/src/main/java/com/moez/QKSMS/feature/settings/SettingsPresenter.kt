@@ -218,6 +218,8 @@ class SettingsPresenter @Inject constructor(
 
                         R.id.sync -> syncMessages.execute(Unit)
 
+                        R.id.webAccess -> navigator.showWebAccess()
+
                         R.id.about -> view.showAbout()
                     }
                 }
