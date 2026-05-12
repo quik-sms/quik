@@ -14,16 +14,23 @@ import java.net.ServerSocket
 import java.net.Socket
 import java.net.URLDecoder
 import java.util.UUID
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.RejectedExecutionException
 import java.util.concurrent.atomic.AtomicBoolean
+import org.json.JSONObject
 
 object WebAccessServer {
     private const val DEFAULT_PORT = 8090
     private const val MAX_MESSAGES = 500
+    private const val MAX_CLIENT_THREADS = 8
+    private const val SOCKET_READ_TIMEOUT_MS = 5000
 
     private val running = AtomicBoolean(false)
 
     @Volatile private var serverSocket: ServerSocket? = null
     @Volatile private var worker: Thread? = null
+    @Volatile private var clientExecutor: ExecutorService? = null
     @Volatile var token: String = ""
         private set
     @Volatile var port: Int = DEFAULT_PORT
@@ -36,6 +43,9 @@ object WebAccessServer {
         if (!running.compareAndSet(false, true)) return
 
         token = UUID.randomUUID().toString().replace("-", "").take(16)
+        clientExecutor = Executors.newFixedThreadPool(MAX_CLIENT_THREADS) { runnable ->
+            Thread(runnable, "quik-web-access-client").apply { isDaemon = true }
+        }
         worker = Thread {
             try {
                 serverSocket = try {
@@ -47,13 +57,20 @@ object WebAccessServer {
 
                 while (running.get()) {
                     val client = serverSocket?.accept() ?: break
-                    Thread { handleClient(client) }.start()
+                    client.soTimeout = SOCKET_READ_TIMEOUT_MS
+                    try {
+                        clientExecutor?.execute { handleClient(client) } ?: client.close()
+                    } catch (_: RejectedExecutionException) {
+                        client.close()
+                    }
                 }
             } catch (_: Exception) {
                 running.set(false)
             } finally {
                 serverSocket?.close()
                 serverSocket = null
+                clientExecutor?.shutdownNow()
+                clientExecutor = null
             }
         }.apply {
             name = "quik-web-access"
@@ -66,6 +83,8 @@ object WebAccessServer {
         running.set(false)
         serverSocket?.close()
         serverSocket = null
+        clientExecutor?.shutdownNow()
+        clientExecutor = null
         worker = null
         token = ""
     }
@@ -113,7 +132,7 @@ object WebAccessServer {
             .findAll()
 
         conversations.joinToString(prefix = "[", postfix = "]") { conversation ->
-            """{"id":${conversation.id},"title":"${json(conversation.getTitle())}","snippet":"${json(conversation.snippet.orEmpty())}","date":${conversation.date},"unread":${conversation.unread},"me":${conversation.me}}"""
+            """{"id":${conversation.id},"title":${json(conversation.getTitle())},"snippet":${json(conversation.snippet.orEmpty())},"date":${conversation.date},"unread":${conversation.unread},"me":${conversation.me}}"""
         }
     }
 
@@ -134,9 +153,9 @@ object WebAccessServer {
             .sort("date", Sort.ASCENDING)
 
         val messagesJson = messages.joinToString(prefix = "[", postfix = "]") { message ->
-            """{"id":${message.id},"date":${message.date},"fromMe":${message.isMe()},"address":"${json(message.address)}","text":"${json(message.getText())}"}"""
+            """{"id":${message.id},"date":${message.date},"fromMe":${message.isMe()},"address":${json(message.address)},"text":${json(message.getText())}}"""
         }
-        """{"id":$threadId,"title":"${json(conversation?.getTitle().orEmpty())}","messages":$messagesJson}"""
+        """{"id":$threadId,"title":${json(conversation?.getTitle().orEmpty())},"messages":$messagesJson}"""
     }
 
     private fun parseRequest(target: String): Request {
@@ -231,12 +250,7 @@ object WebAccessServer {
         return "127.0.0.1"
     }
 
-    private fun json(value: String): String = value
-        .replace("\\", "\\\\")
-        .replace("\"", "\\\"")
-        .replace("\n", "\\n")
-        .replace("\r", "\\r")
-        .replace("\t", "\\t")
+    private fun json(value: String): String = JSONObject.quote(value)
 
     private fun html(value: String): String = value
         .replace("&", "&amp;")
