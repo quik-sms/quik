@@ -11,6 +11,8 @@ interface BlockingManagerView : QkViewContract<BlockingManagerState> {
     fun callBlockerClicked(): Observable<*>
     fun callControlClicked(): Observable<*>
     fun siaClicked(): Observable<*>
+    fun spamBlockerClicked(): Observable<*>
+
 
     fun showCopyDialog(manager: String): Single<Boolean>
 

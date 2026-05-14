@@ -53,6 +53,7 @@ class BlockingManagerController : QkController<BlockingManagerControllerBinding,
         binding.callBlocker.actionView.imageTintList = imageTintList
         binding.callControl.actionView.imageTintList = imageTintList
         binding.shouldIAnswer.actionView.imageTintList = imageTintList
+        binding.spamBlocker.actionView.imageTintList = imageTintList
     }
 
     override fun onActivityResumed(activity: Activity) {
@@ -78,6 +79,11 @@ class BlockingManagerController : QkController<BlockingManagerControllerBinding,
         binding.shouldIAnswer.actionView.isActivated = state.siaInstalled
         binding.shouldIAnswer.actionView.isInvisible = state.blockingManager != Preferences.BLOCKING_MANAGER_SIA
                 && state.siaInstalled
+
+        binding.spamBlocker.actionView.setImageResource(getActionIcon(state.spamBlockerInstalled))
+        binding.spamBlocker.actionView.isActivated = state.spamBlockerInstalled
+        binding.spamBlocker.actionView.isInvisible = state.blockingManager != Preferences.BLOCKING_MANAGER_SB
+                && state.spamBlockerInstalled
     }
 
     private fun getActionIcon(installed: Boolean): Int = when {
@@ -90,6 +96,7 @@ class BlockingManagerController : QkController<BlockingManagerControllerBinding,
     override fun callBlockerClicked(): Observable<*> = binding.callBlocker.clicks()
     override fun callControlClicked(): Observable<*> = binding.callControl.clicks()
     override fun siaClicked(): Observable<*> = binding.shouldIAnswer.clicks()
+    override fun spamBlockerClicked(): Observable<*> = binding.spamBlocker.clicks()
 
     override fun showCopyDialog(manager: String): Single<Boolean> = Single.create { emitter ->
         AlertDialog.Builder(activity)

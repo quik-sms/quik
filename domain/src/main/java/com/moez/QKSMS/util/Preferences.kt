@@ -80,6 +80,8 @@ class Preferences @Inject constructor(
         const val BLOCKING_MANAGER_CC = 1
         const val BLOCKING_MANAGER_SIA = 2
         const val BLOCKING_MANAGER_CB = 3
+        const val BLOCKING_MANAGER_SB = 4
+
 
         const val MESSAGE_LINK_HANDLING_BLOCK = 0
         const val MESSAGE_LINK_HANDLING_ALLOW = 1
