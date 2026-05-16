@@ -42,6 +42,7 @@ import dev.octoshrimpy.quik.feature.scheduled.ScheduledActivity
 import dev.octoshrimpy.quik.feature.scheduled.ScheduledActivityModule
 import dev.octoshrimpy.quik.feature.settings.SettingsActivity
 import dev.octoshrimpy.quik.feature.settings.about.AboutActivity
+import dev.octoshrimpy.quik.feature.webaccess.WebAccessActivity
 import dev.octoshrimpy.quik.injection.scope.ActivityScope
 
 @Module
@@ -102,5 +103,9 @@ abstract class ActivityBuilderModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = [])
     abstract fun bindBlockingActivity(): BlockingActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [])
+    abstract fun bindWebAccessActivity(): WebAccessActivity
 
 }

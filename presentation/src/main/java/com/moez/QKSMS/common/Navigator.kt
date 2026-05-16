@@ -33,6 +33,7 @@ import dev.octoshrimpy.quik.compat.TelephonyCompat
 import dev.octoshrimpy.quik.extensions.resourceExists
 import dev.octoshrimpy.quik.feature.settings.about.AboutActivity
 import dev.octoshrimpy.quik.feature.backup.BackupActivity
+import dev.octoshrimpy.quik.feature.webaccess.WebAccessActivity
 import dev.octoshrimpy.quik.feature.blocking.BlockingActivity
 import dev.octoshrimpy.quik.feature.compose.ComposeActivity
 import dev.octoshrimpy.quik.feature.conversationinfo.ConversationInfoActivity
@@ -186,6 +187,11 @@ class Navigator @Inject constructor(
 
     fun showAbout() {
         val intent = Intent(context, AboutActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun showWebAccess() {
+        val intent = Intent(context, WebAccessActivity::class.java)
         startActivity(intent)
     }
 

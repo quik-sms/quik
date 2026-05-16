@@ -608,4 +608,20 @@
     <string name="stt_toast_extra_prompt">Speak your message</string>
 
     <string name="messages_text_share_file_error">Oops! Something went wrong while sharing</string>
+
+    <string name="settings_web_access_title">Web Access (Beta)</string>
+    <string name="web_access_title">Web Access</string>
+    <string name="web_access_description">Access your messages from any browser on your local network. Start the server, then open the URL on your computer and enter the access token.</string>
+    <string name="web_access_instructions">Open the URL below in a browser on the same network, then enter the access token to connect.</string>
+    <string name="web_access_url_label">URL</string>
+    <string name="web_access_token_label">Access Token</string>
+    <string name="web_access_not_running">Server not running</string>
+    <string name="web_access_start">Start Server</string>
+    <string name="web_access_stop">Stop Server</string>
+    <string name="web_access_copy">Copy</string>
+    <string name="web_access_started">Web server started</string>
+    <string name="web_access_stopped">Web server stopped</string>
+    <string name="web_access_failed">Failed to start server</string>
+    <string name="web_access_copied">URL and token copied to clipboard</string>
+    <string name="web_access_warning">Keep the server running only while you need it. Anyone on your local network with the token can read your messages.</string>
 </resources>
