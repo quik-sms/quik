@@ -15,7 +15,8 @@ class BlockingManager @Inject constructor(
     private val callBlockerBlockingClient: CallBlockerBlockingClient,
     private val callControlBlockingClient: CallControlBlockingClient,
     private val qksmsBlockingClient: QksmsBlockingClient,
-    private val shouldIAnswerBlockingClient: ShouldIAnswerBlockingClient
+    private val shouldIAnswerBlockingClient: ShouldIAnswerBlockingClient,
+    private val spamBlockerBlockingClient: SpamBlockerBlockingClient
 ) : BlockingClient {
 
     private val client: BlockingClient
@@ -23,6 +24,7 @@ class BlockingManager @Inject constructor(
             Preferences.BLOCKING_MANAGER_CB -> callBlockerBlockingClient
             Preferences.BLOCKING_MANAGER_SIA -> shouldIAnswerBlockingClient
             Preferences.BLOCKING_MANAGER_CC -> callControlBlockingClient
+            Preferences.BLOCKING_MANAGER_SB -> spamBlockerBlockingClient
             else -> qksmsBlockingClient
         }
 

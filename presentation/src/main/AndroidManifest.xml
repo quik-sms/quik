@@ -263,6 +263,13 @@
             android:resource="@array/preloaded_fonts" />
     </application>
 
+    <!-- For dynamically querying SMS screening providers -->
+    <queries>
+        <intent>
+            <action android:name="sms.screening.provider.PublicSMSScreeningService" />
+        </intent>
+    </queries>
+
     <queries>
         <package android:name="com.cuiet.blockCalls" />
         <package android:name="com.flexaspect.android.everycallcontrol" />

@@ -9,6 +9,7 @@ import dev.octoshrimpy.quik.blocking.CallBlockerBlockingClient
 import dev.octoshrimpy.quik.blocking.CallControlBlockingClient
 import dev.octoshrimpy.quik.blocking.QksmsBlockingClient
 import dev.octoshrimpy.quik.blocking.ShouldIAnswerBlockingClient
+import dev.octoshrimpy.quik.blocking.SpamBlockerBlockingClient
 import dev.octoshrimpy.quik.common.Navigator
 import dev.octoshrimpy.quik.common.base.QkPresenter
 import dev.octoshrimpy.quik.repository.ConversationRepository
@@ -27,12 +28,14 @@ class BlockingManagerPresenter @Inject constructor(
     private val navigator: Navigator,
     private val prefs: Preferences,
     private val qksms: QksmsBlockingClient,
-    private val shouldIAnswer: ShouldIAnswerBlockingClient
+    private val shouldIAnswer: ShouldIAnswerBlockingClient,
+    private val spamBlocker: SpamBlockerBlockingClient,
 ) : QkPresenter<BlockingManagerView, BlockingManagerState>(BlockingManagerState(
         blockingManager = prefs.blockingManager.get(),
         callBlockerInstalled = callBlocker.isAvailable(),
         callControlInstalled = callControl.isAvailable(),
-        siaInstalled = shouldIAnswer.isAvailable()
+        siaInstalled = shouldIAnswer.isAvailable(),
+        spamBlockerInstalled = spamBlocker.isAvailable(),
 )) {
 
     init {
@@ -60,6 +63,12 @@ class BlockingManagerPresenter @Inject constructor(
                 .distinctUntilChanged()
                 .autoDisposable(view.scope())
                 .subscribe { available -> newState { copy(siaInstalled = available) } }
+
+        view.activityResumed()
+            .map { spamBlocker.isAvailable() }
+            .distinctUntilChanged()
+            .autoDisposable(view.scope())
+            .subscribe { available -> newState { copy(siaInstalled = available) } }
 
         view.qksmsClicked()
                 .observeOn(Schedulers.io())
@@ -130,6 +139,21 @@ class BlockingManagerPresenter @Inject constructor(
                 .subscribe {
                     prefs.blockingManager.set(Preferences.BLOCKING_MANAGER_SIA)
                 }
+
+        view.spamBlockerClicked()
+            .filter {
+                val installed = spamBlocker.isAvailable()
+                if (!installed) {
+                    navigator.installSB()
+                }
+
+                val enabled = prefs.blockingManager.get() == Preferences.BLOCKING_MANAGER_SB
+                installed && !enabled
+            }
+            .autoDisposable(view.scope())
+            .subscribe {
+                prefs.blockingManager.set(Preferences.BLOCKING_MANAGER_SB)
+            }
     }
 
     private fun getAddressesToBlock(client: BlockingClient) = conversationRepo.getBlockedConversations()
