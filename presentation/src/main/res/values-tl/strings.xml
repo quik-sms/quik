@@ -28,22 +28,22 @@
     <string name="title_compose">Sumulat</string>
     <string name="setup_skip">Laktawan</string>
     <string name="setup_next">Magpatuloy</string>
-    <string name="menu_add_person">Magdagdag nang tao</string>
+    <string name="menu_add_person">Magdagdag ng tao</string>
     <string name="menu_call">Tawagan</string>
     <string name="menu_info">Mga detalye</string>
-    <string name="menu_mms_part_save">Save to gallery</string>
+    <string name="menu_mms_part_save">Itabi sa gallery</string>
     <string name="compose_menu_share">Magbahagi</string>
     <string name="main_drawer_open_cd">Open navigation drawer</string>
     <string name="main_title_selected">%d selected</string>
-    <string name="main_menu_clear">Malinaw</string>
+    <string name="main_menu_clear">Burahin ang lahat</string>
     <string name="main_menu_archive">Itabi</string>
     <string name="main_menu_unarchive">Ilabas</string>
     <string name="main_menu_delete">Burahin</string>
-    <string name="main_menu_add_contact">Maglagay nang mga contacts</string>
+    <string name="main_menu_add_contact">Idagdag sa contacts</string>
     <string name="main_menu_pin">I-ipit sa itaas</string>
     <string name="main_menu_unpin">I-unpin</string>
-    <string name="main_menu_read">Mark read</string>
-    <string name="main_menu_unread">Mark unread</string>
+    <string name="main_menu_read">Nabasa</string>
+    <string name="main_menu_unread">Hindi nabasa</string>
     <string name="main_menu_block">Block</string>
     <string name="main_syncing">Syncing messages…</string>
     <string name="main_sender_you">Ikaw: %s</string>
@@ -409,4 +409,9 @@
         <item>LOL</item>
         <item>That\'s okay</item>
     </string-array>
+    <string name="main_sender_draft">Burador: %s</string>
+    <string name="main_menu_edit_message">Baguhin ang mensahe</string>
+    <string name="main_menu_send_now">Ipadala</string>
+    <string name="main_menu_rename_conversation">Pangalanan ang usapan</string>
+    <string name="main_menu_select_all">Piliin lahat</string>
 </resources>
