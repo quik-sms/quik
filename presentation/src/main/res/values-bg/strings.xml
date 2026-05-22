@@ -401,7 +401,7 @@
     <string name="speak_no_messages">Липсват съобщения</string>
     <string name="speak_unseen_messages">Изговаряне на непрочетените съобщения</string>
     <string name="messageLinkHandling_dialog_title">Предупреждение за изходяща препратка</string>
-    <string name="messageLinkHandling_dialog_body">Някои препратки може да са зловредни или неочаквано да ви препратят. Прегледайте препратката преди да продължите:\n\n%1$s\n\nЖелаете ли да продължите?</string>
+    <string name="messageLinkHandling_dialog_body">Някои препратки може да са зловредни или да пренасочват неочаквано. Прегледайте следната препратка преди да продължите:\n\n%1$s\n\nЖелаете ли да продължите?</string>
     <string name="messageLinkHandling_dialog_positive">Да, посещаване на препратката</string>
     <string name="messageLinkHandling_dialog_negative">Не</string>
     <string name="error_stt_toast">Грешка при зареждане на услугата за говор към текст.</string>
