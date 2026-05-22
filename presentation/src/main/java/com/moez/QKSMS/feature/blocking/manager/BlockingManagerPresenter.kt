@@ -9,7 +9,7 @@ import dev.octoshrimpy.quik.blocking.CallBlockerBlockingClient
 import dev.octoshrimpy.quik.blocking.CallControlBlockingClient
 import dev.octoshrimpy.quik.blocking.QksmsBlockingClient
 import dev.octoshrimpy.quik.blocking.ShouldIAnswerBlockingClient
-import dev.octoshrimpy.quik.common.Navigator
+import dev.octoshrimpy.quik.common.ExternalNavigator
 import dev.octoshrimpy.quik.common.base.QkPresenter
 import dev.octoshrimpy.quik.repository.ConversationRepository
 import dev.octoshrimpy.quik.util.Preferences
@@ -24,7 +24,7 @@ class BlockingManagerPresenter @Inject constructor(
     private val callControl: CallControlBlockingClient,
     private val context: Context,
     private val conversationRepo: ConversationRepository,
-    private val navigator: Navigator,
+    private val externalNavigator: ExternalNavigator,
     private val prefs: Preferences,
     private val qksms: QksmsBlockingClient,
     private val shouldIAnswer: ShouldIAnswerBlockingClient
@@ -74,7 +74,7 @@ class BlockingManagerPresenter @Inject constructor(
                 .filter {
                     val installed = callBlocker.isAvailable()
                     if (!installed) {
-                        navigator.installCallBlocker()
+                        externalNavigator.installCallBlocker()
                     }
 
                     val enabled = prefs.blockingManager.get() == Preferences.BLOCKING_MANAGER_CB
@@ -89,7 +89,7 @@ class BlockingManagerPresenter @Inject constructor(
                 .filter {
                     val installed = callControl.isAvailable()
                     if (!installed) {
-                        navigator.installCallControl()
+                        externalNavigator.installCallControl()
                     }
 
                     val enabled = prefs.blockingManager.get() == Preferences.BLOCKING_MANAGER_CC
@@ -120,7 +120,7 @@ class BlockingManagerPresenter @Inject constructor(
                 .filter {
                     val installed = shouldIAnswer.isAvailable()
                     if (!installed) {
-                        navigator.installSia()
+                        externalNavigator.installSia()
                     }
 
                     val enabled = prefs.blockingManager.get() == Preferences.BLOCKING_MANAGER_SIA

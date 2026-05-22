@@ -22,6 +22,7 @@ import android.content.Context
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDisposable
 import dev.octoshrimpy.quik.R
+import dev.octoshrimpy.quik.common.ExternalNavigator
 import dev.octoshrimpy.quik.common.Navigator
 import dev.octoshrimpy.quik.common.base.QkPresenter
 import dev.octoshrimpy.quik.common.util.Colors
@@ -45,6 +46,7 @@ class SettingsPresenter @Inject constructor(
     private val billingManager: BillingManager,
     private val dateFormatter: DateFormatter,
     private val navigator: Navigator,
+    private val externalNavigator: ExternalNavigator,
     private val nightModeManager: NightModeManager,
     private val prefs: Preferences,
     private val syncMessages: SyncMessages
@@ -178,7 +180,7 @@ class SettingsPresenter @Inject constructor(
 
                         R.id.autoEmoji -> prefs.autoEmoji.set(!prefs.autoEmoji.get())
 
-                        R.id.notifications -> navigator.showNotificationSettings()
+                        R.id.notifications -> externalNavigator.showNotificationSettings()
 
                         R.id.swipeActions -> view.showSwipeActions()
 

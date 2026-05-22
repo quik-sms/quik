@@ -24,7 +24,7 @@ import android.net.Uri
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDisposable
 import dev.octoshrimpy.quik.R
-import dev.octoshrimpy.quik.common.Navigator
+import dev.octoshrimpy.quik.common.ExternalNavigator
 import dev.octoshrimpy.quik.common.base.QkViewModel
 import dev.octoshrimpy.quik.extensions.mapNotNull
 import dev.octoshrimpy.quik.repository.ConversationRepository
@@ -39,7 +39,7 @@ class NotificationPrefsViewModel @Inject constructor(
     @Named("threadId") private val threadId: Long,
     private val context: Context,
     private val conversationRepo: ConversationRepository,
-    private val navigator: Navigator,
+    private val externalNavigator: ExternalNavigator,
     private val prefs: Preferences
 ) : QkViewModel<NotificationPrefsView, NotificationPrefsState>(NotificationPrefsState(threadId = threadId)) {
 
@@ -107,7 +107,7 @@ class NotificationPrefsViewModel @Inject constructor(
                 .autoDisposable(view.scope())
                 .subscribe { preferenceView ->
                     when (preferenceView.id) {
-                        R.id.notificationsO -> navigator.showNotificationChannel(threadId)
+                        R.id.notificationsO -> externalNavigator.showNotificationChannel(threadId)
 
                         R.id.notifications -> notifications.set(!notifications.get())
 
