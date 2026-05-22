@@ -1,1 +1,5 @@
-{}
+{
+    "emoji_reaction_ios_generic_added": "^(?s)Реакция (.+?) към “(.+?)”$",
+    "emoji_reaction_ios_generic_removed": "^(?s)Премахнато (.+?) от “(.+?)”$",
+    "emoji_reaction_ios_heart_added": "^(?s)Харесано “(.+?)”$"
+}
