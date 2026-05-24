@@ -28,7 +28,6 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewStub
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -215,6 +214,8 @@ class MainActivity : QkThemedActivity(), MainView {
             finish()
             return
         }
+
+        conversationsAdapter.hasScheduledConversation = state.scheduledConversationIds
 
         val addContact = when (state.page) {
             is Inbox -> state.page.addContact

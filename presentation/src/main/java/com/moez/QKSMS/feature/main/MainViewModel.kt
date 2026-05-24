@@ -47,6 +47,7 @@ import dev.octoshrimpy.quik.model.SyncLog
 import dev.octoshrimpy.quik.repository.ConversationRepository
 import dev.octoshrimpy.quik.repository.EmojiReactionRepository
 import dev.octoshrimpy.quik.repository.MessageRepository
+import dev.octoshrimpy.quik.repository.ScheduledMessageRepository
 import dev.octoshrimpy.quik.repository.SyncRepository
 import dev.octoshrimpy.quik.util.Preferences
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -76,6 +77,7 @@ class MainViewModel @Inject constructor(
     private val markUnarchived: MarkUnarchived,
     private val markUnpinned: MarkUnpinned,
     private val markUnread: MarkUnread,
+    private val scheduledMessageRepo: ScheduledMessageRepository,
     private val speakThreads: SpeakThreads,
     private val navigator: Navigator,
     private val permissionManager: PermissionManager,
@@ -112,6 +114,15 @@ class MainViewModel @Inject constructor(
         disposables += ratingManager.shouldShowRating
                 .subscribe { show -> newState { copy(showRating = show) } }
 
+        // Fetch scheduled messages and assign it to hasScheduledMessage
+        disposables += scheduledMessageRepo.getScheduledMessages()
+            .asFlowable()
+            .map { messages ->
+                messages.map { it.conversationId }.toSet()
+            }
+            .subscribe { ids ->
+                newState { copy(scheduledConversationIds = ids) }
+            }
 
         // Migrate the preferences from 2.7.3
         migratePreferences.execute(Unit)
