@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2017 Moez Bhatti <moez.bhatti@gmail.com>
  *
  * This file is part of QKSMS.
@@ -83,7 +83,7 @@ class ThemeAdapter @Inject constructor(
         binding.palette.removeAllViews()
         binding.palette.setPadding(swatchPadding, swatchPadding, swatchPadding, swatchPadding)
 
-        (palette.subList(0, 5) + palette.subList(5, 10).reversed())
+        (palette.subList(0, 5) + palette.subList(5, 10).toMutableList().apply { reverse() })
                 .mapIndexed { index, color ->
                     val itemBinding = ThemeListItemBinding.inflate(LayoutInflater.from(context), binding.palette, false)
 
