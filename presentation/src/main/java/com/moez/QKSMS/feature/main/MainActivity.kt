@@ -25,9 +25,11 @@ import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -37,6 +39,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.textChanges
@@ -49,6 +52,7 @@ import dev.octoshrimpy.quik.common.androidxcompat.drawerOpen
 import dev.octoshrimpy.quik.common.base.QkThemedActivity
 import dev.octoshrimpy.quik.common.util.extensions.autoScrollToStart
 import dev.octoshrimpy.quik.common.util.extensions.dismissKeyboard
+import dev.octoshrimpy.quik.common.util.extensions.makeToast
 import dev.octoshrimpy.quik.common.util.extensions.resolveThemeColor
 import dev.octoshrimpy.quik.common.util.extensions.scrapViews
 import dev.octoshrimpy.quik.common.util.extensions.setBackgroundTint
@@ -146,6 +150,20 @@ class MainActivity : QkThemedActivity(), MainView {
         setContentView(binding.root)
         viewModel.bindView(this)
         onNewIntentIntent.onNext(intent)
+
+
+
+//        Subscribe to conversation select for kyocera
+        conversationsAdapter.selectionChanges
+            .autoDisposable(scope())
+            .subscribe { selectedIds ->
+                softkeyMode = if (selectedIds.isEmpty())
+                    SoftkeyMode.CONVERSATIONS
+                else
+                    SoftkeyMode.CONVERSATIONS_SELECTED
+                updateSoftkeys()
+            }
+
 
         snackbarBinding = MainPermissionHintBinding.bind(binding.snackbar.inflate()).also {
             it.snackbarButton.clicks()
@@ -378,6 +396,10 @@ class MainActivity : QkThemedActivity(), MainView {
                 snackbarBinding.snackbarButton.setText(R.string.main_permission_allow)
             }
         }
+
+        // Update Kyocera Soft keys
+        updateSoftkeys()
+
     }
 
     override fun onResume() =
@@ -491,4 +513,131 @@ class MainActivity : QkThemedActivity(), MainView {
         } else
             binding.toolbarSearch.requestFocus()
     }
+
+
+
+    /**
+     *  Kyocera soft keys testing
+     */
+
+    private enum class SoftkeyMode {
+        CONVERSATIONS,
+        CONVERSATIONS_SELECTED,
+    }
+
+    private var softkeyMode = SoftkeyMode.CONVERSATIONS
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+
+
+        when (softkeyMode) {
+            MainActivity.SoftkeyMode.CONVERSATIONS -> {
+                when (keyCode) {
+                    KeyEvent.KEYCODE_F1 -> {
+                        if (!binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                            binding.drawerLayout.openDrawer(GravityCompat.START)
+                        } else {
+                            binding.drawerLayout.closeDrawer(GravityCompat.START)
+                        }
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F2 -> {
+                        // New conversation
+                        binding.compose.performClick()
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F3 -> {
+                        // Scrolls down
+                        val lm = binding.recyclerView.layoutManager as LinearLayoutManager
+                        val current = lm.findLastVisibleItemPosition()
+                        binding.recyclerView.smoothScrollToPosition(
+                            minOf(current + 5, conversationsAdapter.itemCount - 1)
+                        )
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F4 -> {
+                        // Scrolls up
+                        val lm = binding.recyclerView.layoutManager as LinearLayoutManager
+                        val current = lm.findFirstVisibleItemPosition()
+                        binding.recyclerView.smoothScrollToPosition(
+                            maxOf(current - 5, 0)
+                        )
+                        return true
+                    }
+                }
+
+            }
+
+            MainActivity.SoftkeyMode.CONVERSATIONS_SELECTED -> {
+                when (keyCode) {
+                    KeyEvent.KEYCODE_F1 -> {
+                        /**
+                         *  Put a little submenu here or something
+                         */
+//                        if (!binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+//                            binding.drawerLayout.openDrawer(GravityCompat.START)
+//                        } else {
+//                            binding.drawerLayout.closeDrawer(GravityCompat.START)
+//                        }
+//                        return true
+                    }
+                    KeyEvent.KEYCODE_F2 -> {
+                        optionsItemIntent.onNext(R.id.info)
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F3 -> {
+                        // Show info
+                        makeToast("Archive", Toast.LENGTH_SHORT)
+                        optionsItemIntent.onNext(R.id.archive)
+//                        binding.message.requestFocus()
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F4 -> {
+                        optionsItemIntent.onNext(R.id.delete)
+                        return true
+                    }
+                }
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+
+    private fun updateSoftkeys() {
+
+        when (softkeyMode) {
+
+            MainActivity.SoftkeyMode.CONVERSATIONS -> {
+                softkeyGuide?.apply {
+                    setText(1, "Menu")
+                    setText(2, "New")
+                    setText(3, "▼")
+                    setText(4, "▲")
+
+                    setEnabled(1, true)
+                    setEnabled(2, true)
+                    setEnabled(3, true)
+                    setEnabled(4, true)
+                }
+            }
+
+            MainActivity.SoftkeyMode.CONVERSATIONS_SELECTED -> {
+                softkeyGuide?.apply {
+                    setText(1, "Submenu")
+                    setText(2, "")
+                    setText(3, "Archive")
+                    setText(4, "Delete")
+                    setEnabled(1, true)
+                    setEnabled(2, true)
+                    setEnabled(3, true)
+                    setEnabled(4, true)
+                }
+            }
+        }
+
+        //  Update the Kyocera's keys
+        softkeyGuide?.invalidate()
+    }
+
+
 }

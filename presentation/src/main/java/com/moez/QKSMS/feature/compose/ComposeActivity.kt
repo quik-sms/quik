@@ -40,6 +40,7 @@ import android.view.ContextMenu
 import android.view.DragEvent.ACTION_DRAG_ENDED
 import android.view.DragEvent.ACTION_DRAG_EXITED
 import android.view.DragEvent.ACTION_DROP
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -52,6 +53,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.clicks
@@ -164,6 +166,10 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
 
     private var cameraDestination: Uri? = null
 
+//    makes the state global so the functions for kyocera can see
+    private var currentState: ComposeState? = null
+
+
     private fun getSeekBarUpdater(): ObservableSubscribeProxy<Long> {
         return Observable.interval(500, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.single())
@@ -182,6 +188,19 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
         setContentView(binding.root)
         showBackButton(true)
         viewModel.bindView(this)
+
+
+//        Subscribe to message select for kyocera
+        messageAdapter.selectionChanges
+            .autoDisposable(scope())
+            .subscribe { selectedIds ->
+                softkeyMode = if (selectedIds.isEmpty())
+                    SoftkeyMode.COMPOSING
+                else
+                    SoftkeyMode.MESSAGE_SELECTED
+                updateSoftkeys()
+            }
+
 
         binding.contentView.layoutTransition = LayoutTransition().apply {
             disableTransitionType(LayoutTransition.CHANGING)
@@ -536,6 +555,13 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
                 binding.speechToTextFrame.y = (binding.contentView.y + (yPercent * binding.contentView.height))
             }
         }
+
+        // Update Kyocera Soft keys
+        currentState = state
+        updateSoftkeys()
+
+
+
     }
 
     override fun clearSelection() = messageAdapter.clearSelection()
@@ -802,4 +828,156 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
     override fun focusMessage() {
         binding.message.requestFocus()
     }
+
+
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+
+//        if ((currentState?.selectedMessages ?: 0) >= 1) {
+//            makeToast("gaming", Toast.LENGTH_LONG)
+//        }
+        val s = currentState ?: return false
+        val lm = binding.messageList.layoutManager as LinearLayoutManager
+
+        when (softkeyMode){
+            SoftkeyMode.COMPOSING -> {
+                when (keyCode){
+                    KeyEvent.KEYCODE_F1 -> {
+                        // Show Submenu
+                        val options = arrayOf(
+                            "Attach a contact",
+                            "Schedule message",
+                            "Attach any file",
+                            "Record an audio message",
+                            "Take a photo"
+                        )
+                        AlertDialog.Builder(this)
+                            .setItems(options) { _, which ->
+                                when (which) {
+                                    0 -> binding.contact.performClick()
+
+//                                    0 -> binding.gallery.performClick()
+                                    1 -> binding.schedule.performClick()
+                                    2 -> binding.attachAFileIcon.performClick()
+                                    3 -> binding.recordAudioMsg.performClick()
+                                    4 -> binding.camera.performClick()
+                                }
+                            }
+                            .show()
+//                        binding.attach.performClick()
+
+//                        if(!binding.attach.hasFocus())
+//                            binding.attach.requestFocus()
+//                        else
+//                            binding.message.requestFocus()
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F2 -> {
+                        // Send Text
+                        if(currentState?.canSend == true)
+                            binding.send.performClick()
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F3 -> {
+                        // Show info
+                        // Page down (jump by N items)
+                        val current = lm.findLastVisibleItemPosition()
+                        binding.messageList.scrollToPosition(minOf(current + 5, messageAdapter.itemCount - 1))
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F4 -> {
+                        // cancel selection
+                        val current = lm.findFirstVisibleItemPosition()
+                        binding.messageList.scrollToPosition(maxOf(current - 5, 0))
+                        return true
+                    }
+                }
+            }
+
+
+            // When A message[s] is selected
+            SoftkeyMode.MESSAGE_SELECTED -> when (keyCode) {
+//                KeyEvent.KEYCODE_DPAD_CENTER -> {
+//                    return true
+//                }
+                KeyEvent.KEYCODE_F1 -> {
+//                    makeToast("Details: "+s.canSend, Toast.LENGTH_SHORT)
+//                    messageAdapter.reactionClicks.
+//                    optionsItemIntent.onNext(R.id.info)
+                    return true
+                }
+                KeyEvent.KEYCODE_F2 -> {
+//                    makeToast("delete", Toast.LENGTH_SHORT)
+                    optionsItemIntent.onNext(R.id.details)
+                    return true
+                }
+                KeyEvent.KEYCODE_F3 -> {
+                    // Show info
+                    makeToast("Copied", Toast.LENGTH_SHORT)
+                    optionsItemIntent.onNext(R.id.copy)
+//                        binding.message.requestFocus()
+                    return true
+                }
+                KeyEvent.KEYCODE_F4 -> {
+                    // cancel selection
+//                    makeToast("more", Toast.LENGTH_SHORT)
+                    optionsItemIntent.onNext(R.id.delete)
+                    return true
+                }
+            }
+
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+
+
+    /**
+     *  Kyocera soft keys testing
+     */
+    private enum class SoftkeyMode {
+        COMPOSING,      // default, typing a message
+        MESSAGE_SELECTED // one or more bubbles selected
+    }
+
+    private var softkeyMode = SoftkeyMode.COMPOSING
+
+    private fun updateSoftkeys() {
+
+        val s = currentState ?: return
+
+        when (softkeyMode) {
+
+            SoftkeyMode.COMPOSING -> {
+                softkeyGuide?.apply {
+                    setText(1, "Submenu")
+                    setText(2, "Send")
+                    setText(3, "▼")
+                    setText(4, "▲")
+                    setEnabled(0, true)
+                    setEnabled(2, s.canSend)
+                    setEnabled(3, true)
+                    setEnabled(4, true)
+                }
+            }
+
+            SoftkeyMode.MESSAGE_SELECTED -> {
+                softkeyGuide?.apply {
+                    setText(1, "Info")
+                    setText(2, "Details")
+                    setText(3, "Copy")
+                    setText(4, "Delete")
+                    setEnabled(1, true)
+                    setEnabled(2, (s.selectedMessages ?: 0) == 1)
+                    setEnabled(3, true)
+                    setEnabled(4, true)
+                }
+            }
+        }
+        //  Update the Kyocera's keys
+        softkeyGuide?.invalidate()
+
+    }
+
+
 }
