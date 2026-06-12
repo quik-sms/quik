@@ -66,6 +66,15 @@
             app:title="@string/blocking_manager_sia_title"
             app:widget="@layout/blocking_manager_list_option" />
 
+        <dev.octoshrimpy.quik.feature.blocking.manager.BlockingManagerPreferenceView
+            android:id="@+id/spamBlocker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_blocking_manager_spam_blocker"
+            app:summary="@string/blocking_manager_spam_blocker_summary"
+            app:title="@string/blocking_manager_spam_blocker_title"
+            app:widget="@layout/blocking_manager_list_option" />
+
     </LinearLayout>
 
 </ScrollView>

@@ -266,6 +266,15 @@ class Navigator @Inject constructor(
         startActivityExternal(intent)
     }
 
+    /**
+     * Launch F-Droid and display the SpamBlocker listing
+     */
+    fun installSB() {
+        val url = "https://f-droid.org/packages/spam.blocker/"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivityExternal(intent)
+    }
+
     fun showSupport() {
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data = Uri.parse("mailto:")
