@@ -152,6 +152,21 @@
             app:title="@string/settings_swipe_actions" />
 
         <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/messageSwipeActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_clear_all_black_24dp"
+            app:summary="@string/settings_message_swipe_actions_summary"
+            app:title="@string/settings_message_swipe_actions" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/defaultReaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/message_emoji"
+            app:title="@string/settings_default_reaction_title" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
             android:id="@+id/delivery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

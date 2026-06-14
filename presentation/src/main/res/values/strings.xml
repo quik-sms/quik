@@ -311,6 +311,17 @@
         <item>Mark unread</item>
         <item>Speak</item>
     </string-array>
+    <string name="settings_default_reaction_title">Default reaction</string>
+    <string name="settings_message_swipe_actions">Message swipe actions</string>
+    <string name="settings_message_swipe_actions_summary">Configure swipe actions for messages</string>
+    <string-array name="settings_message_swipe_actions">
+        <item>None</item>
+        <item>React</item>
+        <item>Reply</item>
+        <item>Copy text</item>
+        <item>Forward</item>
+        <item>Delete</item>
+    </string-array>
     <string name="settings_delivery_title">Delivery confirmations</string>
     <string name="settings_delivery_summary">Confirm that messages were sent successfully</string>
     <string name="settings_unread_at_top_title">Unread at the top</string>

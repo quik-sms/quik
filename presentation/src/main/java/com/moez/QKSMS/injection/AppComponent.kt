@@ -41,6 +41,7 @@ import dev.octoshrimpy.quik.feature.conversationinfo.injection.ConversationInfoC
 import dev.octoshrimpy.quik.feature.messageutils.MessageUtilsController
 import dev.octoshrimpy.quik.feature.settings.SettingsController
 import dev.octoshrimpy.quik.feature.settings.about.AboutController
+import dev.octoshrimpy.quik.feature.settings.swipe.MessageSwipeActionsController
 import dev.octoshrimpy.quik.feature.settings.swipe.SwipeActionsController
 import dev.octoshrimpy.quik.feature.themepicker.injection.ThemePickerComponent
 import dev.octoshrimpy.quik.feature.widget.WidgetAdapter
@@ -73,6 +74,8 @@ interface AppComponent {
     fun inject(controller: MessageUtilsController)
     fun inject(controller: SettingsController)
     fun inject(controller: SwipeActionsController)
+
+    fun inject(controller: MessageSwipeActionsController)
 
     fun inject(dialog: QkDialog)
 

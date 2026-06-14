@@ -29,6 +29,7 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
 import androidx.core.net.toFile
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.exoplayer2.util.MimeTypes
 import com.moez.QKSMS.common.QkMediaPlayer
 import com.moez.QKSMS.contentproviders.MmsPartProvider
@@ -819,6 +820,54 @@ class ComposeViewModel @Inject constructor(
                 val body = reactions.buildReactionBody(emoji, targetMessage)
 
                 messageRepo.sendNewMessages(subId, addresses, body, emptyList(), sendAsGroup)
+            }
+
+        // Double-tap a message sends the configured default reaction
+        view.doubleTapMessageIntent
+            .observeOn(AndroidSchedulers.mainThread())
+            .filter {
+                when {
+                    !permissionManager.isDefaultSms() -> { view.requestDefaultSms(); false }
+                    !permissionManager.hasSendSms() -> { view.requestSmsPermission(); false }
+                    else -> true
+                }
+            }
+            .observeOn(Schedulers.io())
+            .withLatestFrom(state, conversation) { messageId, state, conversation ->
+                Triple(messageId, state, conversation)
+            }
+            .autoDisposable(view.scope())
+            .subscribe { (messageId, state, conversation) ->
+                val targetMessage = messageRepo.getMessage(messageId) ?: return@subscribe
+                val addresses = conversation.recipients.map { it.address }
+                if (addresses.isEmpty()) return@subscribe
+
+                val subId = state.subscription?.subscriptionId ?: -1
+                val sendAsGroup = addresses.size > 1
+                val emoji = prefs.defaultReactionEmoji.get()
+                val body = reactions.buildReactionBody(emoji, targetMessage)
+
+                messageRepo.sendNewMessages(subId, addresses, body, emptyList(), sendAsGroup)
+            }
+
+        // Configurable message swipe actions
+        view.swipeMessageIntent
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable(view.scope())
+            .subscribe { (messageId, direction) ->
+                val message = messageRepo.getMessage(messageId) ?: return@subscribe
+                val action = if (direction == ItemTouchHelper.RIGHT) prefs.messageSwipeRight.get()
+                             else prefs.messageSwipeLeft.get()
+
+                when (action) {
+                    Preferences.MESSAGE_SWIPE_ACTION_REACT -> view.showReactionPicker(messageId)
+                    Preferences.MESSAGE_SWIPE_ACTION_REPLY -> view.focusMessage()
+                    Preferences.MESSAGE_SWIPE_ACTION_COPY ->
+                        ClipboardUtils.copy(context, message.getText(false))
+                    Preferences.MESSAGE_SWIPE_ACTION_FORWARD ->
+                        navigator.showCompose(message.getText(false))
+                    Preferences.MESSAGE_SWIPE_ACTION_DELETE -> view.showDeleteDialog(listOf(messageId))
+                }
             }
 
         // Set the current conversation

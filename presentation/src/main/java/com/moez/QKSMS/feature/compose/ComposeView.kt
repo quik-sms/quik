@@ -80,6 +80,8 @@ interface ComposeView : QkView<ComposeState> {
     val reactionClickIntent: Subject<Long>
     val reactionPickerIntent: Observable<Long>   // message ID to react to
     val sendReactionIntent: Subject<Pair<Long, String>>  // (messageId, emoji)
+    val doubleTapMessageIntent: Observable<Long>   // message ID
+    val swipeMessageIntent: Observable<Pair<Long, Int>>   // (messageId, direction)
     val speechRecogniserIntent: Observable<*>
     val shadeIntent: Observable<Unit>
     val recordAudioStartStopRecording: Subject<Boolean>

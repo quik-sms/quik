@@ -25,11 +25,17 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import dev.octoshrimpy.quik.injection.ViewModelKey
+import dev.octoshrimpy.quik.injection.scope.ActivityScope
 import dev.octoshrimpy.quik.model.Attachment
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Named
 
 @Module
 class ComposeActivityModule {
+
+    @Provides
+    @ActivityScope
+    fun provideCompositeDisposableLifecycle(): CompositeDisposable = CompositeDisposable()
 
     @Provides
     @Named("query")

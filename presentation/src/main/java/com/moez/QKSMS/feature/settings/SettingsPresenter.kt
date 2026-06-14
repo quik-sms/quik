@@ -96,6 +96,9 @@ class SettingsPresenter @Inject constructor(
         disposables += prefs.signature.asObservable()
                 .subscribe { signature -> newState { copy(signature = signature) } }
 
+        disposables += prefs.defaultReactionEmoji.asObservable()
+                .subscribe { emoji -> newState { copy(defaultReactionEmoji = emoji) } }
+
         val textSizeLabels = context.resources.getStringArray(R.array.text_sizes)
         disposables += prefs.textSize.asObservable()
                 .subscribe { textSize ->
@@ -181,6 +184,10 @@ class SettingsPresenter @Inject constructor(
                         R.id.notifications -> navigator.showNotificationSettings()
 
                         R.id.swipeActions -> view.showSwipeActions()
+
+                        R.id.messageSwipeActions -> view.showMessageSwipeActions()
+
+                        R.id.defaultReaction -> view.showDefaultReactionDialog(prefs.defaultReactionEmoji.get())
 
                         R.id.delayed -> view.showDelayDurationDialog()
 
@@ -273,6 +280,11 @@ class SettingsPresenter @Inject constructor(
 
         view.signatureChanged()
                 .doOnNext(prefs.signature::set)
+                .autoDisposable(view.scope())
+                .subscribe()
+
+        view.defaultReactionChanged()
+                .doOnNext(prefs.defaultReactionEmoji::set)
                 .autoDisposable(view.scope())
                 .subscribe()
 

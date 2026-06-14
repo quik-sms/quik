@@ -47,6 +47,7 @@ import dev.octoshrimpy.quik.common.widget.PreferenceView
 import dev.octoshrimpy.quik.common.widget.TextInputDialog
 import dev.octoshrimpy.quik.databinding.SettingsControllerBinding
 import dev.octoshrimpy.quik.feature.settings.about.AboutController
+import dev.octoshrimpy.quik.feature.settings.swipe.MessageSwipeActionsController
 import dev.octoshrimpy.quik.feature.settings.swipe.SwipeActionsController
 import dev.octoshrimpy.quik.feature.themepicker.ThemePickerController
 import dev.octoshrimpy.quik.injection.appComponent
@@ -76,10 +77,16 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
         TextInputDialog(activity!!, context.getString(R.string.settings_signature_title), signatureSubject::onNext)
     }
 
+    private val defaultReactionDialog: TextInputDialog by lazy {
+        TextInputDialog(activity!!, context.getString(R.string.settings_default_reaction_title),
+            defaultReactionSubject::onNext)
+    }
+
     private val viewQksmsPlusSubject: Subject<Unit> = PublishSubject.create()
     private val startTimeSelectedSubject: Subject<Pair<Int, Int>> = PublishSubject.create()
     private val endTimeSelectedSubject: Subject<Pair<Int, Int>> = PublishSubject.create()
     private val signatureSubject: Subject<String> = PublishSubject.create()
+    private val defaultReactionSubject: Subject<String> = PublishSubject.create()
 
     private val progressAnimator by lazy { ObjectAnimator.ofInt(binding.syncingProgress, "progress", 0, 0) }
 
@@ -138,6 +145,8 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
 
     override fun signatureChanged(): Observable<String> = signatureSubject
 
+    override fun defaultReactionChanged(): Observable<String> = defaultReactionSubject.hide()
+
     override fun mmsSizeSelected(): Observable<Int> = mmsSizeDialog.adapter.menuItemClicks
 
     override fun messageLinkHandlingSelected(): Observable<Int> = messageLinkHandlingDialog.adapter.menuItemClicks
@@ -165,6 +174,8 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
 
         binding.signature.summary = state.signature.takeIf { it.isNotBlank() }
                 ?: context.getString(R.string.settings_signature_summary)
+
+        binding.defaultReaction.summary = state.defaultReactionEmoji
 
         binding.textSize.summary = state.textSizeSummary
         textSizeDialog.adapter.selectedItem = state.textSizeId
@@ -238,12 +249,20 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
 
     override fun showSignatureDialog(signature: String) = signatureDialog.setText(signature).show()
 
+    override fun showDefaultReactionDialog(current: String) = defaultReactionDialog.setText(current).show()
+
     override fun showMmsSizePicker() = mmsSizeDialog.show(activity!!)
 
     override fun showMessageLinkHandlingDialogPicker() = messageLinkHandlingDialog.show(activity!!)
 
     override fun showSwipeActions() {
         router.pushController(RouterTransaction.with(SwipeActionsController())
+                .pushChangeHandler(QkChangeHandler())
+                .popChangeHandler(QkChangeHandler()))
+    }
+
+    override fun showMessageSwipeActions() {
+        router.pushController(RouterTransaction.with(MessageSwipeActionsController())
                 .pushChangeHandler(QkChangeHandler())
                 .popChangeHandler(QkChangeHandler()))
     }

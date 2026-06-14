@@ -53,6 +53,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -107,6 +108,7 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
     @Inject lateinit var chipsAdapter: ChipsAdapter
     @Inject lateinit var dateFormatter: DateFormatter
     @Inject lateinit var messageAdapter: MessagesAdapter
+    @Inject lateinit var messageSwipeCallback: MessageItemTouchCallback
     @Inject lateinit var navigator: Navigator
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -149,6 +151,8 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
     override val reactionClickIntent: Subject<Long> by lazy { messageAdapter.reactionClicks }
     override val reactionPickerIntent: Observable<Long> by lazy { messageAdapter.reactionPickerIntent }
     override val sendReactionIntent: Subject<Pair<Long, String>> = PublishSubject.create()
+    override val doubleTapMessageIntent: Observable<Long> by lazy { messageAdapter.doubleTapIntent }
+    override val swipeMessageIntent: Observable<Pair<Long, Int>> by lazy { messageSwipeCallback.swipes }
     override val speechRecogniserIntent by lazy { binding.speechToTextIcon.clicks() }
     override val shadeIntent by lazy { binding.shadeBackground.clicks() }
     override val recordAudioStartStopRecording: Subject<Boolean> = PublishSubject.create()
@@ -204,6 +208,9 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
 
             binding.messageList.setHasFixedSize(true)
             binding.messageList.adapter = messageAdapter
+
+            messageSwipeCallback.adapter = messageAdapter
+            ItemTouchHelper(messageSwipeCallback).attachToRecyclerView(binding.messageList)
 
             binding.messageAttachments.adapter = composeAttachmentAdapter
 

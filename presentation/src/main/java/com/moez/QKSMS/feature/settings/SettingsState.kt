@@ -36,6 +36,7 @@ data class SettingsState(
     val deliveryEnabled: Boolean = false,
     val unreadAtTopEnabled: Boolean = false,
     val signature: String = "",
+    val defaultReactionEmoji: String = Preferences.DEFAULT_REACTION_EMOJI,
     val textSizeSummary: String = "",
     val textSizeId: Int = Preferences.TEXT_SIZE_NORMAL,
     val systemFontEnabled: Boolean = false,

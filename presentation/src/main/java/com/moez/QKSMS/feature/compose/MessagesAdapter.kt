@@ -32,7 +32,9 @@ import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
 import android.text.style.URLSpan
 import android.text.util.Linkify
+import android.view.GestureDetector
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -112,6 +114,7 @@ class MessagesAdapter @Inject constructor(
     val partContextMenuRegistrar: Subject<View> = PublishSubject.create()
     val reactionClicks: Subject<Long> = PublishSubject.create()
     val reactionPickerIntent: Subject<Long> = PublishSubject.create()
+    val doubleTapIntent: Subject<Long> = PublishSubject.create()
 
     var data: Pair<Conversation, RealmResults<Message>>? = null
         set(value) {
@@ -170,30 +173,43 @@ class MessagesAdapter @Inject constructor(
         partContextMenuRegistrar.onNext(parts)
 
         return QkViewHolder(view).apply {
-            view.setOnClickListener {
-                getItem(adapterPosition)?.let {
-                    when (toggleSelection(it.id, false)) {
-                        true -> view.isActivated = isSelected(it.id)
-                        false -> {
-                            expanded[it.id] = status.visibility != View.VISIBLE
-                            notifyItemChanged(adapterPosition)
+            val holder = this
+            // A single GestureDetector on the item root handles tap / double-tap / long-press.
+            // Child views (links, images, parts) keep handling their own touch events.
+            val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+                // must return true so the detector receives the subsequent events
+                override fun onDown(e: MotionEvent): Boolean = true
+
+                override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                    getItem(holder.adapterPosition)?.let {
+                        when (toggleSelection(it.id, false)) {
+                            true -> view.isActivated = isSelected(it.id)
+                            false -> {
+                                expanded[it.id] = status.visibility != View.VISIBLE
+                                notifyItemChanged(holder.adapterPosition)
+                            }
                         }
                     }
+                    return true
                 }
-            }
-            view.setOnLongClickListener {
-                getItem(adapterPosition)?.let {
-                    // If a selection is already active, keep extending it (multi-select).
-                    // Otherwise, long-press opens the emoji reaction picker for this message.
-                    // Selection mode remains reachable via the toolbar (select all) once active.
-                    if (toggleSelection(it.id, false)) {
-                        view.isActivated = isSelected(it.id)
-                    } else {
-                        reactionPickerIntent.onNext(it.id)
+
+                override fun onDoubleTap(e: MotionEvent): Boolean {
+                    getItem(holder.adapterPosition)?.let { doubleTapIntent.onNext(it.id) }
+                    return true
+                }
+
+                override fun onLongPress(e: MotionEvent) {
+                    getItem(holder.adapterPosition)?.let {
+                        // If a selection is already active, keep extending it (multi-select).
+                        // Otherwise, long-press opens the emoji reaction picker for this message.
+                        // Selection mode remains reachable via the toolbar (select all) once active.
+                        if (toggleSelection(it.id, false)) view.isActivated = isSelected(it.id)
+                        else reactionPickerIntent.onNext(it.id)
                     }
                 }
-                true
-            }
+            })
+
+            view.setOnTouchListener { _, e -> gestureDetector.onTouchEvent(e) }
         }
     }
 

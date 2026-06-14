@@ -84,6 +84,15 @@ class Preferences @Inject constructor(
         const val MESSAGE_LINK_HANDLING_BLOCK = 0
         const val MESSAGE_LINK_HANDLING_ALLOW = 1
         const val MESSAGE_LINK_HANDLING_ASK = 2
+
+        const val MESSAGE_SWIPE_ACTION_NONE    = 0
+        const val MESSAGE_SWIPE_ACTION_REACT   = 1   // open reaction picker
+        const val MESSAGE_SWIPE_ACTION_REPLY   = 2   // focus compose box
+        const val MESSAGE_SWIPE_ACTION_COPY    = 3   // copy text to clipboard
+        const val MESSAGE_SWIPE_ACTION_FORWARD = 4
+        const val MESSAGE_SWIPE_ACTION_DELETE  = 5
+
+        const val DEFAULT_REACTION_EMOJI = "👍"
     }
 
     // Internal
@@ -123,6 +132,9 @@ class Preferences @Inject constructor(
     val sendDelay = rxPrefs.getInteger("sendDelay", SEND_DELAY_NONE)
     val swipeRight = rxPrefs.getInteger("swipeRight", SWIPE_ACTION_ARCHIVE)
     val swipeLeft = rxPrefs.getInteger("swipeLeft", SWIPE_ACTION_ARCHIVE)
+    val defaultReactionEmoji = rxPrefs.getString("defaultReactionEmoji", DEFAULT_REACTION_EMOJI)
+    val messageSwipeRight = rxPrefs.getInteger("messageSwipeRight", MESSAGE_SWIPE_ACTION_REACT)
+    val messageSwipeLeft  = rxPrefs.getInteger("messageSwipeLeft",  MESSAGE_SWIPE_ACTION_REPLY)
     val autoEmoji = rxPrefs.getBoolean("autoEmoji", true)
     val delivery = rxPrefs.getBoolean("delivery", false)
     val signature = rxPrefs.getString("signature", "")
