@@ -76,7 +76,6 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.math.sqrt
 
 @Singleton
 open class MessageRepositoryImpl @Inject constructor(
@@ -458,6 +457,9 @@ open class MessageRepositoryImpl @Inject constructor(
                 ?.let(SmsManagerFactory::createSmsManager)
                 ?: SmsManager.getDefault()
 
+            val allowAttachAudio = smsManager.carrierConfigValues
+                .getBoolean(SmsManager.MMS_CONFIG_ALLOW_ATTACH_AUDIO, true)
+
             val maxWidth = smsManager.carrierConfigValues
                 .getInt(SmsManager.MMS_CONFIG_MAX_IMAGE_WIDTH)
                 .takeIf { prefs.mmsSize.get() == -1 }
@@ -483,11 +485,12 @@ open class MessageRepositoryImpl @Inject constructor(
                 // filter in only items that exist (user may have deleted the file)
                 .filter { it.uri.resourceExists(context) }
                 .map {
-                    remainingBytes -= it.getResourceBytes(context).size
+                    val bytes = compressedAttachmentBytes(it, Int.MAX_VALUE, maxWidth, maxHeight, allowAttachAudio)
+                    remainingBytes -= bytes.size
                     val part = com.google.android.mms.MMSPart().apply {
                         MimeType = it.getType(context)
                         Name = it.getName(context)
-                        Data = it.getResourceBytes(context)
+                        Data = bytes
                     }
 
                     // release the attachment hold on the image bytes so the GC can reclaim
@@ -512,71 +515,12 @@ open class MessageRepositoryImpl @Inject constructor(
             val imageByteCount = imageBytesByAttachment.values.sumOf { it.size }
             if (imageByteCount > remainingBytes) {
                 imageBytesByAttachment.forEach { (attachment, originalBytes) ->
-                    val uri = attachment.uri
-                    val maxBytes = originalBytes.size / imageByteCount.toFloat() * remainingBytes
-
-                    // Get the image dimensions
-                    val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-                    BitmapFactory.decodeStream(
-                        context.contentResolver.openInputStream(uri),
-                        null,
-                        options
-                    )
-                    val width = options.outWidth
-                    val height = options.outHeight
-                    val aspectRatio = width.toFloat() / height.toFloat()
-
-                    var attempts = 0
-                    var scaledBytes = originalBytes
-
-                    while (scaledBytes.size > maxBytes) {
-                        // Estimate how much we need to scale the image down by. If it's still
-                        // too big, we'll need to try smaller and smaller values
-                        val scale = maxBytes / originalBytes.size * (0.9 - attempts * 0.2)
-                        if (scale <= 0) {
-                            Timber.w(
-                                "Failed to compress ${
-                                    originalBytes.size / 1024
-                                }Kb to ${maxBytes.toInt() / 1024}Kb"
-                            )
-                            return@forEach
-                        }
-
-                        val newArea = scale * width * height
-                        val newWidth = sqrt(newArea * aspectRatio).toInt()
-                        val newHeight = (newWidth / aspectRatio).toInt()
-
-                        attempts++
-                        scaledBytes = when (attachment.getType(context) == "image/gif") {
-                            true -> ImageUtils.getScaledGif(
-                                context, attachment.uri, newWidth, newHeight
-                            )
-
-                            false -> ImageUtils.getScaledImage(
-                                context, attachment.uri, newWidth, newHeight
-                            )
-                        }
-
-                        Timber.d(
-                            "Compression attempt $attempts: ${
-                                scaledBytes.size / 1024
-                            }/${maxBytes.toInt() / 1024}Kb ($width*$height -> $newWidth*${
-                                newHeight
-                            })"
-                        )
-
-                        // release the attachment hold on the image bytes so the GC can reclaim
-                        attachment.releaseResourceBytes()
-                    }
-
-                    Timber.v(
-                        "Compressed ${originalBytes.size / 1024}Kb to ${
-                            scaledBytes.size / 1024
-                        }Kb with a target size of ${
-                            maxBytes.toInt() / 1024
-                        }Kb in $attempts attempts"
-                    )
-                    imageBytesByAttachment[attachment] = scaledBytes
+                    val perMaxBytes = (originalBytes.size / imageByteCount.toFloat() * remainingBytes).toInt()
+                    // skip images already within their proportional share - recompressing them
+                    // wastes a decode pass and needlessly degrades quality
+                    if (originalBytes.size > perMaxBytes)
+                        imageBytesByAttachment[attachment] =
+                            compressedAttachmentBytes(attachment, perMaxBytes, maxWidth, maxHeight, allowAttachAudio)
                 }
             }
 
@@ -637,6 +581,107 @@ open class MessageRepositoryImpl @Inject constructor(
 
         // send now (message will be exploded, as required, and all sent)
         return sendMessage(message)
+    }
+
+    // Compress images via binary search on dimensions then quality reduction, capping at maxBytes.
+    // Audio attachments are logged and passed through raw. All other types are passed through raw.
+    private fun compressedAttachmentBytes(
+        attachment: Attachment,
+        maxBytes: Int,
+        maxWidth: Int,
+        maxHeight: Int,
+        allowAttachAudio: Boolean
+    ): ByteArray {
+        val mimeType = attachment.getType(context)
+        return when {
+            mimeType.startsWith("image/") -> {
+                val isGif = mimeType == "image/gif"
+                val opts = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+                context.contentResolver.openInputStream(attachment.uri)?.use { stream ->
+                    BitmapFactory.decodeStream(stream, null, opts)
+                }
+                val origWidth = opts.outWidth
+                val origHeight = opts.outHeight
+                val aspectRatio = origWidth.toFloat() / origHeight.toFloat()
+
+                val maxWidthByHeight = if (maxHeight != Int.MAX_VALUE) {
+                    minOf((maxHeight * aspectRatio.toDouble()).toInt(), origWidth)
+                } else origWidth
+                val searchHi = minOf(origWidth, maxWidth, maxWidthByHeight).coerceAtLeast(100)
+
+                var lo = minOf(100, searchHi)
+                var hi = searchHi
+                var bestBytes: ByteArray? = null
+                var attempt = 0
+
+                while (lo <= hi) {
+                    val midWidth = (lo + hi) / 2
+                    val midHeight = (midWidth / aspectRatio).toInt().coerceAtLeast(1)
+                    attempt++
+                    val candidate = if (isGif) {
+                        ImageUtils.getScaledGif(context, attachment.uri, midWidth, midHeight)
+                    } else {
+                        ImageUtils.getScaledImage(context, attachment.uri, midWidth, midHeight)
+                    }
+                    Timber.d(
+                        "Compression attempt $attempt: ${
+                            candidate.size / 1024
+                        }/${maxBytes / 1024}Kb ($origWidth*$origHeight -> $midWidth*$midHeight)"
+                    )
+                    if (candidate.size <= maxBytes) {
+                        bestBytes = candidate
+                        lo = midWidth + 1
+                    } else {
+                        hi = midWidth - 1
+                    }
+
+                    // release the attachment hold on the image bytes so the GC can reclaim
+                    attachment.releaseResourceBytes()
+                }
+
+                val result = bestBytes ?: run {
+                    val minHeight = (100 / aspectRatio).toInt().coerceAtLeast(1)
+                    if (isGif) {
+                        ImageUtils.getScaledGif(context, attachment.uri, 100, minHeight).also {
+                            Timber.w(
+                                "GIF too large after compression: ${
+                                    it.size / 1024
+                                }Kb target ${maxBytes / 1024}Kb, sending anyway"
+                            )
+                        }
+                    } else {
+                        ImageUtils.getScaledImageWithQuality(
+                            context, attachment.uri, 100, minHeight, maxBytes
+                        ).also {
+                            if (it.size > maxBytes) {
+                                Timber.w(
+                                    "Failed to compress image: ${
+                                        it.size / 1024
+                                    }Kb target ${maxBytes / 1024}Kb, sending anyway"
+                                )
+                            }
+                        }
+                    }
+                }
+
+                Timber.v(
+                    "Compressed to ${result.size / 1024}Kb with target ${
+                        maxBytes / 1024
+                    }Kb in $attempt attempts"
+                )
+                result
+            }
+            mimeType.startsWith("audio/") -> {
+                attachment.getResourceBytes(context).also { bytes ->
+                    Timber.i(
+                        "Audio attachment: ${
+                            bytes.size / 1024
+                        }Kb, carrier allowAttachAudio=$allowAttachAudio"
+                    )
+                }
+            }
+            else -> attachment.getResourceBytes(context)
+        }
     }
 
     override fun sendMessage(message: Message): Collection<Message> {
