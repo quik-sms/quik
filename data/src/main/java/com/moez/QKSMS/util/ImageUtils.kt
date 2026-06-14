@@ -57,4 +57,14 @@ object ImageUtils {
             .get()
     }
 
+    fun getScaledImageWithQuality(context: Context, uri: Uri, maxWidth: Int, maxHeight: Int, targetBytes: Int): ByteArray {
+        var result = getScaledImage(context, uri, maxWidth, maxHeight, 90)
+        if (result.size <= targetBytes) return result
+        for (quality in 80 downTo 40 step 10) {
+            result = getScaledImage(context, uri, maxWidth, maxHeight, quality)
+            if (result.size <= targetBytes) return result
+        }
+        return result
+    }
+
 }
