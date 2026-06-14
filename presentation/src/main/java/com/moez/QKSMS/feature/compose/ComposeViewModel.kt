@@ -766,12 +766,17 @@ class ComposeViewModel @Inject constructor(
             .mapNotNull { messageId -> messageRepo.getMessage(messageId) }
             .withLatestFrom(conversation) { message, conv ->
                 message.emojiReactions.map { reaction ->
-                    val contactName = conv.recipients
-                        .firstOrNull { recipient ->
-                            phoneNumberUtils.compare(recipient.address, reaction.senderAddress)
-                        }
-                        ?.getDisplayName()
-                        ?: reaction.senderAddress
+                    val contactName = when {
+                        // our own reactions are stored against our own number, so show "Me"
+                        messageRepo.getMessage(reaction.reactionMessageId)?.isMe() == true ->
+                            context.getString(R.string.compose_reaction_me)
+                        else -> conv.recipients
+                            .firstOrNull { recipient ->
+                                phoneNumberUtils.compare(recipient.address, reaction.senderAddress)
+                            }
+                            ?.getDisplayName()
+                            ?: reaction.senderAddress
+                    }
                     "${reaction.emoji} $contactName"
                 }
             }
@@ -787,28 +792,30 @@ class ComposeViewModel @Inject constructor(
         // message comes back to this device and is parsed as a reaction (isEmojiReaction = true),
         // so it is hidden from the conversation automatically.
         view.sendReactionIntent
+            // permission checks touch the UI, so keep them on the main thread
+            .observeOn(AndroidSchedulers.mainThread())
+            .filter {
+                when {
+                    !permissionManager.isDefaultSms() -> { view.requestDefaultSms(); false }
+                    !permissionManager.hasSendSms() -> { view.requestSmsPermission(); false }
+                    else -> true
+                }
+            }
+            // sending and realm access happen off the main thread
             .observeOn(Schedulers.io())
             .withLatestFrom(state, conversation) { pair, state, conversation ->
                 Triple(pair, state, conversation)
             }
             .autoDisposable(view.scope())
             .subscribe { (pair, state, conversation) ->
-                if (!permissionManager.isDefaultSms()) {
-                    view.requestDefaultSms()
-                    return@subscribe
-                }
-                if (!permissionManager.hasSendSms()) {
-                    view.requestSmsPermission()
-                    return@subscribe
-                }
-
                 val (messageId, emoji) = pair
                 val targetMessage = messageRepo.getMessage(messageId) ?: return@subscribe
                 val addresses = conversation.recipients.map { it.address }
                 if (addresses.isEmpty()) return@subscribe
 
                 val subId = state.subscription?.subscriptionId ?: -1
-                val sendAsGroup = (addresses.size > 1) && state.sendAsGroup
+                // always send a group reaction in a group thread so it reaches everyone
+                val sendAsGroup = addresses.size > 1
                 val body = reactions.buildReactionBody(emoji, targetMessage)
 
                 messageRepo.sendNewMessages(subId, addresses, body, emptyList(), sendAsGroup)

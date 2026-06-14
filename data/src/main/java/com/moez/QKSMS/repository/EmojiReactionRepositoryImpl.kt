@@ -19,6 +19,7 @@
 package dev.octoshrimpy.quik.repository
 
 import android.content.Context
+import com.klinker.android.send_message.Utils
 import com.squareup.moshi.Moshi
 import dev.octoshrimpy.quik.manager.KeyManager
 import dev.octoshrimpy.quik.model.EmojiReaction
@@ -251,6 +252,17 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         return null
     }
 
+    /**
+     * The address to attribute a reaction to. For incoming reactions this is the message sender;
+     * for our own outgoing reactions [Message.address] is the recipient, so use our own number
+     * instead so the reaction shows as coming from us.
+     */
+    private fun reactionSenderAddress(reactionMessage: Message): String =
+        if (reactionMessage.isMe())
+            Utils.getMyPhoneNumber(context).takeUnless { it.isNullOrEmpty() } ?: reactionMessage.address
+        else
+            reactionMessage.address
+
     private fun removeEmojiReaction(
         reactionMessage: Message,
         reaction: ParsedEmojiReaction,
@@ -262,8 +274,9 @@ class EmojiReactionRepositoryImpl @Inject constructor(
             return
         }
 
+        val senderAddress = reactionSenderAddress(reactionMessage)
         val existingReaction = targetMessage.emojiReactions.find { candidate ->
-            candidate.senderAddress == reactionMessage.address && candidate.emoji == reaction.emoji
+            candidate.senderAddress == senderAddress && candidate.emoji == reaction.emoji
         }
 
         if (existingReaction != null) {
@@ -291,7 +304,7 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         val reaction = EmojiReaction().apply {
             id = keyManager.newId()
             reactionMessageId = reactionMessage.id
-            senderAddress = reactionMessage.address
+            senderAddress = reactionSenderAddress(reactionMessage)
             emoji = parsedReaction.emoji
             originalMessageText = parsedReaction.originalMessage
             threadId = reactionMessage.threadId

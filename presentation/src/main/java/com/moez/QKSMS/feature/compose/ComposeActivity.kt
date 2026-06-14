@@ -772,14 +772,18 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
                 .show()
         })
 
-        // Anchor near the long-pressed message if its view is on screen, else the message list
+        // Anchor above the long-pressed message if its view is on screen; else center on the list
         val position = messageAdapter.data?.second?.indexOfLast { it.id == messageId } ?: -1
-        val anchor = position
+        val messageView = position
             .takeIf { it != -1 }
             ?.let { binding.messageList.layoutManager?.findViewByPosition(it) }
-            ?: binding.messageList
 
-        popup.showAtLocation(anchor, Gravity.CENTER, 0, 0)
+        if (messageView != null) {
+            row.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+            popup.showAsDropDown(messageView, 0, -(messageView.height + row.measuredHeight))
+        } else {
+            popup.showAtLocation(binding.messageList, Gravity.CENTER, 0, 0)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

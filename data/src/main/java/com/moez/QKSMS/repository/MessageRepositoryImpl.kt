@@ -614,6 +614,29 @@ open class MessageRepositoryImpl @Inject constructor(
 
         Timber.v("created message id ${message.id} from uri $messageUri")
 
+        // Parse outgoing reactions on the sender's own device. Sent messages don't arrive back as
+        // incoming, so without this they'd never be parsed (only on a full reparse). This attaches
+        // the reaction to its target locally and marks the reaction message as hidden.
+        reactions.parseEmojiReaction(body)?.let { parsedReaction ->
+            Realm.getDefaultInstance().use { realm ->
+                realm.where(Message::class.java)
+                    .equalTo("id", message.id)
+                    .findFirst()
+                    ?.let { savedMessage ->
+                        val targetMessage = reactions.findTargetMessage(
+                            savedMessage.threadId,
+                            parsedReaction.originalMessage,
+                            realm,
+                            parsedReaction.quikSenderAddress,
+                            parsedReaction.quikTimestamp,
+                        )
+                        realm.executeTransaction {
+                            reactions.saveEmojiReaction(savedMessage, parsedReaction, targetMessage, realm)
+                        }
+                    }
+            }
+        }
+
         if (delayMs > 0) {  // if delaying
             val sendTime = (now() + delayMs)
 
