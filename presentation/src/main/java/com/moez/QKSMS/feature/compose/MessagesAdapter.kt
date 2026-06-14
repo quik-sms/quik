@@ -111,6 +111,7 @@ class MessagesAdapter @Inject constructor(
     val resendClicks: Subject<Long> = PublishSubject.create()
     val partContextMenuRegistrar: Subject<View> = PublishSubject.create()
     val reactionClicks: Subject<Long> = PublishSubject.create()
+    val reactionPickerIntent: Subject<Long> = PublishSubject.create()
 
     var data: Pair<Conversation, RealmResults<Message>>? = null
         set(value) {
@@ -182,8 +183,14 @@ class MessagesAdapter @Inject constructor(
             }
             view.setOnLongClickListener {
                 getItem(adapterPosition)?.let {
-                    toggleSelection(it.id)
-                    view.isActivated = isSelected(it.id)
+                    // If a selection is already active, keep extending it (multi-select).
+                    // Otherwise, long-press opens the emoji reaction picker for this message.
+                    // Selection mode remains reachable via the toolbar (select all) once active.
+                    if (toggleSelection(it.id, false)) {
+                        view.isActivated = isSelected(it.id)
+                    } else {
+                        reactionPickerIntent.onNext(it.id)
+                    }
                 }
                 true
             }

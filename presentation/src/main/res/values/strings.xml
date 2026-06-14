@@ -155,6 +155,9 @@
     <string name="compose_menu_clear">Clear</string>
     <string name="compose_details_title">Message details</string>
     <string name="compose_reactions_title">Reactions</string>
+    <string name="compose_reaction_custom_title">Custom reaction</string>
+    <string name="compose_reaction_custom_hint">Type or paste an emoji</string>
+    <string name="button_send">Send</string>
     <string name="compose_details_type">Type: %s</string>
     <string name="compose_details_from">From: %s</string>
     <string name="compose_details_to">To: %s</string>

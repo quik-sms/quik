@@ -42,8 +42,14 @@ import android.view.DragEvent.ACTION_DRAG_EXITED
 import android.view.DragEvent.ACTION_DROP
 import android.view.Menu
 import android.view.MenuItem
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.SeekBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintSet
@@ -141,6 +147,8 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
     override val clearCurrentMessageIntent: Subject<Boolean> = PublishSubject.create()
     override val messageLinkAskIntent: Subject<Uri> by lazy { messageAdapter.messageLinkClicks }
     override val reactionClickIntent: Subject<Long> by lazy { messageAdapter.reactionClicks }
+    override val reactionPickerIntent: Observable<Long> by lazy { messageAdapter.reactionPickerIntent }
+    override val sendReactionIntent: Subject<Pair<Long, String>> = PublishSubject.create()
     override val speechRecogniserIntent by lazy { binding.speechToTextIcon.clicks() }
     override val shadeIntent by lazy { binding.shadeBackground.clicks() }
     override val recordAudioStartStopRecording: Subject<Boolean> = PublishSubject.create()
@@ -714,6 +722,64 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
             .setTitle(R.string.compose_reactions_title)
             .setMessage(reactions.joinToString("\n"))
             .show()
+    }
+
+    override fun showReactionPicker(messageId: Long) {
+        val defaultEmojis = listOf("❤️", "👍", "👎", "😂", "😮", "😢")
+        val pad = 12.dpToPx(this)
+
+        val row = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            setPadding(pad, pad, pad, pad)
+        }
+
+        val popup = PopupWindow(
+            row,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        ).apply {
+            elevation = 8.dpToPx(this@ComposeActivity).toFloat()
+            setBackgroundDrawable(ContextCompat.getDrawable(this@ComposeActivity, R.drawable.rounded_rectangle_4dp))
+        }
+
+        fun emojiView(label: String, onClick: () -> Unit) = TextView(this).apply {
+            text = label
+            textSize = 24f
+            gravity = Gravity.CENTER
+            setPadding(pad, pad / 2, pad, pad / 2)
+            setOnClickListener {
+                onClick()
+                popup.dismiss()
+            }
+        }
+
+        defaultEmojis.forEach { emoji ->
+            row.addView(emojiView(emoji) { sendReactionIntent.onNext(Pair(messageId, emoji)) })
+        }
+
+        // "+" opens a simple input so the user can type or paste any emoji
+        row.addView(emojiView("+") {
+            val input = EditText(this).apply { hint = getString(R.string.compose_reaction_custom_hint) }
+            AlertDialog.Builder(this)
+                .setTitle(R.string.compose_reaction_custom_title)
+                .setView(input)
+                .setPositiveButton(R.string.button_send) { _, _ ->
+                    val emoji = input.text.toString().trim()
+                    if (emoji.isNotEmpty()) sendReactionIntent.onNext(Pair(messageId, emoji))
+                }
+                .setNegativeButton(R.string.button_cancel, null)
+                .show()
+        })
+
+        // Anchor near the long-pressed message if its view is on screen, else the message list
+        val position = messageAdapter.data?.second?.indexOfLast { it.id == messageId } ?: -1
+        val anchor = position
+            .takeIf { it != -1 }
+            ?.let { binding.messageList.layoutManager?.findViewByPosition(it) }
+            ?: binding.messageList
+
+        popup.showAtLocation(anchor, Gravity.CENTER, 0, 0)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -36,6 +36,16 @@ class EmojiReactionRepositoryImpl @Inject constructor(
 ) : EmojiReactionRepository {
     // We use an ordered map to make sure we can test tapback regexes before generic ones
     private val reactionPatterns: LinkedHashMap<Regex, (MatchResult) -> ParsedEmojiReaction?> = linkedMapOf(
+        Regex( // quik-to-quik (must be first so it wins over the generic Google Messages pattern)
+            "(?s)^\u200aQUIK\u200b([^\u200b]*)\u200b([^\u200b]*)\u200b([^\u200b]*)\u200a(.*)\u200aQUIK\u200a\\Z"
+        ) to { match ->
+            ParsedEmojiReaction(
+                emoji = match.groupValues[1],
+                originalMessage = match.groupValues[4],
+                quikSenderAddress = match.groupValues[2],
+                quikTimestamp = match.groupValues[3].toLongOrNull(),
+            )
+        },
         Regex( // Google Messages
             "(?s)^\u200a[^\u200b\u200a]*\u200b([^\u200b]*)\u200b[^\u200b\u200a]*\u200a(.*)\u200a[^\u200b\u200a]*\u200a\\Z"
         ) to { match ->
@@ -147,6 +157,13 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         return null
     }
 
+    override fun buildReactionBody(emoji: String, targetMessage: Message): String {
+        val senderAddress = targetMessage.address
+        val timestampMs = targetMessage.date
+        val originalText = targetMessage.getText(false)
+        return "\u200aQUIK\u200b$emoji\u200b$senderAddress\u200b$timestampMs\u200a$originalText\u200aQUIK\u200a"
+    }
+
     private fun parseRemoval(body: String): ParsedEmojiReaction? {
         for ((pattern, parser) in removalPatterns) {
             val match = pattern.find(body) ?: continue
@@ -180,8 +197,39 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     override fun findTargetMessage(
         threadId: Long,
         originalMessageText: String,
-        realm: Realm
+        realm: Realm,
+        quikSenderAddress: String?,
+        quikTimestamp: Long?,
     ): Message? {
+        // Fast path: quik reactions carry the original sender's address and the original
+        // message's timestamp, so we can look up the exact target without text matching
+        if (quikSenderAddress != null && quikTimestamp != null) {
+            // 1. exact timestamp match
+            realm.where(Message::class.java)
+                .equalTo("threadId", threadId)
+                .equalTo("address", quikSenderAddress)
+                .equalTo("date", quikTimestamp)
+                .findFirst()
+                ?.let {
+                    Timber.d("Found quik reaction target by exact timestamp: message ID ${it.id}")
+                    return it
+                }
+
+            // 2. widen to ±2000ms in case the stored date drifted slightly
+            realm.where(Message::class.java)
+                .equalTo("threadId", threadId)
+                .equalTo("address", quikSenderAddress)
+                .between("date", quikTimestamp - 2000, quikTimestamp + 2000)
+                .sort("date", Sort.DESCENDING)
+                .findFirst()
+                ?.let {
+                    Timber.d("Found quik reaction target by timestamp window: message ID ${it.id}")
+                    return it
+                }
+
+            Timber.w("No quik reaction target by timestamp, falling back to text matching")
+        }
+
         val startTime = System.currentTimeMillis()
         val messages = realm.where(Message::class.java)
             .equalTo("threadId", threadId)
@@ -300,7 +348,9 @@ class EmojiReactionRepositoryImpl @Inject constructor(
                 val targetMessage = findTargetMessage(
                     message.threadId,
                     parsedReaction.originalMessage,
-                    realm
+                    realm,
+                    parsedReaction.quikSenderAddress,
+                    parsedReaction.quikTimestamp,
                 )
                 saveEmojiReaction(
                     message,

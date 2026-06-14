@@ -21,12 +21,26 @@ package dev.octoshrimpy.quik.repository
 import dev.octoshrimpy.quik.model.Message
 import io.realm.Realm
 
-data class ParsedEmojiReaction(val emoji: String, val originalMessage: String, val isRemoval: Boolean = false)
+data class ParsedEmojiReaction(
+    val emoji: String,
+    val originalMessage: String,
+    val isRemoval: Boolean = false,
+    val quikSenderAddress: String? = null,
+    val quikTimestamp: Long? = null,
+)
 
 interface EmojiReactionRepository {
     fun parseEmojiReaction(body: String): ParsedEmojiReaction?
 
-    fun findTargetMessage(threadId: Long, originalMessageText: String, realm: Realm): Message?
+    fun buildReactionBody(emoji: String, targetMessage: Message): String
+
+    fun findTargetMessage(
+        threadId: Long,
+        originalMessageText: String,
+        realm: Realm,
+        quikSenderAddress: String? = null,
+        quikTimestamp: Long? = null,
+    ): Message?
 
     fun saveEmojiReaction(
         reactionMessage: Message,

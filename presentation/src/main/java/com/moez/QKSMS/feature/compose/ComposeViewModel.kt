@@ -71,6 +71,7 @@ import dev.octoshrimpy.quik.model.Recipient
 import dev.octoshrimpy.quik.model.getText
 import dev.octoshrimpy.quik.repository.ContactRepository
 import dev.octoshrimpy.quik.repository.ConversationRepository
+import dev.octoshrimpy.quik.repository.EmojiReactionRepository
 import dev.octoshrimpy.quik.repository.MessageRepository
 import dev.octoshrimpy.quik.repository.ScheduledMessageRepository
 import dev.octoshrimpy.quik.util.ActiveSubscriptionObservable
@@ -115,6 +116,7 @@ class ComposeViewModel @Inject constructor(
     private val actionDelayedMessage: ActionDelayedMessage,
     private val conversationRepo: ConversationRepository,
     private val deleteMessages: DeleteMessages,
+    private val reactions: EmojiReactionRepository,
     private val markRead: MarkRead,
     private val messageDetailsFormatter: MessageDetailsFormatter,
     private val messageRepo: MessageRepository,
@@ -775,6 +777,42 @@ class ComposeViewModel @Inject constructor(
             }
             .autoDisposable(view.scope())
             .subscribe { reactions -> view.showReactionsDialog(reactions) }
+
+        // Long-press on a message opens the emoji reaction picker
+        view.reactionPickerIntent
+            .autoDisposable(view.scope())
+            .subscribe { messageId -> view.showReactionPicker(messageId) }
+
+        // Send a reaction: build a quik-encoded body and send it as a normal message. The sent
+        // message comes back to this device and is parsed as a reaction (isEmojiReaction = true),
+        // so it is hidden from the conversation automatically.
+        view.sendReactionIntent
+            .observeOn(Schedulers.io())
+            .withLatestFrom(state, conversation) { pair, state, conversation ->
+                Triple(pair, state, conversation)
+            }
+            .autoDisposable(view.scope())
+            .subscribe { (pair, state, conversation) ->
+                if (!permissionManager.isDefaultSms()) {
+                    view.requestDefaultSms()
+                    return@subscribe
+                }
+                if (!permissionManager.hasSendSms()) {
+                    view.requestSmsPermission()
+                    return@subscribe
+                }
+
+                val (messageId, emoji) = pair
+                val targetMessage = messageRepo.getMessage(messageId) ?: return@subscribe
+                val addresses = conversation.recipients.map { it.address }
+                if (addresses.isEmpty()) return@subscribe
+
+                val subId = state.subscription?.subscriptionId ?: -1
+                val sendAsGroup = (addresses.size > 1) && state.sendAsGroup
+                val body = reactions.buildReactionBody(emoji, targetMessage)
+
+                messageRepo.sendNewMessages(subId, addresses, body, emptyList(), sendAsGroup)
+            }
 
         // Set the current conversation
         Observables

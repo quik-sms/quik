@@ -751,7 +751,9 @@ open class MessageRepositoryImpl @Inject constructor(
                     val targetMessage = reactions.findTargetMessage(
                         savedMessage.threadId,
                         parsedReaction.originalMessage,
-                        realm
+                        realm,
+                        parsedReaction.quikSenderAddress,
+                        parsedReaction.quikTimestamp,
                     )
                     realm.executeTransaction {
                         reactions.saveEmojiReaction(
