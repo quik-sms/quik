@@ -63,6 +63,20 @@ To update the wiki, simply navigate to the [wiki tab](https://github.com/octoshr
 **If build fails, please edit the pull request in order to make the build succeed.**
 
 
+## Git Hooks (Optional but Recommended)
+We enforce code style (KtLint via Spotless) and code quality (Android Lint) on all Pull Requests. To catch these errors locally before you push, you can install our pre-commit hook:
+
+```bash
+./gradlew installGitHooks
+```
+
+Once installed, the hook will:
+1. **Auto-fix formatting:** It will run `spotlessApply` and automatically stage the fixes for you (unless you are doing a partial commit with `git add -p`, in which case it will safely abort to protect your unstaged changes).
+2. **Check for bugs:** It will run Android Lint and block the commit if any errors are found, pointing you to the report.
+
+*(If you ever need to bypass the hook in an emergency, use `git commit --no-verify`).*
+
+
 ## Helpful Tips
 ### Getting Your Pull Request Merged
 When submitting a pull request, please be as detailed as possible in your reasoning for the change, what you changed and how you tested it. \
