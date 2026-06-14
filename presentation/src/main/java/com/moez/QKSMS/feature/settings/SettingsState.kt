@@ -37,6 +37,7 @@ data class SettingsState(
     val unreadAtTopEnabled: Boolean = false,
     val signature: String = "",
     val defaultReactionEmoji: String = Preferences.DEFAULT_REACTION_EMOJI,
+    val quickReactions: String = Preferences.DEFAULT_QUICK_REACTIONS,
     val textSizeSummary: String = "",
     val textSizeId: Int = Preferences.TEXT_SIZE_NORMAL,
     val systemFontEnabled: Boolean = false,

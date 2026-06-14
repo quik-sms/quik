@@ -23,6 +23,8 @@ import android.content.Context
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.text.Layout
 import android.text.Spannable
 import android.text.SpannableString
@@ -35,6 +37,8 @@ import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -103,12 +107,22 @@ class MessagesAdapter @Inject constructor(
         private const val MAX_MESSAGE_DISPLAY_LENGTH = 5000
 
         private const val DOUBLE_TAP_TIMEOUT_MS = 300L
+
+        // delay between each reaction badge's pulse when a conversation opens on a reaction
+        private const val REACTION_PULSE_STAGGER_MS = 250L
     }
 
     // tracks the previous tap so we can detect a double-tap without an OnTouchListener
     // (an OnTouchListener on the item would swallow swipe gestures from ItemTouchHelper)
     private var lastTapMessageId = -1L
     private var lastTapTime = 0L
+
+    // When the conversation opens with a reaction as the newest message, the visible reaction
+    // badges pulse once, cascaded by REACTION_PULSE_STAGGER_MS. pulsedReactionIds keeps each
+    // badge to a single pulse despite RecyclerView rebinding.
+    private var pendingReactionPulse = false
+    private var reactionPulseOrder = 0
+    private val pulsedReactionIds = mutableSetOf<Long>()
 
     // click events passed back to compose view model
     val partClicks: Subject<Long> = PublishSubject.create()
@@ -128,6 +142,15 @@ class MessagesAdapter @Inject constructor(
             field = value
             contactCache.clear()
 
+            // Arm the reaction pulse if the newest message in the thread is a reaction. Binds for
+            // the initially-visible badges run synchronously on the next layout pass, so they all
+            // see the flag; the delayed reset only stops badges scrolled into view later.
+            if (value?.first?.lastMessage?.isEmojiReaction == true && !pendingReactionPulse) {
+                pendingReactionPulse = true
+                reactionPulseOrder = 0
+                Handler(Looper.getMainLooper()).postDelayed({ pendingReactionPulse = false }, 1500)
+            }
+
             updateData(value?.second)
         }
 
@@ -144,6 +167,13 @@ class MessagesAdapter @Inject constructor(
     var theme: Colors.Theme = colors.theme()
 
     private val audioState = AudioState()
+
+    init {
+        // Stable ids so RecyclerView populates viewHolder.itemId from getItemId(); the swipe
+        // callback (MessageItemTouchCallback) reads itemId to identify the swiped message.
+        // Without this, itemId is NO_ID (-1) and swipe-to-react can't resolve the message.
+        setHasStableIds(true)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QkViewHolder {
         // Use the parent's context to inflate the layout, otherwise link clicks will crash the app
@@ -469,10 +499,46 @@ class MessagesAdapter @Inject constructor(
             reactionTextView.text = reactionText
             reactionTextView.setOnClickListener { reactionClicks.onNext(message.id) }
             reactionsContainer.setVisible(true)
+
+            // clear any leftover scale from a recycled view
+            reactionTextView.animate().cancel()
+            reactionTextView.scaleX = 1f
+            reactionTextView.scaleY = 1f
+
+            // pulse once, cascaded, when the conversation opened on a reaction
+            if (pendingReactionPulse && pulsedReactionIds.add(message.id)) {
+                bounceReaction(reactionTextView, reactionPulseOrder++ * REACTION_PULSE_STAGGER_MS)
+            }
         } else {
             reactionsContainer.setVisible(false)
             reactionTextView.setOnClickListener(null)
         }
+    }
+
+    /** Grow-and-shrink bounce: 1 → 1.4 → 0.9 → 1, after [startDelay] ms. */
+    private fun bounceReaction(view: View, startDelay: Long) {
+        view.scaleX = 1f
+        view.scaleY = 1f
+        view.animate()
+            .scaleX(1.4f).scaleY(1.4f)
+            .setStartDelay(startDelay)
+            .setDuration(150)
+            .setInterpolator(DecelerateInterpolator())
+            .withEndAction {
+                view.animate()
+                    .scaleX(0.9f).scaleY(0.9f)
+                    .setStartDelay(0)
+                    .setDuration(120)
+                    .withEndAction {
+                        view.animate()
+                            .scaleX(1f).scaleY(1f)
+                            .setDuration(120)
+                            .setInterpolator(OvershootInterpolator())
+                            .start()
+                    }
+                    .start()
+            }
+            .start()
     }
 
 

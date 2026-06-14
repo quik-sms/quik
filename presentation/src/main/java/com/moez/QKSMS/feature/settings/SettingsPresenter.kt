@@ -99,6 +99,9 @@ class SettingsPresenter @Inject constructor(
         disposables += prefs.defaultReactionEmoji.asObservable()
                 .subscribe { emoji -> newState { copy(defaultReactionEmoji = emoji) } }
 
+        disposables += prefs.quickReactions.asObservable()
+                .subscribe { quick -> newState { copy(quickReactions = quick) } }
+
         val textSizeLabels = context.resources.getStringArray(R.array.text_sizes)
         disposables += prefs.textSize.asObservable()
                 .subscribe { textSize ->
@@ -188,6 +191,9 @@ class SettingsPresenter @Inject constructor(
                         R.id.messageSwipeActions -> view.showMessageSwipeActions()
 
                         R.id.defaultReaction -> view.showDefaultReactionDialog(prefs.defaultReactionEmoji.get())
+
+                        R.id.quickReactions -> view.showQuickReactionsDialog(
+                            prefs.quickReactions.get().split(",").map { it.trim() }.filter { it.isNotEmpty() })
 
                         R.id.delayed -> view.showDelayDurationDialog()
 
@@ -285,6 +291,11 @@ class SettingsPresenter @Inject constructor(
 
         view.defaultReactionChanged()
                 .doOnNext(prefs.defaultReactionEmoji::set)
+                .autoDisposable(view.scope())
+                .subscribe()
+
+        view.quickReactionsChanged()
+                .doOnNext(prefs.quickReactions::set)
                 .autoDisposable(view.scope())
                 .subscribe()
 

@@ -24,9 +24,15 @@ import android.content.Context
 import android.os.Build
 import android.text.format.DateFormat
 import android.view.LayoutInflater
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.bluelinelabs.conductor.RouterTransaction
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.clicks
@@ -40,7 +46,10 @@ import dev.octoshrimpy.quik.common.QkChangeHandler
 import dev.octoshrimpy.quik.common.QkDialog
 import dev.octoshrimpy.quik.common.base.QkController
 import dev.octoshrimpy.quik.common.util.Colors
+import dev.octoshrimpy.quik.common.util.EmojiPicker
 import dev.octoshrimpy.quik.common.util.extensions.animateLayoutChanges
+import dev.octoshrimpy.quik.common.util.extensions.dpToPx
+import dev.octoshrimpy.quik.common.util.extensions.resolveThemeColor
 import dev.octoshrimpy.quik.common.util.extensions.setBackgroundTint
 import dev.octoshrimpy.quik.common.util.extensions.setVisible
 import dev.octoshrimpy.quik.common.widget.PreferenceView
@@ -56,6 +65,7 @@ import dev.octoshrimpy.quik.util.Preferences
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
+import java.util.Collections
 import javax.inject.Inject
 
 class SettingsController : QkController<SettingsControllerBinding, SettingsView, SettingsState, SettingsPresenter>(), SettingsView {
@@ -77,16 +87,12 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
         TextInputDialog(activity!!, context.getString(R.string.settings_signature_title), signatureSubject::onNext)
     }
 
-    private val defaultReactionDialog: TextInputDialog by lazy {
-        TextInputDialog(activity!!, context.getString(R.string.settings_default_reaction_title),
-            defaultReactionSubject::onNext)
-    }
-
     private val viewQksmsPlusSubject: Subject<Unit> = PublishSubject.create()
     private val startTimeSelectedSubject: Subject<Pair<Int, Int>> = PublishSubject.create()
     private val endTimeSelectedSubject: Subject<Pair<Int, Int>> = PublishSubject.create()
     private val signatureSubject: Subject<String> = PublishSubject.create()
     private val defaultReactionSubject: Subject<String> = PublishSubject.create()
+    private val quickReactionsSubject: Subject<String> = PublishSubject.create()
 
     private val progressAnimator by lazy { ObjectAnimator.ofInt(binding.syncingProgress, "progress", 0, 0) }
 
@@ -147,6 +153,8 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
 
     override fun defaultReactionChanged(): Observable<String> = defaultReactionSubject.hide()
 
+    override fun quickReactionsChanged(): Observable<String> = quickReactionsSubject.hide()
+
     override fun mmsSizeSelected(): Observable<Int> = mmsSizeDialog.adapter.menuItemClicks
 
     override fun messageLinkHandlingSelected(): Observable<Int> = messageLinkHandlingDialog.adapter.menuItemClicks
@@ -176,6 +184,8 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
                 ?: context.getString(R.string.settings_signature_summary)
 
         binding.defaultReaction.summary = state.defaultReactionEmoji
+
+        binding.quickReactions.summary = state.quickReactions.replace(",", "  ")
 
         binding.textSize.summary = state.textSizeSummary
         textSizeDialog.adapter.selectedItem = state.textSizeId
@@ -249,7 +259,87 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
 
     override fun showSignatureDialog(signature: String) = signatureDialog.setText(signature).show()
 
-    override fun showDefaultReactionDialog(current: String) = defaultReactionDialog.setText(current).show()
+    override fun showDefaultReactionDialog(current: String) {
+        EmojiPicker.show(activity!!) { emoji -> defaultReactionSubject.onNext(emoji) }
+    }
+
+    override fun showQuickReactionsDialog(current: List<String>) {
+        val ctx = activity!!
+        val count = Preferences.QUICK_REACTIONS_COUNT
+        val items = current.filter { it.isNotEmpty() }.toMutableList()
+        while (items.size < count) items.add("➕")
+        while (items.size > count) items.removeAt(items.lastIndex)
+
+        val textColor = ctx.resolveThemeColor(android.R.attr.textColorPrimary)
+        val cell = 48.dpToPx(ctx)
+
+        lateinit var slotAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
+        slotAdapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+                object : RecyclerView.ViewHolder(TextView(ctx).apply {
+                    textSize = 24f
+                    gravity = Gravity.CENTER
+                    includeFontPadding = false
+                    setTextColor(textColor)
+                    setBackgroundResource(R.drawable.ripple)
+                    // each slot fills its grid column so all of them fit the dialog width
+                    // (evenly spaced) without horizontal scrolling
+                    layoutParams = RecyclerView.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, cell
+                    )
+                }) {}
+
+            override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+                (holder.itemView as TextView).text = items[position]
+                // tap a slot to replace its emoji via the full picker
+                holder.itemView.setOnClickListener {
+                    EmojiPicker.show(ctx) { emoji ->
+                        items[holder.adapterPosition] = emoji
+                        slotAdapter.notifyItemChanged(holder.adapterPosition)
+                    }
+                }
+            }
+
+            override fun getItemCount() = items.size
+        }
+
+        val recycler = RecyclerView(ctx).apply {
+            // one row of equal-width columns -> all slots fit, evenly spaced, no scrolling
+            layoutManager = GridLayoutManager(ctx, count)
+            adapter = slotAdapter
+            setPadding(8.dpToPx(ctx), 16.dpToPx(ctx), 8.dpToPx(ctx), 16.dpToPx(ctx))
+            clipToPadding = false
+        }
+
+        // long-press drag to reorder the slots
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT, 0
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val from = viewHolder.adapterPosition
+                val to = target.adapterPosition
+                Collections.swap(items, from, to)
+                slotAdapter.notifyItemMoved(from, to)
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) = Unit
+        }).attachToRecyclerView(recycler)
+
+        AlertDialog.Builder(ctx)
+            .setTitle(R.string.settings_quick_reactions_title)
+            .setMessage(R.string.settings_quick_reactions_dialog_hint)
+            .setView(recycler)
+            .setPositiveButton(R.string.button_save) { _, _ ->
+                quickReactionsSubject.onNext(items.joinToString(",") { it.ifEmpty { "➕" } })
+            }
+            .setNegativeButton(R.string.button_cancel, null)
+            .show()
+    }
 
     override fun showMmsSizePicker() = mmsSizeDialog.show(activity!!)
 

@@ -45,7 +45,6 @@ import android.view.MenuItem
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.SeekBar
@@ -75,6 +74,7 @@ import dev.octoshrimpy.quik.common.util.DateFormatter
 import dev.octoshrimpy.quik.common.util.extensions.autoScrollToStart
 import dev.octoshrimpy.quik.common.util.extensions.dpToPx
 import dev.octoshrimpy.quik.common.util.extensions.hideKeyboard
+import dev.octoshrimpy.quik.common.util.EmojiPicker
 import dev.octoshrimpy.quik.common.util.extensions.makeToast
 import dev.octoshrimpy.quik.common.util.extensions.scrapViews
 import dev.octoshrimpy.quik.common.util.extensions.setBackgroundTint
@@ -87,6 +87,7 @@ import dev.octoshrimpy.quik.feature.compose.editing.ChipsAdapter
 import dev.octoshrimpy.quik.feature.contacts.ContactsActivity
 import dev.octoshrimpy.quik.model.Attachment
 import dev.octoshrimpy.quik.model.Recipient
+import dev.octoshrimpy.quik.util.Preferences
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -732,7 +733,12 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
     }
 
     override fun showReactionPicker(messageId: Long) {
-        val defaultEmojis = listOf("❤️", "👍", "👎", "😂", "😮", "😢")
+        // User-configurable quick reactions (Settings → Quick reactions); fall back to defaults
+        val defaultEmojis = prefs.quickReactions.get()
+            .split(",")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+            .ifEmpty { Preferences.DEFAULT_QUICK_REACTIONS.split(",") }
         val theme = colors.theme()
         val vPad = 8.dpToPx(this)
 
@@ -774,18 +780,9 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
             row.addView(emojiView(emoji) { sendReactionIntent.onNext(Pair(messageId, emoji)) })
         }
 
-        // "+" opens a simple input so the user can type or paste any emoji
+        // "+" opens the full scrollable emoji grid so any emoji can be chosen
         row.addView(emojiView("+") {
-            val input = EditText(this).apply { hint = getString(R.string.compose_reaction_custom_hint) }
-            AlertDialog.Builder(this)
-                .setTitle(R.string.compose_reaction_custom_title)
-                .setView(input)
-                .setPositiveButton(R.string.button_send) { _, _ ->
-                    val emoji = input.text.toString().trim()
-                    if (emoji.isNotEmpty()) sendReactionIntent.onNext(Pair(messageId, emoji))
-                }
-                .setNegativeButton(R.string.button_cancel, null)
-                .show()
+            EmojiPicker.show(this) { emoji -> sendReactionIntent.onNext(Pair(messageId, emoji)) }
         })
 
         // Anchor above the long-pressed message if its view is on screen; else center on the list
@@ -794,16 +791,27 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
             .takeIf { it != -1 }
             ?.let { binding.messageList.layoutManager?.findViewByPosition(it) }
 
+        row.measure(
+            View.MeasureSpec.makeMeasureSpec(popupWidth, View.MeasureSpec.EXACTLY),
+            View.MeasureSpec.UNSPECIFIED
+        )
+
         if (messageView != null) {
-            row.measure(
-                View.MeasureSpec.makeMeasureSpec(popupWidth, View.MeasureSpec.EXACTLY),
-                View.MeasureSpec.UNSPECIFIED
-            )
-            popup.showAsDropDown(messageView, margin, -(messageView.height + row.measuredHeight))
+            val loc = IntArray(2)
+            messageView.getLocationInWindow(loc)
+            // Neutralize any in-progress swipe-recovery translation so the popup is not
+            // placed off-screen. The popup is ~full width, so anchor x at a fixed margin
+            // rather than to the (possibly still translated) swiped row.
+            val top = loc[1] - messageView.translationY.toInt()
+            val y = (top - row.measuredHeight).let { above ->
+                if (above >= 0) above else top + messageView.height   // flip below if no room above
+            }
+            popup.showAtLocation(binding.messageList, Gravity.NO_GRAVITY, margin, y)
         } else {
             popup.showAtLocation(binding.messageList, Gravity.CENTER, 0, 0)
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.compose, menu)

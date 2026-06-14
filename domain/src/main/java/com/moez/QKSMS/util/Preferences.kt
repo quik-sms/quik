@@ -93,6 +93,10 @@ class Preferences @Inject constructor(
         const val MESSAGE_SWIPE_ACTION_DELETE  = 5
 
         const val DEFAULT_REACTION_EMOJI = "👍"
+
+        // Quick-reaction emojis shown in the reaction popup, comma separated (user reorderable)
+        const val DEFAULT_QUICK_REACTIONS = "❤️,👍,👎,😂,😮,😢"
+        const val QUICK_REACTIONS_COUNT = 6
     }
 
     // Internal
@@ -133,6 +137,8 @@ class Preferences @Inject constructor(
     val swipeRight = rxPrefs.getInteger("swipeRight", SWIPE_ACTION_ARCHIVE)
     val swipeLeft = rxPrefs.getInteger("swipeLeft", SWIPE_ACTION_ARCHIVE)
     val defaultReactionEmoji = rxPrefs.getString("defaultReactionEmoji", DEFAULT_REACTION_EMOJI)
+
+    val quickReactions = rxPrefs.getString("quickReactions", DEFAULT_QUICK_REACTIONS)
     val messageSwipeRight = rxPrefs.getInteger("messageSwipeRight", MESSAGE_SWIPE_ACTION_REACT)
     val messageSwipeLeft  = rxPrefs.getInteger("messageSwipeLeft",  MESSAGE_SWIPE_ACTION_REPLY)
     val autoEmoji = rxPrefs.getBoolean("autoEmoji", true)

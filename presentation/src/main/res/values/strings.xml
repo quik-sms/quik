@@ -312,6 +312,9 @@
         <item>Speak</item>
     </string-array>
     <string name="settings_default_reaction_title">Default reaction</string>
+    <string name="settings_quick_reactions_title">Quick reactions</string>
+    <string name="settings_quick_reactions_summary">Emoji shown in the reaction popup</string>
+    <string name="settings_quick_reactions_dialog_hint">Tap to change, drag to reorder</string>
     <string name="settings_message_swipe_actions">Message swipe actions</string>
     <string name="settings_message_swipe_actions_summary">Configure swipe actions for messages</string>
     <string-array name="settings_message_swipe_actions">

@@ -33,6 +33,7 @@ interface SettingsView : QkViewContract<SettingsState> {
     fun sendDelaySelected(): Observable<Int>
     fun signatureChanged(): Observable<String>
     fun defaultReactionChanged(): Observable<String>
+    fun quickReactionsChanged(): Observable<String>
     fun mmsSizeSelected(): Observable<Int>
     fun messageLinkHandlingSelected(): Observable<Int>
 
@@ -44,6 +45,7 @@ interface SettingsView : QkViewContract<SettingsState> {
     fun showDelayDurationDialog()
     fun showSignatureDialog(signature: String)
     fun showDefaultReactionDialog(current: String)
+    fun showQuickReactionsDialog(current: List<String>)
     fun showMmsSizePicker()
     fun showMessageLinkHandlingDialogPicker()
     fun showSwipeActions()
