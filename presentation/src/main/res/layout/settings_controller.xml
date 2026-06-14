@@ -163,7 +163,7 @@
             android:id="@+id/defaultReaction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:icon="@drawable/message_emoji"
+            app:icon="@drawable/ic_favorite_black_24dp"
             app:title="@string/settings_default_reaction_title" />
 
         <dev.octoshrimpy.quik.common.widget.PreferenceView

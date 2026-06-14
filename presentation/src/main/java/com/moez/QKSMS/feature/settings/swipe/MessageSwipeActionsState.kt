@@ -22,7 +22,7 @@ import androidx.annotation.DrawableRes
 import dev.octoshrimpy.quik.R
 
 data class MessageSwipeActionsState(
-    @DrawableRes val rightIcon: Int = R.drawable.message_emoji,
+    @DrawableRes val rightIcon: Int = R.drawable.ic_favorite_black_24dp,
     val rightLabel: String = "",
 
     @DrawableRes val leftIcon: Int = R.drawable.ic_reply_white_24dp,

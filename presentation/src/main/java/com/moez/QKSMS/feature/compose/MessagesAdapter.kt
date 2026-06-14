@@ -32,9 +32,7 @@ import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
 import android.text.style.URLSpan
 import android.text.util.Linkify
-import android.view.GestureDetector
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -103,7 +101,14 @@ class MessagesAdapter @Inject constructor(
         private const val VIEW_TYPE_MESSAGE_OUT = 1
 
         private const val MAX_MESSAGE_DISPLAY_LENGTH = 5000
+
+        private const val DOUBLE_TAP_TIMEOUT_MS = 300L
     }
+
+    // tracks the previous tap so we can detect a double-tap without an OnTouchListener
+    // (an OnTouchListener on the item would swallow swipe gestures from ItemTouchHelper)
+    private var lastTapMessageId = -1L
+    private var lastTapTime = 0L
 
     // click events passed back to compose view model
     val partClicks: Subject<Long> = PublishSubject.create()
@@ -174,34 +179,29 @@ class MessagesAdapter @Inject constructor(
 
         return QkViewHolder(view).apply {
             val holder = this
-            // GestureDetector handles single-tap (select/expand) and double-tap (react).
-            // It must NOT consume events, otherwise the RecyclerView's ItemTouchHelper never
-            // sees swipe gestures. The view is long-clickable (below), so it stays a touch
-            // target and the detector keeps receiving move/up events for double-tap detection.
-            val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
-                override fun onDown(e: MotionEvent): Boolean = true
-
-                override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-                    getItem(holder.adapterPosition)?.let {
-                        when (toggleSelection(it.id, false)) {
-                            true -> view.isActivated = isSelected(it.id)
+            // Plain click + long-click listeners (no OnTouchListener) so the RecyclerView's
+            // ItemTouchHelper still receives swipe gestures, same as the conversations list.
+            view.setOnClickListener {
+                getItem(holder.adapterPosition)?.let { item ->
+                    val now = System.currentTimeMillis()
+                    if (item.id == lastTapMessageId && (now - lastTapTime) <= DOUBLE_TAP_TIMEOUT_MS) {
+                        // second quick tap on the same message -> double-tap reaction
+                        lastTapMessageId = -1L
+                        lastTapTime = 0L
+                        doubleTapIntent.onNext(item.id)
+                    } else {
+                        lastTapMessageId = item.id
+                        lastTapTime = now
+                        when (toggleSelection(item.id, false)) {
+                            true -> view.isActivated = isSelected(item.id)
                             false -> {
-                                expanded[it.id] = status.visibility != View.VISIBLE
+                                expanded[item.id] = status.visibility != View.VISIBLE
                                 notifyItemChanged(holder.adapterPosition)
                             }
                         }
                     }
-                    return true
                 }
-
-                override fun onDoubleTap(e: MotionEvent): Boolean {
-                    getItem(holder.adapterPosition)?.let { doubleTapIntent.onNext(it.id) }
-                    return true
-                }
-            })
-
-            // return false: don't consume, so swipe-to-react (ItemTouchHelper) keeps working
-            view.setOnTouchListener { _, e -> gestureDetector.onTouchEvent(e); false }
+            }
 
             // long-press enters/extends message selection mode
             view.setOnLongClickListener {

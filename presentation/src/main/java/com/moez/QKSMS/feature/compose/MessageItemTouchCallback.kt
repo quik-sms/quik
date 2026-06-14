@@ -144,7 +144,7 @@ class MessageItemTouchCallback @Inject constructor(
 
     private fun iconForAction(action: Int, tint: Int): Bitmap? {
         val res = when (action) {
-            Preferences.MESSAGE_SWIPE_ACTION_REACT -> R.drawable.message_emoji
+            Preferences.MESSAGE_SWIPE_ACTION_REACT -> R.drawable.ic_favorite_black_24dp
             Preferences.MESSAGE_SWIPE_ACTION_REPLY -> R.drawable.ic_reply_white_24dp
             Preferences.MESSAGE_SWIPE_ACTION_COPY -> R.drawable.ic_content_copy_black_24dp
             Preferences.MESSAGE_SWIPE_ACTION_FORWARD -> R.drawable.ic_forward_black_24dp
