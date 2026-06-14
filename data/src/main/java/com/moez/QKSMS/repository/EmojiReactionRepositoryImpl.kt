@@ -35,18 +35,22 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     private val keyManager: KeyManager,
     private val moshi: Moshi,
 ) : EmojiReactionRepository {
+
+    companion object {
+        // Invisible (default-ignorable) characters used to hide quik's machine payload.
+        // Chosen from U+2061..U+2064 so they don't collide with the U+200A..U+200D chars used
+        // by the iOS/Google tapback patterns, and won't appear in normal message text.
+        private const val ZW_START = '\u2061'   // function application
+        private const val ZW_END = '\u2064'     // invisible plus
+        private const val ZW_ZERO = '\u2062'    // invisible times
+        private const val ZW_ONE = '\u2063'     // invisible separator
+
+        private const val PAYLOAD_FIELD_SEPARATOR = '\u001f'   // unit separator
+        private const val MAX_PAYLOAD_TEXT = 120
+    }
+
     // We use an ordered map to make sure we can test tapback regexes before generic ones
     private val reactionPatterns: LinkedHashMap<Regex, (MatchResult) -> ParsedEmojiReaction?> = linkedMapOf(
-        Regex( // quik-to-quik (must be first so it wins over the generic Google Messages pattern)
-            "(?s)^\u200aQUIK\u200b([^\u200b]*)\u200b([^\u200b]*)\u200b([^\u200b]*)\u200a(.*)\u200aQUIK\u200a\\Z"
-        ) to { match ->
-            ParsedEmojiReaction(
-                emoji = match.groupValues[1],
-                originalMessage = match.groupValues[4],
-                quikSenderAddress = match.groupValues[2],
-                quikTimestamp = match.groupValues[3].toLongOrNull(),
-            )
-        },
         Regex( // Google Messages
             "(?s)^\u200a[^\u200b\u200a]*\u200b([^\u200b]*)\u200b[^\u200b\u200a]*\u200a(.*)\u200a[^\u200b\u200a]*\u200a\\Z"
         ) to { match ->
@@ -144,6 +148,12 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     }
 
     override fun parseEmojiReaction(body: String): ParsedEmojiReaction? {
+        // quik's own zero-width payload takes priority over the iOS/Google text patterns
+        parseQuikReaction(body)?.let {
+            Timber.d("Quik reaction found with ${it.emoji}")
+            return it
+        }
+
         val removal = parseRemoval(body)
         if (removal != null) return removal
 
@@ -161,8 +171,68 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     override fun buildReactionBody(emoji: String, targetMessage: Message): String {
         val senderAddress = targetMessage.address
         val timestampMs = targetMessage.date
-        val originalText = targetMessage.getText(false)
-        return "\u200aQUIK\u200b$emoji\u200b$senderAddress\u200b$timestampMs\u200a$originalText\u200aQUIK\u200a"
+        val originalText = targetMessage.getText(false).trim()
+
+        // Visible, iOS-style fallback so non-quik clients see a clean, readable line.
+        val human = if (originalText.isEmpty()) "Reacted $emoji to a message"
+                    else "Reacted $emoji to \"$originalText\""
+
+        // Machine-readable payload, hidden in zero-width characters and parsed only by quik.
+        // originalText is capped to keep the invisible payload (and thus the SMS) reasonably small.
+        val payload = listOf(emoji, senderAddress, timestampMs.toString(), originalText.take(MAX_PAYLOAD_TEXT))
+            .joinToString(PAYLOAD_FIELD_SEPARATOR.toString())
+
+        return human + encodeQuikPayload(payload)
+    }
+
+    /**
+     * Encode a UTF-8 string into an invisible run of zero-width characters, wrapped in sentinels.
+     * Each byte becomes 8 zero-width bits ([ZW_ZERO]/[ZW_ONE]).
+     */
+    private fun encodeQuikPayload(payload: String): String {
+        val sb = StringBuilder()
+        sb.append(ZW_START)
+        for (byte in payload.toByteArray(Charsets.UTF_8)) {
+            val value = byte.toInt() and 0xFF
+            for (bit in 7 downTo 0)
+                sb.append(if ((value shr bit) and 1 == 1) ZW_ONE else ZW_ZERO)
+        }
+        sb.append(ZW_END)
+        return sb.toString()
+    }
+
+    /**
+     * Extract and decode a quik zero-width payload from a message body, or null if absent/invalid.
+     */
+    private fun decodeQuikPayload(body: String): String? {
+        val start = body.indexOf(ZW_START)
+        if (start == -1) return null
+        val end = body.indexOf(ZW_END, start + 1)
+        if (end == -1) return null
+
+        val bits = body.substring(start + 1, end).filter { it == ZW_ZERO || it == ZW_ONE }
+        if (bits.isEmpty() || bits.length % 8 != 0) return null
+
+        val bytes = ByteArray(bits.length / 8)
+        for (i in bytes.indices) {
+            var value = 0
+            for (bit in 0 until 8)
+                value = (value shl 1) or (if (bits[i * 8 + bit] == ZW_ONE) 1 else 0)
+            bytes[i] = value.toByte()
+        }
+        return String(bytes, Charsets.UTF_8)
+    }
+
+    private fun parseQuikReaction(body: String): ParsedEmojiReaction? {
+        val decoded = decodeQuikPayload(body) ?: return null
+        val parts = decoded.split(PAYLOAD_FIELD_SEPARATOR)
+        if (parts.size < 3) return null
+        return ParsedEmojiReaction(
+            emoji = parts[0],
+            originalMessage = parts.getOrElse(3) { "" },
+            quikSenderAddress = parts[1].ifEmpty { null },
+            quikTimestamp = parts[2].toLongOrNull(),
+        )
     }
 
     private fun parseRemoval(body: String): ParsedEmojiReaction? {

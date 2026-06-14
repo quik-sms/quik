@@ -733,28 +733,37 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
 
     override fun showReactionPicker(messageId: Long) {
         val defaultEmojis = listOf("❤️", "👍", "👎", "😂", "😮", "😢")
-        val pad = 12.dpToPx(this)
+        val theme = colors.theme()
+        val vPad = 8.dpToPx(this)
+
+        // Cap the popup to the screen width (minus a margin) so every emoji + the "+" fit
+        // without horizontal scrolling; each item shares the width evenly via layout weight.
+        val margin = 16.dpToPx(this)
+        val popupWidth = resources.displayMetrics.widthPixels - margin * 2
 
         val row = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
-            setPadding(pad, pad, pad, pad)
+            setPadding(vPad, vPad, vPad, vPad)
         }
 
-        val popup = PopupWindow(
-            row,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            true
-        ).apply {
+        val background = ContextCompat.getDrawable(this, R.drawable.rounded_rectangle_4dp)
+            ?.mutate()
+            ?.apply { setTint(theme.theme) }
+
+        val popup = PopupWindow(row, popupWidth, ViewGroup.LayoutParams.WRAP_CONTENT, true).apply {
             elevation = 8.dpToPx(this@ComposeActivity).toFloat()
-            setBackgroundDrawable(ContextCompat.getDrawable(this@ComposeActivity, R.drawable.rounded_rectangle_4dp))
+            setBackgroundDrawable(background)
         }
 
         fun emojiView(label: String, onClick: () -> Unit) = TextView(this).apply {
             text = label
-            textSize = 24f
+            textSize = 20f
             gravity = Gravity.CENTER
-            setPadding(pad, pad / 2, pad, pad / 2)
+            includeFontPadding = false
+            setTextColor(theme.textPrimary)
+            setPadding(0, vPad, 0, vPad)
+            // weight = 1 so all items share the popup width equally and shrink to fit
+            layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
             setOnClickListener {
                 onClick()
                 popup.dismiss()
@@ -786,8 +795,11 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
             ?.let { binding.messageList.layoutManager?.findViewByPosition(it) }
 
         if (messageView != null) {
-            row.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-            popup.showAsDropDown(messageView, 0, -(messageView.height + row.measuredHeight))
+            row.measure(
+                View.MeasureSpec.makeMeasureSpec(popupWidth, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.UNSPECIFIED
+            )
+            popup.showAsDropDown(messageView, margin, -(messageView.height + row.measuredHeight))
         } else {
             popup.showAtLocation(binding.messageList, Gravity.CENTER, 0, 0)
         }

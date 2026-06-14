@@ -631,6 +631,10 @@ open class MessageRepositoryImpl @Inject constructor(
                             parsedReaction.quikTimestamp,
                         )
                         realm.executeTransaction {
+                            // always hide our own sent reaction, even if the target message
+                            // can't be resolved locally (saveEmojiReaction only sets the flag
+                            // when a target is found)
+                            savedMessage.isEmojiReaction = true
                             reactions.saveEmojiReaction(savedMessage, parsedReaction, targetMessage, realm)
                         }
                     }

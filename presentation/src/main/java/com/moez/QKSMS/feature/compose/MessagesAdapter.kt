@@ -174,10 +174,11 @@ class MessagesAdapter @Inject constructor(
 
         return QkViewHolder(view).apply {
             val holder = this
-            // A single GestureDetector on the item root handles tap / double-tap / long-press.
-            // Child views (links, images, parts) keep handling their own touch events.
+            // GestureDetector handles single-tap (select/expand) and double-tap (react).
+            // It must NOT consume events, otherwise the RecyclerView's ItemTouchHelper never
+            // sees swipe gestures. The view is long-clickable (below), so it stays a touch
+            // target and the detector keeps receiving move/up events for double-tap detection.
             val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
-                // must return true so the detector receives the subsequent events
                 override fun onDown(e: MotionEvent): Boolean = true
 
                 override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
@@ -197,19 +198,19 @@ class MessagesAdapter @Inject constructor(
                     getItem(holder.adapterPosition)?.let { doubleTapIntent.onNext(it.id) }
                     return true
                 }
-
-                override fun onLongPress(e: MotionEvent) {
-                    getItem(holder.adapterPosition)?.let {
-                        // If a selection is already active, keep extending it (multi-select).
-                        // Otherwise, long-press opens the emoji reaction picker for this message.
-                        // Selection mode remains reachable via the toolbar (select all) once active.
-                        if (toggleSelection(it.id, false)) view.isActivated = isSelected(it.id)
-                        else reactionPickerIntent.onNext(it.id)
-                    }
-                }
             })
 
-            view.setOnTouchListener { _, e -> gestureDetector.onTouchEvent(e) }
+            // return false: don't consume, so swipe-to-react (ItemTouchHelper) keeps working
+            view.setOnTouchListener { _, e -> gestureDetector.onTouchEvent(e); false }
+
+            // long-press enters/extends message selection mode
+            view.setOnLongClickListener {
+                getItem(holder.adapterPosition)?.let {
+                    toggleSelection(it.id)
+                    view.isActivated = isSelected(it.id)
+                }
+                true
+            }
         }
     }
 
