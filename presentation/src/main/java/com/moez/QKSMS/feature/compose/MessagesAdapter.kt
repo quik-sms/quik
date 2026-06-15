@@ -123,6 +123,8 @@ class MessagesAdapter @Inject constructor(
     private var pendingReactionPulse = false
     private var reactionPulseOrder = 0
     private val pulsedReactionIds = mutableSetOf<Long>()
+    private val mainHandler = Handler(Looper.getMainLooper())
+    private val clearReactionPulse = Runnable { pendingReactionPulse = false }
 
     // click events passed back to compose view model
     val partClicks: Subject<Long> = PublishSubject.create()
@@ -148,7 +150,8 @@ class MessagesAdapter @Inject constructor(
             if (value?.first?.lastMessage?.isEmojiReaction == true && !pendingReactionPulse) {
                 pendingReactionPulse = true
                 reactionPulseOrder = 0
-                Handler(Looper.getMainLooper()).postDelayed({ pendingReactionPulse = false }, 1500)
+                mainHandler.removeCallbacks(clearReactionPulse)
+                mainHandler.postDelayed(clearReactionPulse, 1500)
             }
 
             updateData(value?.second)

@@ -789,10 +789,13 @@ class ComposeViewModel @Inject constructor(
             .autoDisposable(view.scope())
             .subscribe { messageId -> view.showReactionPicker(messageId) }
 
-        // Send a reaction: build a quik-encoded body and send it as a normal message. The sent
-        // message comes back to this device and is parsed as a reaction (isEmojiReaction = true),
-        // so it is hidden from the conversation automatically.
-        view.sendReactionIntent
+        // Send a reaction — from the picker (sendReactionIntent) or the configured default reaction
+        // on double-tap. Build a quik-encoded body and send it as a normal message; the sent
+        // message comes back to this device, is parsed as a reaction (isEmojiReaction = true), and
+        // is hidden from the conversation automatically.
+        Observable.merge(
+                view.sendReactionIntent,
+                view.doubleTapMessageIntent.map { messageId -> Pair(messageId, prefs.defaultReactionEmoji.get()) })
             // permission checks touch the UI, so keep them on the main thread
             .observeOn(AndroidSchedulers.mainThread())
             .filter {
@@ -817,34 +820,6 @@ class ComposeViewModel @Inject constructor(
                 val subId = state.subscription?.subscriptionId ?: -1
                 // always send a group reaction in a group thread so it reaches everyone
                 val sendAsGroup = addresses.size > 1
-                val body = reactions.buildReactionBody(emoji, targetMessage)
-
-                messageRepo.sendNewMessages(subId, addresses, body, emptyList(), sendAsGroup)
-            }
-
-        // Double-tap a message sends the configured default reaction
-        view.doubleTapMessageIntent
-            .observeOn(AndroidSchedulers.mainThread())
-            .filter {
-                when {
-                    !permissionManager.isDefaultSms() -> { view.requestDefaultSms(); false }
-                    !permissionManager.hasSendSms() -> { view.requestSmsPermission(); false }
-                    else -> true
-                }
-            }
-            .observeOn(Schedulers.io())
-            .withLatestFrom(state, conversation) { messageId, state, conversation ->
-                Triple(messageId, state, conversation)
-            }
-            .autoDisposable(view.scope())
-            .subscribe { (messageId, state, conversation) ->
-                val targetMessage = messageRepo.getMessage(messageId) ?: return@subscribe
-                val addresses = conversation.recipients.map { it.address }
-                if (addresses.isEmpty()) return@subscribe
-
-                val subId = state.subscription?.subscriptionId ?: -1
-                val sendAsGroup = addresses.size > 1
-                val emoji = prefs.defaultReactionEmoji.get()
                 val body = reactions.buildReactionBody(emoji, targetMessage)
 
                 messageRepo.sendNewMessages(subId, addresses, body, emptyList(), sendAsGroup)

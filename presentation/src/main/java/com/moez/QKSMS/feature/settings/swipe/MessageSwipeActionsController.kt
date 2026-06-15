@@ -39,7 +39,7 @@ import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
-class MessageSwipeActionsController : QkController<SwipeActionsControllerBinding, MessageSwipeActionsView, MessageSwipeActionsState, MessageSwipeActionsPresenter>(), MessageSwipeActionsView {
+class MessageSwipeActionsController : QkController<SwipeActionsControllerBinding, SwipeActionsView, SwipeActionsState, MessageSwipeActionsPresenter>(), SwipeActionsView {
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup): SwipeActionsControllerBinding =
         SwipeActionsControllerBinding.inflate(inflater, container, false)
@@ -51,7 +51,7 @@ class MessageSwipeActionsController : QkController<SwipeActionsControllerBinding
     /**
      * Allows us to subscribe to [actionClicks] more than once
      */
-    private val actionClicks: Subject<MessageSwipeActionsView.Action> = PublishSubject.create()
+    private val actionClicks: Subject<SwipeActionsView.Action> = PublishSubject.create()
 
     init {
         appComponent.inject(this)
@@ -71,8 +71,8 @@ class MessageSwipeActionsController : QkController<SwipeActionsControllerBinding
         binding.left.postDelayed({ binding.left.animateLayoutChanges = true }, 100)
 
         Observable.merge(
-                binding.right.clicks().map { MessageSwipeActionsView.Action.RIGHT },
-                binding.left.clicks().map { MessageSwipeActionsView.Action.LEFT })
+                binding.right.clicks().map { SwipeActionsView.Action.RIGHT },
+                binding.left.clicks().map { SwipeActionsView.Action.LEFT })
                 .autoDisposable(scope())
                 .subscribe(actionClicks)
     }
@@ -84,7 +84,7 @@ class MessageSwipeActionsController : QkController<SwipeActionsControllerBinding
         showBackButton(true)
     }
 
-    override fun actionClicks(): Observable<MessageSwipeActionsView.Action> = actionClicks
+    override fun actionClicks(): Observable<SwipeActionsView.Action> = actionClicks
 
     override fun actionSelected(): Observable<Int> = actionsDialog.adapter.menuItemClicks
 
@@ -93,7 +93,7 @@ class MessageSwipeActionsController : QkController<SwipeActionsControllerBinding
         activity?.let(actionsDialog::show)
     }
 
-    override fun render(state: MessageSwipeActionsState) {
+    override fun render(state: SwipeActionsState) {
         binding.rightIcon.isVisible = state.rightIcon != 0
         binding.rightIcon.setImageResource(state.rightIcon)
         binding.rightLabel.text = state.rightLabel

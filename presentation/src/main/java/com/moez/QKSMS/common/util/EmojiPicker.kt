@@ -29,6 +29,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import dev.octoshrimpy.quik.R
 import dev.octoshrimpy.quik.common.util.extensions.dpToPx
 import dev.octoshrimpy.quik.common.util.extensions.resolveThemeColor
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 /**
  * A lightweight, dependency-free emoji picker. Renders a themed, scrollable grid of emoji in a
@@ -80,6 +83,36 @@ object EmojiPicker {
 
         val sheet = BottomSheetDialog(context)
 
+        // Show the common emoji immediately; the full set probes thousands of code points for
+        // glyphs, so it's enumerated off the main thread and appended when ready — opening the
+        // sheet never blocks the UI thread.
+        val items = ArrayList(commonEmojis)
+
+        val gridAdapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+                object : RecyclerView.ViewHolder(TextView(context).apply {
+                    textSize = 22f
+                    gravity = Gravity.CENTER
+                    includeFontPadding = false
+                    setTextColor(textColor)
+                    setBackgroundResource(R.drawable.ripple)
+                    layoutParams = RecyclerView.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, cell
+                    )
+                }) {}
+
+            override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+                val emoji = items[position]
+                (holder.itemView as TextView).text = emoji
+                holder.itemView.setOnClickListener {
+                    onPicked(emoji)
+                    sheet.dismiss()
+                }
+            }
+
+            override fun getItemCount() = items.size
+        }
+
         val recycler = RecyclerView(context).apply {
             setBackgroundColor(backgroundColor)
             layoutManager = GridLayoutManager(context, span)
@@ -87,32 +120,23 @@ object EmojiPicker {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 (context.resources.displayMetrics.heightPixels * 0.5f).toInt()
             )
-            adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-                    object : RecyclerView.ViewHolder(TextView(context).apply {
-                        textSize = 22f
-                        gravity = Gravity.CENTER
-                        includeFontPadding = false
-                        setTextColor(textColor)
-                        setBackgroundResource(R.drawable.ripple)
-                        layoutParams = RecyclerView.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT, cell
-                        )
-                    }) {}
-
-                override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-                    val emoji = emojis[position]
-                    (holder.itemView as TextView).text = emoji
-                    holder.itemView.setOnClickListener {
-                        onPicked(emoji)
-                        sheet.dismiss()
-                    }
-                }
-
-                override fun getItemCount() = emojis.size
-            }
+            adapter = gridAdapter
         }
 
+        // emojis starts with commonEmojis (distinct), so only the generated tail is appended
+        val load = Single.fromCallable { emojis }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { full ->
+                val tail = full.drop(items.size)
+                if (tail.isNotEmpty()) {
+                    val start = items.size
+                    items.addAll(tail)
+                    gridAdapter.notifyItemRangeInserted(start, tail.size)
+                }
+            }
+
+        sheet.setOnDismissListener { load.dispose() }
         sheet.setContentView(recycler)
         sheet.show()
     }

@@ -20,11 +20,15 @@ package dev.octoshrimpy.quik.feature.settings.swipe
 
 import androidx.annotation.DrawableRes
 import dev.octoshrimpy.quik.R
+import dev.octoshrimpy.quik.util.Preferences
 
-data class MessageSwipeActionsState(
-    @DrawableRes val rightIcon: Int = R.drawable.ic_favorite_black_24dp,
-    val rightLabel: String = "",
-
-    @DrawableRes val leftIcon: Int = R.drawable.ic_reply_white_24dp,
-    val leftLabel: String = ""
-)
+/** Drawable shown for a message swipe [action], or 0 when there is no icon. */
+@DrawableRes
+fun messageSwipeActionIcon(action: Int): Int = when (action) {
+    Preferences.MESSAGE_SWIPE_ACTION_REACT -> R.drawable.ic_favorite_black_24dp
+    Preferences.MESSAGE_SWIPE_ACTION_REPLY -> R.drawable.ic_reply_white_24dp
+    Preferences.MESSAGE_SWIPE_ACTION_COPY -> R.drawable.ic_content_copy_black_24dp
+    Preferences.MESSAGE_SWIPE_ACTION_FORWARD -> R.drawable.ic_forward_black_24dp
+    Preferences.MESSAGE_SWIPE_ACTION_DELETE -> R.drawable.ic_delete_white_24dp
+    else -> 0
+}

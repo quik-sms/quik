@@ -28,6 +28,7 @@ import dev.octoshrimpy.quik.util.EmojiPatternStrings
 import io.realm.Realm
 import io.realm.Sort
 import timber.log.Timber
+import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 class EmojiReactionRepositoryImpl @Inject constructor(
@@ -42,11 +43,30 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         // by the iOS/Google tapback patterns, and won't appear in normal message text.
         private const val ZW_START = '\u2061'   // function application
         private const val ZW_END = '\u2064'     // invisible plus
-        private const val ZW_ZERO = '\u2062'    // invisible times
-        private const val ZW_ONE = '\u2063'     // invisible separator
+        // Alphabet for the payload: 8 distinct BMP default-ignorable code points, so each char
+        // carries 3 bits (vs 1 bit for a two-symbol scheme) and the invisible run is ~1/3 as long.
+        // All are non-combining, non-bidi, render nothing, survive SMS UCS-2 transport verbatim,
+        // and are distinct from the sentinels and the U+200A..U+200D pattern chars. (16 symbols /
+        // 4 bits would need code points that risk a visible glyph or U+FFFD substitution on the
+        // receiver, so 8 symbols / 3 bits is the densest safe choice.)
+        private val ZW_ALPHABET = charArrayOf(
+            '\u2060', // word joiner
+            '\u2062', // invisible times
+            '\u2063', // invisible separator
+            '\u206a', // inhibit symmetric swapping (deprecated format)
+            '\u206b', // activate symmetric swapping
+            '\u206c', // inhibit arabic form shaping
+            '\u206d', // activate arabic form shaping
+            '\u206e', // national digit shapes
+        )
+        private const val ZW_BITS_PER_CHAR = 3
+        private val ZW_INDEX: Map<Char, Int> =
+            ZW_ALPHABET.withIndex().associate { (i, c) -> c to i }
 
         private const val PAYLOAD_FIELD_SEPARATOR = '\u001f'   // unit separator
-        private const val MAX_PAYLOAD_TEXT = 120
+        // The replied-to text is shown only in the visible fallback line (not duplicated into the
+        // payload); cap it so reactions to long messages stay within a couple of SMS segments.
+        private const val MAX_VISIBLE_WORDS = 20
     }
 
     // We use an ordered map to make sure we can test tapback regexes before generic ones
@@ -171,38 +191,53 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     override fun buildReactionBody(emoji: String, targetMessage: Message): String {
         val senderAddress = targetMessage.address
         val timestampMs = targetMessage.date
-        val originalText = targetMessage.getText(false).trim()
+        val originalText = capWords(targetMessage.getText(false).trim())
 
         // Visible, iOS-style fallback so non-quik clients see a clean, readable line.
         val human = if (originalText.isEmpty()) "Reacted $emoji to a message"
                     else "Reacted $emoji to \"$originalText\""
 
-        // Machine-readable payload, hidden in zero-width characters and parsed only by quik.
-        // originalText is capped to keep the invisible payload (and thus the SMS) reasonably small.
-        val payload = listOf(emoji, senderAddress, timestampMs.toString(), originalText.take(MAX_PAYLOAD_TEXT))
+        // Hidden machine payload, parsed only by quik. The target is resolved by sender address +
+        // timestamp, so the body text is NOT duplicated here (it stays only in the visible line
+        // above) to keep the SMS short.
+        val payload = listOf(emoji, senderAddress, timestampMs.toString())
             .joinToString(PAYLOAD_FIELD_SEPARATOR.toString())
 
         return human + encodeQuikPayload(payload)
     }
 
+    /** Cap [text] to [MAX_VISIBLE_WORDS] words, appending an ellipsis when truncated. */
+    private fun capWords(text: String): String {
+        val words = text.split(Regex("\\s+")).filter { it.isNotEmpty() }
+        return if (words.size <= MAX_VISIBLE_WORDS) text.trim()
+               else words.take(MAX_VISIBLE_WORDS).joinToString(" ") + "…"
+    }
+
     /**
-     * Encode a UTF-8 string into an invisible run of zero-width characters, wrapped in sentinels.
-     * Each byte becomes 8 zero-width bits ([ZW_ZERO]/[ZW_ONE]).
+     * Encode a UTF-8 string into an invisible run wrapped in sentinels. The byte stream is emitted
+     * [ZW_BITS_PER_CHAR] bits at a time, each group mapped to one [ZW_ALPHABET] char.
      */
     private fun encodeQuikPayload(payload: String): String {
         val sb = StringBuilder()
         sb.append(ZW_START)
+        var buffer = 0
+        var bits = 0
         for (byte in payload.toByteArray(Charsets.UTF_8)) {
-            val value = byte.toInt() and 0xFF
-            for (bit in 7 downTo 0)
-                sb.append(if ((value shr bit) and 1 == 1) ZW_ONE else ZW_ZERO)
+            buffer = (buffer shl 8) or (byte.toInt() and 0xFF)
+            bits += 8
+            while (bits >= ZW_BITS_PER_CHAR) {
+                bits -= ZW_BITS_PER_CHAR
+                sb.append(ZW_ALPHABET[(buffer shr bits) and 0x7])
+            }
         }
+        if (bits > 0)   // flush the final partial group, zero-padded on the right
+            sb.append(ZW_ALPHABET[(buffer shl (ZW_BITS_PER_CHAR - bits)) and 0x7])
         sb.append(ZW_END)
         return sb.toString()
     }
 
     /**
-     * Extract and decode a quik zero-width payload from a message body, or null if absent/invalid.
+     * Extract and decode a quik invisible payload from a message body, or null if absent/invalid.
      */
     private fun decodeQuikPayload(body: String): String? {
         val start = body.indexOf(ZW_START)
@@ -210,17 +245,20 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         val end = body.indexOf(ZW_END, start + 1)
         if (end == -1) return null
 
-        val bits = body.substring(start + 1, end).filter { it == ZW_ZERO || it == ZW_ONE }
-        if (bits.isEmpty() || bits.length % 8 != 0) return null
-
-        val bytes = ByteArray(bits.length / 8)
-        for (i in bytes.indices) {
-            var value = 0
-            for (bit in 0 until 8)
-                value = (value shl 1) or (if (bits[i * 8 + bit] == ZW_ONE) 1 else 0)
-            bytes[i] = value.toByte()
+        var buffer = 0
+        var bits = 0
+        val bytes = ByteArrayOutputStream()
+        for (i in start + 1 until end) {
+            val symbol = ZW_INDEX[body[i]] ?: continue   // ignore any stray non-alphabet chars
+            buffer = (buffer shl ZW_BITS_PER_CHAR) or symbol
+            bits += ZW_BITS_PER_CHAR
+            if (bits >= 8) {
+                bits -= 8
+                bytes.write((buffer shr bits) and 0xFF)
+            }
         }
-        return String(bytes, Charsets.UTF_8)
+        // trailing < 8 bits are zero padding from the encoder and are dropped
+        return bytes.toByteArray().takeIf { it.isNotEmpty() }?.let { String(it, Charsets.UTF_8) }
     }
 
     private fun parseQuikReaction(body: String): ParsedEmojiReaction? {
@@ -229,10 +267,20 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         if (parts.size < 3) return null
         return ParsedEmojiReaction(
             emoji = parts[0],
-            originalMessage = parts.getOrElse(3) { "" },
+            // original text now lives only in the visible line; recover it for the text-fallback
+            // matcher (the address + timestamp fast path handles the common case)
+            originalMessage = extractVisibleQuotedText(body),
             quikSenderAddress = parts[1].ifEmpty { null },
             quikTimestamp = parts[2].toLongOrNull(),
         )
+    }
+
+    /** Pull the quoted text out of the visible `Reacted <emoji> to "<text>"` fallback line. */
+    private fun extractVisibleQuotedText(body: String): String {
+        val visible = body.substringBefore(ZW_START)
+        val open = visible.indexOf('"')
+        val close = visible.lastIndexOf('"')
+        return if (open != -1 && close > open) visible.substring(open + 1, close) else ""
     }
 
     private fun parseRemoval(body: String): ParsedEmojiReaction? {
