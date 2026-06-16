@@ -531,7 +531,7 @@ class MainActivity : QkThemedActivity(), MainView {
 
 
         when (softkeyMode) {
-            MainActivity.SoftkeyMode.CONVERSATIONS -> {
+            SoftkeyMode.CONVERSATIONS -> {
                 when (keyCode) {
                     KeyEvent.KEYCODE_F1 -> {
                         if (!binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -568,7 +568,7 @@ class MainActivity : QkThemedActivity(), MainView {
 
             }
 
-            MainActivity.SoftkeyMode.CONVERSATIONS_SELECTED -> {
+            SoftkeyMode.CONVERSATIONS_SELECTED -> {
                 when (keyCode) {
                     KeyEvent.KEYCODE_F1 -> {
                         /**
@@ -608,7 +608,7 @@ class MainActivity : QkThemedActivity(), MainView {
         when (softkeyMode) {
 
             MainActivity.SoftkeyMode.CONVERSATIONS -> {
-                softkeyGuide?.apply {
+                softkey.apply {
                     setText(1, "Menu")
                     setText(2, "New")
                     setText(3, "▼")
@@ -622,7 +622,7 @@ class MainActivity : QkThemedActivity(), MainView {
             }
 
             MainActivity.SoftkeyMode.CONVERSATIONS_SELECTED -> {
-                softkeyGuide?.apply {
+                softkey.apply {
                     setText(1, "Submenu")
                     setText(2, "")
                     setText(3, "Archive")
@@ -636,7 +636,7 @@ class MainActivity : QkThemedActivity(), MainView {
         }
 
         //  Update the Kyocera's keys
-        softkeyGuide?.invalidate()
+        softkey.invalidate()
     }
 
 

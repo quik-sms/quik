@@ -1,4 +1,4 @@
-package com.moez.QKSMS.common.util;
+package com.moez.QKSMS.common.util.softKey.devices;
 import android.graphics.Bitmap;
 import android.view.Window;
 

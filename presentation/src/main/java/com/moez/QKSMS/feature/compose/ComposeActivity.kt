@@ -189,6 +189,7 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
         showBackButton(true)
         viewModel.bindView(this)
 
+//        softkeyManager = ComposeSoftKeyManager(this)
 
 //        Subscribe to message select for kyocera
         messageAdapter.selectionChanges
@@ -949,7 +950,7 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
         when (softkeyMode) {
 
             SoftkeyMode.COMPOSING -> {
-                softkeyGuide?.apply {
+                softkey.apply {
                     setText(1, "Submenu")
                     setText(2, "Send")
                     setText(3, "▼")
@@ -962,7 +963,7 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
             }
 
             SoftkeyMode.MESSAGE_SELECTED -> {
-                softkeyGuide?.apply {
+                softkey.apply {
                     setText(1, "Info")
                     setText(2, "Details")
                     setText(3, "Copy")
@@ -975,8 +976,7 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
             }
         }
         //  Update the Kyocera's keys
-        softkeyGuide?.invalidate()
-
+        softkey.invalidate()
     }
 
 

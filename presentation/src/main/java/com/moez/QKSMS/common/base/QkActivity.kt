@@ -27,7 +27,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.moez.QKSMS.common.util.KyoceraSoftkeyGuide
+import com.moez.QKSMS.common.util.softKey.SoftKeyGuide
 import dev.octoshrimpy.quik.R
 import dev.octoshrimpy.quik.util.Preferences
 import io.reactivex.subjects.BehaviorSubject
@@ -43,7 +43,7 @@ abstract class QkActivity : AppCompatActivity() {
     protected val toolbarTitle: TextView? get() = findViewById(R.id.toolbarTitle)
 
 //    Create an instance for Kyocera soft keys
-    protected val  softkeyGuide: KyoceraSoftkeyGuide? get() = KyoceraSoftkeyGuide.createFor(getWindow())
+    protected val  softkey: SoftKeyGuide get() = SoftKeyGuide.create(window)
 
 
     @SuppressLint("InlinedApi")
