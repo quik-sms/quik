@@ -57,6 +57,7 @@
         <activity
             android:name=".feature.main.MainActivity"
             android:exported="true"
+            android:label="@string/launcher_name"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
