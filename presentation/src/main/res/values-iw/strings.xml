@@ -96,7 +96,7 @@
     <string name="compose_send_group_summary">הנמענים והתגובות יהיו חשופים בפני כולם</string>
     <string name="compose_messages_empty">זאת תחילת ההתכתבות שלך. כדאי לפתוח במשהו נחמד!</string>
     <string name="compose_vcard_label">כרטיס קשר</string>
-    <string name="compose_scheduled_for">מתוזמן למועד</string>
+    <string name="compose_scheduled_for">תזמון למועד:</string>
     <string name="compose_scheduled_future">הזמן הנבחר חייב להיות בעתיד!</string>
     <string name="compose_scheduled_plus">עליך לשחרר את QUIK+‎ כדי להשתמש בהודעות מתוזמנות</string>
     <string name="compose_scheduled_toast">הוספה להודעות המתוזמנות</string>
@@ -361,7 +361,7 @@
     <string name="button_stop">עצירה</string>
     <string name="button_more">עוד</string>
     <string name="button_set">הגדרה</string>
-    <string name="button_undo">ביטול</string>
+    <string name="button_undo">החזרה</string>
     <string name="toast_copied">הועתק</string>
     <string name="toast_qksms_plus">עליך לשחרר את QUIK+‎ כדי להשתמש בזה</string>
     <plurals name="notification_new_messages">
@@ -419,4 +419,78 @@
         <item>חחח</item>
         <item>הכול בסדר</item>
     </string-array>
+    <string name="menu_mms_part_share">שיתוף</string>
+    <string name="menu_mms_part_forward">העברה</string>
+    <string name="menu_mms_part_open">פתיחה חיצונית</string>
+    <string name="main_menu_select_all">בחירה בהכול</string>
+    <string name="main_menu_send_now">שליחה כעת</string>
+    <string name="main_menu_edit_message">עריכת הודעה</string>
+    <string name="main_menu_rename_conversation">שינוי שם דיון</string>
+    <string name="main_sync_emojis">תגובות האמוג׳י מפוענחות…</string>
+    <string name="main_sender_draft">טיוטה: %s</string>
+    <string name="scheduled_menu_send_now">שליחה כעת</string>
+    <string name="scheduled_menu_edit_message">עריכת הודעה</string>
+    <string name="message_management_title">ניהול הודעות</string>
+    <plurals name="dialog_delete_chat">
+        <item quantity="one">למחוק את ההודעה הזאת?</item>
+        <item quantity="two">למחוק את שתי ההודעות האלה?</item>
+        <item quantity="other">למחוק את %d ההודעות האלה?</item>
+    </plurals>
+    <plurals name="dialog_send_now">
+        <item quantity="one">לשלוח את ההודעה הזאת עכשיו?</item>
+        <item quantity="two">לשלוח את שתי ההודעות האלה עכשיו?</item>
+        <item quantity="other">לשלוח את %d ההודעות האלה עכשיו?</item>
+    </plurals>
+    <string name="dialog_edit_scheduled_message_title">עריכת הודעה</string>
+    <string name="dialog_edit_scheduled_message">עריכת ההודעה הזאת תסיר אותה מהתזמון.\n\nנא לוודא שהיא מוגשת מחדש במסך הבא או שהיא תלך לאיבוד.\n\nלהמשיך?</string>
+    <string name="dialog_edit_scheduled_message_positive_button">כן, לערוך את ההודעה</string>
+    <string name="dialog_clear_compose_title">איפוס הודעה</string>
+    <string name="dialog_clear_compose">לאפס את ההודעה? זאת פעולה בלתי הפיכה.</string>
+    <string name="compose_send_group_summary_on">הנמענים והתגובות יהיו חשופים לכולם</string>
+    <string name="compose_send_group_summary_off">ההודעות תישלחנה בנפרד לכל הנמענים</string>
+    <string name="compose_scheduled_view">הודעות מתוזמנות לדיון הזה</string>
+    <string name="compose_no_valid_recipients">לא ניתן לשלוח לנמענים אחרים</string>
+    <string name="compose_menu_show_status">הצגת מצב</string>
+    <string name="compose_reactions_title">סימני רגש</string>
+    <string name="compose_attach_file_cd">צירוף קובץ כלשהו</string>
+    <string name="compose_audio_message_cd">הקלטת הודעה קולית</string>
+    <string name="compose_schedule_cancel_cd">ביטול הודעה מתוזמנת</string>
+    <string name="compose_record_audio_msg_cd">הקלטת הודעה קולית</string>
+    <string name="compose_record_audio_msg_abort_cd">ביטול הודעה קולית</string>
+    <string name="compose_record_audio_msg_attach_cd">צירוף הודעה קולית</string>
+    <string name="compose_record_audio_msg_play_pause_cd">נגינה או השהיה של הודעה קולית</string>
+    <string name="compose_message_cancel">ביטול</string>
+    <string name="compose_message_send_now">שליחה כעת</string>
+    <string name="compose_message_sim">מספר SIM</string>
+    <string name="compose_message_item">פריט הודעה</string>
+    <string name="compose_message_attachment">צרופה</string>
+    <string name="compose_toast_drag_stt">אפשר להעביר את כפתור ההכתבה לאן שנוח לך</string>
+    <string name="message_body_too_long_to_display">⚠ ההודעה ארוכה. יש להעתיק או לשמור אותה כדי לראות את המלל המלא</string>
+    <string name="clipboard_too_large_to_copy">גודל הנתונים חורג ממגבלת לוח הגזירים</string>
+    <string name="clipboard_unable_to_copy_to">לא ניתן להעתיק ללוח הגזירים</string>
+    <string name="scheduled_send_cd">תזמון ההודעה הזאת</string>
+    <string name="attachment_missing">חסרה</string>
+    <string name="settings_system_show_stt_title">הצגת כפתור ההכתבה</string>
+    <string name="settings_notification_previews_summary">הצגת שם והודעה</string>
+    <string name="message_content_filters_dialog_contacts_switch">לכלול אנשי קשר</string>
+    <string name="message_content_filters_dialog_create">יצירה</string>
+    <string name="deduplicate_messages_category">מחיקת הודעות כפולות</string>
+    <string name="deduplicate_messages_title">הסרת הודעות כפולות</string>
+    <string name="messages_text_share_file_error">אופס! משהו השתבש תוך כדי השיתוף</string>
+    <string name="error_stt_toast">אירעה שגיאה בטעינת ספק ההכתבה, עמך הסליחה.</string>
+    <string name="stt_toast_extra_prompt">לקרוא את ההודעה שלך בקול רם</string>
+    <string name="messageLinkHandling_dialog_negative">לא</string>
+    <string name="messageLinkHandling_dialog_positive">כן, לפתוח את הקישור</string>
+    <string name="settings_unread_at_top_summary">הצגת דיונים שלא נקראו בהתחלה</string>
+    <string name="settings_mms_weblink_title">טיפול בקישורים בהודעות</string>
+    <string name="settings_disable_screenshots_title">השבתת צילומי מסך</string>
+    <string name="settings_diable_screenshots_summary">למנוע ממערכת ההפעלה שלך ומיישומים אחרים לצלם את היישומון.</string>
+    <string name="message_content_filters_title">מסנני תוכן הודעות</string>
+    <string name="message_content_filters_empty">מסנני תוכן ההודעות שלך יופיעו כאן</string>
+    <string name="message_content_filters_add_cd">יצירת מסנן חדש</string>
+    <string name="message_content_filters_dialog_title">השמטת הודעות שמכילות</string>
+    <string name="message_content_filters_dialog_hint">מילה, משפט או ביטוי רגולרי</string>
+    <string name="message_content_filters_dialog_case_switch">תלוי רישיות</string>
+    <string name="message_content_filters_dialog_regex_switch">ביטוי רגולרי</string>
+    <string name="notification_foreground_worker_title">הודעה מתקבלת</string>
 </resources>
