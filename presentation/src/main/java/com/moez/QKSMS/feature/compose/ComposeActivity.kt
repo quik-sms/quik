@@ -169,6 +169,11 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
 //    makes the state global so the functions for kyocera can see
     private var currentState: ComposeState? = null
 
+    private enum class SoftkeyMode {
+        COMPOSING,      // default, typing a message
+        MESSAGE_SELECTED // one or more bubbles selected
+    }
+    private var softkeyMode = SoftkeyMode.COMPOSING
 
     private fun getSeekBarUpdater(): ObservableSubscribeProxy<Long> {
         return Observable.interval(500, TimeUnit.MILLISECONDS)
@@ -189,9 +194,7 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
         showBackButton(true)
         viewModel.bindView(this)
 
-//        softkeyManager = ComposeSoftKeyManager(this)
 
-//        Subscribe to message select for kyocera
         messageAdapter.selectionChanges
             .autoDisposable(scope())
             .subscribe { selectedIds ->
@@ -199,7 +202,6 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
                     SoftkeyMode.COMPOSING
                 else
                     SoftkeyMode.MESSAGE_SELECTED
-                updateSoftkeys()
             }
 
 
@@ -557,12 +559,36 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
             }
         }
 
-        // Update Kyocera Soft keys
-        currentState = state
-        updateSoftkeys()
+        // Update Kyocera Soft keys messages
+        when (softkeyMode) {
 
+            SoftkeyMode.COMPOSING -> {
+                softkey.apply {
+                    setText(1, getString(R.string.kyocera_submenu))
+                    setText(2, getString(R.string.kyocera_send))
+                    setText(3, "▼")
+                    setText(4, "▲")
+                    setEnabled(0, true)
+                    setEnabled(2, state.canSend)
+                    setEnabled(3, true)
+                    setEnabled(4, true)
+                }
+            }
 
-
+            SoftkeyMode.MESSAGE_SELECTED -> {
+                softkey.apply {
+                    setText(1, getString(R.string.kyocera_submenu))
+                    setText(2, getString(R.string.menu_info))
+                    setText(3, getString(R.string.kyocera_Copy))
+                    setText(4, getString(R.string.compose_menu_delete))
+                    setEnabled(1, true)
+                    setEnabled(2, state.selectedMessages > 0)
+                    setEnabled(3, true)
+                    setEnabled(4, true)
+                }
+            }
+        }
+        softkey.invalidate()
     }
 
     override fun clearSelection() = messageAdapter.clearSelection()
@@ -830,66 +856,73 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
         binding.message.requestFocus()
     }
 
-
-
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
 
-//        if ((currentState?.selectedMessages ?: 0) >= 1) {
-//            makeToast("gaming", Toast.LENGTH_LONG)
-//        }
-        val s = currentState ?: return false
-        val lm = binding.messageList.layoutManager as LinearLayoutManager
+        when (softkeyMode) {
 
-        when (softkeyMode){
             SoftkeyMode.COMPOSING -> {
-                when (keyCode){
+                when (keyCode) {
+
+                    KeyEvent.KEYCODE_DPAD_CENTER -> {
+                        optionsItemIntent.onNext(R.id.message)
+                        return true
+                    }
+
                     KeyEvent.KEYCODE_F1 -> {
                         // Show Submenu
                         val options = arrayOf(
-                            "Attach a contact",
-                            "Schedule message",
-                            "Attach any file",
-                            "Record an audio message",
-                            "Take a photo"
+                            getString(R.string.info_title),
+                            getString(R.string.menu_call),
+                            getString(R.string.compose_contact_cd),
+                            getString(R.string.scheduled_compose_cd),
+                            getString(R.string.compose_attach_file_cd),
+                            getString(R.string.compose_audio_message_cd),
+                            getString(R.string.compose_camera_cd)
                         )
                         AlertDialog.Builder(this)
                             .setItems(options) { _, which ->
                                 when (which) {
-                                    0 -> binding.contact.performClick()
-
-//                                    0 -> binding.gallery.performClick()
-                                    1 -> binding.schedule.performClick()
-                                    2 -> binding.attachAFileIcon.performClick()
-                                    3 -> binding.recordAudioMsg.performClick()
-                                    4 -> binding.camera.performClick()
+                                    0 -> optionsItemIntent.onNext(R.id.info)
+                                    1 -> optionsItemIntent.onNext(R.id.call)
+                                    2 -> binding.contact.performClick()
+                                    3 -> binding.schedule.performClick()
+                                    4 -> binding.attachAFileIcon.performClick()
+                                    5 -> binding.recordAudioMsg.performClick()
+                                    6 -> binding.camera.performClick()
                                 }
                             }
                             .show()
-//                        binding.attach.performClick()
-
-//                        if(!binding.attach.hasFocus())
-//                            binding.attach.requestFocus()
-//                        else
-//                            binding.message.requestFocus()
                         return true
                     }
+
                     KeyEvent.KEYCODE_F2 -> {
                         // Send Text
-                        if(currentState?.canSend == true)
+                        if (currentState?.canSend == true)
                             binding.send.performClick()
                         return true
                     }
+
                     KeyEvent.KEYCODE_F3 -> {
-                        // Show info
-                        // Page down (jump by N items)
-                        val current = lm.findLastVisibleItemPosition()
-                        binding.messageList.scrollToPosition(minOf(current + 5, messageAdapter.itemCount - 1))
+                        // Scrolls down
+                        (binding.messageList.layoutManager as LinearLayoutManager).apply {
+                            val targetPosition = minOf(findLastVisibleItemPosition() + 5, messageAdapter.itemCount - 1)
+                            binding.messageList.scrollToPosition(targetPosition)
+                            binding.messageList.post {
+                                findViewByPosition(targetPosition)?.requestFocus()
+                            }
+                        }
                         return true
                     }
+
                     KeyEvent.KEYCODE_F4 -> {
-                        // cancel selection
-                        val current = lm.findFirstVisibleItemPosition()
-                        binding.messageList.scrollToPosition(maxOf(current - 5, 0))
+                        // Scrolls up
+                        (binding.messageList.layoutManager as LinearLayoutManager).apply {
+                            val targetPosition = maxOf(findFirstVisibleItemPosition() - 5, 0)
+                            binding.messageList.scrollToPosition(targetPosition)
+                            binding.messageList.post {
+                                findViewByPosition(targetPosition)?.requestFocus()
+                            }
+                        }
                         return true
                     }
                 }
@@ -898,30 +931,38 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
 
             // When A message[s] is selected
             SoftkeyMode.MESSAGE_SELECTED -> when (keyCode) {
-//                KeyEvent.KEYCODE_DPAD_CENTER -> {
-//                    return true
-//                }
                 KeyEvent.KEYCODE_F1 -> {
-//                    makeToast("Details: "+s.canSend, Toast.LENGTH_SHORT)
-//                    messageAdapter.reactionClicks.
-//                    optionsItemIntent.onNext(R.id.info)
+                    // Show Submenu
+                    val options = arrayOf(
+                        getString(R.string.compose_menu_copy),
+                        getString(R.string.compose_menu_share),
+                        getString(R.string.compose_menu_forward),
+                        getString(R.string.compose_menu_show_status),
+                    )
+                    AlertDialog.Builder(this)
+                        .setItems(options) { _, which ->
+                            when (which) {
+                                0 -> optionsItemIntent.onNext(R.id.copy)
+                                1 -> optionsItemIntent.onNext(R.id.share)
+                                2 -> optionsItemIntent.onNext(R.id.forward)
+                                3 -> optionsItemIntent.onNext(R.id.show_status)
+                            }
+                        }
+                        .show()
                     return true
                 }
                 KeyEvent.KEYCODE_F2 -> {
-//                    makeToast("delete", Toast.LENGTH_SHORT)
                     optionsItemIntent.onNext(R.id.details)
                     return true
                 }
                 KeyEvent.KEYCODE_F3 -> {
                     // Show info
-                    makeToast("Copied", Toast.LENGTH_SHORT)
+                    makeToast(R.string.toast_copied, Toast.LENGTH_SHORT)
                     optionsItemIntent.onNext(R.id.copy)
-//                        binding.message.requestFocus()
                     return true
                 }
                 KeyEvent.KEYCODE_F4 -> {
                     // cancel selection
-//                    makeToast("more", Toast.LENGTH_SHORT)
                     optionsItemIntent.onNext(R.id.delete)
                     return true
                 }
@@ -930,54 +971,4 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
         }
         return super.onKeyDown(keyCode, event)
     }
-
-
-
-    /**
-     *  Kyocera soft keys testing
-     */
-    private enum class SoftkeyMode {
-        COMPOSING,      // default, typing a message
-        MESSAGE_SELECTED // one or more bubbles selected
-    }
-
-    private var softkeyMode = SoftkeyMode.COMPOSING
-
-    private fun updateSoftkeys() {
-
-        val s = currentState ?: return
-
-        when (softkeyMode) {
-
-            SoftkeyMode.COMPOSING -> {
-                softkey.apply {
-                    setText(1, "Submenu")
-                    setText(2, "Send")
-                    setText(3, "▼")
-                    setText(4, "▲")
-                    setEnabled(0, true)
-                    setEnabled(2, s.canSend)
-                    setEnabled(3, true)
-                    setEnabled(4, true)
-                }
-            }
-
-            SoftkeyMode.MESSAGE_SELECTED -> {
-                softkey.apply {
-                    setText(1, "Info")
-                    setText(2, "Details")
-                    setText(3, "Copy")
-                    setText(4, "Delete")
-                    setEnabled(1, true)
-                    setEnabled(2, (s.selectedMessages ?: 0) == 1)
-                    setEnabled(3, true)
-                    setEnabled(4, true)
-                }
-            }
-        }
-        //  Update the Kyocera's keys
-        softkey.invalidate()
-    }
-
-
 }

@@ -33,9 +33,11 @@ interface SoftKeyGuide{
 
     /**
      * Figure out what device and return appropriate instance
+     * can return null
      */
     companion object {
         fun create(window: Window): SoftKeyGuide {
+
             return KyoceraSoftKeyImpl.createFor(window)
 //                ?: SharpSoftKeyImpl.createFor(window)
                 ?: NoSoftKeysImpl()

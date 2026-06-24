@@ -143,6 +143,13 @@ class MainActivity : QkThemedActivity(), MainView {
     private val changelogDialog by lazy { ChangelogDialog(this) }
     private val backPressedSubject: Subject<NavItem> = PublishSubject.create()
 
+    private enum class SoftkeyMode {
+        CONVERSATIONS,
+        CONVERSATIONS_SELECTED,
+    }
+
+    private var softkeyMode = SoftkeyMode.CONVERSATIONS
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -151,17 +158,14 @@ class MainActivity : QkThemedActivity(), MainView {
         viewModel.bindView(this)
         onNewIntentIntent.onNext(intent)
 
-
-
-//        Subscribe to conversation select for kyocera
         conversationsAdapter.selectionChanges
             .autoDisposable(scope())
             .subscribe { selectedIds ->
-                softkeyMode = if (selectedIds.isEmpty())
+                softkeyMode = if (selectedIds.isEmpty()) {
                     SoftkeyMode.CONVERSATIONS
-                else
+                } else {
                     SoftkeyMode.CONVERSATIONS_SELECTED
-                updateSoftkeys()
+                }
             }
 
 
@@ -398,8 +402,36 @@ class MainActivity : QkThemedActivity(), MainView {
         }
 
         // Update Kyocera Soft keys
-        updateSoftkeys()
+        when (softkeyMode) {
 
+            MainActivity.SoftkeyMode.CONVERSATIONS -> {
+                softkey.apply {
+                    setText(1, getString(R.string.kyocera_submenu))
+                    setText(2, getString(R.string.shortcut_compose_short_label))
+                    setText(3, "▼")
+                    setText(4, "▲")
+
+                    setEnabled(1, true)
+                    setEnabled(2, true)
+                    setEnabled(3, true)
+                    setEnabled(4, true)
+                }
+            }
+
+            MainActivity.SoftkeyMode.CONVERSATIONS_SELECTED -> {
+                softkey.apply {
+                    setText(1, getString(R.string.button_more))
+                    setText(2, "")
+                    setText(3, getString(R.string.main_menu_archive))
+                    setText(4, getString(R.string.main_menu_delete))
+                    setEnabled(1, true)
+                    setEnabled(2, true)
+                    setEnabled(3, true)
+                    setEnabled(4, true)
+                }
+            }
+        }
+        softkey.invalidate()
     }
 
     override fun onResume() =
@@ -514,19 +546,6 @@ class MainActivity : QkThemedActivity(), MainView {
             binding.toolbarSearch.requestFocus()
     }
 
-
-
-    /**
-     *  Kyocera soft keys testing
-     */
-
-    private enum class SoftkeyMode {
-        CONVERSATIONS,
-        CONVERSATIONS_SELECTED,
-    }
-
-    private var softkeyMode = SoftkeyMode.CONVERSATIONS
-
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
 
 
@@ -534,6 +553,7 @@ class MainActivity : QkThemedActivity(), MainView {
             SoftkeyMode.CONVERSATIONS -> {
                 when (keyCode) {
                     KeyEvent.KEYCODE_F1 -> {
+                        // Open and close the drawer
                         if (!binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
                             binding.drawerLayout.openDrawer(GravityCompat.START)
                         } else {
@@ -546,53 +566,66 @@ class MainActivity : QkThemedActivity(), MainView {
                         binding.compose.performClick()
                         return true
                     }
+
                     KeyEvent.KEYCODE_F3 -> {
                         // Scrolls down
-                        val lm = binding.recyclerView.layoutManager as LinearLayoutManager
-                        val current = lm.findLastVisibleItemPosition()
-                        binding.recyclerView.smoothScrollToPosition(
-                            minOf(current + 5, conversationsAdapter.itemCount - 1)
-                        )
+                        (binding.recyclerView.layoutManager as LinearLayoutManager).apply {
+                            val targetPosition = minOf(findLastVisibleItemPosition() + 5, conversationsAdapter.itemCount - 1)
+                            binding.recyclerView.scrollToPosition(targetPosition)
+                            binding.recyclerView.post {
+                                findViewByPosition(targetPosition)?.requestFocus()
+                            }
+                        }
                         return true
                     }
                     KeyEvent.KEYCODE_F4 -> {
                         // Scrolls up
-                        val lm = binding.recyclerView.layoutManager as LinearLayoutManager
-                        val current = lm.findFirstVisibleItemPosition()
-                        binding.recyclerView.smoothScrollToPosition(
-                            maxOf(current - 5, 0)
-                        )
+                        (binding.recyclerView.layoutManager as LinearLayoutManager).apply {
+                            val targetPosition = maxOf(findFirstVisibleItemPosition() - 5, 0)
+                            binding.recyclerView.scrollToPosition(targetPosition)
+                            binding.recyclerView.post {
+                                findViewByPosition(targetPosition)?.requestFocus()
+                            }
+                        }
                         return true
                     }
                 }
-
             }
 
             SoftkeyMode.CONVERSATIONS_SELECTED -> {
                 when (keyCode) {
+                    // Overflow Options
                     KeyEvent.KEYCODE_F1 -> {
-                        /**
-                         *  Put a little submenu here or something
-                         */
-//                        if (!binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-//                            binding.drawerLayout.openDrawer(GravityCompat.START)
-//                        } else {
-//                            binding.drawerLayout.closeDrawer(GravityCompat.START)
-//                        }
-//                        return true
+                        val options = arrayOf(
+                            getString(R.string.main_menu_pin),
+                            getString(R.string.main_menu_unread),
+                            getString(R.string.main_menu_block),
+                            getString(R.string.main_menu_rename_conversation),
+                        )
+                        AlertDialog.Builder(this)
+                            .setItems(options) { _, which ->
+                                when (which) {
+                                    0 -> optionsItemIntent.onNext(R.id.pinned)
+                                    1 -> optionsItemIntent.onNext(R.id.markUnread)
+                                    2 -> optionsItemIntent.onNext(R.id.block)
+                                    3 -> optionsItemIntent.onNext(R.id.rename)
+                                }
+                            }
+                            .show()
+                        return true
                     }
                     KeyEvent.KEYCODE_F2 -> {
                         optionsItemIntent.onNext(R.id.info)
                         return true
                     }
                     KeyEvent.KEYCODE_F3 -> {
-                        // Show info
-                        makeToast("Archive", Toast.LENGTH_SHORT)
+                        // Archive
+                        makeToast(getString(R.string.main_menu_archive), Toast.LENGTH_SHORT)
                         optionsItemIntent.onNext(R.id.archive)
-//                        binding.message.requestFocus()
                         return true
                     }
                     KeyEvent.KEYCODE_F4 -> {
+                        // Delete
                         optionsItemIntent.onNext(R.id.delete)
                         return true
                     }
@@ -601,43 +634,4 @@ class MainActivity : QkThemedActivity(), MainView {
         }
         return super.onKeyDown(keyCode, event)
     }
-
-
-    private fun updateSoftkeys() {
-
-        when (softkeyMode) {
-
-            MainActivity.SoftkeyMode.CONVERSATIONS -> {
-                softkey.apply {
-                    setText(1, "Menu")
-                    setText(2, "New")
-                    setText(3, "▼")
-                    setText(4, "▲")
-
-                    setEnabled(1, true)
-                    setEnabled(2, true)
-                    setEnabled(3, true)
-                    setEnabled(4, true)
-                }
-            }
-
-            MainActivity.SoftkeyMode.CONVERSATIONS_SELECTED -> {
-                softkey.apply {
-                    setText(1, "Submenu")
-                    setText(2, "")
-                    setText(3, "Archive")
-                    setText(4, "Delete")
-                    setEnabled(1, true)
-                    setEnabled(2, true)
-                    setEnabled(3, true)
-                    setEnabled(4, true)
-                }
-            }
-        }
-
-        //  Update the Kyocera's keys
-        softkey.invalidate()
-    }
-
-
 }

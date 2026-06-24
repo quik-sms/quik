@@ -16,7 +16,6 @@ import com.moez.QKSMS.common.util.softKey.SoftKeyGuide
 class KyoceraSoftKeyImpl private constructor(private val instance: Any) :
     SoftKeyGuide {  // set once at construction, never null
 
-
     override fun getCarrierSoftkeyGuide(): Any? {
         try {
             val method = instance.javaClass.getMethod("getCarrierSoftkeyGuide")
