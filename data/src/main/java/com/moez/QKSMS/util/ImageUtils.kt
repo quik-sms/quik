@@ -19,9 +19,12 @@
 package dev.octoshrimpy.quik.util
 
 import android.content.Context
+import android.content.res.AssetFileDescriptor
 import android.net.Uri
+import android.provider.OpenableColumns
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import dev.octoshrimpy.quik.model.Attachment
 import java.io.ByteArrayOutputStream
 
 object ImageUtils {
@@ -55,6 +58,72 @@ object ImageUtils {
             .encodeQuality(quality)
             .submit(maxWidth, maxHeight)
             .get()
+    }
+
+    fun getScaledImageWithQuality(
+        context: Context,
+        uri: Uri,
+        maxWidth: Int,
+        maxHeight: Int,
+        targetBytes: Int
+    ): ByteArray {
+        var result = getScaledImage(context, uri, maxWidth, maxHeight, 90)
+        if (result.size <= targetBytes) return result
+        // If the image is too large, then try to scale it down
+        // then return when we are within targetBytes
+        for (quality in 80 downTo 40 step 10) {
+            result = getScaledImage(context, uri, maxWidth, maxHeight, quality)
+            if (result.size <= targetBytes) return result
+        }
+        return result
+    }
+
+    /**
+     * Get file size, by first using contentResolver.openAssetFileDescriptor
+     * then if it fails, by reading the file size directly from the size column in contentResolver,
+     * then if both of those fail, by defaulting to reading the input stream
+     */
+    fun fetchFileSize(context: Context, attachment: Attachment): Long {
+        val resolver = context.contentResolver
+
+        val afdSize = resolver
+            .openAssetFileDescriptor(attachment.uri, "r")
+            ?.use { it.length }
+
+        if (afdSize != null && afdSize != AssetFileDescriptor.UNKNOWN_LENGTH) {
+            return afdSize
+        }
+
+        val cursorSize = resolver.query(
+            attachment.uri,
+            arrayOf(OpenableColumns.SIZE),
+            null,
+            null,
+            null
+        )?.use { cursor ->
+            val index = cursor.getColumnIndex(OpenableColumns.SIZE)
+            if (index != -1 && cursor.moveToFirst() && !cursor.isNull(index)) {
+                cursor.getLong(index)
+            } else {
+                null
+            }
+        }
+
+        if (cursorSize != null && cursorSize > 0) {
+            return cursorSize
+        }
+
+        val inputStreamBytes = resolver.openInputStream(attachment.uri)?.use { inputStream ->
+            val buffer = ByteArray(8192)
+            var totalBytes = 0L
+            var bytesRead: Int
+
+            while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                totalBytes += bytesRead
+            }
+            totalBytes
+        }
+        return requireNotNull(inputStreamBytes)
     }
 
 }
