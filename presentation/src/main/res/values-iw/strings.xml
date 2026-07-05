@@ -295,7 +295,7 @@
     </plurals>
     <string name="about_title">על אודות</string>
     <string name="about_version_title">גרסה</string>
-    <string name="about_developer_title">מפתח</string>
+    <string name="about_developer_title">מפתחים</string>
     <string name="about_source_title">קוד מקור</string>
     <string name="about_changelog_title">יומן שינויים</string>
     <string name="about_contact_title">איש קשר</string>
@@ -493,4 +493,30 @@
     <string name="message_content_filters_dialog_case_switch">תלוי רישיות</string>
     <string name="message_content_filters_dialog_regex_switch">ביטוי רגולרי</string>
     <string name="notification_foreground_worker_title">הודעה מתקבלת</string>
+    <string name="settings_notification_silent_title">שקט אם לא באנשי קשר</string>
+    <string name="settings_notification_silent_summary">השתקת התראות על הודעות שהנמענים בהן אינם בין אנשי הקשר שלך</string>
+    <string name="settings_unread_at_top_title">לא נקראו עליונים</string>
+    <string name="deduplicate_messages_summary">סריקת מסד נתוני ההודעות ומחיקת כל ההודעות שתואמות את ההודעות המקוריות במדויק</string>
+    <string name="all_conversations_widget_title">כל הדיונים</string>
+    <string name="about_developer">צוות של אנשים נפלאים מכל רחבי העולם!</string>
+    <string name="button_clear">איפוס</string>
+    <string name="notification_message_failed_action">שליחה מחדש</string>
+    <string name="speak_no_messages">אין הודעות</string>
+    <string name="speak_unseen_messages">הקראת הודעות שלא נקראו</string>
+    <string name="messageLinkHandling_dialog_title">אזהרת קישור חיצוני</string>
+    <string name="deduplicating_messages_failed">מחיקת הודעות כפולות נכשלה, נא לנסות שוב</string>
+    <plurals name="toast_archived">
+        <item quantity="one">הדיון הועבר לארכיון</item>
+        <item quantity="two">שני דיונים הועברו לארכיון</item>
+        <item quantity="other">%d דיונים הועברו לארכיון</item>
+    </plurals>
+    <plurals name="toast_unarchived">
+        <item quantity="one">דיון הוצא מארכיון</item>
+        <item quantity="two">שני דיונים הוצאו מארכיון</item>
+        <item quantity="other">%d דיונים הוצאו מארכיון</item>
+    </plurals>
+    <string name="notification_foreground_worker_text">ב־Android 12 ולפני כן, צריך התראה לעבודת הרקע שמאפשרת קבלת הודעות.</string>
+    <string name="notification_foreground_worker_channel_name">התראת סוכן קבלת הודעות</string>
+    <string name="deduplicating_messages_no_messages">לא נמצאו הודעות כפולות.</string>
+    <string name="messageLinkHandling_dialog_body">חלק מהקישורים עלולים להיות מפוקפקים ולהפנות אותך באופן בלתי צפוי. נא לבדוק את הקישור לפני בחירה להמשיך בכניסה אליו:\n\n%1$s\n\nלהמשיך?</string>
 </resources>
