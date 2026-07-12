@@ -621,9 +621,11 @@ class ComposeViewModel @Inject constructor(
 
         // toggle the group sending mode and update the conversation saved value
         view.sendAsGroupIntent
+            .withLatestFrom(state) { _, state -> !state.sendAsGroup }
+            .doOnNext { newSendAsGroup -> newState { copy(sendAsGroup = newSendAsGroup) } }
             .observeOn(Schedulers.io())
-            .withLatestFrom(conversation, state) { _, conversation, state ->
-                conversationRepo.updateSendAsGroup(conversation.id, !state.sendAsGroup)
+            .withLatestFrom(conversation) { newSendAsGroup, conversation ->
+                conversationRepo.updateSendAsGroup(conversation.id, newSendAsGroup)
             }
             .autoDisposable(view.scope())
             .subscribe()
