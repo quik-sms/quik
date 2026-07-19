@@ -519,4 +519,8 @@
     <string name="notification_foreground_worker_channel_name">התראת סוכן קבלת הודעות</string>
     <string name="deduplicating_messages_no_messages">לא נמצאו הודעות כפולות.</string>
     <string name="messageLinkHandling_dialog_body">חלק מהקישורים עלולים להיות מפוקפקים ולהפנות אותך באופן בלתי צפוי. נא לבדוק את הקישור לפני בחירה להמשיך בכניסה אליו:\n\n%1$s\n\nלהמשיך?</string>
+    <string name="deduplicate_message_confirmation_dialog_message">מסד נתוני ההודעות שלך ייסרק לאיתור כפילויות ואז הכפילויות האלו תוסרנה.\nהתהליך הזה ימחק הודעות אוטומטית, יש להמשיך רק אם ההשלכות ברורות לך.</string>
+    <string name="auto_deduplicate_messages_title">למחוק הודעות כפולות אוטומטית</string>
+    <string name="auto_deduplicate_messages_summary">מחיקת הודעות כפולות תבוצע במהלך סנכרון. נא לשים לב, הפעולה הזאת תמחק הודעות אוטומטית ולמרות שהסיכוי שזאת הודעה כפולה שגויה הוא נמוך מאוד, זה עדיין אפשרי.\nנא לנקוט במשנה זהירות.</string>
+    <string name="deduplicating_messages_finished">מחיקת ההודעות הכפולות הסתיימה!</string>
 </resources>
