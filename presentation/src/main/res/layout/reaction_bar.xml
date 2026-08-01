@@ -17,26 +17,17 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with QUIK.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/reactToPart"
-        android:title="@string/compose_menu_react" />
-
-    <item
-        android:id="@+id/save"
-        android:title="@string/menu_mms_part_save" />
-
-    <item
-        android:id="@+id/share"
-        android:title="@string/menu_mms_part_share" />
-
-    <item
-        android:id="@+id/forward"
-        android:title="@string/menu_mms_part_forward" />
-
-    <item
-        android:id="@+id/openExternally"
-        android:title="@string/menu_mms_part_open" />
-
-</menu>
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/reactionBarContainer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/reaction_bar_background"
+    android:elevation="8dp"
+    android:paddingStart="4dp"
+    android:paddingEnd="4dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
+    app:alignItems="center"
+    app:flexWrap="wrap"
+    app:justifyContent="center" />

@@ -21,12 +21,36 @@ package dev.octoshrimpy.quik.repository
 import dev.octoshrimpy.quik.model.Message
 import io.realm.Realm
 
-data class ParsedEmojiReaction(val emoji: String, val originalMessage: String, val isRemoval: Boolean = false)
+data class ParsedEmojiReaction(
+    val emoji: String,
+    val originalMessage: String,
+    val isRemoval: Boolean = false,
+    val format: String = "",
+)
 
 interface EmojiReactionRepository {
     fun parseEmojiReaction(body: String): ParsedEmojiReaction?
 
     fun findTargetMessage(threadId: Long, originalMessageText: String, realm: Realm): Message?
+
+    /**
+     * Builds the text body of an outgoing reaction message in the given wire [format], so that
+     * the recipient's messaging app can render it as a reaction. [format] is one of the
+     * `EmojiReaction.FORMAT_*` constants.
+     */
+    fun buildReactionBody(
+        emoji: String,
+        targetText: String,
+        isRemoval: Boolean,
+        format: String,
+    ): String
+
+    /**
+     * Determines the best wire format to use when sending a reaction to the given thread. Honours
+     * the user's send-format preference; when set to auto, mirrors the format last received in the
+     * thread, falling back to the Google Messages format.
+     */
+    fun resolveFormat(threadId: Long, realm: Realm): String
 
     fun saveEmojiReaction(
         reactionMessage: Message,

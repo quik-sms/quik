@@ -37,7 +37,7 @@ class QkRealmMigration @Inject constructor(
 ) : RealmMigration {
 
     companion object {
-        const val SCHEMA_VERSION: Long = 15
+        const val SCHEMA_VERSION: Long = 16
     }
 
     @SuppressLint("ApplySharedPref")
@@ -296,6 +296,20 @@ class QkRealmMigration @Inject constructor(
                 realm.schema.get("Message")
                     ?.addField("sendAsGroup", Boolean::class.java, FieldAttribute.REQUIRED)
             }
+
+            version ++
+        }
+
+        if (version == 15L) {
+            realm.schema.get("EmojiReaction")
+                ?.takeIf { it.hasField("fromMe").not() }
+                ?.addField("fromMe", Boolean::class.java, FieldAttribute.REQUIRED)
+                ?.transform { reaction -> reaction.setBoolean("fromMe", false) }
+
+            realm.schema.get("EmojiReaction")
+                ?.takeIf { it.hasField("format").not() }
+                ?.addField("format", String::class.java, FieldAttribute.REQUIRED)
+                ?.transform { reaction -> reaction.setString("format", "") }
 
             version ++
         }

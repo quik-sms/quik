@@ -86,6 +86,9 @@ abstract class QkRealmAdapter<T : RealmModel, VH : QkViewHolder> : RealmRecycler
         return selection.contains(id)
     }
 
+    /** True when one or more items are selected (ie. the user is in multi-select mode) */
+    protected fun isSelectionMode(): Boolean = selection.isNotEmpty()
+
     fun clearSelection() {
         selection.clear()
         selectionChanges.onNext(selection)

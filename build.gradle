@@ -20,7 +20,7 @@ buildscript {
     ext.junit_version = '4.12'
     ext.kotlin_version = '1.7.21'
     ext.lifecycle_version = '2.1.0'
-    ext.material_version = '1.0.0'
+    ext.material_version = '1.6.1'
     ext.mockito_version = '2.18.3'
     ext.moshi_version = '1.8.0'
     ext.okhttp3_version = '4.10.0'

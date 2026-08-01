@@ -22,11 +22,13 @@ import android.Manifest
 import android.animation.LayoutTransition
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.ActivityNotFoundException
 import android.content.ContentValues
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -40,18 +42,28 @@ import android.view.ContextMenu
 import android.view.DragEvent.ACTION_DRAG_ENDED
 import android.view.DragEvent.ACTION_DRAG_EXITED
 import android.view.DragEvent.ACTION_DROP
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.SeekBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.emoji2.emojipicker.EmojiPickerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.flexbox.FlexboxLayout
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.clicks
@@ -69,17 +81,21 @@ import dev.octoshrimpy.quik.common.util.extensions.autoScrollToStart
 import dev.octoshrimpy.quik.common.util.extensions.dpToPx
 import dev.octoshrimpy.quik.common.util.extensions.hideKeyboard
 import dev.octoshrimpy.quik.common.util.extensions.makeToast
+import dev.octoshrimpy.quik.common.util.extensions.resolveThemeColor
 import dev.octoshrimpy.quik.common.util.extensions.scrapViews
 import dev.octoshrimpy.quik.common.util.extensions.setBackgroundTint
 import dev.octoshrimpy.quik.common.util.extensions.setTint
 import dev.octoshrimpy.quik.common.util.extensions.setVisible
 import dev.octoshrimpy.quik.common.util.extensions.showKeyboard
 import dev.octoshrimpy.quik.common.widget.MicInputCloudView
+import dev.octoshrimpy.quik.common.widget.QkContextMenuRecyclerView
 import dev.octoshrimpy.quik.extensions.mapNotNull
 import dev.octoshrimpy.quik.feature.compose.editing.ChipsAdapter
 import dev.octoshrimpy.quik.feature.contacts.ContactsActivity
 import dev.octoshrimpy.quik.model.Attachment
+import dev.octoshrimpy.quik.model.MmsPart
 import dev.octoshrimpy.quik.model.Recipient
+import dev.octoshrimpy.quik.util.Preferences
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -92,6 +108,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+import kotlin.math.ceil
 import javax.inject.Inject
 
 
@@ -105,6 +122,11 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: ComposeActivityBinding
+
+    // the currently-showing floating emoji reaction picker, if any
+    private var reactionPopup: PopupWindow? = null
+    // the media part view last long-pressed, used to anchor the reaction picker for media messages
+    private var partContextMenuAnchor: View? = null
 
     override val activityVisibleIntent: Subject<Boolean> = PublishSubject.create()
     override val chipsSelectedIntent: Subject<HashMap<String, String?>> = PublishSubject.create()
@@ -141,6 +163,7 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
     override val clearCurrentMessageIntent: Subject<Boolean> = PublishSubject.create()
     override val messageLinkAskIntent: Subject<Uri> by lazy { messageAdapter.messageLinkClicks }
     override val reactionClickIntent: Subject<Long> by lazy { messageAdapter.reactionClicks }
+    override val reactionSelectedIntent: Subject<Pair<Long, String>> = PublishSubject.create()
     override val speechRecogniserIntent by lazy { binding.speechToTextIcon.clicks() }
     override val shadeIntent by lazy { binding.shadeBackground.clicks() }
     override val recordAudioStartStopRecording: Subject<Boolean> = PublishSubject.create()
@@ -244,6 +267,11 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
                 .mapNotNull { it }
                 .autoDisposable(scope())
                 .subscribe { registerForContextMenu(it) }
+
+            // show the floating emoji reaction picker when a message asks to be reacted to
+            messageAdapter.reactionBarClicks
+                .autoDisposable(scope())
+                .subscribe { (messageId, anchor) -> showReactionPicker(messageId, anchor) }
 
             // drag drop handlers for speech-to-text icon
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -385,6 +413,10 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
     override fun onPause() {
         super.onPause()
         activityVisibleIntent.onNext(false)
+
+        // avoid leaking the reaction picker window if we're backgrounded while it's open
+        reactionPopup?.dismiss()
+        reactionPopup = null
     }
 
     override fun onDestroy() {
@@ -716,6 +748,205 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
             .show()
     }
 
+    /** The six standard tapback reactions, always shown first in the picker */
+    private val standardReactionEmojis = listOf("❤️", "👍", "👎", "😂", "‼️", "❓")
+
+    /**
+     * Shows the floating emoji reaction picker above [anchor]. Picking an emoji emits it on
+     * [reactionSelectedIntent] for the view model to send.
+     */
+    private fun showReactionPicker(messageId: Long, anchor: View) {
+        reactionPopup?.dismiss()
+
+        val container = layoutInflater.inflate(R.layout.reaction_bar, binding.root, false) as FlexboxLayout
+
+        // tint the picker to match the current theme
+        (container.background?.mutate() as? GradientDrawable)
+            ?.setColor(resolveThemeColor(android.R.attr.windowBackground))
+
+        // Force a fully-opaque text colour: a TextView's text-colour alpha is applied to emoji
+        // glyphs too, and the theme's default text colour is partially transparent, which makes the
+        // emojis look dim.
+        val chipTextColor = resolveThemeColor(android.R.attr.textColorPrimary) or 0xFF000000.toInt()
+
+        val chips = mutableListOf<TextView>()
+
+        val addChip = { label: String, onClick: () -> Unit ->
+            val chip = (layoutInflater.inflate(R.layout.reaction_bar_emoji, container, false) as TextView)
+                .apply {
+                    text = label
+                    setTextColor(chipTextColor)
+                    setOnClickListener { onClick() }
+                }
+            chips.add(chip)
+            container.addView(chip)
+        }
+
+        reactionPickerEmojis().forEach { emoji ->
+            addChip(emoji) {
+                reactionSelectedIntent.onNext(messageId to emoji)
+                rememberRecentEmoji(emoji)
+                reactionPopup?.dismiss()
+            }
+        }
+
+        // the '+' opens the full system emoji keyboard so any emoji can be used
+        addChip("+") {
+            reactionPopup?.dismiss()
+            promptForCustomEmoji(messageId)
+        }
+
+        val margin = (resources.displayMetrics.density * 8).toInt()
+        val screenWidth = resources.displayMetrics.widthPixels
+        val available = screenWidth - (2 * margin)
+
+        // Give every chip a uniform width, then work out a balanced number of chips per row so a
+        // wrapped picker doesn't leave a near-empty last row (eg. 8 + 1). We spread the chips as
+        // evenly as possible across however many rows are needed at the available width.
+        var chipWidth = 0
+        chips.forEach { chip ->
+            chip.measure(
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            )
+            chipWidth = maxOf(chipWidth, chip.measuredWidth)
+        }
+        val paddingH = container.paddingLeft + container.paddingRight
+        val innerAvailable = (available - paddingH).coerceAtLeast(chipWidth)
+        val maxPerRow = (innerAvailable / chipWidth).coerceAtLeast(1)
+        val rowCount = ceil(chips.size.toDouble() / maxPerRow).toInt().coerceAtLeast(1)
+        val perRow = ceil(chips.size.toDouble() / rowCount).toInt().coerceAtLeast(1)
+
+        chips.forEach { chip ->
+            chip.layoutParams = FlexboxLayout.LayoutParams(chipWidth, FlexboxLayout.LayoutParams.WRAP_CONTENT)
+        }
+
+        // a couple of pixels of slack so rounding never bumps a chip onto the next row
+        val shownWidth = perRow * chipWidth + paddingH + 2
+
+        container.measure(
+            View.MeasureSpec.makeMeasureSpec(shownWidth, View.MeasureSpec.EXACTLY),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
+
+        val popup = PopupWindow(
+            container,
+            shownWidth,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            true
+        ).apply {
+            isOutsideTouchable = true
+            elevation = resources.displayMetrics.density * 8
+        }
+
+        val location = IntArray(2)
+        anchor.getLocationInWindow(location)
+        val x = (location[0] + anchor.width / 2 - shownWidth / 2)
+            .coerceIn(margin, (screenWidth - shownWidth - margin).coerceAtLeast(margin))
+        val y = (location[1] - container.measuredHeight).coerceAtLeast(0)
+
+        popup.showAtLocation(anchor, Gravity.NO_GRAVITY, x, y)
+        reactionPopup = popup
+    }
+
+    /** Standard tapbacks followed by up to the user's configured number of recent emojis */
+    private fun reactionPickerEmojis(): List<String> {
+        val count = prefs.reactionRecentsCount.get().coerceAtLeast(0)
+        val recents = recentEmojis()
+            .filter { it !in standardReactionEmojis }
+            .take(count)
+        return standardReactionEmojis + recents
+    }
+
+    private fun recentEmojis(): List<String> =
+        prefs.reactionRecents.get()
+            .split("\n")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+
+    private fun rememberRecentEmoji(emoji: String) {
+        // the standard tapbacks are always shown, so don't waste a recents slot on them
+        if (emoji in standardReactionEmojis) return
+
+        val updated = (listOf(emoji) + recentEmojis().filter { it != emoji })
+            .take(Preferences.REACTION_RECENTS_STORE_MAX)
+        prefs.reactionRecents.set(updated.joinToString("\n"))
+    }
+
+    private fun promptForCustomEmoji(messageId: Long) {
+        // Show a full emoji grid picker (categorised, tracks its own recents) rather than relying on
+        // the system keyboard's emoji tab, which can't be opened programmatically. EmojiPickerView
+        // needs a Material3 theme for its colours, and a plain fixed-height dialog (rather than a
+        // bottom sheet) gives its internal grid an unambiguous bounded viewport so it scrolls.
+        val dialog = Dialog(this, R.style.ReactionEmojiPickerTheme)
+        val drawerHeight = (resources.displayMetrics.heightPixels * 0.7).toInt()
+
+        val picker = EmojiPickerView(dialog.context).apply {
+            // opaque surface background since the window itself is transparent
+            setBackgroundColor(dialog.context.resolveThemeColor(com.google.android.material.R.attr.colorSurface))
+            setOnEmojiPickedListener { item ->
+                reactionSelectedIntent.onNext(messageId to item.emoji)
+                rememberRecentEmoji(item.emoji)
+                dialog.dismiss()
+            }
+        }
+
+        // Full-screen root: a dim scrim with the drawer pinned to the bottom. A gesture that begins
+        // above the drawer is captured here (so it dismisses even if it travels down into the
+        // drawer), while a gesture that begins inside the drawer falls through to the grid so it
+        // scrolls.
+        val root = object : FrameLayout(dialog.context) {
+            override fun onInterceptTouchEvent(ev: MotionEvent): Boolean =
+                ev.actionMasked == MotionEvent.ACTION_DOWN && ev.y < picker.top
+
+            override fun onTouchEvent(ev: MotionEvent): Boolean {
+                if (ev.actionMasked == MotionEvent.ACTION_UP) dialog.dismiss()
+                return true
+            }
+        }.apply {
+            setBackgroundColor(0x80000000.toInt())
+            addView(
+                picker,
+                FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT, drawerHeight, Gravity.BOTTOM
+                )
+            )
+        }
+
+        dialog.setContentView(
+            root,
+            ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+        )
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        // The full-screen dialog window would otherwise recolour the system bars (in light mode it
+        // left white icons on the white status bar). Once shown, take control of the system bar
+        // backgrounds and copy the activity's bar colours + light/dark icon appearance so they look
+        // unchanged. Done in onShow so the window is attached and the appearance flag actually sticks.
+        dialog.setOnShowListener {
+            dialog.window?.let { dialogWindow ->
+                dialogWindow.clearFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or
+                            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+                )
+                dialogWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                dialogWindow.statusBarColor = window.statusBarColor
+                dialogWindow.navigationBarColor = window.navigationBarColor
+                // QkThemedActivity drives the light/dark status-bar icons via the legacy
+                // systemUiVisibility flags (not WindowInsetsController), so copy those verbatim to
+                // keep the dialog's icons matching the activity in both light and dark mode.
+                @Suppress("DEPRECATION")
+                run { dialogWindow.decorView.systemUiVisibility = window.decorView.systemUiVisibility }
+            }
+        }
+        dialog.show()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.compose, menu)
         return super.onCreateOptionsMenu(menu)
@@ -736,11 +967,24 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
         menuInfo: ContextMenu.ContextMenuInfo?
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
+        // remember the touched part view so the reaction picker can anchor to it
+        partContextMenuAnchor = v
         menuInflater.inflate(R.menu.mms_part_menu, menu)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         super.onContextItemSelected(item)
+
+        // reacting to a media part is a pure UI action; handle it here (anchored to the part view)
+        if (item.itemId == R.id.reactToPart) {
+            @Suppress("UNCHECKED_CAST")
+            val menuInfo = item.menuInfo as? QkContextMenuRecyclerView.ContextMenuInfo<Long, MmsPart>
+            val messageId = menuInfo?.viewHolderValue?.messageId
+            val anchor = partContextMenuAnchor ?: binding.messageList
+            if (messageId != null) showReactionPicker(messageId, anchor)
+            return true
+        }
+
         contextItemIntent.onNext(item)
         return true
     }

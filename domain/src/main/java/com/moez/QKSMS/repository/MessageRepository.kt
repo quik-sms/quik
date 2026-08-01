@@ -86,12 +86,22 @@ interface MessageRepository {
 
     fun sendNewMessages(
         subId: Int, toAddresses: Collection<String>, body: String,
-        attachments: Collection<Attachment>, sendAsGroup: Boolean, delayMs: Int = 0
+        attachments: Collection<Attachment>, sendAsGroup: Boolean, delayMs: Int = 0,
+        asReaction: Boolean = false
     ): Collection<Message>
 
     fun sendMessage(message: Message): Collection<Message>
 
     fun sendMessage(messageId: Long): Collection<Message>
+
+    /**
+     * Sends an emoji reaction to the message with id [targetMessageId]. The reaction is sent as a
+     * specially-formatted text message (see [EmojiReactionRepository.buildReactionBody]) and is also
+     * recorded locally so it renders immediately. When [isRemoval] is true, an un-react is sent.
+     */
+    fun sendReaction(
+        subId: Int, targetMessageId: Long, emoji: String, isRemoval: Boolean
+    ): Collection<Message>
 
     fun cancelDelayedSmsAlarm(messageId: Long)
 

@@ -24,23 +24,35 @@ import dev.octoshrimpy.quik.manager.KeyManager
 import dev.octoshrimpy.quik.model.EmojiReaction
 import dev.octoshrimpy.quik.model.Message
 import dev.octoshrimpy.quik.util.EmojiPatternStrings
+import dev.octoshrimpy.quik.util.Preferences
 import io.realm.Realm
 import io.realm.Sort
 import timber.log.Timber
+import java.util.Locale
 import javax.inject.Inject
 
 class EmojiReactionRepositoryImpl @Inject constructor(
     private val context: Context,
     private val keyManager: KeyManager,
     private val moshi: Moshi,
+    private val prefs: Preferences,
 ) : EmojiReactionRepository {
+    companion object {
+        // Invisible delimiters used by the Google Messages reaction wire format
+        private const val HAIR = " "  // hair space, wraps the message parts
+        private const val ZWSP = "​"  // zero-width space, wraps the emoji when reacting
+        private const val ZWNJ = "‌"  // zero-width non-joiner, wraps the emoji when un-reacting
+    }
+
+    // Locale-tagged pattern/template strings loaded from assets, kept for outgoing generation
+    private val patternStringsByLocale = mutableMapOf<String, EmojiPatternStrings>()
     // We use an ordered map to make sure we can test tapback regexes before generic ones
     private val reactionPatterns: LinkedHashMap<Regex, (MatchResult) -> ParsedEmojiReaction?> = linkedMapOf(
         Regex( // Google Messages
             "(?s)^\u200a[^\u200b\u200a]*\u200b([^\u200b]*)\u200b[^\u200b\u200a]*\u200a(.*)\u200a[^\u200b\u200a]*\u200a\\Z"
         ) to { match ->
             ParsedEmojiReaction(
-            match.groupValues[1], match.groupValues[2]
+            match.groupValues[1], match.groupValues[2], format = EmojiReaction.FORMAT_GOOGLE
             )
         }
     )
@@ -49,7 +61,8 @@ class EmojiReactionRepositoryImpl @Inject constructor(
             "(?s)^\u200a[^\u200c\u200a]*\u200c([^\u200c]*)\u200c[^\u200c\u200a]*\u200a(.*)\u200a[^\u200c\u200a]*\u200a\\Z"
         ) to { match ->
             ParsedEmojiReaction(
-                match.groupValues[1], match.groupValues[2], isRemoval = true
+                match.groupValues[1], match.groupValues[2], isRemoval = true,
+                format = EmojiReaction.FORMAT_GOOGLE
             )
         }
     )
@@ -57,6 +70,7 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     init {
         val assetEntries = loadEmojiPatternEntriesFromAssets()
         assetEntries.forEach { (localeTag, strings) ->
+            patternStringsByLocale[localeTag] = strings
             try {
                 addPatternsForLocaleStrings(localeTag, strings, reactionPatterns, removalPatterns)
             } catch (e: Exception) {
@@ -83,11 +97,11 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         ).forEach { (emoji, added, removed) ->
             added?.let {
                 reactionPatterns[Regex(it)] =
-                    { match -> ParsedEmojiReaction(emoji, match.groupValues[1]) }
+                    { match -> ParsedEmojiReaction(emoji, match.groupValues[1], format = EmojiReaction.FORMAT_IOS_TAPBACK) }
             }
             removed?.let {
                 removalPatterns[Regex(it)] =
-                    { match -> ParsedEmojiReaction(emoji, match.groupValues[1], isRemoval = true) }
+                    { match -> ParsedEmojiReaction(emoji, match.groupValues[1], isRemoval = true, format = EmojiReaction.FORMAT_IOS_TAPBACK) }
             }
         }
 
@@ -95,12 +109,12 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         strings.iosGenericAdded?.let { pattern ->
             reactionPatterns[Regex(pattern)] = { match ->
                 if (match.groupValues.getOrNull(1) == "with a sticker") null // TODO: localize "with a sticker"
-                else ParsedEmojiReaction(match.groupValues[1], match.groupValues[2])
+                else ParsedEmojiReaction(match.groupValues[1], match.groupValues[2], format = EmojiReaction.FORMAT_IOS_GENERIC)
             }
         }
         strings.iosGenericRemoved?.let { pattern ->
             removalPatterns[Regex(pattern)] = { match ->
-                ParsedEmojiReaction(match.groupValues[1], match.groupValues[2], isRemoval = true)
+                ParsedEmojiReaction(match.groupValues[1], match.groupValues[2], isRemoval = true, format = EmojiReaction.FORMAT_IOS_GENERIC)
             }
         }
 
@@ -159,6 +173,85 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         return null
     }
 
+    override fun buildReactionBody(
+        emoji: String,
+        targetText: String,
+        isRemoval: Boolean,
+        format: String,
+    ): String = when {
+        format.startsWith("ios") -> buildIosReactionBody(emoji, targetText, isRemoval)
+        else -> buildGoogleReactionBody(emoji, targetText, isRemoval)
+    }
+
+    /**
+     * Reconstructs the invisible-delimiter encoding that Google Messages (and Quik's own parser)
+     * understand. The visible words are cosmetic; the hair-space / zero-width delimiters carry the
+     * structure, so this is locale-independent.
+     */
+    private fun buildGoogleReactionBody(emoji: String, targetText: String, isRemoval: Boolean): String {
+        val emojiDelim = if (isRemoval) ZWNJ else ZWSP
+        val verb = if (isRemoval) "Removed " else "Reacted "
+        val preposition = if (isRemoval) " from " else " to "
+        return HAIR + verb + emojiDelim + emoji + emojiDelim + preposition +
+                HAIR + targetText + HAIR + HAIR
+    }
+
+    private fun buildIosReactionBody(emoji: String, targetText: String, isRemoval: Boolean): String {
+        val strings = templatesForCurrentLocale()
+        iosTapbackTemplate(emoji, isRemoval, strings)?.let { template ->
+            return String.format(template, targetText)
+        }
+        val generic = when {
+            isRemoval -> strings?.iosGenericRemovedTemplate ?: "Removed %1\$s from “%2\$s”"
+            else -> strings?.iosGenericAddedTemplate ?: "Reacted %1\$s to “%2\$s”"
+        }
+        return String.format(generic, emoji, targetText)
+    }
+
+    /** Returns the iOS-readable template for one of the six standard tapback emojis, else null. */
+    private fun iosTapbackTemplate(
+        emoji: String,
+        isRemoval: Boolean,
+        strings: EmojiPatternStrings?,
+    ): String? = when (emoji) {
+        "❤️" -> if (isRemoval) strings?.iosHeartRemovedTemplate ?: "Removed a heart from “%s”"
+                else strings?.iosHeartAddedTemplate ?: "Loved “%s”"
+        "👍" -> if (isRemoval) strings?.iosLikeRemovedTemplate ?: "Removed a like from “%s”"
+                else strings?.iosLikeAddedTemplate ?: "Liked “%s”"
+        "👎" -> if (isRemoval) strings?.iosDislikeRemovedTemplate ?: "Removed a dislike from “%s”"
+                else strings?.iosDislikeAddedTemplate ?: "Disliked “%s”"
+        "😂" -> if (isRemoval) strings?.iosLaughRemovedTemplate ?: "Removed a laugh from “%s”"
+                else strings?.iosLaughAddedTemplate ?: "Laughed at “%s”"
+        "‼️" -> if (isRemoval) strings?.iosExclamationRemovedTemplate ?: "Removed an exclamation from “%s”"
+                else strings?.iosExclamationAddedTemplate ?: "Emphasized “%s”"
+        "❓" -> if (isRemoval) strings?.iosQuestionMarkRemovedTemplate ?: "Removed a question mark from “%s”"
+                else strings?.iosQuestionMarkAddedTemplate ?: "Questioned “%s”"
+        else -> null
+    }
+
+    private fun templatesForCurrentLocale(): EmojiPatternStrings? {
+        val locale = Locale.getDefault()
+        return patternStringsByLocale[locale.toLanguageTag().replace('-', '_')]
+            ?: patternStringsByLocale[locale.language]
+            ?: patternStringsByLocale["en"]
+    }
+
+    override fun resolveFormat(threadId: Long, realm: Realm): String =
+        when (prefs.reactionSendFormat.get()) {
+            Preferences.REACTION_FORMAT_GOOGLE -> EmojiReaction.FORMAT_GOOGLE
+            Preferences.REACTION_FORMAT_IOS -> EmojiReaction.FORMAT_IOS_TAPBACK
+            else -> {
+                // Auto: mirror the most recent reaction format we received in this thread
+                val lastReceived = realm.where(EmojiReaction::class.java)
+                    .equalTo("threadId", threadId)
+                    .equalTo("fromMe", false)
+                    .sort("id", Sort.DESCENDING)
+                    .findFirst()
+                if (lastReceived?.format?.startsWith("ios") == true) EmojiReaction.FORMAT_IOS_TAPBACK
+                else EmojiReaction.FORMAT_GOOGLE
+            }
+        }
+
     private fun parseTruncatedMessages(originalMessageText: String): Regex {
         val reactionText = originalMessageText.trim()
 
@@ -203,6 +296,13 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         return null
     }
 
+    /**
+     * Two reactions are from the same reactor if they're both ours, or both incoming from the same
+     * address. Used to enforce one reaction per person per message.
+     */
+    private fun sameReactor(a: EmojiReaction, b: EmojiReaction): Boolean =
+        if (b.fromMe) a.fromMe else (!a.fromMe && a.senderAddress == b.senderAddress)
+
     private fun removeEmojiReaction(
         reactionMessage: Message,
         reaction: ParsedEmojiReaction,
@@ -214,8 +314,11 @@ class EmojiReactionRepositoryImpl @Inject constructor(
             return
         }
 
+        val fromMe = reactionMessage.isMe()
         val existingReaction = targetMessage.emojiReactions.find { candidate ->
-            candidate.senderAddress == reactionMessage.address && candidate.emoji == reaction.emoji
+            candidate.emoji == reaction.emoji &&
+                    if (fromMe) candidate.fromMe
+                    else (!candidate.fromMe && candidate.senderAddress == reactionMessage.address)
         }
 
         if (existingReaction != null) {
@@ -247,6 +350,8 @@ class EmojiReactionRepositoryImpl @Inject constructor(
             emoji = parsedReaction.emoji
             originalMessageText = parsedReaction.originalMessage
             threadId = reactionMessage.threadId
+            fromMe = reactionMessage.isMe()
+            format = parsedReaction.format
         }
         realm.insertOrUpdate(reaction)
 
@@ -254,8 +359,8 @@ class EmojiReactionRepositoryImpl @Inject constructor(
             reactionMessage.isEmojiReaction = true
             realm.insertOrUpdate(reactionMessage)
 
-            // Overwrite any previous reaction from this sender for this target
-            val priorFromSender = targetMessage.emojiReactions.filter { it.senderAddress == reaction.senderAddress }
+            // Overwrite any previous reaction from this same reactor for this target
+            val priorFromSender = targetMessage.emojiReactions.filter { sameReactor(it, reaction) }
             priorFromSender.forEach { it.deleteFromRealm() }
 
             targetMessage.emojiReactions.add(reaction)

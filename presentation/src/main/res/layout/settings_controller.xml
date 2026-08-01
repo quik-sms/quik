@@ -135,6 +135,30 @@
             app:widget="@layout/settings_switch_widget" />
 
         <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/reactionGesture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_favorite_black_24dp"
+            app:title="@string/settings_reaction_gesture_title"
+            tools:summary="Long press to react" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/reactionFormat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_send_black_24dp"
+            app:title="@string/settings_reaction_format_title"
+            tools:summary="Automatic" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/reactionRecents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_history_black_24dp"
+            app:title="@string/settings_reaction_recents_title"
+            tools:summary="3" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
             android:id="@+id/delayed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
