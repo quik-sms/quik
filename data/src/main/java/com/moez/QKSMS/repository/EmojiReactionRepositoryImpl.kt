@@ -34,6 +34,19 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     private val keyManager: KeyManager,
     private val moshi: Moshi,
 ) : EmojiReactionRepository {
+    companion object {
+        // How many recent messages a text-matched reaction scans before giving up. A reaction
+        // refers to something the sender can still see, so a target further back than this is not
+        // plausible -- and scanning further is what made bulk reparsing quadratic.
+        private const val MAX_TEXT_MATCH_CANDIDATES = 200L
+
+        // Slack for clock differences between two devices, so a reaction timestamped fractionally
+        // before the message it targets still finds it.
+        private const val CLOCK_SKEW_TOLERANCE_MS = 60_000L
+
+        const val TRUNCATION_ELLIPSIS = "…"
+    }
+
     // We use an ordered map to make sure we can test tapback regexes before generic ones
     private val reactionPatterns: LinkedHashMap<Regex, (MatchResult) -> ParsedEmojiReaction?> = linkedMapOf(
         Regex( // Google Messages
@@ -162,7 +175,7 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     private fun parseTruncatedMessages(originalMessageText: String): Regex {
         val reactionText = originalMessageText.trim()
 
-        val delimiter = "\u2026"
+        val delimiter = TRUNCATION_ELLIPSIS
         val index = reactionText.lastIndexOf(delimiter)
         val regexPattern = if (index == -1) {
             Regex.escape(reactionText)
@@ -180,20 +193,50 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     override fun findTargetMessage(
         threadId: Long,
         originalMessageText: String,
-        realm: Realm
+        realm: Realm,
+        reactionDate: Long?,
     ): Message? {
-        val startTime = System.currentTimeMillis()
-        val messages = realm.where(Message::class.java)
-            .equalTo("threadId", threadId)
-            .sort("date", Sort.DESCENDING)
-            .findAll()
-        val endTime = System.currentTimeMillis()
-        Timber.d("Found ${messages.size} messages as potential emoji targets in ${endTime - startTime}ms")
+        // Bound the search. A reaction can only target a message that already existed, and only
+        // recent ones are plausible targets. Unbounded, this loaded every message in the thread and
+        // ran a regex over each -- once per reaction. Across an imported history that product is
+        // the ANR in #840.
+        // Allow slack on the date: clock differences between two devices can timestamp a reaction
+        // marginally before the message it targets, and dropping the real target is worse than
+        // scanning a few extra.
+        val latestDate = reactionDate?.plus(CLOCK_SKEW_TOLERANCE_MS)
 
+        fun candidateQuery() = realm.where(Message::class.java)
+            .equalTo("threadId", threadId)
+            .apply { latestDate?.let { lessThanOrEqualTo("date", it) } }
+
+        // An untruncated quote is the common case, and Realm can match it natively on the body
+        // column without materialising every candidate's text. Only SMS bodies are stored there;
+        // MMS text lives in parts, so those fall through to the scan below.
+        if (!originalMessageText.contains(TRUNCATION_ELLIPSIS)) {
+            candidateQuery()
+                .equalTo("body", originalMessageText)
+                .sort("date", Sort.DESCENDING)
+                .findFirst()
+                ?.let {
+                    Timber.d("Found reaction target by exact body: message ID ${it.id}")
+                    return it
+                }
+        }
+
+        val candidates = candidateQuery()
+            .sort("date", Sort.DESCENDING)
+            .limit(MAX_TEXT_MATCH_CANDIDATES)
+            .findAll()
+
+        val startTime = System.currentTimeMillis()
         val originalMessageRegex = parseTruncatedMessages(originalMessageText)
-        val match = messages.find { message ->
+        val match = candidates.find { message ->
             originalMessageRegex.matches(message.getText(false).trim())
         }
+        Timber.d(
+            "Scanned ${candidates.size} candidate emoji targets in " +
+                    "${System.currentTimeMillis() - startTime}ms"
+        )
         if (match != null) {
             Timber.d("Found match for reaction target: message ID ${match.id}")
             return match
@@ -270,9 +313,12 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         val startTime = System.currentTimeMillis()
 
         realm.delete(EmojiReaction::class.java)
-        realm.where(Message::class.java).findAll().map {
-            it.isEmojiReaction = false
-        }
+        // Only messages currently flagged need clearing. Walking every message in the database and
+        // writing the field regardless meant a full-table write inside this one transaction.
+        realm.where(Message::class.java)
+            .equalTo("isEmojiReaction", true)
+            .findAll()
+            .forEach { it.isEmojiReaction = false }
 
         val allMessages = realm.where(Message::class.java)
             .beginGroup()
@@ -300,7 +346,8 @@ class EmojiReactionRepositoryImpl @Inject constructor(
                 val targetMessage = findTargetMessage(
                     message.threadId,
                     parsedReaction.originalMessage,
-                    realm
+                    realm,
+                    message.date,
                 )
                 saveEmojiReaction(
                     message,
@@ -308,18 +355,22 @@ class EmojiReactionRepositoryImpl @Inject constructor(
                     targetMessage,
                     realm,
                 )
-                progress++
-                // Update the progress every 25 messages, and then at completion
-                // that way we don't spam the UI
-                if (progress % 25 == 0 || progress == max) {
-                    onProgress(
-                        SyncRepository.SyncProgress.ParsingEmojis(
-                            max = max,
-                            progress = progress,
-                            indeterminate = false
-                        )
+            }
+
+            // Count every message examined, not just the ones that turned out to be reactions.
+            // Counting only reactions meant progress could never reach max, so the bar never
+            // completed and the final callback never fired.
+            progress++
+            // Update the progress every 25 messages, and then at completion
+            // that way we don't spam the UI
+            if (progress % 25 == 0 || progress == max) {
+                onProgress(
+                    SyncRepository.SyncProgress.ParsingEmojis(
+                        max = max,
+                        progress = progress,
+                        indeterminate = false
                     )
-                }
+                )
             }
         }
 

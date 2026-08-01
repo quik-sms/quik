@@ -26,7 +26,16 @@ data class ParsedEmojiReaction(val emoji: String, val originalMessage: String, v
 interface EmojiReactionRepository {
     fun parseEmojiReaction(body: String): ParsedEmojiReaction?
 
-    fun findTargetMessage(threadId: Long, originalMessageText: String, realm: Realm): Message?
+    /**
+     * [reactionDate] bounds the search to messages that already existed when the reaction was
+     * sent. Omitting it searches the whole thread, which is slow on a long history.
+     */
+    fun findTargetMessage(
+        threadId: Long,
+        originalMessageText: String,
+        realm: Realm,
+        reactionDate: Long? = null,
+    ): Message?
 
     fun saveEmojiReaction(
         reactionMessage: Message,
