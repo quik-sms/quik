@@ -32,6 +32,7 @@ buildscript {
     ext.rxjava_version = '2.1.4'
     ext.rxkotlin_version = '2.1.0'
     ext.rx_preferences_version = '2.0.0-RC3'
+    ext.spotless_version = '8.1.0'
     ext.timber_version = '5.0.1'
     ext.androidx_work_version = "2.8.0"
 
@@ -54,6 +55,7 @@ buildscript {
         classpath 'com.google.gms:google-services:4.3.14'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.realm:realm-gradle-plugin:$realm_version"
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:$spotless_version"
     }
 }
 
@@ -76,6 +78,15 @@ tasks.register('clean', Delete) {
 }
 
 subprojects {
+    apply plugin: 'com.diffplug.spotless'
+
+    spotless {
+        kotlin {
+            target '**/*.kt', '**/*.kts'
+            ktlint()
+        }
+    }
+
     afterEvaluate {
         if (project.hasProperty('kapt')) {
             kapt {
@@ -87,4 +98,12 @@ subprojects {
             }
         }
     }
+}
+
+tasks.register('installGitHooks', Copy) {
+    description = "Installs the pre-commit git hooks"
+    group = "help"
+    from new File(rootProject.rootDir, 'scripts/git-hooks/pre-commit')
+    into { new File(rootProject.rootDir, '.git/hooks') }
+    fileMode 0774
 }
