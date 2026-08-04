@@ -25,9 +25,11 @@ import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -37,6 +39,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.textChanges
@@ -49,6 +52,7 @@ import dev.octoshrimpy.quik.common.androidxcompat.drawerOpen
 import dev.octoshrimpy.quik.common.base.QkThemedActivity
 import dev.octoshrimpy.quik.common.util.extensions.autoScrollToStart
 import dev.octoshrimpy.quik.common.util.extensions.dismissKeyboard
+import dev.octoshrimpy.quik.common.util.extensions.makeToast
 import dev.octoshrimpy.quik.common.util.extensions.resolveThemeColor
 import dev.octoshrimpy.quik.common.util.extensions.scrapViews
 import dev.octoshrimpy.quik.common.util.extensions.setBackgroundTint
@@ -139,6 +143,13 @@ class MainActivity : QkThemedActivity(), MainView {
     private val changelogDialog by lazy { ChangelogDialog(this) }
     private val backPressedSubject: Subject<NavItem> = PublishSubject.create()
 
+    private enum class SoftkeyMode {
+        CONVERSATIONS,
+        CONVERSATIONS_SELECTED,
+    }
+
+    private var softkeyMode = SoftkeyMode.CONVERSATIONS
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -146,6 +157,17 @@ class MainActivity : QkThemedActivity(), MainView {
         setContentView(binding.root)
         viewModel.bindView(this)
         onNewIntentIntent.onNext(intent)
+
+        conversationsAdapter.selectionChanges
+            .autoDisposable(scope())
+            .subscribe { selectedIds ->
+                softkeyMode = if (selectedIds.isEmpty()) {
+                    SoftkeyMode.CONVERSATIONS
+                } else {
+                    SoftkeyMode.CONVERSATIONS_SELECTED
+                }
+            }
+
 
         snackbarBinding = MainPermissionHintBinding.bind(binding.snackbar.inflate()).also {
             it.snackbarButton.clicks()
@@ -378,6 +400,38 @@ class MainActivity : QkThemedActivity(), MainView {
                 snackbarBinding.snackbarButton.setText(R.string.main_permission_allow)
             }
         }
+
+        // Update Kyocera Soft keys
+        when (softkeyMode) {
+
+            MainActivity.SoftkeyMode.CONVERSATIONS -> {
+                softkey.apply {
+                    setText(1, getString(R.string.kyocera_submenu))
+                    setText(2, getString(R.string.shortcut_compose_short_label))
+                    setText(3, "▼")
+                    setText(4, "▲")
+
+                    setEnabled(1, true)
+                    setEnabled(2, true)
+                    setEnabled(3, true)
+                    setEnabled(4, true)
+                }
+            }
+
+            MainActivity.SoftkeyMode.CONVERSATIONS_SELECTED -> {
+                softkey.apply {
+                    setText(1, getString(R.string.button_more))
+                    setText(2, "")
+                    setText(3, getString(R.string.main_menu_archive))
+                    setText(4, getString(R.string.main_menu_delete))
+                    setEnabled(1, true)
+                    setEnabled(2, true)
+                    setEnabled(3, true)
+                    setEnabled(4, true)
+                }
+            }
+        }
+        softkey.invalidate()
     }
 
     override fun onResume() =
@@ -490,5 +544,94 @@ class MainActivity : QkThemedActivity(), MainView {
                 binding.drawer.inbox.requestFocus()
         } else
             binding.toolbarSearch.requestFocus()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+
+
+        when (softkeyMode) {
+            SoftkeyMode.CONVERSATIONS -> {
+                when (keyCode) {
+                    KeyEvent.KEYCODE_F1 -> {
+                        // Open and close the drawer
+                        if (!binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                            binding.drawerLayout.openDrawer(GravityCompat.START)
+                        } else {
+                            binding.drawerLayout.closeDrawer(GravityCompat.START)
+                        }
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F2 -> {
+                        // New conversation
+                        binding.compose.performClick()
+                        return true
+                    }
+
+                    KeyEvent.KEYCODE_F3 -> {
+                        // Scrolls down
+                        (binding.recyclerView.layoutManager as LinearLayoutManager).apply {
+                            val targetPosition = minOf(findLastVisibleItemPosition() + 5, conversationsAdapter.itemCount - 1)
+                            binding.recyclerView.scrollToPosition(targetPosition)
+                            binding.recyclerView.post {
+                                findViewByPosition(targetPosition)?.requestFocus()
+                            }
+                        }
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F4 -> {
+                        // Scrolls up
+                        (binding.recyclerView.layoutManager as LinearLayoutManager).apply {
+                            val targetPosition = maxOf(findFirstVisibleItemPosition() - 5, 0)
+                            binding.recyclerView.scrollToPosition(targetPosition)
+                            binding.recyclerView.post {
+                                findViewByPosition(targetPosition)?.requestFocus()
+                            }
+                        }
+                        return true
+                    }
+                }
+            }
+
+            SoftkeyMode.CONVERSATIONS_SELECTED -> {
+                when (keyCode) {
+                    // Overflow Options
+                    KeyEvent.KEYCODE_F1 -> {
+                        val options = arrayOf(
+                            getString(R.string.main_menu_pin),
+                            getString(R.string.main_menu_unread),
+                            getString(R.string.main_menu_block),
+                            getString(R.string.main_menu_rename_conversation),
+                        )
+                        AlertDialog.Builder(this)
+                            .setItems(options) { _, which ->
+                                when (which) {
+                                    0 -> optionsItemIntent.onNext(R.id.pinned)
+                                    1 -> optionsItemIntent.onNext(R.id.markUnread)
+                                    2 -> optionsItemIntent.onNext(R.id.block)
+                                    3 -> optionsItemIntent.onNext(R.id.rename)
+                                }
+                            }
+                            .show()
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F2 -> {
+                        optionsItemIntent.onNext(R.id.info)
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F3 -> {
+                        // Archive
+                        makeToast(getString(R.string.main_menu_archive), Toast.LENGTH_SHORT)
+                        optionsItemIntent.onNext(R.id.archive)
+                        return true
+                    }
+                    KeyEvent.KEYCODE_F4 -> {
+                        // Delete
+                        optionsItemIntent.onNext(R.id.delete)
+                        return true
+                    }
+                }
+            }
+        }
+        return super.onKeyDown(keyCode, event)
     }
 }

@@ -20,6 +20,7 @@ package dev.octoshrimpy.quik.common.base
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -27,6 +28,8 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.moez.QKSMS.common.util.softKey.SoftKeyGuide
 import dev.octoshrimpy.quik.R
 import dev.octoshrimpy.quik.util.Preferences
 import io.reactivex.subjects.BehaviorSubject
@@ -41,6 +44,8 @@ abstract class QkActivity : AppCompatActivity() {
     protected val toolbar: Toolbar? get() = findViewById(R.id.toolbar)
     protected val toolbarTitle: TextView? get() = findViewById(R.id.toolbarTitle)
 
+//    Create an instance for Kyocera soft keys
+    protected val  softkey: SoftKeyGuide get() = SoftKeyGuide.create(window)
     @SuppressLint("InlinedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

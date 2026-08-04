@@ -608,4 +608,7 @@
     <string name="stt_toast_extra_prompt">Speak your message</string>
 
     <string name="messages_text_share_file_error">Oops! Something went wrong while sharing</string>
+    <string name="kyocera_submenu">Submenu</string>
+    <string name="kyocera_send">Send</string>
+    <string name="kyocera_Copy">Copy</string>
 </resources>
