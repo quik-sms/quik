@@ -64,21 +64,6 @@ class ConversationsAdapter @Inject constructor(
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ConversationListItemBinding.inflate(layoutInflater, parent, false)
 
-        if (viewType == 1) {
-            val textColorPrimary = parent.context.resolveThemeColor(android.R.attr.textColorPrimary)
-
-            binding.title.setTypeface(binding.title.typeface, Typeface.BOLD)
-
-            binding.snippet.setTypeface(binding.snippet.typeface, Typeface.BOLD)
-            binding.snippet.setTextColor(textColorPrimary)
-            binding.snippet.maxLines = 5
-
-            binding.unread.isVisible = true
-
-            binding.date.setTypeface(binding.date.typeface, Typeface.BOLD)
-            binding.date.setTextColor(textColorPrimary)
-        }
-
         return QkBindingViewHolder(binding).apply {
             binding.root.setOnClickListener {
                 val conversation = getItem(adapterPosition) ?: return@setOnClickListener
@@ -124,8 +109,38 @@ class ConversationsAdapter @Inject constructor(
             else -> conversation.snippet
         }
 
-        // Make the preview in italics if draft
-        if (conversation.draft.isNotEmpty()) binding.snippet.setTypeface(null, Typeface.ITALIC)
+        // Style text based on message status
+        binding.run {
+            when {
+                conversation.unread -> {
+                    title.setTypeface(title.typeface, Typeface.BOLD)
+
+                    snippet.setTextAppearance(R.style.TextPrimary)
+                    snippet.setTypeface(snippet.typeface, Typeface.BOLD)
+                    snippet.maxLines = 5
+
+                    unread.isVisible = true
+
+                    date.setTextAppearance(R.style.TextPrimary)
+                    date.setTypeface(date.typeface, Typeface.BOLD)
+                }
+                conversation.draft.isNotEmpty() -> {
+                    snippet.setTypeface(snippet.typeface, Typeface.ITALIC)
+                }
+                else -> {
+                    title.setTypeface(title.typeface, Typeface.NORMAL)
+
+                    snippet.setTextAppearance(R.style.TextSecondary)
+                    snippet.setTypeface(snippet.typeface, Typeface.NORMAL)
+                    snippet.maxLines = 1
+
+                    unread.isVisible = false
+
+                    date.setTextAppearance(R.style.TextTertiary)
+                    date.setTypeface(date.typeface, Typeface.NORMAL)
+                }
+            }
+        }
 
         binding.scheduled.isVisible = conversation.id in hasScheduledConversation
 
