@@ -74,11 +74,11 @@ QUIK is developed and maintained by [Marcos Jones](https://github.com/octoshrimp
 
 ## Star History
 
-<a href="https://star-history.dera.page/#octoshrimpy/quik&type=Date">
+<a href="https://star-history.dera.page/#quik-sms/quik&type=Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=octoshrimpy/quik&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=octoshrimpy/quik&type=Date" />
-    <img alt="Star History Chart" src="https://star-history.dera.page/svg?repos=octoshrimpy/quik&type=Date" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=quik-sms/quik&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=quik-sms/quik&type=Date" />
+    <img alt="Star History Chart" src="https://star-history.dera.page/svg?repos=quik-sms/quik&type=Date" />
   </picture>
 </a>
 
