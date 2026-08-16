@@ -116,18 +116,23 @@ class WidgetProvider : AppWidgetProvider() {
         // Apply colors from theme
         val night = prefs.night.get() || isNightMode
         val black = prefs.black.get()
+        val dynamicBackground = colors.dynamicBackgroundColor(night)
 
-        remoteViews.setInt(R.id.background, "setColorFilter", context.getColorCompat(when {
-            night && black -> R.color.black
-            night && !black -> R.color.backgroundDark
-            else -> R.color.white
-        }))
+        val backgroundColor = when {
+            night && black -> context.getColorCompat(R.color.black)
+            dynamicBackground != null -> dynamicBackground
+            night -> context.getColorCompat(R.color.backgroundDark)
+            else -> context.getColorCompat(R.color.white)
+        }
+        remoteViews.setInt(R.id.background, "setColorFilter", backgroundColor)
 
-        remoteViews.setInt(R.id.toolbar, "setColorFilter", context.getColorCompat(when {
-            night && black -> R.color.black
-            night && !black -> R.color.backgroundDark
-            else -> R.color.backgroundLight
-        }))
+        val toolbarColor = when {
+            night && black -> context.getColorCompat(R.color.black)
+            dynamicBackground != null -> dynamicBackground
+            night -> context.getColorCompat(R.color.backgroundDark)
+            else -> context.getColorCompat(R.color.backgroundLight)
+        }
+        remoteViews.setInt(R.id.toolbar, "setColorFilter", toolbarColor)
 
         remoteViews.setTextColor(R.id.title, context.getColorCompat(when (night) {
             true -> R.color.textPrimaryDark

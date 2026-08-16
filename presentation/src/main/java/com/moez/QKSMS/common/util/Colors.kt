@@ -19,6 +19,7 @@
 package dev.octoshrimpy.quik.common.util
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import androidx.core.content.res.getColorOrThrow
 import dev.octoshrimpy.quik.R
@@ -26,6 +27,7 @@ import dev.octoshrimpy.quik.common.util.extensions.getColorCompat
 import dev.octoshrimpy.quik.model.Recipient
 import dev.octoshrimpy.quik.util.Preferences
 import io.reactivex.Observable
+import io.reactivex.rxkotlin.Observables
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.absoluteValue
@@ -36,6 +38,9 @@ class Colors @Inject constructor(
     private val context: Context,
     private val prefs: Preferences
 ) {
+
+    val dynamicColorsSupported: Boolean
+        get() = context.resources.getBoolean(R.bool.dynamic_colors_supported)
 
     data class Theme(val theme: Int, private val colors: Colors) {
         val highlight by lazy { colors.highlightColorForTheme(theme) }
@@ -80,7 +85,8 @@ class Colors @Inject constructor(
     fun theme(recipient: Recipient? = null): Theme {
         val pref = prefs.theme(recipient?.id ?: 0)
         val color = when {
-            recipient == null || !prefs.autoColor.get() || pref.isSet -> pref.get()
+            recipient == null -> dynamicThemeColor() ?: pref.get()
+            !prefs.autoColor.get() || pref.isSet -> pref.get()
             else -> generateColor(recipient)
         }
         return Theme(color, this)
@@ -92,8 +98,39 @@ class Colors @Inject constructor(
             prefs.autoColor.get() -> prefs.theme(recipient.id, generateColor(recipient))
             else -> prefs.theme(recipient.id, prefs.theme().get())
         }
-        return pref.asObservable()
+        val colors = when {
+            recipient == null -> Observables.combineLatest(
+                pref.asObservable(),
+                prefs.dynamicColors.asObservable()
+            ) { color, _ -> dynamicThemeColor() ?: color }
+            else -> pref.asObservable()
+        }
+        return colors
                 .map { color -> Theme(color, this) }
+    }
+
+    private fun dynamicThemeColor(): Int? {
+        val isNight = prefs.night.get() ||
+            (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
+            Configuration.UI_MODE_NIGHT_YES
+
+        return dynamicColor(
+            android.R.color.system_accent1_600,
+            android.R.color.system_accent1_200,
+            isNight
+        )
+    }
+
+    fun dynamicBackgroundColor(isNight: Boolean): Int? = dynamicColor(
+        android.R.color.system_neutral1_10,
+        android.R.color.system_neutral1_900,
+        isNight
+    )
+
+    private fun dynamicColor(lightColor: Int, darkColor: Int, isNight: Boolean): Int? {
+        if (!dynamicColorsSupported || !prefs.dynamicColors.get()) return null
+
+        return context.getColor(if (isNight) darkColor else lightColor)
     }
 
     fun highlightColorForTheme(theme: Int): Int = FloatArray(3)

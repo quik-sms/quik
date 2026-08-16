@@ -75,6 +75,10 @@
         <item name="android:textColor">@color/textPrimary</item>
     </style>
 
+    <style name="AppTheme.Dynamic" parent="AppTheme" />
+    <style name="AppThemeDialog.Dynamic" parent="AppThemeDialog" />
+    <style name="PopupTheme.Dynamic" parent="PopupTheme" />
+
     <style name="AppTheme.Gallery" parent="Theme.AppCompat.NoActionBar">
         <item name="android:background">@color/black</item>
     </style>

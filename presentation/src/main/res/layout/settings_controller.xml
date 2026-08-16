@@ -62,6 +62,14 @@
             app:widget="@layout/settings_switch_widget" />
 
         <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/dynamicColors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:title="@string/settings_dynamic_colors_title"
+            app:widget="@layout/settings_switch_widget" />
+
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
             android:id="@+id/nightStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

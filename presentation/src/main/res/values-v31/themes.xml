@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Dynamic" parent="AppTheme">
+        <item name="android:colorBackground">@android:color/system_neutral1_10</item>
+        <item name="android:navigationBarColor">@android:color/system_neutral1_10</item>
+        <item name="android:statusBarColor">@android:color/system_neutral1_10</item>
+        <item name="android:windowBackground">@android:color/system_neutral1_10</item>
+        <item name="android:queryBackground">@android:color/system_neutral2_100</item>
+        <item name="bubbleColor">@android:color/system_neutral2_100</item>
+        <item name="colorPrimary">@android:color/system_neutral1_10</item>
+        <item name="colorPrimaryDark">@android:color/system_neutral1_10</item>
+    </style>
+
+    <style name="AppThemeDialog.Dynamic" parent="AppThemeDialog">
+        <item name="android:colorBackground">@android:color/system_neutral1_10</item>
+        <item name="android:windowBackground">@android:color/system_neutral1_10</item>
+        <item name="actionBarPopupTheme">@style/PopupTheme.Dynamic</item>
+        <item name="bubbleColor">@android:color/system_neutral2_100</item>
+        <item name="colorPrimary">@android:color/system_neutral1_10</item>
+        <item name="colorPrimaryDark">@android:color/system_neutral1_10</item>
+    </style>
+
+    <style name="PopupTheme.Dynamic" parent="PopupTheme">
+        <item name="android:colorBackground">@android:color/system_neutral1_10</item>
+        <item name="bubbleColor">@android:color/system_neutral2_100</item>
+    </style>
+
+</resources>
