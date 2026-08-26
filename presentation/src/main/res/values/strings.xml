@@ -609,4 +609,8 @@
     <string name="stt_toast_extra_prompt">Speak your message</string>
 
     <string name="messages_text_share_file_error">Oops! Something went wrong while sharing</string>
+
+    <string name="tab_all">All</string>
+    <string name="tab_contacts">Contacts</string>
+    <string name="tab_unknowns">Unknown</string>
 </resources>

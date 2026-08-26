@@ -29,6 +29,7 @@ import dev.octoshrimpy.quik.mapper.CursorToConversation
 import dev.octoshrimpy.quik.mapper.CursorToRecipient
 import dev.octoshrimpy.quik.model.Contact
 import dev.octoshrimpy.quik.model.Conversation
+import dev.octoshrimpy.quik.model.ConversationFilterType
 import dev.octoshrimpy.quik.model.Message
 import dev.octoshrimpy.quik.model.Recipient
 import dev.octoshrimpy.quik.model.SearchResult
@@ -56,7 +57,8 @@ class ConversationRepositoryImpl @Inject constructor(
     private fun getConversationsBase(
         realm: Realm,
         unreadAtTop: Boolean,
-        archived: Boolean
+        archived: Boolean,
+        filterType: ConversationFilterType = ConversationFilterType.ALL
     ): RealmQuery<Conversation> {
         val sortOrder = mutableListOf("pinned", "draft", "lastMessage.date")
         val sortDirections = mutableListOf(Sort.DESCENDING, Sort.DESCENDING, Sort.DESCENDING)
@@ -66,12 +68,44 @@ class ConversationRepositoryImpl @Inject constructor(
             sortDirections.add(0, Sort.ASCENDING)
         }
 
-        return realm
+        var query = realm
             .where(Conversation::class.java)
             .notEqualTo("id", 0L)
             .equalTo("archived", archived)
             .equalTo("blocked", false)
             .isNotEmpty("recipients")
+
+        when (filterType) {
+            ConversationFilterType.CONTACTS -> {
+                val contactThreadIds = realm.where(Conversation::class.java)
+                    .notEqualTo("id", 0L)
+                    .equalTo("archived", archived)
+                    .equalTo("blocked", false)
+                    .findAll()
+                    .filter { conv -> conv.recipients.any { it.contact != null } }
+                    .map { it.id }
+                    .toLongArray()
+
+                query = query.anyOf("id", contactThreadIds)
+            }
+            ConversationFilterType.UNKNOWN -> {
+                val unknownThreadIds = realm.where(Conversation::class.java)
+                    .notEqualTo("id", 0L)
+                    .equalTo("archived", archived)
+                    .equalTo("blocked", false)
+                    .findAll()
+                    .filter { conv -> conv.recipients.all { it.contact == null } }
+                    .map { it.id }
+                    .toLongArray()
+
+                query = query.anyOf("id", unknownThreadIds)
+            }
+            ConversationFilterType.ALL -> {
+                // No additional filter
+            }
+        }
+
+        return query
             .beginGroup()
             .isNotNull("lastMessage")
             .or()
@@ -82,9 +116,10 @@ class ConversationRepositoryImpl @Inject constructor(
 
     override fun getConversations(
         unreadAtTop: Boolean,
-        archived: Boolean
+        archived: Boolean,
+        filterType: ConversationFilterType
     ): RealmResults<Conversation> =
-        getConversationsBase(Realm.getDefaultInstance(), unreadAtTop, archived)
+        getConversationsBase(Realm.getDefaultInstance(), unreadAtTop, archived, filterType)
             .findAllAsync()
 
     override fun getConversationsSnapshot(unreadAtTop: Boolean): List<Conversation> =

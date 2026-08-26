@@ -38,6 +38,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.textChanges
 import com.uber.autodispose.android.lifecycle.scope
@@ -63,6 +64,7 @@ import dev.octoshrimpy.quik.feature.changelog.ChangelogDialog
 import dev.octoshrimpy.quik.feature.conversations.ConversationItemTouchCallback
 import dev.octoshrimpy.quik.feature.conversations.ConversationsAdapter
 import dev.octoshrimpy.quik.manager.ChangelogManager
+import dev.octoshrimpy.quik.model.ConversationFilterType
 import dev.octoshrimpy.quik.repository.SyncRepository
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -119,6 +121,7 @@ class MainActivity : QkThemedActivity(), MainView {
     override val changelogMoreIntent by lazy { changelogDialog.moreClicks }
     override val undoArchiveIntent: Subject<Unit> = PublishSubject.create()
     override val snackbarButtonIntent: Subject<Unit> = PublishSubject.create()
+    override val filterSelectedIntent: Subject<ConversationFilterType> = PublishSubject.create()
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)[MainViewModel::class.java]
@@ -157,6 +160,17 @@ class MainActivity : QkThemedActivity(), MainView {
             it.syncingProgress.progressTintList = ColorStateList.valueOf(theme.blockingFirst().theme)
             it.syncingProgress.indeterminateTintList = ColorStateList.valueOf(theme.blockingFirst().theme)
         }
+
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.tab_all).setTag(ConversationFilterType.ALL))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.tab_contacts).setTag(ConversationFilterType.CONTACTS))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.tab_unknowns).setTag(ConversationFilterType.UNKNOWN))
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                (tab?.tag as? ConversationFilterType)?.let { filterSelectedIntent.onNext(it) }
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
 
         toggle.syncState()
         binding.toolbar.setNavigationOnClickListener {
@@ -200,6 +214,13 @@ class MainActivity : QkThemedActivity(), MainView {
 
                     // Set the FAB compose icon color
                     binding.compose.setTint(theme.textPrimary)
+
+                    // Tab layout styling
+                    binding.tabLayout.setSelectedTabIndicatorColor(theme.theme)
+                    binding.tabLayout.setTabTextColors(
+                        resolveThemeColor(android.R.attr.textColorSecondary),
+                        theme.theme
+                    )
                 }
     }
 
@@ -216,6 +237,21 @@ class MainActivity : QkThemedActivity(), MainView {
         }
 
         conversationsAdapter.hasScheduledConversation = state.scheduledConversationIds
+
+        binding.tabLayout.setVisible(state.page is Inbox && state.page.selected == 0)
+
+        val currentFilter = when (state.page) {
+            is Inbox -> state.page.filter
+            else -> state.currentFilter
+        }
+        val targetTabIndex = when (currentFilter) {
+            ConversationFilterType.ALL -> 0
+            ConversationFilterType.CONTACTS -> 1
+            ConversationFilterType.UNKNOWN -> 2
+        }
+        if (binding.tabLayout.selectedTabPosition != targetTabIndex && targetTabIndex < binding.tabLayout.tabCount) {
+            binding.tabLayout.getTabAt(targetTabIndex)?.select()
+        }
 
         val addContact = when (state.page) {
             is Inbox -> state.page.addContact

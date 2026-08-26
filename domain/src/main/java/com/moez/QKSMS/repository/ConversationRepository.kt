@@ -19,6 +19,7 @@
 package dev.octoshrimpy.quik.repository
 
 import dev.octoshrimpy.quik.model.Conversation
+import dev.octoshrimpy.quik.model.ConversationFilterType
 import dev.octoshrimpy.quik.model.Recipient
 import dev.octoshrimpy.quik.model.SearchResult
 import io.reactivex.Completable
@@ -27,7 +28,7 @@ import io.realm.RealmResults
 
 interface ConversationRepository {
 
-    fun getConversations(unreadAtTop: Boolean, archived: Boolean = false): RealmResults<Conversation>
+    fun getConversations(unreadAtTop: Boolean, archived: Boolean = false, filterType: ConversationFilterType = ConversationFilterType.ALL): RealmResults<Conversation>
 
     fun getConversationsSnapshot(unreadAtTop: Boolean): List<Conversation>
 

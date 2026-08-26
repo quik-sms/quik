@@ -64,6 +64,23 @@
                 android:nextFocusRight="@+id/compose" />
         </androidx.appcompat.widget.Toolbar>
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="?android:attr/colorBackground"
+            app:tabIndicatorColor="?attr/colorAccent"
+            app:tabSelectedTextColor="?attr/colorAccent"
+            app:tabTextColor="?android:attr/textColorSecondary"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="3dp"
+            app:tabRippleColor="?attr/colorControlHighlight"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <dev.octoshrimpy.quik.common.widget.QkTextView
             android:id="@+id/empty"
             style="@style/TextSecondary"
@@ -73,7 +90,7 @@
             android:gravity="center"
             android:padding="56dp"
             app:layout_constraintBottom_toTopOf="@id/bottom"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
             tools:text="Your conversations will appear here"
             tools:visibility="invisible" />
 
@@ -87,7 +104,7 @@
             android:paddingBottom="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/bottom"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
             tools:listitem="@layout/conversation_list_item" />
 
         <ImageView
@@ -111,7 +128,7 @@
             android:background="@drawable/ab_shadow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
         <View
             android:id="@+id/bottom"
