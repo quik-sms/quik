@@ -520,6 +520,7 @@
     <string name="notification_foreground_worker_title">Receiving message</string>
     <string name="notification_foreground_worker_text">On Android 12 and older, a notification is required for the background work that enables receiving messages.</string>
     <string name="notification_foreground_worker_channel_name">Message receiving worker notification</string>
+    <string name="notification_channel_silent">Silent</string>
     <string name="notification_message_failed_action">Resend</string>
 
     <string-array name="night_modes">

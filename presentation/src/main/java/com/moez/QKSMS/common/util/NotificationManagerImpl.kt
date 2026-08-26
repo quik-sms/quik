@@ -79,6 +79,7 @@ class NotificationManagerImpl @Inject constructor(
 
     companion object {
         const val DEFAULT_CHANNEL_ID = "notifications_default"
+        const val SILENT_CHANNEL_ID = "notifications_silent"
         const val BACKUP_RESTORE_CHANNEL_ID = "notifications_backup_restore"
         const val RECEIVING_WORKER_CHANNEL_ID = "notifications_receiving_worker"
 
@@ -171,22 +172,8 @@ class NotificationManagerImpl @Inject constructor(
                     context.grantUriPermission("com.android.systemui", uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }
 
-        val notification = NotificationCompat.Builder(context, getChannelIdForNotification(threadId))
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setColor(colors.theme(lastRecipient).theme)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setSmallIcon(R.drawable.ic_notification)
-                .setNumber(messages.size)
-                .setAutoCancel(true)
-                .setOnlyAlertOnce(true)
-                .setContentIntent(contentPI)
-                .setDeleteIntent(seenPI)
-                .setLights(Color.WHITE, 500, 2000)
-                .setWhen(conversation.lastMessage?.date ?: System.currentTimeMillis())
-                .setVibrate(if (prefs.vibration(threadId).get()) VIBRATE_PATTERN else longArrayOf(0))
-
         // if preference set to silence notifications if no recipients in contacts
-        if (prefs.silentNotContact.get() && run {
+        val isSilencedNotContact = prefs.silentNotContact.get() && run {
             val msgRecipientNumbers = conversation.recipients.map { it.address }
 
             // true if any message recipients are in device's contacts
@@ -197,10 +184,28 @@ class NotificationManagerImpl @Inject constructor(
                 .any { contactNumber ->
                     msgRecipientNumbers.any { phoneNumberUtils.compare(contactNumber, it) }
                 }
-        })
+        }
+
+        val notification = NotificationCompat.Builder(context, getChannelIdForNotification(threadId, isSilencedNotContact))
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setColor(colors.theme(lastRecipient).theme)
+                .setPriority(if (isSilencedNotContact) NotificationCompat.PRIORITY_LOW else NotificationCompat.PRIORITY_MAX)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setNumber(messages.size)
+                .setAutoCancel(true)
+                .setOnlyAlertOnce(true)
+                .setContentIntent(contentPI)
+                .setDeleteIntent(seenPI)
+                .setLights(if (isSilencedNotContact) Color.TRANSPARENT else Color.WHITE, 500, 2000)
+                .setWhen(conversation.lastMessage?.date ?: System.currentTimeMillis())
+                .setVibrate(if (!isSilencedNotContact && prefs.vibration(threadId).get()) VIBRATE_PATTERN else longArrayOf(0))
+
+        if (isSilencedNotContact) {
             notification.setSilent(true)
-        else
+            notification.setLocalOnly(true)
+        } else {
             notification.setSound(ringtone)
+        }
 
     // Tell the notification if it's a group message
         val messagingStyle = NotificationCompat.MessagingStyle("Me")
@@ -380,7 +385,7 @@ class NotificationManagerImpl @Inject constructor(
         notificationManager.notify(threadId.toInt(), notification.build())
 
         // Wake screen
-        if (prefs.wakeScreen(threadId).get()) {
+        if (!isSilencedNotContact && prefs.wakeScreen(threadId).get()) {
             context.getSystemService<PowerManager>()?.let { powerManager ->
                 if (!powerManager.isInteractive) {
                     val flags = PowerManager.SCREEN_DIM_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP
@@ -492,6 +497,14 @@ class NotificationManagerImpl @Inject constructor(
                     vibrationPattern = VIBRATE_PATTERN
                 },
                 NotificationChannel(
+                    SILENT_CHANNEL_ID,
+                    context.getString(R.string.notification_channel_silent),
+                    NotificationManager.IMPORTANCE_LOW
+                ).apply {
+                    enableLights(false)
+                    enableVibration(false)
+                },
+                NotificationChannel(
                     RECEIVING_WORKER_CHANNEL_ID,
                     context.getString(R.string.notification_foreground_worker_channel_name),
                     NotificationManager.IMPORTANCE_LOW
@@ -534,19 +547,24 @@ class NotificationManagerImpl @Inject constructor(
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return notificationManager.notificationChannels
-                    .find { channel -> channel.id == channelId }
+                .find { channel -> channel.id == channelId }
         }
 
         return null
     }
 
     /**
-     * Returns the channel id that should be used for a notification based on the threadId
+     * Returns the channel id that should be used for a notification based on the threadId and silent state
      *
+     * If isSilent is true, return the dedicated silent channel id.
      * If a notification channel for the conversation exists, use the id for that. Otherwise return
      * the default channel id
      */
-    private fun getChannelIdForNotification(threadId: Long): String {
+    private fun getChannelIdForNotification(threadId: Long, isSilent: Boolean = false): String {
+        if (isSilent) {
+            return SILENT_CHANNEL_ID
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return getNotificationChannel(threadId)?.id ?: DEFAULT_CHANNEL_ID
         }
