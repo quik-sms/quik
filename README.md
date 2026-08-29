@@ -24,6 +24,13 @@ QUIK is an open source replacement to the [stock messaging app](https://github.c
 - Emoji reaction handling
 - and much, much more
 
+## Message content filters
+
+Settings → Blocking → Message content filters drop incoming messages whose body matches a rule.
+
+- With **Regular expression** off, the text is a whole word or phrase and may appear anywhere in the message.
+- With **Regular expression** on, the pattern is a standard Java regex and must match the **entire** message. `.*foobar.*` and `\bfoobar\b` only succeed when that is the whole body; to match a substring that may include newlines use `[\s\S]*foobar[\s\S]*`.
+
 ## Download
 
 Grab QUIK from the official [github releases page](https://github.com/octoshrimpy/quik/releases), or keep up with updates with the following:
