@@ -103,10 +103,18 @@ class NotificationManagerImpl @Inject constructor(
     }
 
     // Required for running workers on Android 12 and older
-    override fun getForegroundNotificationForWorkersOnOlderAndroids() =
-        NotificationCompat.Builder(context, RECEIVING_WORKER_CHANNEL_ID)
+    override fun getForegroundNotificationForWorkersOnOlderAndroids(): Notification {
+        val faqIntent = Intent(
+            Intent.ACTION_VIEW,
+            "https://github.com/quik-sms/quik/wiki/Frequently-Asked-Questions#why-do-i-have-a-persistent-notification-saying-receiving-messages".toUri()
+        )
+        val faqPendingIntent = PendingIntent.getActivity(
+            context, 0, faqIntent, PendingIntent.FLAG_IMMUTABLE
+        )
+        return NotificationCompat.Builder(context, RECEIVING_WORKER_CHANNEL_ID)
             .setContentTitle(context.getString(R.string.notification_foreground_worker_title))
             .setContentText(context.getString(R.string.notification_foreground_worker_text))
+            .setContentIntent(faqPendingIntent)
             .setShowWhen(false)
             .setWhen(System.currentTimeMillis())
             .setSmallIcon(R.drawable.ic_notification_worker)
@@ -116,7 +124,7 @@ class NotificationManagerImpl @Inject constructor(
             .setOngoing(true)
             .setSilent(true)
             .build()
-
+    }
     /**
      * Updates the notification for a particular conversation
      */
