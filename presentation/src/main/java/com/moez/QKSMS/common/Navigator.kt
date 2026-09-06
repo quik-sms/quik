@@ -59,15 +59,20 @@ class Navigator @Inject constructor(
         val intent = Intent(context, ComposeActivity::class.java)
         intent.putExtra(Intent.EXTRA_TEXT, body)
         intent.putExtra("mode", mode)
-
-        attachments
+        val forwardAttachments = attachments
+            ?.filter { it.resourceExists(context) }
             ?.takeIf { it.isNotEmpty() }
-            ?.mapNotNull {
-                if (it.resourceExists(context)) it
-                else null
+        forwardAttachments?.size?.let { attachmentNumber ->
+            if (attachmentNumber == 1) {
+                intent.action = Intent.ACTION_SEND
+                intent.putExtra(Intent.EXTRA_STREAM, forwardAttachments.first())
+            } else {
+                intent.action = Intent.ACTION_SEND_MULTIPLE
+                intent.putParcelableArrayListExtra(
+                    Intent.EXTRA_STREAM, ArrayList(forwardAttachments)
+                )
             }
-            ?.let { intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(it)) }
-
+        }
         startActivity(intent)
     }
 
