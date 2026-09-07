@@ -1,0 +1,22 @@
+{
+  "emoji_reaction_ios_generic_added": "^(?s)Reagerte med (.+?) på “(.+?)”$",
+  "emoji_reaction_ios_generic_removed": "^(?s)Fjernet (.+?) fra “(.+?)”$",
+
+  "emoji_reaction_ios_heart_added": "^(?s)Satte et hjerte ved “(.+?)”$",
+  "emoji_reaction_ios_heart_removed": "^(?s)Fjernet et hjerte fra “(.+?)”$",
+
+  "emoji_reaction_ios_like_added": "^(?s)Likte “(.+?)”$",
+  "emoji_reaction_ios_like_removed": "^(?s)Liker ikke lenger “(.+?)”$",
+
+  "emoji_reaction_ios_dislike_added": "^(?s)Mislikte “(.+?)”$",
+  "emoji_reaction_ios_dislike_removed": "^(?s)Misliker ikke lenger “(.+?)”$",
+
+  "emoji_reaction_ios_laugh_added": "^(?s)Lo av “(.+?)”$",
+  "emoji_reaction_ios_laugh_removed": "^(?s)Fjernet latter fra “(.+?)”$",
+
+  "emoji_reaction_ios_exclamation_added": "^(?s)Satte utropstegn ved “(.+?)”$",
+  "emoji_reaction_ios_exclamation_removed": "^(?s)Fjernet et utropstegn fra “(.+?)”$",
+
+  "emoji_reaction_ios_question_mark_added": "^(?s)Satte spørsmålstegn ved “(.+?)”$",
+  "emoji_reaction_ios_question_mark_removed": "^(?s)Fjernet et spørsmålstegn fra “(.+?)”$"
+}
