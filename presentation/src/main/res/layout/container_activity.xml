@@ -22,18 +22,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/toolbar"
-        style="@style/Toolbar"
-        android:elevation="8dp">
+        style="@style/Toolbar">
 
         <dev.octoshrimpy.quik.common.widget.QkTextView
             android:id="@+id/toolbarTitle"
             style="@style/ToolbarText"
             tools:text="Conversations" />
 
-    </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <com.bluelinelabs.conductor.ChangeHandlerFrameLayout
         android:id="@+id/container"

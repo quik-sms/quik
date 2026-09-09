@@ -40,8 +40,8 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SettingsPresenter @Inject constructor(
-    colors: Colors,
     syncRepo: SyncRepository,
+    private val colors: Colors,
     private val context: Context,
     private val dateFormatter: DateFormatter,
     private val navigator: Navigator,
@@ -182,8 +182,12 @@ class SettingsPresenter @Inject constructor(
                         R.id.black -> prefs.black.set(!prefs.black.get())
 
                         R.id.dynamicColors -> {
-                            prefs.dynamicColors.set(!prefs.dynamicColors.get())
-                            widgetManager.updateTheme()
+                            if (!colors.dynamicColorsSupported) {
+                                context.makeToast(R.string.settings_dynamic_colors_unsupported)
+                            } else {
+                                prefs.dynamicColors.set(!prefs.dynamicColors.get())
+                                widgetManager.updateTheme()
+                            }
                         }
 
                         R.id.autoEmoji -> prefs.autoEmoji.set(!prefs.autoEmoji.get())

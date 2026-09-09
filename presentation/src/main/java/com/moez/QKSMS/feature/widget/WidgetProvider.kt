@@ -25,18 +25,16 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.RemoteViews
 import dagger.android.AndroidInjection
 import dev.octoshrimpy.quik.R
 import dev.octoshrimpy.quik.common.util.Colors
-import dev.octoshrimpy.quik.common.util.extensions.getColorCompat
+import dev.octoshrimpy.quik.common.util.WidgetPaletteResolver
 import dev.octoshrimpy.quik.feature.compose.ComposeActivity
 import dev.octoshrimpy.quik.feature.main.MainActivity
 import dev.octoshrimpy.quik.manager.WidgetManager
 import dev.octoshrimpy.quik.receiver.StartActivityFromWidgetReceiver
-import dev.octoshrimpy.quik.util.Preferences
 import timber.log.Timber
 import javax.inject.Inject
 import androidx.core.net.toUri
@@ -44,7 +42,7 @@ import androidx.core.net.toUri
 class WidgetProvider : AppWidgetProvider() {
 
     @Inject lateinit var colors: Colors
-    @Inject lateinit var prefs: Preferences
+    @Inject lateinit var widgetPaletteResolver: WidgetPaletteResolver
 
     override fun onReceive(context: Context, intent: Intent) {
         AndroidInjection.inject(this, context)
@@ -110,34 +108,12 @@ class WidgetProvider : AppWidgetProvider() {
         Timber.v("updateWidget appWidgetId: $appWidgetId")
         val remoteViews = RemoteViews(context.packageName, R.layout.widget)
 
-        val nightModeFlags = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        val isNightMode = nightModeFlags == Configuration.UI_MODE_NIGHT_YES
-
         // Apply colors from theme
-        val night = prefs.night.get() || isNightMode
-        val black = prefs.black.get()
-        val dynamicBackground = colors.dynamicBackgroundColor(night)
+        val palette = widgetPaletteResolver.resolve()
 
-        val backgroundColor = when {
-            night && black -> context.getColorCompat(R.color.black)
-            dynamicBackground != null -> dynamicBackground
-            night -> context.getColorCompat(R.color.backgroundDark)
-            else -> context.getColorCompat(R.color.white)
-        }
-        remoteViews.setInt(R.id.background, "setColorFilter", backgroundColor)
-
-        val toolbarColor = when {
-            night && black -> context.getColorCompat(R.color.black)
-            dynamicBackground != null -> dynamicBackground
-            night -> context.getColorCompat(R.color.backgroundDark)
-            else -> context.getColorCompat(R.color.backgroundLight)
-        }
-        remoteViews.setInt(R.id.toolbar, "setColorFilter", toolbarColor)
-
-        remoteViews.setTextColor(R.id.title, context.getColorCompat(when (night) {
-            true -> R.color.textPrimaryDark
-            false -> R.color.textPrimary
-        }))
+        remoteViews.setInt(R.id.background, "setColorFilter", palette.background)
+        remoteViews.setInt(R.id.toolbar, "setColorFilter", palette.toolbar)
+        remoteViews.setTextColor(R.id.title, palette.textPrimary)
 
         // Set adapter for conversations
         val intent = Intent(context, WidgetService::class.java)

@@ -60,7 +60,7 @@
         android:background="?attr/selectableItemBackground"
         android:padding="16dp"
         android:textAllCaps="true"
-        android:textColor="@color/tools_theme"
+        android:textColor="?attr/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/snackbarMessage"
         app:layout_constraintEnd_toEndOf="parent"

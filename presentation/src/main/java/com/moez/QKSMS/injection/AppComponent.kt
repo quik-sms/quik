@@ -21,7 +21,6 @@ package dev.octoshrimpy.quik.injection
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
 import dev.octoshrimpy.quik.common.QKApplication
-import dev.octoshrimpy.quik.common.QkDialog
 import dev.octoshrimpy.quik.common.util.QkChooserTargetService
 import dev.octoshrimpy.quik.common.widget.AvatarView
 import dev.octoshrimpy.quik.common.widget.PagerTitleView
@@ -73,8 +72,6 @@ interface AppComponent {
     fun inject(controller: MessageUtilsController)
     fun inject(controller: SettingsController)
     fun inject(controller: SwipeActionsController)
-
-    fun inject(dialog: QkDialog)
 
     fun inject(service: WidgetAdapter)
 

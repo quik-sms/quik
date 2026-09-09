@@ -95,15 +95,15 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
         binding.preferences.postDelayed({ binding.preferences.animateLayoutChanges = true }, 100)
 
         when (Build.VERSION.SDK_INT >= 29) {
-            true -> nightModeDialog.adapter.setData(R.array.night_modes)
-            false -> nightModeDialog.adapter.data = context.resources.getStringArray(R.array.night_modes)
+            true -> nightModeDialog.setOptions(R.array.night_modes)
+            false -> nightModeDialog.options = context.resources.getStringArray(R.array.night_modes)
                     .mapIndexed { index, title -> MenuItem(title, index) }
                     .drop(1)
         }
-        textSizeDialog.adapter.setData(R.array.text_sizes)
-        sendDelayDialog.adapter.setData(R.array.delayed_sending_labels)
-        mmsSizeDialog.adapter.setData(R.array.mms_sizes, R.array.mms_sizes_ids)
-        messageLinkHandlingDialog.adapter.setData(R.array.messageLinkHandlings, R.array.messageLinkHandling_ids)
+        textSizeDialog.setOptions(R.array.text_sizes)
+        sendDelayDialog.setOptions(R.array.delayed_sending_labels)
+        mmsSizeDialog.setOptions(R.array.mms_sizes, R.array.mms_sizes_ids)
+        messageLinkHandlingDialog.setOptions(R.array.messageLinkHandlings, R.array.messageLinkHandling_ids)
 
         binding.about.summary = context.getString(R.string.settings_version, BuildConfig.VERSION_NAME)
     }
@@ -123,29 +123,30 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
 
     override fun aboutLongClicks(): Observable<*> = binding.about.longClicks()
 
-    override fun nightModeSelected(): Observable<Int> = nightModeDialog.adapter.menuItemClicks
+    override fun nightModeSelected(): Observable<Int> = nightModeDialog.menuItemClicks
 
     override fun nightStartSelected(): Observable<Pair<Int, Int>> = startTimeSelectedSubject
 
     override fun nightEndSelected(): Observable<Pair<Int, Int>> = endTimeSelectedSubject
 
-    override fun textSizeSelected(): Observable<Int> = textSizeDialog.adapter.menuItemClicks
+    override fun textSizeSelected(): Observable<Int> = textSizeDialog.menuItemClicks
 
-    override fun sendDelaySelected(): Observable<Int> = sendDelayDialog.adapter.menuItemClicks
+    override fun sendDelaySelected(): Observable<Int> = sendDelayDialog.menuItemClicks
 
     override fun signatureChanged(): Observable<String> = signatureSubject
 
-    override fun mmsSizeSelected(): Observable<Int> = mmsSizeDialog.adapter.menuItemClicks
+    override fun mmsSizeSelected(): Observable<Int> = mmsSizeDialog.menuItemClicks
 
-    override fun messageLinkHandlingSelected(): Observable<Int> = messageLinkHandlingDialog.adapter.menuItemClicks
+    override fun messageLinkHandlingSelected(): Observable<Int> = messageLinkHandlingDialog.menuItemClicks
 
     override fun render(state: SettingsState) {
-        val dynamicColorsEnabled = colors.dynamicColorsSupported && state.dynamicColors
+        val dynamicColorsSupported = colors.dynamicColorsSupported
+        val dynamicColorsEnabled = dynamicColorsSupported && state.dynamicColors
         binding.theme.isEnabled = !dynamicColorsEnabled
         binding.theme.alpha = if (dynamicColorsEnabled) 0.5f else 1f
         binding.theme.findViewById<View>(R.id.themePreview)?.setBackgroundTint(state.theme)
         binding.night.summary = state.nightModeSummary
-        nightModeDialog.adapter.selectedItem = state.nightModeId
+        nightModeDialog.selectedItem = state.nightModeId
         binding.nightStart.setVisible(state.nightModeId == Preferences.NIGHT_MODE_AUTO)
         binding.nightStart.summary = state.nightStart
         binding.nightEnd.setVisible(state.nightModeId == Preferences.NIGHT_MODE_AUTO)
@@ -154,13 +155,12 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
         binding.black.setVisible(state.nightModeId != Preferences.NIGHT_MODE_OFF)
         binding.black.checkbox?.isChecked = state.black
 
-        binding.dynamicColors.setVisible(colors.dynamicColorsSupported)
-        binding.dynamicColors.checkbox?.isChecked = state.dynamicColors
+        binding.dynamicColors.checkbox?.isChecked = dynamicColorsEnabled
 
         binding.autoEmoji.checkbox?.isChecked = state.autoEmojiEnabled
 
         binding.delayed.summary = state.sendDelaySummary
-        sendDelayDialog.adapter.selectedItem = state.sendDelayId
+        sendDelayDialog.selectedItem = state.sendDelayId
 
         binding.delivery.checkbox?.isChecked = state.deliveryEnabled
 
@@ -170,7 +170,7 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
                 ?: context.getString(R.string.settings_signature_summary)
 
         binding.textSize.summary = state.textSizeSummary
-        textSizeDialog.adapter.selectedItem = state.textSizeId
+        textSizeDialog.selectedItem = state.textSizeId
 
         binding.autoColor.checkbox?.isChecked = state.autoColor
 
@@ -184,10 +184,10 @@ class SettingsController : QkController<SettingsControllerBinding, SettingsView,
         binding.longAsMms.checkbox?.isChecked = state.longAsMms
 
         binding.mmsSize.summary = state.maxMmsSizeSummary
-        mmsSizeDialog.adapter.selectedItem = state.maxMmsSizeId
+        mmsSizeDialog.selectedItem = state.maxMmsSizeId
 
         binding.messsageLinkHandling.summary = state.messageLinkHandlingSummary
-        messageLinkHandlingDialog.adapter.selectedItem = state.messageLinkHandlingId
+        messageLinkHandlingDialog.selectedItem = state.messageLinkHandlingId
 
         binding.disableScreenshots.checkbox?.isChecked = state.disableScreenshotsEnabled
 
