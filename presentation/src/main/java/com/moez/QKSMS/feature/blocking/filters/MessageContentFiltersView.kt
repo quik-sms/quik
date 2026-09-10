@@ -18,6 +18,7 @@
  */
 package dev.octoshrimpy.quik.feature.blocking.filters
 
+import android.net.Uri
 import dev.octoshrimpy.quik.common.base.QkViewContract
 import dev.octoshrimpy.quik.model.MessageContentFilterData
 import io.reactivex.Observable
@@ -27,7 +28,13 @@ interface MessageContentFiltersView : QkViewContract<MessageContentFiltersState>
     fun removeFilter(): Observable<Long>
     fun addFilter(): Observable<*>
     fun saveFilter(): Observable<MessageContentFilterData>
+    fun importClicks(): Observable<*>
+    fun importFileSelected(): Observable<Uri>
 
     fun showAddDialog()
+    fun selectImportFile()
+    fun showImportResult(imported: Int, skipped: Int)
+    fun showImportError()
+    fun showRegexErrors(phrases: List<String>)
 
 }

@@ -66,6 +66,13 @@
             android:layout_height="wrap_content"
             app:title="@string/blocked_messages_title" />
 
+        <dev.octoshrimpy.quik.common.widget.PreferenceView
+            android:id="@+id/junk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:summary="@string/junk_summary"
+            app:title="@string/junk_title" />
+
     </LinearLayout>
 
 </ScrollView>
