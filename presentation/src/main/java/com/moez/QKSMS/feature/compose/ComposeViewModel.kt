@@ -61,6 +61,7 @@ import dev.octoshrimpy.quik.interactor.MarkRead
 import dev.octoshrimpy.quik.interactor.SendExistingMessage
 import dev.octoshrimpy.quik.interactor.SaveImage
 import dev.octoshrimpy.quik.interactor.SendNewMessage
+import dev.octoshrimpy.quik.interactor.SendReaction
 import dev.octoshrimpy.quik.manager.ActiveConversationManager
 import dev.octoshrimpy.quik.manager.BillingManager
 import dev.octoshrimpy.quik.manager.PermissionManager
@@ -127,6 +128,7 @@ class ComposeViewModel @Inject constructor(
     private val prefs: Preferences,
     private val sendExistingMessage: SendExistingMessage,
     private val sendNewMessage: SendNewMessage,
+    private val sendReaction: SendReaction,
     private val subscriptionManager: SubscriptionManagerCompat,
     private val saveImage: SaveImage,
 ) : QkViewModel<ComposeView, ComposeState>(ComposeState(
@@ -768,17 +770,37 @@ class ComposeViewModel @Inject constructor(
             .mapNotNull { messageId -> messageRepo.getMessage(messageId) }
             .withLatestFrom(conversation) { message, conv ->
                 message.emojiReactions.map { reaction ->
-                    val contactName = conv.recipients
-                        .firstOrNull { recipient ->
-                            phoneNumberUtils.compare(recipient.address, reaction.senderAddress)
-                        }
-                        ?.getDisplayName()
-                        ?: reaction.senderAddress
+                    val contactName = when {
+                        reaction.fromMe -> context.getString(R.string.compose_reaction_you)
+                        else -> conv.recipients
+                            .firstOrNull { recipient ->
+                                phoneNumberUtils.compare(recipient.address, reaction.senderAddress)
+                            }
+                            ?.getDisplayName()
+                            ?: reaction.senderAddress
+                    }
                     "${reaction.emoji} $contactName"
                 }
             }
             .autoDisposable(view.scope())
             .subscribe { reactions -> view.showReactionsDialog(reactions) }
+
+        // Send (or toggle off) an emoji reaction chosen from the reaction picker
+        view.reactionSelectedIntent
+            .filter { permissionManager.isDefaultSms().also { if (!it) view.requestDefaultSms() } }
+            .withLatestFrom(state) { (messageId, emoji), state ->
+                Triple(state.subscription?.subscriptionId ?: -1, messageId, emoji)
+            }
+            .autoDisposable(view.scope())
+            .subscribe { (subId, messageId, emoji) ->
+                // reacting again with the same emoji removes it (toggle)
+                val isRemoval = messageRepo.getMessage(messageId)
+                    ?.emojiReactions
+                    ?.any { it.fromMe && it.emoji == emoji }
+                    ?: false
+
+                sendReaction.execute(SendReaction.Params(subId, messageId, emoji, isRemoval))
+            }
 
         // Set the current conversation
         Observables

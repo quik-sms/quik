@@ -39,4 +39,20 @@ open class EmojiReaction : RealmObject() {
 
     /** Thread ID for easier querying */
     @Index var threadId: Long = 0
+
+    /** True if this reaction was sent by the local user from within Quik */
+    var fromMe: Boolean = false
+
+    /**
+     * The wire format that produced this reaction. One of [EmojiReaction.FORMAT_GOOGLE],
+     * [EmojiReaction.FORMAT_IOS_TAPBACK] or [EmojiReaction.FORMAT_IOS_GENERIC]. Used to
+     * auto-detect which format a recipient's messaging app understands.
+     */
+    var format: String = ""
+
+    companion object {
+        const val FORMAT_GOOGLE = "google"
+        const val FORMAT_IOS_TAPBACK = "ios_tapback"
+        const val FORMAT_IOS_GENERIC = "ios_generic"
+    }
 }

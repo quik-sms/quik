@@ -17,26 +17,12 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with QUIK.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
 
-    <item
-        android:id="@+id/reactToPart"
-        android:title="@string/compose_menu_react" />
+    <!-- solid colour is overridden at runtime to match the current theme -->
+    <solid android:color="@color/white" />
 
-    <item
-        android:id="@+id/save"
-        android:title="@string/menu_mms_part_save" />
+    <corners android:radius="24dp" />
 
-    <item
-        android:id="@+id/share"
-        android:title="@string/menu_mms_part_share" />
-
-    <item
-        android:id="@+id/forward"
-        android:title="@string/menu_mms_part_forward" />
-
-    <item
-        android:id="@+id/openExternally"
-        android:title="@string/menu_mms_part_open" />
-
-</menu>
+</shape>

@@ -14,7 +14,18 @@ fun CharSequence.isEmojiOnly(considerWhitespace: Boolean = false): Boolean {
     if (cs.isEmpty())
         return false
 
-    return when (val spannable = EmojiCompat.get().process(
+    // EmojiCompat loads its font asynchronously; calling process() before it has finished loading
+    // throws "Not initialized yet". Until it's ready, treat the text as not emoji-only (it'll be
+    // re-evaluated once the view rebinds after loading completes).
+    val emojiCompat = try {
+        EmojiCompat.get()
+    } catch (e: IllegalStateException) {
+        return false
+    }
+    if (emojiCompat.loadState != EmojiCompat.LOAD_STATE_SUCCEEDED)
+        return false
+
+    return when (val spannable = emojiCompat.process(
         cs,
         0,
         (cs.length - 1),

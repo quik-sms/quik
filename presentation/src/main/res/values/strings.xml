@@ -155,6 +155,8 @@
     <string name="compose_menu_clear">Clear</string>
     <string name="compose_details_title">Message details</string>
     <string name="compose_reactions_title">Reactions</string>
+    <string name="compose_menu_react">React</string>
+    <string name="compose_reaction_you">You</string>
     <string name="compose_details_type">Type: %s</string>
     <string name="compose_details_from">From: %s</string>
     <string name="compose_details_to">To: %s</string>
@@ -273,6 +275,9 @@
     <string name="settings_system_font_title">Use system font</string>
     <string name="settings_system_show_stt_title">Show the speech-to-text button</string>
     <string name="settings_auto_emoji_title">Automatic emoji</string>
+    <string name="settings_reaction_gesture_title">Message gestures</string>
+    <string name="settings_reaction_format_title">Reaction send format</string>
+    <string name="settings_reaction_recents_title">Recent emojis in picker</string>
     <string name="settings_notifications_title">Notifications</string>
     <string name="settings_notifications_o_summary">Tap to customize</string>
     <string name="settings_notification_actions_title">Actions</string>
@@ -582,6 +587,46 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+    </integer-array>
+
+    <string-array name="reaction_gestures">
+        <item>Long-press to react, double-tap to select</item>
+        <item>Double-tap to react, long-press to select</item>
+    </string-array>
+
+    <integer-array name="reaction_gesture_ids">
+        <item>0</item>
+        <item>1</item>
+    </integer-array>
+
+    <string-array name="reaction_send_formats">
+        <item>Automatic</item>
+        <item>Google Messages</item>
+        <item>iOS (readable text)</item>
+    </string-array>
+
+    <integer-array name="reaction_send_format_ids">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
+
+    <string-array name="reaction_recents_counts">
+        <item>None</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <integer-array name="reaction_recents_count_ids">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </integer-array>
 
     <string-array name="qk_responses">

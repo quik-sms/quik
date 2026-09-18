@@ -18,5 +18,26 @@
   "emoji_reaction_ios_exclamation_removed": "^(?s)Removed an exclamation from “(.+?)”$",
 
   "emoji_reaction_ios_question_mark_added": "^(?s)Questioned “(.+?)”$",
-  "emoji_reaction_ios_question_mark_removed": "^(?s)Removed a question mark from “(.+?)”$"
+  "emoji_reaction_ios_question_mark_removed": "^(?s)Removed a question mark from “(.+?)”$",
+
+  "emoji_reaction_ios_generic_added_template": "Reacted %1$s to “%2$s”",
+  "emoji_reaction_ios_generic_removed_template": "Removed %1$s from “%2$s”",
+
+  "emoji_reaction_ios_heart_added_template": "Loved “%s”",
+  "emoji_reaction_ios_heart_removed_template": "Removed a heart from “%s”",
+
+  "emoji_reaction_ios_like_added_template": "Liked “%s”",
+  "emoji_reaction_ios_like_removed_template": "Removed a like from “%s”",
+
+  "emoji_reaction_ios_dislike_added_template": "Disliked “%s”",
+  "emoji_reaction_ios_dislike_removed_template": "Removed a dislike from “%s”",
+
+  "emoji_reaction_ios_laugh_added_template": "Laughed at “%s”",
+  "emoji_reaction_ios_laugh_removed_template": "Removed a laugh from “%s”",
+
+  "emoji_reaction_ios_exclamation_added_template": "Emphasized “%s”",
+  "emoji_reaction_ios_exclamation_removed_template": "Removed an exclamation from “%s”",
+
+  "emoji_reaction_ios_question_mark_added_template": "Questioned “%s”",
+  "emoji_reaction_ios_question_mark_removed_template": "Removed a question mark from “%s”"
 }
