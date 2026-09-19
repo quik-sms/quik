@@ -508,4 +508,7 @@
     <string name="deduplicating_messages_no_messages">هیچ پیام تکراری پیدا نشد.</string>
     <string name="deduplicating_messages_failed">حذف پیام‌های تکراری ناموفق بود، لطفاً دوباره امتحان کنید</string>
     <string name="about_developer">تیمی از افراد فوق‌العاده از سراسر جهان!</string>
+    <string name="tab_all">همه</string>
+    <string name="tab_contacts">مخاطبین</string>
+    <string name="tab_unknowns">ناشناس</string>
 </resources>

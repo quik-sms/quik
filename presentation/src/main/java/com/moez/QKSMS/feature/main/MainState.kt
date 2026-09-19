@@ -19,6 +19,7 @@
 package dev.octoshrimpy.quik.feature.main
 
 import dev.octoshrimpy.quik.model.Conversation
+import dev.octoshrimpy.quik.model.ConversationFilterType
 import dev.octoshrimpy.quik.model.SearchResult
 import dev.octoshrimpy.quik.repository.SyncRepository
 import io.realm.RealmResults
@@ -34,7 +35,8 @@ data class MainState(
     val smsPermission: Boolean = true,
     val contactPermission: Boolean = true,
     val notificationPermission: Boolean = true,
-    val scheduledConversationIds: Set<Long> = emptySet()
+    val scheduledConversationIds: Set<Long> = emptySet(),
+    val currentFilter: ConversationFilterType = ConversationFilterType.ALL
 )
 
 sealed class MainPage
@@ -44,7 +46,8 @@ data class Inbox(
     val markPinned: Boolean = true,
     val markRead: Boolean = false,
     val data: RealmResults<Conversation>? = null,
-    val selected: Int = 0
+    val selected: Int = 0,
+    val filter: ConversationFilterType = ConversationFilterType.ALL
 ) : MainPage()
 
 data class Searching(
