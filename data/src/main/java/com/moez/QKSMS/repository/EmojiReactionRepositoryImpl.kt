@@ -34,6 +34,18 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     private val keyManager: KeyManager,
     private val moshi: Moshi,
 ) : EmojiReactionRepository {
+    companion object {
+        /**
+         * How many recent messages a text-matched reaction scans before giving up.
+         * It is highly unlikely that someone would react to a text over 500 messages away
+         * so we can set this limit.
+        */
+        private const val MAX_TEXT_MATCH_CANDIDATES = 500L
+
+        /** Give a bit of slack for messages potentially being in the wrong order */
+        private const val MESSAGE_DATE_TOLERANCE_MS = 60_000L
+    }
+
     // We use an ordered map to make sure we can test tapback regexes before generic ones
     private val reactionPatterns: LinkedHashMap<Regex, (MatchResult) -> ParsedEmojiReaction?> = linkedMapOf(
         Regex( // Google Messages
@@ -180,20 +192,44 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     override fun findTargetMessage(
         threadId: Long,
         originalMessageText: String,
-        realm: Realm
+        realm: Realm,
+        reactionDate: Long?,
     ): Message? {
-        val startTime = System.currentTimeMillis()
-        val messages = realm.where(Message::class.java)
-            .equalTo("threadId", threadId)
-            .sort("date", Sort.DESCENDING)
-            .findAll()
-        val endTime = System.currentTimeMillis()
-        Timber.d("Found ${messages.size} messages as potential emoji targets in ${endTime - startTime}ms")
+        // Bound the search by assuming that target messages can't be newer than their reaction
+        // But since order can occasionally be messed up (in MMS usually) add a tolerance of 60 seconds
+        val latestDate = reactionDate?.plus(MESSAGE_DATE_TOLERANCE_MS)
 
+        fun candidateQuery() = realm.where(Message::class.java)
+            .equalTo("threadId", threadId)
+            .apply { latestDate?.let { lessThanOrEqualTo("date", it) } }
+
+        // Match the text directly with the messages that do not have the delimiter
+        if (!originalMessageText.contains("\u2026")) {
+            candidateQuery()
+                .equalTo("body", originalMessageText)
+                .sort("date", Sort.DESCENDING)
+                .findFirst()
+                ?.let {
+                    Timber.d("Found reaction target by exact body: message ID ${it.id}")
+                    return it
+                }
+        }
+
+        // If the message isn't matched directly, fetch all the messages that could be the target
+        val candidates = candidateQuery()
+            .sort("date", Sort.DESCENDING)
+            .limit(MAX_TEXT_MATCH_CANDIDATES)
+            .findAll()
+
+        val startTime = System.currentTimeMillis()
         val originalMessageRegex = parseTruncatedMessages(originalMessageText)
-        val match = messages.find { message ->
+        val match = candidates.find { message ->
             originalMessageRegex.matches(message.getText(false).trim())
         }
+        Timber.d(
+            "Scanned ${candidates.size} candidate emoji targets in " +
+                    "${System.currentTimeMillis() - startTime}ms"
+        )
         if (match != null) {
             Timber.d("Found match for reaction target: message ID ${match.id}")
             return match
@@ -270,9 +306,10 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         val startTime = System.currentTimeMillis()
 
         realm.delete(EmojiReaction::class.java)
-        realm.where(Message::class.java).findAll().map {
-            it.isEmojiReaction = false
-        }
+        realm.where(Message::class.java)
+            .equalTo("isEmojiReaction", true)
+            .findAll()
+            .forEach { it.isEmojiReaction = false }
 
         val allMessages = realm.where(Message::class.java)
             .beginGroup()
@@ -300,7 +337,8 @@ class EmojiReactionRepositoryImpl @Inject constructor(
                 val targetMessage = findTargetMessage(
                     message.threadId,
                     parsedReaction.originalMessage,
-                    realm
+                    realm,
+                    message.date,
                 )
                 saveEmojiReaction(
                     message,
