@@ -189,8 +189,13 @@ class ReceiveMmsWorker(appContext: Context, workerParams: WorkerParameters)
 
                         val messageFilterAction = filterRepo.isBlocked(message.getText(), message.address, contactsRepo)
                         if (messageFilterAction) {
-                            Timber.v("message dropped based on content filters")
-                            messageRepo.deleteMessages(listOf(message.id))
+                            if (prefs.drop.get()) {
+                                Timber.v("message dropped based on content filters")
+                                messageRepo.deleteMessages(listOf(message.id))
+                            } else {
+                                Timber.v("message marked as junk based on content filters")
+                                messageRepo.markJunk(listOf(message.id))
+                            }
                             return Result.failure(inputData)
                         }
 

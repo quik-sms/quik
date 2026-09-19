@@ -103,6 +103,7 @@ open class MessageRepositoryImpl @Inject constructor(
             .where(Message::class.java)
             .equalTo("threadId", threadId)
             .equalTo("isEmojiReaction", false)
+            .equalTo("junk", false)
             .let {
                 when (query.isEmpty()) {
                     true -> it
@@ -151,6 +152,7 @@ open class MessageRepositoryImpl @Inject constructor(
         Realm.getDefaultInstance()
             .where(Message::class.java)
             .equalTo("threadId", threadId)
+            .equalTo("junk", false)
             .beginGroup()
             .beginGroup()
             .equalTo("type", TYPE_SMS)
@@ -260,6 +262,7 @@ open class MessageRepositoryImpl @Inject constructor(
             .equalTo("seen", false)
             .equalTo("read", false)
             .equalTo("threadId", threadId)
+            .equalTo("junk", false)
             .sort("date")
             .findAll()
 
@@ -268,6 +271,7 @@ open class MessageRepositoryImpl @Inject constructor(
             .where(Message::class.java)
             .equalTo("read", false)
             .equalTo("threadId", threadId)
+            .equalTo("junk", false)
             .sort("date")
             .findAll()
 
@@ -996,6 +1000,37 @@ open class MessageRepositoryImpl @Inject constructor(
                     realm.executeTransaction { messages.deleteAllFromRealm() }
                 } ?: Unit
         }
+
+    override fun getJunkMessages(): RealmResults<Message> =
+        Realm.getDefaultInstance()
+            .where(Message::class.java)
+            .equalTo("junk", true)
+            .sort("date", Sort.DESCENDING)
+            .findAllAsync()
+
+    override fun markJunk(messageIds: Collection<Long>) {
+        Realm.getDefaultInstance().use { realm ->
+            realm.refresh()
+            realm.executeTransaction {
+                realm.where(Message::class.java)
+                    .anyOf("id", messageIds.toLongArray())
+                    .findAll()
+                    .forEach { it.junk = true }
+            }
+        }
+    }
+
+    override fun restoreJunk(messageIds: Collection<Long>) {
+        Realm.getDefaultInstance().use { realm ->
+            realm.refresh()
+            realm.executeTransaction {
+                realm.where(Message::class.java)
+                    .anyOf("id", messageIds.toLongArray())
+                    .findAll()
+                    .forEach { it.junk = false }
+            }
+        }
+    }
 
     override fun getOldMessageCounts(maxAgeDays: Int) =
         Realm.getDefaultInstance().use { realm ->
