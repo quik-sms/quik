@@ -346,18 +346,18 @@ class EmojiReactionRepositoryImpl @Inject constructor(
                     targetMessage,
                     realm,
                 )
-                progress++
-                // Update the progress every 25 messages, and then at completion
-                // that way we don't spam the UI
-                if (progress % 25 == 0 || progress == max) {
-                    onProgress(
-                        SyncRepository.SyncProgress.ParsingEmojis(
-                            max = max,
-                            progress = progress,
-                            indeterminate = false
-                        )
+            }
+            progress++
+            // Update the progress every 25 messages, and then at completion
+            // that way we don't spam the UI
+            if (progress % 25 == 0 || progress == max) {
+                onProgress(
+                    SyncRepository.SyncProgress.ParsingEmojis(
+                        max = max,
+                        progress = progress,
+                        indeterminate = false
                     )
-                }
+                )
             }
         }
 
