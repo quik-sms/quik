@@ -27,12 +27,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew assembleDebug
 
-    - name: Run Android Lint
-      run: ./gradlew lint
-
-    - name: Run Tests
-      run: ./gradlew test
-
     - name: List APK Output Directory 
       run: ls -R presentation/build/outputs/apk/debug
 
@@ -57,3 +51,25 @@ jobs:
       with:
         name: apk-debug
         path: presentation/build/outputs/apk/debug/QUIK-debug.apk
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: gradle
+
+      - name: Run Android Lint
+        run: ./gradlew lint
+
+      - name: Run Tests
+        run: ./gradlew test
