@@ -110,7 +110,7 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Update MMS configs from com.google.android.apps.messaging.apk. 
+          commit-message: "chore(mms): Update MMS configs from Google Messages"
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           title: "Update MMS configs"
@@ -120,4 +120,4 @@ jobs:
           add-paths: android-smsmms/src/main/res/xml-mcc*
           branch: ${{ env.NEW_BRANCH }}
           base: master
-          labels: automated
+          labels: automated, area:mms
