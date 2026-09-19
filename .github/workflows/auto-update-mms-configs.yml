@@ -12,6 +12,9 @@ concurrency:
 jobs:
   vvm:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     env:
       APKEEP_VERSION: 0.18.0
       
