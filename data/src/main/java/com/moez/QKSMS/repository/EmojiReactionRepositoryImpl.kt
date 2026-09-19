@@ -44,22 +44,23 @@ class EmojiReactionRepositoryImpl @Inject constructor(
 
         /** Give a bit of slack for messages potentially being in the wrong order */
         private const val MESSAGE_DATE_TOLERANCE_MS = 60_000L
+        private const val MESSAGE_TRUNCATION_DELIMITER = "\u2026"
+        private const val GOOGLE_MESSAGE_REACTION_REGEX =
+            "(?s)^\u200a[^\u200b\u200a]*\u200b([^\u200b]*)\u200b[^\u200b\u200a]*\u200a(.*)\u200a[^\u200b\u200a]*\u200a\\Z"
+        private const val GOOGLE_MESSAGE_REACTION_REMOVAL_REGEX =
+            "(?s)^\u200a[^\u200c\u200a]*\u200c([^\u200c]*)\u200c[^\u200c\u200a]*\u200a(.*)\u200a[^\u200c\u200a]*\u200a\\Z"
     }
 
     // We use an ordered map to make sure we can test tapback regexes before generic ones
     private val reactionPatterns: LinkedHashMap<Regex, (MatchResult) -> ParsedEmojiReaction?> = linkedMapOf(
-        Regex( // Google Messages
-            "(?s)^\u200a[^\u200b\u200a]*\u200b([^\u200b]*)\u200b[^\u200b\u200a]*\u200a(.*)\u200a[^\u200b\u200a]*\u200a\\Z"
-        ) to { match ->
+        Regex(GOOGLE_MESSAGE_REACTION_REGEX) to { match ->
             ParsedEmojiReaction(
             match.groupValues[1], match.groupValues[2]
             )
         }
     )
     private val removalPatterns: LinkedHashMap<Regex, (MatchResult) -> ParsedEmojiReaction?> = linkedMapOf(
-        Regex( // Google Messages
-            "(?s)^\u200a[^\u200c\u200a]*\u200c([^\u200c]*)\u200c[^\u200c\u200a]*\u200a(.*)\u200a[^\u200c\u200a]*\u200a\\Z"
-        ) to { match ->
+        Regex(GOOGLE_MESSAGE_REACTION_REMOVAL_REGEX) to { match ->
             ParsedEmojiReaction(
                 match.groupValues[1], match.groupValues[2], isRemoval = true
             )
@@ -106,7 +107,8 @@ class EmojiReactionRepositoryImpl @Inject constructor(
         // Generic iOS emoji patterns
         strings.iosGenericAdded?.let { pattern ->
             reactionPatterns[Regex(pattern)] = { match ->
-                if (match.groupValues.getOrNull(1) == "with a sticker") null // TODO: localize "with a sticker"
+                // TODO: localize "with a sticker"
+                if (match.groupValues.getOrNull(1) == "with a sticker") null
                 else ParsedEmojiReaction(match.groupValues[1], match.groupValues[2])
             }
         }
@@ -174,7 +176,7 @@ class EmojiReactionRepositoryImpl @Inject constructor(
     private fun parseTruncatedMessages(originalMessageText: String): Regex {
         val reactionText = originalMessageText.trim()
 
-        val delimiter = "\u2026"
+        val delimiter = MESSAGE_TRUNCATION_DELIMITER
         val index = reactionText.lastIndexOf(delimiter)
         val regexPattern = if (index == -1) {
             Regex.escape(reactionText)
@@ -204,7 +206,7 @@ class EmojiReactionRepositoryImpl @Inject constructor(
             .apply { latestDate?.let { lessThanOrEqualTo("date", it) } }
 
         // Match the text directly with the messages that do not have the delimiter
-        if (!originalMessageText.contains("\u2026")) {
+        if (!originalMessageText.contains(MESSAGE_TRUNCATION_DELIMITER)) {
             candidateQuery()
                 .equalTo("body", originalMessageText)
                 .sort("date", Sort.DESCENDING)
@@ -324,7 +326,8 @@ class EmojiReactionRepositoryImpl @Inject constructor(
                     .isNotEmpty("parts.text")
                 .endGroup()
             .endGroup()
-            .sort("date", Sort.ASCENDING) // parse oldest to newest to handle reactions & removals properly
+            // parse oldest to newest to handle reactions & removals properly
+            .sort("date", Sort.ASCENDING)
             .findAll()
 
         val max = allMessages?.count() ?: 0
