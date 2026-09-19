@@ -20,45 +20,101 @@ package dev.octoshrimpy.quik.common
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
+import android.view.View
+import android.widget.AbsListView
+import android.widget.CheckedTextView
+import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import dev.octoshrimpy.quik.common.util.extensions.dpToPx
-import dev.octoshrimpy.quik.common.util.extensions.setPadding
-import dev.octoshrimpy.quik.injection.appComponent
+import androidx.core.widget.TextViewCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dev.octoshrimpy.quik.common.util.Colors
+import dev.octoshrimpy.quik.common.util.TextViewStyler
+import dev.octoshrimpy.quik.common.util.extensions.resolveThemeColor
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
+data class MenuItem(val title: String, val actionId: Int)
+
 /**
- * Wrapper around AlertDialog which makes it easier to display lists that use our UI
+ * Wrapper around a Material single-choice dialog.
  */
-class QkDialog @Inject constructor(private val context: Context, val adapter: MenuItemAdapter) {
+class QkDialog @Inject constructor(
+    private val context: Context,
+    private val colors: Colors,
+    private val textViewStyler: TextViewStyler
+) {
+
+    val menuItemClicks: Subject<Int> = PublishSubject.create()
+
+    var data: List<MenuItem> = emptyList()
+    var selectedItem: Int? = null
 
     var title: String? = null
 
-    init {
-        appComponent.inject(this)
+    fun setData(@ArrayRes titles: Int, @ArrayRes values: Int = -1) {
+        val valueInts = if (values != -1) context.resources.getIntArray(values) else null
+
+        data = context.resources.getStringArray(titles)
+                .mapIndexed { index, title -> MenuItem(title, valueInts?.getOrNull(index) ?: index) }
     }
 
     fun show(activity: Activity) {
-        val recyclerView = RecyclerView(activity)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
-        recyclerView.setPadding(top = 8.dpToPx(context), bottom = 8.dpToPx(context))
+        val items = data.map { item -> item.title as CharSequence }.toTypedArray()
+        val selectedIndex = selectedItem?.let { selected ->
+            data.indexOfFirst { item -> item.actionId == selected }
+        } ?: -1
 
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = MaterialAlertDialogBuilder(activity)
                 .setTitle(title)
-                .setView(recyclerView)
+                .setSingleChoiceItems(items, selectedIndex) { dialog, index ->
+                    menuItemClicks.onNext(data[index].actionId)
+                    dialog.dismiss()
+                }
                 .create()
 
-        val clicks = adapter.menuItemClicks
-                .subscribe { dialog.dismiss() }
+        dialog.show()
+        styleRows(dialog, activity)
+    }
 
-        dialog.setOnDismissListener {
-            clicks.dispose()
+    private fun styleRows(dialog: AlertDialog, activity: Activity) {
+        val list = dialog.listView ?: return
+        val tint = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_checked),
+                intArrayOf()
+            ),
+            intArrayOf(
+                colors.theme().theme,
+                activity.resolveThemeColor(android.R.attr.textColorTertiary)
+            )
+        )
+
+        fun styleRow(view: View) {
+            (view as? CheckedTextView)?.let { textView ->
+                TextViewCompat.setCompoundDrawableTintList(textView, tint)
+                textViewStyler.applyFont(textView)
+                textViewStyler.setTextSize(textView, TextViewStyler.SIZE_PRIMARY)
+            }
         }
 
-        dialog.show()
+        fun styleVisibleRows() {
+            (0 until list.childCount).forEach { index -> styleRow(list.getChildAt(index)) }
+        }
+
+        list.setOnScrollListener(object : AbsListView.OnScrollListener {
+            override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) = styleVisibleRows()
+
+            override fun onScroll(
+                view: AbsListView?,
+                firstVisibleItem: Int,
+                visibleItemCount: Int,
+                totalItemCount: Int
+            ) = styleVisibleRows()
+        })
+        styleVisibleRows()
     }
 
     fun setTitle(@StringRes title: Int) {

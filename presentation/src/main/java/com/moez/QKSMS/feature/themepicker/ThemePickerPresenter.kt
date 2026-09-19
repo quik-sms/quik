@@ -27,6 +27,7 @@ import dev.octoshrimpy.quik.common.util.Colors
 import dev.octoshrimpy.quik.manager.BillingManager
 import dev.octoshrimpy.quik.manager.WidgetManager
 import dev.octoshrimpy.quik.util.Preferences
+import io.reactivex.Observable
 import io.reactivex.rxkotlin.Observables
 import javax.inject.Inject
 import javax.inject.Named
@@ -45,7 +46,12 @@ class ThemePickerPresenter @Inject constructor(
     override fun bindIntents(view: ThemePickerView) {
         super.bindIntents(view)
 
-        theme.asObservable()
+        val currentTheme: Observable<Int> = when (recipientId) {
+            0L -> colors.themeObservable().map { it.theme }
+            else -> theme.asObservable()
+        }
+
+        currentTheme
                 .autoDisposable(view.scope())
                 .subscribe { color -> view.setCurrentTheme(color) }
 
@@ -68,7 +74,7 @@ class ThemePickerPresenter @Inject constructor(
                 .subscribe()
 
         // Toggle the visibility of the apply group
-        Observables.combineLatest(theme.asObservable(), view.hsvThemeSelected()) { old, new -> old != new }
+        Observables.combineLatest(currentTheme, view.hsvThemeSelected()) { old, new -> old != new }
                 .autoDisposable(view.scope())
                 .subscribe { themeChanged -> newState { copy(applyThemeVisible = themeChanged) } }
 
@@ -95,7 +101,7 @@ class ThemePickerPresenter @Inject constructor(
 
         // Reset the theme
         view.clearHsvThemeClicks()
-                .withLatestFrom(theme.asObservable()) { _, color -> color }
+                .withLatestFrom(currentTheme) { _, color -> color }
                 .autoDisposable(view.scope())
                 .subscribe { color -> view.setCurrentTheme(color) }
     }

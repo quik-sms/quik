@@ -30,6 +30,7 @@ import dev.octoshrimpy.quik.common.util.DateFormatter
 import dev.octoshrimpy.quik.common.util.extensions.makeToast
 import dev.octoshrimpy.quik.interactor.SyncMessages
 import dev.octoshrimpy.quik.manager.BillingManager
+import dev.octoshrimpy.quik.manager.WidgetManager
 import dev.octoshrimpy.quik.repository.SyncRepository
 import dev.octoshrimpy.quik.util.NightModeManager
 import dev.octoshrimpy.quik.util.Preferences
@@ -49,7 +50,8 @@ class SettingsPresenter @Inject constructor(
     private val externalNavigator: ExternalNavigator,
     private val nightModeManager: NightModeManager,
     private val prefs: Preferences,
-    private val syncMessages: SyncMessages
+    private val syncMessages: SyncMessages,
+    private val widgetManager: WidgetManager
 ) : QkPresenter<SettingsView, SettingsState>(SettingsState(
         nightModeId = prefs.nightMode.get()
 )) {
@@ -78,6 +80,9 @@ class SettingsPresenter @Inject constructor(
 
         disposables += prefs.black.asObservable()
                 .subscribe { black -> newState { copy(black = black) } }
+
+        disposables += prefs.dynamicColors.asObservable()
+                .subscribe { dynamicColors -> newState { copy(dynamicColors = dynamicColors) } }
 
         disposables += prefs.notifications().asObservable()
                 .subscribe { enabled -> newState { copy(notificationsEnabled = enabled) } }
@@ -177,6 +182,11 @@ class SettingsPresenter @Inject constructor(
                         }
 
                         R.id.black -> prefs.black.set(!prefs.black.get())
+
+                        R.id.dynamicColors -> {
+                            prefs.dynamicColors.set(!prefs.dynamicColors.get())
+                            widgetManager.updateTheme()
+                        }
 
                         R.id.autoEmoji -> prefs.autoEmoji.set(!prefs.autoEmoji.get())
 
