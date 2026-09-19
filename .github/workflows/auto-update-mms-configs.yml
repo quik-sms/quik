@@ -16,16 +16,16 @@ jobs:
       contents: write
       pull-requests: write
     env:
-      APKEEP_VERSION: 0.18.0
+      APKEEP_VERSION: 1.0.0
       
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0 
       
       - name: Cache Cargo dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/bin
@@ -107,7 +107,7 @@ jobs:
           
           
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Update MMS configs from com.google.android.apps.messaging.apk. 
