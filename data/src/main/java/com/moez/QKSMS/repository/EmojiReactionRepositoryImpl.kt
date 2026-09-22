@@ -94,25 +94,29 @@ class EmojiReactionRepositoryImpl @Inject constructor(
             Triple("‼️", strings.iosExclamationAdded, strings.iosExclamationRemoved),
             Triple("❓", strings.iosQuestionMarkAdded, strings.iosQuestionMarkRemoved)
         ).forEach { (emoji, added, removed) ->
-            added?.let {
+            added?.takeIf { it.isNotBlank() }
+                ?.let {
                 reactionPatterns[Regex(it)] =
                     { match -> ParsedEmojiReaction(emoji, match.groupValues[1]) }
             }
-            removed?.let {
+            removed?.takeIf { it.isNotBlank() }
+                ?.let {
                 removalPatterns[Regex(it)] =
                     { match -> ParsedEmojiReaction(emoji, match.groupValues[1], isRemoval = true) }
             }
         }
 
         // Generic iOS emoji patterns
-        strings.iosGenericAdded?.let { pattern ->
+        strings.iosGenericAdded?.takeIf { it.isNotBlank() }
+            ?.let { pattern ->
             reactionPatterns[Regex(pattern)] = { match ->
                 // TODO: localize "with a sticker"
                 if (match.groupValues.getOrNull(1) == "with a sticker") null
                 else ParsedEmojiReaction(match.groupValues[1], match.groupValues[2])
             }
         }
-        strings.iosGenericRemoved?.let { pattern ->
+        strings.iosGenericRemoved?.takeIf { it.isNotBlank() }
+            ?.let { pattern ->
             removalPatterns[Regex(pattern)] = { match ->
                 ParsedEmojiReaction(match.groupValues[1], match.groupValues[2], isRemoval = true)
             }
