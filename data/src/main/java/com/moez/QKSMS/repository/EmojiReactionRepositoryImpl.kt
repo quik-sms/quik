@@ -241,7 +241,7 @@ class EmojiReactionRepositoryImpl @Inject constructor(
             return match
         }
 
-        Timber.w("No target message found for reaction text: '$originalMessageText'")
+        Timber.w("No target message found for reaction text.")
         return null
     }
 
