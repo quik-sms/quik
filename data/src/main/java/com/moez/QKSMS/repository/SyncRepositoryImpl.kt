@@ -335,7 +335,8 @@ class SyncRepositoryImpl @Inject constructor(
                         val targetMessage = reactions.findTargetMessage(
                             threadId,
                             parsedReaction.originalMessage,
-                            realm
+                            realm,
+                            date,
                         )
                         realm.executeTransaction {
                             reactions.saveEmojiReaction(

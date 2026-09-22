@@ -1,0 +1,4 @@
+{
+    "emoji_reaction_ios_like_added": "^(?s)Le Gusta “(.+?)”$",
+    "emoji_reaction_ios_heart_added": "^(?s)Le encanta “(.+?)”$"
+}

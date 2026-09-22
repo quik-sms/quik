@@ -3,9 +3,8 @@
 # QUIK
 
 [![Manual Release](https://github.com/octoshrimpy/quik/actions/workflows/manual-release.yml/badge.svg)](https://github.com/octoshrimpy/quik/actions/workflows/manual-release.yml)
-<a href="https://hosted.weblate.org/engage/quik/">
-<img src="https://hosted.weblate.org/widget/quik/svg-badge.svg" alt="Translation status" />
-</a>
+<a href="https://hosted.weblate.org/engage/quik/"><img src="https://hosted.weblate.org/widget/quik/svg-badge.svg" alt="Translation status" /></a>
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/octoshrimpy/quik)
 
 QUIK is an open source replacement to the [stock messaging app](https://github.com/android/platform_packages_apps_mms) on Android. It is a continuation of [QKSMS](https://github.com/moezbhatti/qksms). 
 
@@ -75,11 +74,11 @@ QUIK is developed and maintained by [Marcos Jones](https://github.com/octoshrimp
 
 ## Star History
 
-<a href="https://star-history.com/#octoshrimpy/quik&Date">
+<a href="https://star-history.dera.page/#quik-sms/quik&type=Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=octoshrimpy/quik&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=octoshrimpy/quik&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=octoshrimpy/quik&type=Date" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=quik-sms/quik&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=quik-sms/quik&type=Date" />
+    <img alt="Star History Chart" src="https://star-history.dera.page/svg?repos=quik-sms/quik&type=Date" />
   </picture>
 </a>
 

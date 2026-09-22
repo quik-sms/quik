@@ -12,17 +12,20 @@ concurrency:
 jobs:
   vvm:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     env:
-      APKEEP_VERSION: 0.18.0
+      APKEEP_VERSION: 1.0.0
       
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0 
       
       - name: Cache Cargo dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/bin
@@ -104,10 +107,10 @@ jobs:
           
           
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Update MMS configs from com.google.android.apps.messaging.apk. 
+          commit-message: "chore(mms): Update MMS configs from Google Messages"
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           title: "Update MMS configs"
@@ -117,4 +120,4 @@ jobs:
           add-paths: android-smsmms/src/main/res/xml-mcc*
           branch: ${{ env.NEW_BRANCH }}
           base: master
-          labels: automated
+          labels: automated, area:mms

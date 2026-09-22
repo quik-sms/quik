@@ -26,7 +26,12 @@ data class ParsedEmojiReaction(val emoji: String, val originalMessage: String, v
 interface EmojiReactionRepository {
     fun parseEmojiReaction(body: String): ParsedEmojiReaction?
 
-    fun findTargetMessage(threadId: Long, originalMessageText: String, realm: Realm): Message?
+    fun findTargetMessage(
+        threadId: Long,
+        originalMessageText: String,
+        realm: Realm,
+        reactionDate: Long?,
+    ): Message?
 
     fun saveEmojiReaction(
         reactionMessage: Message,

@@ -21,4 +21,5 @@
     <string name="spamForwardingNumber">7726</string>
     <bool name="enableGroupMms">true</bool>
     <bool name="groupChatDefaultsToMMS">true</bool>
+    <bool name="mmsRoamingAutoRetrieveByDefault">true</bool>
 </mms_config>

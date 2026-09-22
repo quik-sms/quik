@@ -64,11 +64,14 @@ To update the wiki, simply navigate to the [wiki tab](https://github.com/octoshr
 
 
 ## Helpful Tips
+### Understand the Codebase
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/octoshrimpy/quik)
+
+Feel free to use [deepwiki LLM](https://deepwiki.com/octoshrimpy/quik) to understand the code structure before contributing and explore the implementation interactively.
+
 ### Getting Your Pull Request Merged
 When submitting a pull request, please be as detailed as possible in your reasoning for the change, what you changed and how you tested it. \
 In addition, please try to keep pull requests atomic and singularly focused. Submitting large pull requests that have multiple changes or touch multiple code paths are much more difficult to review and may be asked to be split apart.
-
-Feel free to use [deepwiki LLM](https://deepwiki.com/octoshrimpy/quik) to understand the code structure before contributing and explore the implementation interactively.
 
 ### Open Draft Pull Requests
 If you are stuck or in the middle of a larger code change, open up a draft pull request. That way you can receive help and suggestions while you are developing. \

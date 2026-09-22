@@ -621,9 +621,11 @@ class ComposeViewModel @Inject constructor(
 
         // toggle the group sending mode and update the conversation saved value
         view.sendAsGroupIntent
+            .withLatestFrom(state) { _, state -> !state.sendAsGroup }
+            .doOnNext { newSendAsGroup -> newState { copy(sendAsGroup = newSendAsGroup) } }
             .observeOn(Schedulers.io())
-            .withLatestFrom(conversation, state) { _, conversation, state ->
-                conversationRepo.updateSendAsGroup(conversation.id, !state.sendAsGroup)
+            .withLatestFrom(conversation) { newSendAsGroup, conversation ->
+                conversationRepo.updateSendAsGroup(conversation.id, newSendAsGroup)
             }
             .autoDisposable(view.scope())
             .subscribe()
@@ -830,17 +832,17 @@ class ComposeViewModel @Inject constructor(
                     view.requestCamera()
                 }
 
-        // pick a photo (specifically) from image provider apps
+        // pick a photo or video from image provider apps
         view.attachImageFileIntent
             .doOnNext { newState { copy(attaching = false) } }
             .autoDisposable(view.scope())
-            .subscribe { view.requestGallery("image/*", ComposeView.ATTACH_FILE_REQUEST_CODE) }
+            .subscribe { view.requestGallery() }
 
         // pick any file from any provider apps
         view.attachAnyFileIntent
             .doOnNext { newState { copy(attaching = false) } }
             .autoDisposable(view.scope())
-            .subscribe { view.requestGallery("*/*", ComposeView.ATTACH_FILE_REQUEST_CODE) }
+            .subscribe { view.requestFilePicker() }
 
         // Choose a time to schedule the message
         view.scheduleIntent

@@ -1,4 +1,16 @@
 {
     "emoji_reaction_ios_generic_added": "^(?s)A réagi avec (.+?) à “(.+?)”$",
-    "emoji_reaction_ios_generic_removed": "^(?s)A retiré (.+?) de “(.+?)”$"
+    "emoji_reaction_ios_generic_removed": "^(?s)A retiré (.+?) de “(.+?)”$",
+    "emoji_reaction_ios_heart_added": "^(?s)Aimé “(.+?)”$",
+    "emoji_reaction_ios_heart_removed": "^(?s)A supprimé un cœur depuis “(.+?)”$",
+    "emoji_reaction_ios_like_added": "^(?s)Aimé “(.+?)”$",
+    "emoji_reaction_ios_like_removed": "^(?s)A supprimé un « j'aime » depuis “(.+?)”$",
+    "emoji_reaction_ios_dislike_added": "^(?s)N'aime pas “(.+?)”$",
+    "emoji_reaction_ios_dislike_removed": "^(?s)A supprimé un « je n'aime pas » depuis “(.+?)”$",
+    "emoji_reaction_ios_laugh_added": "^(?s)A ri a “(.+?)”$",
+    "emoji_reaction_ios_laugh_removed": "^(?s)A supprimé un rire depuis “(.+?)”$",
+    "emoji_reaction_ios_exclamation_added": "^(?s)Gras “(.+?)”$",
+    "emoji_reaction_ios_exclamation_removed": "^(?s)A supprimé un point d'exclamation depuis  “(.+?)”$",
+    "emoji_reaction_ios_question_mark_added": "^(?s)Interrogation “(.+?)”$",
+    "emoji_reaction_ios_question_mark_removed": "^(?s)A supprimé un point d'interrogation depuis “(.+?)”$"
 }
