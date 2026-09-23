@@ -52,9 +52,9 @@ class NotificationPrefsActivity : QkThemedActivity(), NotificationPrefsView {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override val preferenceClickIntent: Subject<PreferenceView> = PublishSubject.create()
-    override val previewModeSelectedIntent by lazy { previewModeDialog.adapter.menuItemClicks }
+    override val previewModeSelectedIntent by lazy { previewModeDialog.menuItemClicks }
     override val ringtoneSelectedIntent: Subject<String> = PublishSubject.create()
-    override val actionsSelectedIntent by lazy { actionsDialog.adapter.menuItemClicks }
+    override val actionsSelectedIntent by lazy { actionsDialog.menuItemClicks }
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)[NotificationPrefsViewModel::class.java]
@@ -79,8 +79,8 @@ class NotificationPrefsActivity : QkThemedActivity(), NotificationPrefsView {
         binding.ringtone.setVisible(!hasOreo)
 
         previewModeDialog.setTitle(R.string.settings_notification_previews_title)
-        previewModeDialog.adapter.setData(R.array.notification_preview_options)
-        actionsDialog.adapter.setData(R.array.notification_actions)
+        previewModeDialog.setData(R.array.notification_preview_options)
+        actionsDialog.setData(R.array.notification_actions)
 
         // Listen to clicks for all of the preferences
         (0 until binding.preferences.childCount)
@@ -99,7 +99,7 @@ class NotificationPrefsActivity : QkThemedActivity(), NotificationPrefsView {
 
         binding.notifications.checkbox?.isChecked = state.notificationsEnabled
         binding.previews.summary = state.previewSummary
-        previewModeDialog.adapter.selectedItem = state.previewId
+        previewModeDialog.selectedItem = state.previewId
         binding.wake.checkbox?.isChecked = state.wakeEnabled
         binding.silentNotContact.checkbox?.isChecked = state.silentNotContact
         binding.silentNotContact.isVisible = state.threadId == 0L
@@ -136,7 +136,7 @@ class NotificationPrefsActivity : QkThemedActivity(), NotificationPrefsView {
     }
 
     override fun showActionDialog(selected: Int) {
-        actionsDialog.adapter.selectedItem = selected
+        actionsDialog.selectedItem = selected
         actionsDialog.show(this)
     }
 

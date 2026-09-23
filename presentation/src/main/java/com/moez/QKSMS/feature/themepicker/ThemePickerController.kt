@@ -18,7 +18,6 @@
  */
 package dev.octoshrimpy.quik.feature.themepicker
 
-import android.animation.ObjectAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +27,6 @@ import com.jakewharton.rxbinding2.view.clicks
 import dev.octoshrimpy.quik.R
 import dev.octoshrimpy.quik.common.base.QkController
 import dev.octoshrimpy.quik.common.util.Colors
-import dev.octoshrimpy.quik.common.util.extensions.dpToPx
 import dev.octoshrimpy.quik.common.util.extensions.setBackgroundTint
 import dev.octoshrimpy.quik.common.util.extensions.setVisible
 import dev.octoshrimpy.quik.databinding.ThemePickerControllerBinding
@@ -78,18 +76,6 @@ class ThemePickerController(
         presenter.bindIntents(this)
         setTitle(R.string.title_theme)
         showBackButton(true)
-
-        themedActivity?.supportActionBar?.let { toolbar ->
-            ObjectAnimator.ofFloat(toolbar, "elevation", toolbar.elevation, 0f).start()
-        }
-    }
-
-    override fun onDetach(view: View) {
-        super.onDetach(view)
-
-        themedActivity?.supportActionBar?.let { toolbar ->
-            ObjectAnimator.ofFloat(toolbar, "elevation", toolbar.elevation, 8.dpToPx(toolbar.themedContext).toFloat()).start()
-        }
     }
 
     override fun showQksmsPlusSnackbar() {

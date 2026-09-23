@@ -21,8 +21,6 @@
 
     <!-- On Oreo, use the light status and navigation bars -->
     <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:navigationBarColor">@color/white</item>
-        <item name="android:statusBarColor">@color/backgroundLight</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>

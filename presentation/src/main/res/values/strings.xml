@@ -266,6 +266,7 @@
     <string name="settings_theme_title">Theme</string>
     <string name="settings_night_title">Night mode</string>
     <string name="settings_black_title">Pure black night mode</string>
+    <string name="settings_dynamic_colors_title">Dynamic colors</string>
     <string name="settings_night_start_title">Start time</string>
     <string name="settings_night_end_title">End time</string>
     <string name="settings_automatic_colors_title">Automatic contact colors</string>

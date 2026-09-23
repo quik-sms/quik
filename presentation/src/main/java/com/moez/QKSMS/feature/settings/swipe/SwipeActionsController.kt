@@ -56,7 +56,7 @@ class SwipeActionsController : QkController<SwipeActionsControllerBinding, Swipe
     init {
         appComponent.inject(this)
 
-        actionsDialog.adapter.setData(R.array.settings_swipe_actions)
+        actionsDialog.setData(R.array.settings_swipe_actions)
     }
 
     override fun onViewCreated() {
@@ -86,10 +86,10 @@ class SwipeActionsController : QkController<SwipeActionsControllerBinding, Swipe
 
     override fun actionClicks(): Observable<SwipeActionsView.Action> = actionClicks
 
-    override fun actionSelected(): Observable<Int> = actionsDialog.adapter.menuItemClicks
+    override fun actionSelected(): Observable<Int> = actionsDialog.menuItemClicks
 
     override fun showSwipeActions(selected: Int) {
-        actionsDialog.adapter.selectedItem = selected
+        actionsDialog.selectedItem = selected
         activity?.let(actionsDialog::show)
     }
 
