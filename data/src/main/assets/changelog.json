@@ -1,5 +1,33 @@
 [
   {
+    "versionCode": 2239,
+    "versionName": "4.3.7",
+    "fixed": [
+      "## What's Changed",
+      "* Create a proper dark theme for gallery, which will fix app themes",
+      "* Delete app/build/outputs/apk/debug/app-debug.apk",
+      "* fix(main): Don't animate layout changes",
+      "* fix(main): Get scheduled messages from view model",
+      "* Refactor and simplify the navigator",
+      "* compose: Fix sendAsGroup switch resetting while typing on new conversation",
+      "* Translations update from Hosted Weblate",
+      "* Translations update from Hosted Weblate",
+      "* Add DeepWiki badge",
+      "* fix(readme): Update star history chart link",
+      "* refactor(compose): Use registerForActivityResult for picking content",
+      "* fix(compose): Properly handle attachments when forwarding",
+      "* feat(notif): Open FAQ URL from worker notification",
+      "* Fix ANR in emoji reaction parsing and do some refactoring in related code",
+      "* fix(ci): Explicitly define permissions for auto update mms configs",
+      "* CI updates",
+      "* Update MMS configs",
+      "* Revert \"Prevent notifications from alerting on update\"",
+      "* Translations update from Hosted Weblate",
+      "* Translations update from Hosted Weblate",
+      "* Fix emoji sync crashing if a regex is empty"
+    ]
+  },
+  {
     "versionCode": 2238,
     "versionName": "4.3.6",
     "fixed": [
