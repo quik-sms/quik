@@ -375,9 +375,28 @@
     <string name="message_content_filters_dialog_regex_switch">Regular expression</string>
     <string name="message_content_filters_dialog_contacts_switch">Include contacts</string>
     <string name="message_content_filters_dialog_create">Create</string>
+    <string name="message_content_filters_menu_import">Import from JSON</string>
+    <string name="message_content_filters_import_result_title">Import complete</string>
+    <string name="message_content_filters_import_error_title">Import failed</string>
+    <string name="message_content_filters_import_error">Could not read filter file</string>
+    <string name="message_content_filters_import_regex_errors_title">Invalid regex filters skipped</string>
+    <plurals name="message_content_filters_import_result">
+        <item quantity="one">Imported %d filter (%d skipped)</item>
+        <item quantity="other">Imported %d filters (%d skipped)</item>
+    </plurals>
 
     <string name="blocked_messages_title">Blocked messages</string>
     <string name="blocked_messages_empty">Your blocked messages will appear here</string>
+
+    <string name="junk_title">Junk</string>
+    <string name="junk_empty">Messages caught by content filters will appear here</string>
+    <string name="junk_summary">Review messages caught by content filters</string>
+    <string name="junk_menu_restore">Restore</string>
+    <string name="junk_delete_dialog_title">Delete junk messages?</string>
+    <plurals name="junk_delete_dialog_message">
+        <item quantity="one">Permanently delete %d message?</item>
+        <item quantity="other">Permanently delete %d messages?</item>
+    </plurals>
 
     <string name="blocking_block_title">Block</string>
     <string name="blocking_unblock_title">Unblock</string>
