@@ -91,6 +91,7 @@ import dev.octoshrimpy.quik.repository.ScheduledMessageRepository
 import dev.octoshrimpy.quik.repository.ScheduledMessageRepositoryImpl
 import dev.octoshrimpy.quik.repository.SyncRepository
 import dev.octoshrimpy.quik.repository.SyncRepositoryImpl
+import dev.octoshrimpy.quik.util.GifCompressor
 import dev.octoshrimpy.quik.worker.InjectionWorkerFactory
 import javax.inject.Singleton
 
@@ -124,6 +125,12 @@ class AppModule(private var application: Application) {
         return Moshi.Builder()
                 .add(KotlinJsonAdapterFactory())
                 .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGifCompressor(): GifCompressor {
+        return GifCompressor()
     }
 
     @Provides
