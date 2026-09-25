@@ -47,6 +47,7 @@ import dev.octoshrimpy.quik.common.util.MessageDetailsFormatter
 import dev.octoshrimpy.quik.common.util.extensions.makeToast
 import dev.octoshrimpy.quik.common.widget.MicInputCloudView
 import dev.octoshrimpy.quik.common.widget.QkContextMenuRecyclerView
+import dev.octoshrimpy.quik.compat.SubscriptionInfoCompat
 import dev.octoshrimpy.quik.compat.SubscriptionManagerCompat
 import dev.octoshrimpy.quik.extensions.asObservable
 import dev.octoshrimpy.quik.extensions.isImage
@@ -309,6 +310,17 @@ class ComposeViewModel @Inject constructor(
         // actions
         if (mode == "scheduling")
             newState { copy(scheduling = true) }
+    }
+
+    fun switchSim(subscription: SubscriptionInfoCompat) {
+        context.getSystemService<Vibrator>()?.vibrate(40)
+        context.makeToast(
+            context.getString(
+                R.string.compose_sim_changed_toast,
+                subscription.simSlotIndex + 1, subscription.safeDisplayName
+            )
+        )
+        newState { copy(subscription = subscription) }
     }
 
     @SuppressLint("StringFormatInvalid")
@@ -971,20 +983,25 @@ class ComposeViewModel @Inject constructor(
         view.changeSimIntent
                 .withLatestFrom(state) { _, state ->
                     val subs = subscriptionManager.activeSubscriptionInfoList
+                    Timber.v("Active Subscriptions: ${subs}")
                     val subIndex = subs.indexOfFirst { it.subscriptionId == state.subscription?.subscriptionId }
+                    Timber.v("SubIndex: $subIndex")
                     val subscription = when {
                         subIndex == -1 -> null
                         subIndex < subs.size - 1 -> subs[subIndex + 1]
                         else -> subs[0]
                     }
+                    Timber.v("Subscription: $subscription")
 
                     if (subscription != null) {
-                        context.getSystemService<Vibrator>()?.vibrate(40)
-                        context.makeToast(context.getString(R.string.compose_sim_changed_toast,
-                                subscription.simSlotIndex + 1, subscription.displayName))
+                        if (subscription.displayName.isNullOrBlank()) {
+                            view.showInvalidConfiguration(subscription)
+                        } else {
+                            switchSim(subscription)
+                        }
+                    } else {
+                        context.makeToast(context.getString(R.string.compose_sim_switch_error))
                     }
-
-                    newState { copy(subscription = subscription) }
                 }
                 .autoDisposable(view.scope())
                 .subscribe()

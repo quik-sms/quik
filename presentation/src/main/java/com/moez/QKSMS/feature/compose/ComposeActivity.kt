@@ -72,10 +72,13 @@ import dev.octoshrimpy.quik.common.util.extensions.hideKeyboard
 import dev.octoshrimpy.quik.common.util.extensions.makeToast
 import dev.octoshrimpy.quik.common.util.extensions.scrapViews
 import dev.octoshrimpy.quik.common.util.extensions.setBackgroundTint
+import dev.octoshrimpy.quik.common.util.extensions.setNegativeButton
+import dev.octoshrimpy.quik.common.util.extensions.setPositiveButton
 import dev.octoshrimpy.quik.common.util.extensions.setTint
 import dev.octoshrimpy.quik.common.util.extensions.setVisible
 import dev.octoshrimpy.quik.common.util.extensions.showKeyboard
 import dev.octoshrimpy.quik.common.widget.MicInputCloudView
+import dev.octoshrimpy.quik.compat.SubscriptionInfoCompat
 import dev.octoshrimpy.quik.extensions.mapNotNull
 import dev.octoshrimpy.quik.feature.compose.editing.ChipsAdapter
 import dev.octoshrimpy.quik.feature.contacts.ContactsActivity
@@ -524,7 +527,8 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
         binding.counter.setVisible(binding.counter.text.isNotBlank())
 
         binding.sim.setVisible(state.subscription != null)
-        binding.sim.contentDescription = getString(R.string.compose_sim_cd, state.subscription?.displayName)
+        binding.sim.contentDescription =
+            getString(R.string.compose_sim_cd, state.subscription?.safeDisplayName)
         binding.simIndex.text = state.subscription?.simSlotIndex?.plus(1)?.toString()
 
         // show either send, audio msg record, or sendScheduled button
@@ -605,6 +609,17 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
                 )
             }
             .setNegativeButton(R.string.messageLinkHandling_dialog_negative) { _, _ -> { } }
+            .show()
+    }
+
+    override fun showInvalidConfiguration(subscription: SubscriptionInfoCompat) {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.compose_sim_invalid_title))
+            .setMessage(getString(R.string.compose_sim_switch_warning))
+            .setPositiveButton(getString(R.string.button_continue)){ _, _ ->
+                viewModel.switchSim(subscription)
+            }
+            .setNegativeButton(getString(R.string.button_cancel), null)
             .show()
     }
 

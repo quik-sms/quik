@@ -26,6 +26,7 @@ import androidx.core.view.inputmethod.InputContentInfoCompat
 import com.moez.QKSMS.common.QkMediaPlayer
 import dev.octoshrimpy.quik.common.base.QkView
 import dev.octoshrimpy.quik.common.widget.MicInputCloudView
+import dev.octoshrimpy.quik.compat.SubscriptionInfoCompat
 import dev.octoshrimpy.quik.model.Attachment
 import dev.octoshrimpy.quik.model.Recipient
 import io.reactivex.Observable
@@ -94,6 +95,7 @@ interface ComposeView : QkView<ComposeState> {
     fun expandMessages(messageIds: List<Long>, expand: Boolean)
     fun showDetails(details: String)
     fun showMessageLinkAskDialog(uri: Uri)
+    fun showInvalidConfiguration(subscription: SubscriptionInfoCompat)
     fun requestDefaultSms()
     fun requestStoragePermission()
     fun requestRecordAudioPermission()

@@ -177,6 +177,9 @@
     <!-- Example: SIM 1 (Verizon) selected-->
     <string name="compose_sim_changed_toast">SIM %1$d (%2$s) selected</string>
     <string name="compose_sim_cd">%s selected, change SIM card</string>
+    <string name="compose_sim_invalid_title">SIM Configuration Issue</string>
+    <string name="compose_sim_switch_warning">This SIM card doesn\'t seem to be configured correctly. While this may not be an issue, you might have trouble sending messages. In that case, please check your SIM Settings.</string>
+    <string name="compose_sim_switch_error">Sorry…there was an error. Please try again or report the issue.</string>
     <string name="compose_send_cd">Send message</string>
     <string name="compose_record_audio_msg_cd">Record audio message</string>
 
