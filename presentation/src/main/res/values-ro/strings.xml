@@ -77,7 +77,6 @@
     <string name="drawer_settings">Setări</string>
     <string name="drawer_help">Ajutor și feedback</string>
     <string name="drawer_invite">Invită prieteni</string>
-    <string name="drawer_plus_banner_summary">Deblochează funcții noi uimitoare și sprijină dezvoltarea</string>
     <string name="rate_title">Îți place QUIK?</string>
     <string name="rate_summary">Împărtășește-ne niște dragoste și dă-ne o notă pe Google Play!</string>
     <string name="rate_okay">BINE!</string>
@@ -120,7 +119,6 @@
     <string name="compose_vcard_label">Carte de contact</string>
     <string name="compose_scheduled_for">Programat pentru</string>
     <string name="compose_scheduled_future">Timpul selectat trebuie să fie în viitor!</string>
-    <string name="compose_scheduled_plus">Trebuie să deblochezi QUIK+ pentru a utiliza mesajele programate</string>
     <string name="compose_scheduled_toast">Adăugat la mesajele programate</string>
     <string name="compose_hint">Scrie un mesaj…</string>
     <string name="compose_no_valid_recipients">Nu se poate trimite altor participanți</string>
@@ -189,7 +187,6 @@
     <string name="backup_location_summary">Setează dosarul</string>
     <string name="backup_restore_title">Restaurează</string>
     <string name="backup_restore_summary">Selectează o copie de rezervă</string>
-    <string name="backup_restore_error_plus">Deblochează QUIK+ pentru a utiliza copii de rezervă și restabilire</string>
     <string name="backup_restore_error_backup">Copie de rezervă în curs de desfășurare…</string>
     <string name="backup_restore_error_restore">Restabilire în desfășurare…</string>
     <string name="backup_restore_confirm_title">Restaurează dintr-o copie de rezervă</string>
@@ -339,38 +336,6 @@
     <string name="about_contact_title">Contact</string>
     <string name="about_license_title">Licență</string>
     <string name="about_copyright_title">Drepturi de autor</string>
-    <string name="qksms_plus_description_title">Sprijină dezvoltarea, deblochează toate funcțiile</string>
-    <string name="qksms_plus_description_summary">Poți salva un dezvoltator înfometat pentru doar %s</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">Upgrade pe viață pentru %1$s %2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">Deblochează + donează pentru %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">Îți mulțumim pentru sprijinul acordat QUIK!</string>
-    <string name="qksms_plus_thanks_summary">Acum ai acces la toate caracteristicile QUIK+</string>
-    <string name="qksms_plus_error">A apărut o eroare, încearcă din nou</string>
-    <string name="qksms_plus_free_title">QUIK+ este gratuit pentru utilizatorii F-Droid! Dacă dorești să sprijiniți dezvoltarea, o donație ar fi foarte apreciată.</string>
-    <string name="qksms_plus_donate">Donează prin PayPal</string>
-    <string name="qksms_plus_coming_soon">În curând</string>
-    <string name="qksms_plus_themes_title">Teme premium</string>
-    <string name="qksms_plus_themes_summary">Deblochează culori de temă frumoase care nu sunt disponibile în paleta Material Design</string>
-    <string name="qksms_plus_emoji_title">Auto-emoji-uri personalizate</string>
-    <string name="qksms_plus_emoji_summary">Creează comenzi rapide personalizate pentru auto-emoji</string>
-    <string name="qksms_plus_backup_title">Copii de rezervă</string>
-    <string name="qksms_plus_backup_summary">Copie de rezervă automată a mesajelor. Niciodată nu-ți mai face griji pentru pierderea istoricului în cazul în care schimbi sau pierzi telefonul</string>
-    <string name="qksms_plus_scheduled_title">Mesaje programate</string>
-    <string name="qksms_plus_scheduled_summary">Programează mesajele să fie trimise automat la o anumită dată și oră</string>
-    <string name="qksms_plus_delayed_title">Trimitere întârziată</string>
-    <string name="qksms_plus_delayed_summary">Așteptați câteva secunde înainte de a trimite mesajul</string>
-    <string name="qksms_plus_night_title">Mod de noapte automat</string>
-    <string name="qksms_plus_night_summary">Activează modul noapte în funcție de ora zilei</string>
-    <string name="qksms_plus_blacklist_title">Blocare avansată</string>
-    <string name="qksms_plus_blacklist_summary">Blochează mesajele care conțin cuvinte cheie sau cele ce au tipare asemănătoare</string>
-    <string name="qksms_plus_forward_title">Derulează înainte automat</string>
-    <string name="qksms_plus_forward_summary">Redirecționare automată pentru mesajele provenite de la anumiți expeditori</string>
-    <string name="qksms_plus_respond_title">Răspuns automat</string>
-    <string name="qksms_plus_respond_summary">Răspuns automat la mesajele primite cu un răspuns presetat</string>
-    <string name="qksms_plus_more_title">Mai mult</string>
-    <string name="qksms_plus_more_summary">QUIK este în dezvoltare activă, și achiziția dvs. va include toate funcțiile viitoare QUIK+!</string>
     <string name="widget_loading">Se încarcă...</string>
     <string name="widget_more">Vezi mai multe conversații</string>
     <string name="qkreply_menu_read">Marchează ca citit</string>
@@ -407,7 +372,6 @@
         <item quantity="few">%d convesații arhivate</item>
         <item quantity="other">%d convesații arhivate</item>
     </plurals>
-    <string name="toast_qksms_plus">Trebuie să deblochezi QUIK+ pentru a utiliza aceasta</string>
     <plurals name="notification_new_messages">
         <item quantity="one">Mesaj nou</item>
         <item quantity="few">%s mesaje noi</item>

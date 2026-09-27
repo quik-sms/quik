@@ -69,7 +69,6 @@
     <string name="drawer_settings">Cài đặt</string>
     <string name="drawer_help">Giúp đỡ và phản hồi</string>
     <string name="drawer_invite">Giới thiệu đến bạn bè</string>
-    <string name="drawer_plus_banner_summary">Mở khoá những tính năng đặc sắc và hỗ trợ cho nhà phát triển</string>
     <string name="rate_title">Bạn có thích QUIK không?</string>
     <string name="rate_summary">Chia sẻ và vote chúng tôi trên Google Play!</string>
     <string name="rate_okay">Đồng ý!</string>
@@ -95,7 +94,6 @@
     <string name="compose_vcard_label">Thẻ danh thiếp</string>
     <string name="compose_scheduled_for">Thời gian dự kiến:</string>
     <string name="compose_scheduled_future">Thời gian chọn phải trong tương lai!</string>
-    <string name="compose_scheduled_plus">Bạn phải mở khoá QUIK+ để dùng tính năng hẹn giờ</string>
     <string name="compose_scheduled_toast">Đã hẹn giờ cho tin nhắn</string>
     <string name="compose_hint">Viết tin nhắn…</string>
     <string name="compose_menu_copy">Sao chép văn bản</string>
@@ -149,7 +147,6 @@
     <string name="backup_location_summary">Chọn thư mục</string>
     <string name="backup_restore_title">Khôi phục</string>
     <string name="backup_restore_summary">Chọn một bản sao lưu</string>
-    <string name="backup_restore_error_plus">Vui lòng mở khoá QUIK+ để dùng tính năng sao lưu và khôi phục</string>
     <string name="backup_restore_error_backup">Đang sao lưu…</string>
     <string name="backup_restore_error_restore">Đang khôi phục…</string>
     <string name="backup_restore_confirm_title">Khôi phục từ bản sao lưu này</string>
@@ -289,38 +286,6 @@
     <string name="about_contact_title">Liên hệ</string>
     <string name="about_license_title">Giấy phép</string>
     <string name="about_copyright_title">Bản quyền</string>
-    <string name="qksms_plus_description_title">Hỗ trợ phát triển, mở khóa mọi thứ</string>
-    <string name="qksms_plus_description_summary">Bạn có thể ủng hộ chúng tôi chỉ với %s</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">Nâng cấp trọn đời với %1$s %2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">Mở khoá và tài trợ với %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">Cảm ơn bạn đã ủng hộ QUIK!</string>
-    <string name="qksms_plus_thanks_summary">Bây giờ bạn có thể sử dụng tất cả các chức năng của QUIK+</string>
-    <string name="qksms_plus_error">Đã xảy ra lỗi, vui lòng thử lại</string>
-    <string name="qksms_plus_free_title">QUIK+ miễn phí cho người sử dụng F-Droid! Bạn có thể trả phí nếu muốn hỗ trợ phát triển.</string>
-    <string name="qksms_plus_donate">Tài trợ bằng PayPal</string>
-    <string name="qksms_plus_coming_soon">Sắp có</string>
-    <string name="qksms_plus_themes_title">Chủ đề đặc biệt</string>
-    <string name="qksms_plus_themes_summary">Mở khóa các màu sắc đẹp không có sẵn trong bản thiết kế Material</string>
-    <string name="qksms_plus_emoji_title">Tuỳ biến Emoji tự động</string>
-    <string name="qksms_plus_emoji_summary">Tạo phím tắt Emoji tự động</string>
-    <string name="qksms_plus_backup_title">Sao lưu tin nhắn</string>
-    <string name="qksms_plus_backup_summary">Tự động sao lưu tin nhắn của bạn. Không bao giờ lo lắng về việc mất đi lịch sử của bạn nếu bạn thay đổi điện thoại hoặc điện thoại của bạn bị mất</string>
-    <string name="qksms_plus_scheduled_title">Hẹn giờ tin nhắn</string>
-    <string name="qksms_plus_scheduled_summary">Tin nhắn hẹn giờ sẽ được tự động gửi vào thời gian cụ thể</string>
-    <string name="qksms_plus_delayed_title">Trì hoãn gửi tin nhắn</string>
-    <string name="qksms_plus_delayed_summary">Chờ một vài giây trước khi gửi tin nhắn để bạn có thể hoàn tác nó</string>
-    <string name="qksms_plus_night_title">Giao diện tối tự động</string>
-    <string name="qksms_plus_night_summary">Kích hoạt giao diện tối dựa trên thời gian trong ngày</string>
-    <string name="qksms_plus_blacklist_title">Chặn nâng cao</string>
-    <string name="qksms_plus_blacklist_summary">Chặn tin nhắn có chứa các từ khóa hoặc phù hợp với các mẫu</string>
-    <string name="qksms_plus_forward_title">Tự động chuyển tiếp</string>
-    <string name="qksms_plus_forward_summary">Tự động chuyển tiếp tin nhắn từ người gửi</string>
-    <string name="qksms_plus_respond_title">Tự động trả lời</string>
-    <string name="qksms_plus_respond_summary">Tự động trả lời các tin nhắn với nội dung cài sẵn</string>
-    <string name="qksms_plus_more_title">Nhiều tính năng khác</string>
-    <string name="qksms_plus_more_summary">QUIK đang trong giai đoạn phát triển, và việc thanh toán của bạn sẽ bao gồm tất cả tính năng QUIK+ tương lai!</string>
     <string name="widget_loading">Đang tải…</string>
     <string name="widget_more">Xem thêm các cuộc trò chuyện</string>
     <string name="qkreply_menu_read">Đánh dấu đã đọc</string>
@@ -351,7 +316,6 @@
     <string name="button_set">Chọn</string>
     <string name="button_undo">Hoàn tác</string>
     <string name="toast_copied">Đã sao chép</string>
-    <string name="toast_qksms_plus">Bạn phải mở khóa QUIK+ để sử dụng chức năng này</string>
     <plurals name="notification_new_messages">
         <item quantity="other">%s tin nhắn mới</item>
     </plurals>

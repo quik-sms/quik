@@ -69,7 +69,6 @@
     <string name="drawer_settings">Setelan</string>
     <string name="drawer_help">Bantuan &amp; umpanbalik</string>
     <string name="drawer_invite">Undang teman</string>
-    <string name="drawer_plus_banner_summary">Buka fitur-fitur baru yang menakjubkan, dan dukung pengembangan</string>
     <string name="rate_title">Menikmati QUIK?</string>
     <string name="rate_summary">Share some love and rate us on Google Play!</string>
     <string name="rate_okay">OKE!</string>
@@ -95,7 +94,6 @@
     <string name="compose_vcard_label">Kartu nama</string>
     <string name="compose_scheduled_for">Waktu terjadwal:</string>
     <string name="compose_scheduled_future">Waktu yang dipilih harus berada di masa depan!</string>
-    <string name="compose_scheduled_plus">Anda harus membuka akses QUIK+ untuk menggunakan pesan terjadwal</string>
     <string name="compose_scheduled_toast">Ditambahkan ke pesan terjadwal</string>
     <string name="compose_hint">Tulis pesan…</string>
     <string name="compose_menu_copy">Salin teks</string>
@@ -149,7 +147,6 @@
     <string name="backup_location_summary">Set folder</string>
     <string name="backup_restore_title">Pulihkan</string>
     <string name="backup_restore_summary">Pilih cadangan</string>
-    <string name="backup_restore_error_plus">Silakan buka akses QUIK+ untuk menggunakan fitur cadangan dan pemulihan</string>
     <string name="backup_restore_error_backup">Pencadangan sedang berlangsung…</string>
     <string name="backup_restore_error_restore">Pemulihan sedang berlangsung…</string>
     <string name="backup_restore_confirm_title">Pulihkan dari cadangan</string>
@@ -289,38 +286,6 @@
     <string name="about_contact_title">Kontak</string>
     <string name="about_license_title">Lisensi</string>
     <string name="about_copyright_title">Hak cipta</string>
-    <string name="qksms_plus_description_title">Dukung pengembangan, dan buka semua fitur</string>
-    <string name="qksms_plus_description_summary">Anda bisa membantu pengembang hanya dengan %s</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">Lifetime upgrade for %1$s %2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">Unlock + donate for %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">Terima kasih telah mendukung QUIK!</string>
-    <string name="qksms_plus_thanks_summary">Anda sekarang bisa mengakses semua fitur QUIK+</string>
-    <string name="qksms_plus_error">Telah terjadi kesalahan, silakan coba kembali</string>
-    <string name="qksms_plus_free_title">QUIK+ selalu gratis untuk pengguna F-Droid! Jika anda ingin mendukung pengembangan, jangan ragu untuk donasi.</string>
-    <string name="qksms_plus_donate">Donasi via PayPal</string>
-    <string name="qksms_plus_coming_soon">Segera hadir</string>
-    <string name="qksms_plus_themes_title">Tema premium</string>
-    <string name="qksms_plus_themes_summary">Unlock beautiful theme colors not available on the Material Design palette</string>
-    <string name="qksms_plus_emoji_title">Emoji otomatis khusus</string>
-    <string name="qksms_plus_emoji_summary">Buat pintasan emoji otomatis khusus</string>
-    <string name="qksms_plus_backup_title">Cadangan pesan</string>
-    <string name="qksms_plus_backup_summary">Cadangkan otomatis pesan anda. Tidak perlu khawatir kehilangan riwayat pesan jika anda mengganti telepon atau telepon hilang</string>
-    <string name="qksms_plus_scheduled_title">Pesan terjadwal</string>
-    <string name="qksms_plus_scheduled_summary">Menjadwalkan pesan untuk secara otomatis dikirim pada waktu dan tanggal tertentu</string>
-    <string name="qksms_plus_delayed_title">Pengiriman tertunda</string>
-    <string name="qksms_plus_delayed_summary">Tunggu beberapa detik sebelum mengirim pesan</string>
-    <string name="qksms_plus_night_title">Mode malam otomatis</string>
-    <string name="qksms_plus_night_summary">Aktifkan mode malam berdasarkan waktu</string>
-    <string name="qksms_plus_blacklist_title">Pemblokiran lanjutan</string>
-    <string name="qksms_plus_blacklist_summary">Memblokir pesan yang mengandung kata tertentu atau sesuai dengan pola</string>
-    <string name="qksms_plus_forward_title">Penerusan otomatis</string>
-    <string name="qksms_plus_forward_summary">Secara otomatis meneruskan pesan dari pengirim tertentu</string>
-    <string name="qksms_plus_respond_title">Balasan otomatis</string>
-    <string name="qksms_plus_respond_summary">Secara otomatis membalas pesan masuk dengan pesan balasan khusus</string>
-    <string name="qksms_plus_more_title">Lainnya</string>
-    <string name="qksms_plus_more_summary">QUIK sedang dalam pengembangan aktif, dan pembelian anda juga mencakup semua fitur QUIK+ yang akan datang!</string>
     <string name="widget_loading">Memuat…</string>
     <string name="widget_more">Lihat percakapan lainnya</string>
     <string name="qkreply_menu_read">Tandai dibaca</string>
@@ -351,7 +316,6 @@
     <string name="button_set">Set</string>
     <string name="button_undo">Urungkan</string>
     <string name="toast_copied">Disalin</string>
-    <string name="toast_qksms_plus">Anda harus membuka akses QUIK+ untuk menggunakan ini</string>
     <plurals name="notification_new_messages">
         <item quantity="other">%s pesan baru</item>
     </plurals>

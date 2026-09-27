@@ -69,7 +69,6 @@
     <string name="drawer_settings">Налаштування</string>
     <string name="drawer_help">Допомога та зворотній зв\'язок</string>
     <string name="drawer_invite">Запросити друзів</string>
-    <string name="drawer_plus_banner_summary">Розблокувати нові дивовижні можливості та підтримати розробку</string>
     <string name="rate_title">Подобається QUIK?</string>
     <string name="rate_summary">Поділись любов\'ю та оціни нас на Google Play!</string>
     <string name="rate_okay">Гаразд!</string>
@@ -98,7 +97,6 @@
     <string name="compose_vcard_label">Картка контакту</string>
     <string name="compose_scheduled_for">Заплановано на</string>
     <string name="compose_scheduled_future">Обраний час повинен бути в майбутньому!</string>
-    <string name="compose_scheduled_plus">Для використання запланованих повідомлень ви повинні розблокувати QUIK+</string>
     <string name="compose_scheduled_toast">Додано до запланованих повідомлень</string>
     <string name="compose_hint">Написати повідомлення…</string>
     <string name="compose_menu_copy">Скопіювати текст</string>
@@ -152,7 +150,6 @@
     <string name="backup_location_summary">Обрати теку</string>
     <string name="backup_restore_title">Відновити</string>
     <string name="backup_restore_summary">Оберіть резервну копію</string>
-    <string name="backup_restore_error_plus">Для використання резервного копіювання та відновлення розблокуйте QUIK+</string>
     <string name="backup_restore_error_backup">Триває створення резервної копії…</string>
     <string name="backup_restore_error_restore">Триває відновлення…</string>
     <string name="backup_restore_confirm_title">Відновити з резервної копії</string>
@@ -301,38 +298,6 @@
     <string name="about_contact_title">Контакт</string>
     <string name="about_license_title">Ліцензія</string>
     <string name="about_copyright_title">Авторське право</string>
-    <string name="qksms_plus_description_title">Підтримати подальший розвиток, розблокувати все</string>
-    <string name="qksms_plus_description_summary">Ви можете врятувати голодуючого розробника всього за %s</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">Довічне оновлення %1$s %2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">Розблокувати + пожертвувати %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">Дякуємо вам за підтримку QUIK!</string>
-    <string name="qksms_plus_thanks_summary">Тепер у вас є доступ до всіх функцій QUIK+</string>
-    <string name="qksms_plus_error">Сталася помилка, спробуйте ще раз</string>
-    <string name="qksms_plus_free_title">QUIK+ є безкоштовним для користувачів F-Droid! Якщо ви хочете підтримати подальший розвиток програми, зробіть пожертву.</string>
-    <string name="qksms_plus_donate">Пожертвування через PayPal</string>
-    <string name="qksms_plus_coming_soon">Незабаром</string>
-    <string name="qksms_plus_themes_title">Преміум теми</string>
-    <string name="qksms_plus_themes_summary">Розблокуйте гарні кольори теми, недоступні в палітрі Material Design</string>
-    <string name="qksms_plus_emoji_title">Власні авто-emoji</string>
-    <string name="qksms_plus_emoji_summary">Створюйте ярлик власних авто-emoji</string>
-    <string name="qksms_plus_backup_title">Резерв. копіювання</string>
-    <string name="qksms_plus_backup_summary">Автоматично створюйте резервні копії ваших повідомлень. Не переймайтеся, що втратите історію, якщо ви зміните або загубите телефон</string>
-    <string name="qksms_plus_scheduled_title">Заплановані повідомлення</string>
-    <string name="qksms_plus_scheduled_summary">Заплановані повідомлення для надсилання у визначений час та дату</string>
-    <string name="qksms_plus_delayed_title">Відкладене надсилання</string>
-    <string name="qksms_plus_delayed_summary">Зачекайте кілька секунд, перш ніж надсилати повідомлення</string>
-    <string name="qksms_plus_night_title">Автоматичний нічний режим</string>
-    <string name="qksms_plus_night_summary">Увімкнення нічного режиму на основі часу доби</string>
-    <string name="qksms_plus_blacklist_title">Розширене блокування</string>
-    <string name="qksms_plus_blacklist_summary">Блокувати повідомлення, які містять ключові слова або відповідають шаблонам</string>
-    <string name="qksms_plus_forward_title">Автоматичне пересилання</string>
-    <string name="qksms_plus_forward_summary">Автоматичне пересилання повідомлень від певних відправників</string>
-    <string name="qksms_plus_respond_title">Автоматична відповідь</string>
-    <string name="qksms_plus_respond_summary">Автоматично відповідати на вхідні повідомлення за допомогою попередньо налаштованих шаблонів</string>
-    <string name="qksms_plus_more_title">Ще</string>
-    <string name="qksms_plus_more_summary">QUIK перебуває у активній розробці, і Ваша покупка буде включати в себе всі майбутні можливості QUIK +!</string>
     <string name="widget_loading">Завантаження…</string>
     <string name="widget_more">Переглянути більше бесід</string>
     <string name="qkreply_menu_read">Позначити прочитаним</string>
@@ -363,7 +328,6 @@
     <string name="button_set">Задати</string>
     <string name="button_undo">Скасувати</string>
     <string name="toast_copied">Скопійовано</string>
-    <string name="toast_qksms_plus">Для використання ви повинні розблокувати QUIK+</string>
     <plurals name="notification_new_messages">
         <item quantity="one">Нове повідомлення</item>
         <item quantity="few">%s нових повідомлень</item>

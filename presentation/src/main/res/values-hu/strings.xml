@@ -69,7 +69,6 @@
     <string name="drawer_settings">Beállítások</string>
     <string name="drawer_help">Súgó és visszajelzés</string>
     <string name="drawer_invite">Barátok meghívása</string>
-    <string name="drawer_plus_banner_summary">Jusson hozzá a fantasztikus új funkciókhoz, és támogassa a fejlesztést</string>
     <string name="rate_title">Tetszik a QUIK?</string>
     <string name="rate_summary">Mutassa ki támogatását, és hagyjon nekünk egy csillagot a GitHubon!</string>
     <string name="rate_okay">OK!</string>
@@ -96,7 +95,6 @@
     <string name="compose_vcard_label">Névjegy</string>
     <string name="compose_scheduled_for">Ütemezett idő:</string>
     <string name="compose_scheduled_future">A kiválasztott időpontnak a jövőben kell lennie!</string>
-    <string name="compose_scheduled_plus">Az ütemezés szerinti üzenetküldés használatához fel kell oldania a QUIK+ szolgáltatást</string>
     <string name="compose_scheduled_toast">Hozzáadva az ütemezett üzenetekhez</string>
     <string name="compose_hint">Írjon egy üzenetet…</string>
     <string name="compose_menu_copy">Szöveg másolása</string>
@@ -150,7 +148,6 @@
     <string name="backup_location_summary">Mappa megadása</string>
     <string name="backup_restore_title">Visszaállítás</string>
     <string name="backup_restore_summary">Válasszon egy mentést</string>
-    <string name="backup_restore_error_plus">Oldja fel a QUIK+-t a biztonsági mentés és visszaállítás használatához</string>
     <string name="backup_restore_error_backup">Mentés folyamatban…</string>
     <string name="backup_restore_error_restore">Visszaállítás folyamatban…</string>
     <string name="backup_restore_confirm_title">Visszaállítás mentésből</string>
@@ -293,38 +290,6 @@
     <string name="about_contact_title">Kapcsolat</string>
     <string name="about_license_title">Licenc</string>
     <string name="about_copyright_title">Copyright</string>
-    <string name="qksms_plus_description_title">Fejlesztés támogatása, minden funkció engedélyezése</string>
-    <string name="qksms_plus_description_summary">Egy éhező fejlesztőt már akár %s-ért is megmenthet</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">Élettartam-frissítések a következőhöz: %1$s %2$s-ért</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">Feloldás és adományozás: %1$s %2$s-ért</string>
-    <string name="qksms_plus_thanks_title">Köszönjük, hogy támogatja a QUIK-et!</string>
-    <string name="qksms_plus_thanks_summary">Most már hozzáférhet minden QUIK+ funkcióhoz</string>
-    <string name="qksms_plus_error">Hiba történt, próbálja meg újra</string>
-    <string name="qksms_plus_free_title">A QUIK+ ingyenes az F-Droid felhasználók számára. Ha szeretné támogatni a fejlesztést, a felajánlott adományát nagyra értékeljük.</string>
-    <string name="qksms_plus_donate">Adakozás PayPalon keresztül</string>
-    <string name="qksms_plus_coming_soon">Hamarosan</string>
-    <string name="qksms_plus_themes_title">Prémium témák</string>
-    <string name="qksms_plus_themes_summary">Feloldja a Material Design palettán nem elérhető gyönyörű témaszíneket</string>
-    <string name="qksms_plus_emoji_title">Egyéni automatikus emodzsi</string>
-    <string name="qksms_plus_emoji_summary">Egyéni automatikus emodzsi-gyorsbillentyűk létrehozása</string>
-    <string name="qksms_plus_backup_title">Üzenet biztonsági mentése</string>
-    <string name="qksms_plus_backup_summary">Az üzenetek automatikus biztonsági mentése. Soha többé nem kell aggódnia az előzmények elvesztése miatt, ha telefonját lecseréli vagy elveszíti</string>
-    <string name="qksms_plus_scheduled_title">Ütemezett üzenetek</string>
-    <string name="qksms_plus_scheduled_summary">Az ütemezett üzenetek automatikusan a megadott időpontban lesznek elküldve</string>
-    <string name="qksms_plus_delayed_title">Késleltetett küldés</string>
-    <string name="qksms_plus_delayed_summary">Küldés előtt várjon pár másodpercet</string>
-    <string name="qksms_plus_night_title">Automatikus éjszakai mód</string>
-    <string name="qksms_plus_night_summary">Éjszakai mód beállítása napszaktól függően</string>
-    <string name="qksms_plus_blacklist_title">Fejlett tiltás</string>
-    <string name="qksms_plus_blacklist_summary">Megadott kulcsszavakat vagy szövegrészleteket tartalmazó üzenetek tiltása</string>
-    <string name="qksms_plus_forward_title">Automatikus továbbítás</string>
-    <string name="qksms_plus_forward_summary">Adott küldőktől jövő üzenetek automatikus továbbítása</string>
-    <string name="qksms_plus_respond_title">Automatikus válasz</string>
-    <string name="qksms_plus_respond_summary">Előre megadott sablonok küldése bejövő üzenetekre</string>
-    <string name="qksms_plus_more_title">Tovább</string>
-    <string name="qksms_plus_more_summary">A QUIK aktív fejlesztés alatt áll, és a vásárlásával az összes jövőbeli QUIK+ funkciót megkapja!</string>
     <string name="widget_loading">Betöltés…</string>
     <string name="widget_more">További beszélgetések megtekintése</string>
     <string name="qkreply_menu_read">Megjelölés olvasottként</string>
@@ -355,7 +320,6 @@
     <string name="button_set">Beállítás</string>
     <string name="button_undo">Visszavonás</string>
     <string name="toast_copied">Másolva</string>
-    <string name="toast_qksms_plus">Ehhez fel kell oldania a QUIK+-t</string>
     <plurals name="notification_new_messages">
         <item quantity="one">Új üzenet</item>
         <item quantity="other">%s új üzenet</item>

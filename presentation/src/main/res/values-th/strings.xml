@@ -69,7 +69,6 @@
     <string name="drawer_settings">การตั้งค่า</string>
     <string name="drawer_help">ช่วยเหลือ &amp; ข้อคิดเห็น</string>
     <string name="drawer_invite">เชิญเพื่อน</string>
-    <string name="drawer_plus_banner_summary">ปลดล็อคฟีเจอร์ใหม่ ๆ และสนับสนุนการพัฒนา</string>
     <string name="rate_title">ชอบ QUIK ไหม?</string>
     <string name="rate_summary">แชร์และให้คะแนนเราบน Google Play!</string>
     <string name="rate_okay">ตกลง!</string>
@@ -95,7 +94,6 @@
     <string name="compose_vcard_label">นามบัตร</string>
     <string name="compose_scheduled_for">กำหนดการ</string>
     <string name="compose_scheduled_future">เลือกเวลาที่ต้องเป็นเวลาในอนาคต</string>
-    <string name="compose_scheduled_plus">คุณต้องปลดล็อก QUIK + เพื่อการใช้ข้อความที่กำหนดเวลาได้</string>
     <string name="compose_scheduled_toast">เพิ่มข้อความที่กำหนดเวลา</string>
     <string name="compose_hint">เขียนข้อความ...</string>
     <string name="compose_menu_copy">คัดลอกข้อความ</string>
@@ -149,7 +147,6 @@
     <string name="backup_location_summary">Set folder</string>
     <string name="backup_restore_title">Restore</string>
     <string name="backup_restore_summary">Select a backup</string>
-    <string name="backup_restore_error_plus">Please unlock QUIK+ to use backup and restore</string>
     <string name="backup_restore_error_backup">Backup in progress…</string>
     <string name="backup_restore_error_restore">Restore in progress…</string>
     <string name="backup_restore_confirm_title">Restore from backup</string>
@@ -289,38 +286,6 @@
     <string name="about_contact_title">ติดต่อ</string>
     <string name="about_license_title">สิทธิ์การใช้งาน</string>
     <string name="about_copyright_title">ลิขสิทธิ์</string>
-    <string name="qksms_plus_description_title">สนับสนุนการพัฒนา หรือปลดล็อคทุกอย่าง</string>
-    <string name="qksms_plus_description_summary">คุณสามารถช่วยเหลือนักพัฒนาเหล่าได้เพียง %s</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">อัพเกรดตลอดอายุการใช้งานสำหรับ %1$s %2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">ปลดล็อค + บริจาค %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">ขอบคุณสำหรับการสนับสนุน QUIK</string>
-    <string name="qksms_plus_thanks_summary">ตอนนี้คุณสามารถเข้าถึงคุณสมบัติทั้งหมดของ QUIK+ ได้แล้ว</string>
-    <string name="qksms_plus_error">An error has occurred, please try again</string>
-    <string name="qksms_plus_free_title">QUIK+ เป็นบริการฟรีสำหรับผู้ใช้งาน F-Droid หากคุณต้องการสนับสนุนการพัฒนา สามารถบริจาคได้</string>
-    <string name="qksms_plus_donate">บริจาคผ่าน PayPal</string>
-    <string name="qksms_plus_coming_soon">เร็วๆ นี้</string>
-    <string name="qksms_plus_themes_title">รูปแบบพรีเมี่ยม</string>
-    <string name="qksms_plus_themes_summary">ปลดล็อครูปแบบการแสดงผลที่ไม่ได้อยู่ใน Material Design</string>
-    <string name="qksms_plus_emoji_title">อีโมจิอัตโนมัติที่กำหนดเอง</string>
-    <string name="qksms_plus_emoji_summary">สร้างทางลัดอิโมจิอัตโนมัติแบบกำหนดเอง</string>
-    <string name="qksms_plus_backup_title">สำรองข้อมูลข้อความ</string>
-    <string name="qksms_plus_backup_summary">สำรองข้อมูลข้อความของคุณโดยอัตโนมัติ ไม่ต้องกังวลว่าประวัติข้อความของคุณจะสูญหายถ้าคุณเปลี่ยนโทรศัพท์มือถือ หรือทำโทรศัพท์หาย</string>
-    <string name="qksms_plus_scheduled_title">ข้อความที่กำหนดเวลา</string>
-    <string name="qksms_plus_scheduled_summary">ข้อความจะถูกส่งโดยอัตโนมัติตามวันและเวลาที่กำหนด</string>
-    <string name="qksms_plus_delayed_title">การส่งแบบล่าช้า</string>
-    <string name="qksms_plus_delayed_summary">รอสักครู่ก่อนที่จะส่งข้อความของคุณ</string>
-    <string name="qksms_plus_night_title">โหมดกลางคืนอัตโนมัติ</string>
-    <string name="qksms_plus_night_summary">เปิดใช้งานโหมดกลางคืนตามเวลาของวัน</string>
-    <string name="qksms_plus_blacklist_title">ปิดกั้นขั้นสูง</string>
-    <string name="qksms_plus_blacklist_summary">ปิดกั้นข้อความที่ประกอบด้วยคำสำคัญ หรือตรงกับรูปแบบ</string>
-    <string name="qksms_plus_forward_title">ส่งต่ออัตโนมัติ</string>
-    <string name="qksms_plus_forward_summary">ส่งต่อข้อความจากผู้ส่งที่ถูกระบุโดยอัตโนมัติ</string>
-    <string name="qksms_plus_respond_title">ตอบกลับอัตโนมัติ</string>
-    <string name="qksms_plus_respond_summary">ตอบกลับข้อความที่เข้ามาอัตโนมัติ โดยใช้ข้อความที่จัดเตรียมไว้</string>
-    <string name="qksms_plus_more_title">เพิ่มเติม</string>
-    <string name="qksms_plus_more_summary">QUIK is under active development, and your purchase will include all future QUIK+ features!</string>
     <string name="widget_loading">กำลังโหลด…</string>
     <string name="widget_more">ดูการสนทนาเพิ่มเติม</string>
     <string name="qkreply_menu_read">Mark read</string>
@@ -351,7 +316,6 @@
     <string name="button_set">ตั้งค่า</string>
     <string name="button_undo">ย้อนกลับ</string>
     <string name="toast_copied">คัดลอกแล้ว</string>
-    <string name="toast_qksms_plus">คุณต้องปลดล็อก QUIK+ เพื่อใช้งานคุณสมบัตินี้</string>
     <plurals name="notification_new_messages">
         <item quantity="other">มี %s ข้อความใหม่</item>
     </plurals>

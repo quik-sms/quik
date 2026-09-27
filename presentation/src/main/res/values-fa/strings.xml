@@ -69,7 +69,6 @@
     <string name="drawer_settings">پیکربندی</string>
     <string name="drawer_help">کمک و بازخورد</string>
     <string name="drawer_invite">نِوِستن دوستان</string>
-    <string name="drawer_plus_banner_summary">ویژگی های شگفت‌انگیز نو را گشوده اود از پیشرفت برنامه پشتیبانی کنید</string>
     <string name="rate_title">از QUIK خرسند‌ید؟</string>
     <string name="rate_summary">مهرورزی نمایید اود برایمان در گیت‌هاب ستاره‌ای بگذارید!</string>
     <string name="rate_okay">باشد!</string>
@@ -96,7 +95,6 @@
     <string name="compose_vcard_label">کارت تماس</string>
     <string name="compose_scheduled_for">زمان برنامه‌ریزی‌شده:</string>
     <string name="compose_scheduled_future">زمان انتخاب شده باید در آینده باشد!</string>
-    <string name="compose_scheduled_plus">برای بهره‌مندی از پیام‌های برنامه‌ریزی شده، باید +QUIK را بگشایید</string>
     <string name="compose_scheduled_toast">به پیام‌های برنامه‌ریزی شده افزوده شد</string>
     <string name="compose_hint">نوشتن پیام…</string>
     <string name="compose_menu_copy">کپی نوشتار</string>
@@ -148,7 +146,6 @@
     <string name="backup_never">هرگز</string>
     <string name="backup_restore_title">بازگردانی</string>
     <string name="backup_restore_summary">یک پشتیبان را برگزینید</string>
-    <string name="backup_restore_error_plus">خواهشمند است QUIK + را باز کنید تا از پشتیبان‌گیری و بازیابی بهره ببرید</string>
     <string name="backup_restore_error_backup">پشتیبان‌گیری دارد انجام می‌شود…</string>
     <string name="backup_restore_error_restore">بازگردانی دارد انجام می‌شود…</string>
     <string name="backup_restore_confirm_title">بازگردانی از پشتیبان</string>
@@ -291,38 +288,6 @@
     <string name="about_contact_title">پیوند گرفتن</string>
     <string name="about_license_title">پروانه</string>
     <string name="about_copyright_title">هوده‌ی پچین</string>
-    <string name="qksms_plus_description_title">پشتیبانی از پیشرفت،گشودن همه چیز</string>
-    <string name="qksms_plus_description_summary">شما می‌توانید تنها با %s یک برنامه‌نویس گرسنه را ببوختانید</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">اَهرافتن همیشگی به‌ازای %1$s%2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">نگارش پیشرفته و پشتیبانی به‌ازای %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">سپاس از شما برای پشتیبانی از QUIK!</string>
-    <string name="qksms_plus_thanks_summary">اکنون شما به همه ویژگی‌های QUIK+ دسترسی دارید</string>
-    <string name="qksms_plus_error">ایرنگی رخ داده است، دوباره تلاش کنید</string>
-    <string name="qksms_plus_free_title">QUIK+ برای کاربران F-Droid رایگان است! اگر می‌خواهید از پیشرفت برنامه پشتیبانی کنید، از یاری مالی بسیار سپاسداری می‌شود.</string>
-    <string name="qksms_plus_donate">با PayPal یاری مالی کنید</string>
-    <string name="qksms_plus_coming_soon">به زودی</string>
-    <string name="qksms_plus_themes_title">پوسته‌های ویژه</string>
-    <string name="qksms_plus_themes_summary">پوسته های رنگی زیبایی را که در رنگبندی Material Design نیست، بگشایید</string>
-    <string name="qksms_plus_emoji_title">دیمگ خودکار سفارشی</string>
-    <string name="qksms_plus_emoji_summary">ساخت میانبرهای سفارشی برای دیمگ خودکار</string>
-    <string name="qksms_plus_backup_title">پشتیبان‌گیری پیام‌ها</string>
-    <string name="qksms_plus_backup_summary">از پیام‌هایتان خودکار پشتیبان بگیرید. دیگر هیچگاه نگران از دست رفتن پیشینه‌ی پیام‌هایتان نباشید که اگر تلفن همراهتان را ورتاندید یا اگر آن گم کردید</string>
-    <string name="qksms_plus_scheduled_title">پیام‌های برنامه‌ریزی شده</string>
-    <string name="qksms_plus_scheduled_summary">پیام‌ها را برنامه‌ریزی کنید تا در یک زمان و تاریخ برگزیده به شیوه خودکار فرستاده شوند</string>
-    <string name="qksms_plus_delayed_title">فرستادن با درنگ</string>
-    <string name="qksms_plus_delayed_summary">پیش از فرستادن پیامتان چند دمک درنگ کنید</string>
-    <string name="qksms_plus_night_title">سان شب خودکار</string>
-    <string name="qksms_plus_night_summary">کارا کردن سان شب براساس زمان روز</string>
-    <string name="qksms_plus_blacklist_title">بژکم کردن پیشرفته</string>
-    <string name="qksms_plus_blacklist_summary">بژکم کردن پیام‌های دارای کلیدواژه‌ها یا همتا با الگوها</string>
-    <string name="qksms_plus_forward_title">بازفرست خودکار</string>
-    <string name="qksms_plus_forward_summary">بازفرست خودکار پیام از فرستندگان برگزیده</string>
-    <string name="qksms_plus_respond_title">پاسخ خودکار</string>
-    <string name="qksms_plus_respond_summary">پاسخ خودکار به پیام‌های دریافتی با پاسخی پیش‌گزیده</string>
-    <string name="qksms_plus_more_title">بیشتر</string>
-    <string name="qksms_plus_more_summary">QUIK دارد پویا گسترش می‌یابد، اود خرید شما همه‌ی ویژگی‌های آینده QUIK+ را نیز دربر می‌گیرد!</string>
     <string name="widget_loading">بارگذاری…</string>
     <string name="widget_more">دیدن گفتگوهای بیشتر</string>
     <string name="qkreply_menu_read">چونان خوانده‌شده گذاردن</string>
@@ -353,7 +318,6 @@
     <string name="button_set">گذاردن</string>
     <string name="button_undo">اَگرد</string>
     <string name="toast_copied">پچین شد</string>
-    <string name="toast_qksms_plus">باید نگارش پیشرفته را کارا کنید</string>
     <plurals name="notification_new_messages">
         <item quantity="one">پیام نو</item>
         <item quantity="other">%s پیام نو</item>

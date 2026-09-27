@@ -69,7 +69,6 @@
     <string name="drawer_settings">Nustatymai</string>
     <string name="drawer_help">Pagalba ir atsiliepimai</string>
     <string name="drawer_invite">Invite friends</string>
-    <string name="drawer_plus_banner_summary">Unlock amazing new features, and support development</string>
     <string name="rate_title">Patinka QUIK?</string>
     <string name="rate_summary">Įvertink mūsų programėlę Google Play!</string>
     <string name="rate_okay">OK!</string>
@@ -98,7 +97,6 @@
     <string name="compose_vcard_label">Contact card</string>
     <string name="compose_scheduled_for">Scheduled for</string>
     <string name="compose_scheduled_future">Selected time must be in the future!</string>
-    <string name="compose_scheduled_plus">You must unlock QUIK+ to use scheduled messaging</string>
     <string name="compose_scheduled_toast">Added to scheduled messages</string>
     <string name="compose_hint">Rašyti žinutę...</string>
     <string name="compose_menu_copy">Kopijuoti tekstą</string>
@@ -152,7 +150,6 @@
     <string name="backup_location_summary">Set folder</string>
     <string name="backup_restore_title">Restore</string>
     <string name="backup_restore_summary">Select a backup</string>
-    <string name="backup_restore_error_plus">Please unlock QUIK+ to use backup and restore</string>
     <string name="backup_restore_error_backup">Backup in progress…</string>
     <string name="backup_restore_error_restore">Restore in progress…</string>
     <string name="backup_restore_confirm_title">Restore from backup</string>
@@ -301,38 +298,6 @@
     <string name="about_contact_title">Kontaktai</string>
     <string name="about_license_title">Licencija</string>
     <string name="about_copyright_title">Autorinės teisės</string>
-    <string name="qksms_plus_description_title">Remti programos vystymąsi, atrakinti viską</string>
-    <string name="qksms_plus_description_summary">Galite išsaugoti badaujantį programėlės kūrėją tik už %s</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">Amžininis programėlės funkcijų atrakinimas %1$s %2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">Atrakinti + aukoti %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">Ačiū už paramą!</string>
-    <string name="qksms_plus_thanks_summary">Dabar jūs turite prieigą prie visoms QUIK+ funkcijoms</string>
-    <string name="qksms_plus_error">An error has occurred, please try again</string>
-    <string name="qksms_plus_free_title">QUIK+ yra nemokama F-Droid vartotojams! Taip pat galite paremti programos kūrėją aukodami.</string>
-    <string name="qksms_plus_donate">Paaukoti per PayPal</string>
-    <string name="qksms_plus_coming_soon">Jau greitai</string>
-    <string name="qksms_plus_themes_title">Premium temos</string>
-    <string name="qksms_plus_themes_summary">Atrakink kitas spalvas, kurios nėra „Material“ paletėje</string>
-    <string name="qksms_plus_emoji_title">Individualizuoti auto-emoji</string>
-    <string name="qksms_plus_emoji_summary">Sukurkite pasirinktinius automatinių emoji sparčiuosius klavišus</string>
-    <string name="qksms_plus_backup_title">Žinučių atsarginis kopijavimas</string>
-    <string name="qksms_plus_backup_summary">Automatinis atsarginių pranešimų kopijavimas. Niekada nerimaukite, kad prarasite žinutes, jei pakeisite telefonus arba pamesite telefoną</string>
-    <string name="qksms_plus_scheduled_title">Planuotos žinutės</string>
-    <string name="qksms_plus_scheduled_summary">Schedule messages to automatically be sent at a specific time and date</string>
-    <string name="qksms_plus_delayed_title">Atidėtas siuntimas</string>
-    <string name="qksms_plus_delayed_summary">Palaukti kelias sekundes prieš išsiųntant pranešimą</string>
-    <string name="qksms_plus_night_title">Automatinė nakties tema</string>
-    <string name="qksms_plus_night_summary">Įjungti naktinį režimą pagal dienos laiką</string>
-    <string name="qksms_plus_blacklist_title">Sudėtingesnis blokavimas</string>
-    <string name="qksms_plus_blacklist_summary">Blokuoti žinutes pagal raktinius žodžius arba šabloninę struktūrą</string>
-    <string name="qksms_plus_forward_title">Automatiškai persiųsti</string>
-    <string name="qksms_plus_forward_summary">Automatiškai persiųsti žinutes nuo tam tikrų siuntėjų</string>
-    <string name="qksms_plus_respond_title">Automatiškai atsakyti</string>
-    <string name="qksms_plus_respond_summary">Automatiškai atsakyti į žinutes su tam tikru atsaku</string>
-    <string name="qksms_plus_more_title">Daugiau</string>
-    <string name="qksms_plus_more_summary">QUIK is under active development, and your purchase will include all future QUIK+ features!</string>
     <string name="widget_loading">Kraunama…</string>
     <string name="widget_more">Žiūrėti daugiau pokalbių</string>
     <string name="qkreply_menu_read">Mark read</string>
@@ -363,7 +328,6 @@
     <string name="button_set">Padaryti</string>
     <string name="button_undo">Anuliuoti</string>
     <string name="toast_copied">Nukopijuota</string>
-    <string name="toast_qksms_plus">Reikia turėti QUIK+ funkcijos naudojomui</string>
     <plurals name="notification_new_messages">
         <item quantity="one">Naujas pranešimas</item>
         <item quantity="few">%s nauji pranešimai</item>

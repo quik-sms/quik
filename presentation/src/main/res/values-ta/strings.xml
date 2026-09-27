@@ -69,7 +69,6 @@
     <string name="drawer_settings">அமைப்புகள்</string>
     <string name="drawer_help">உதவி &amp; மீள்கருத்து</string>
     <string name="drawer_invite">நண்பர்களை அழைப்பிடு</string>
-    <string name="drawer_plus_banner_summary">Unlock amazing new features, and support development</string>
     <string name="rate_title">QUIKஐ அனுபவித்து மகிழ்கிறீரா?</string>
     <string name="rate_summary">Google Play இல் சில அன்பைப் பகிர்ந்துகொண்டு எங்களை மதிப்பிடுக!</string>
     <string name="rate_okay">சரி</string>
@@ -96,7 +95,6 @@
     <string name="compose_vcard_label">தொடர்பு அட்டை</string>
     <string name="compose_scheduled_for">குறித்த நேரம்</string>
     <string name="compose_scheduled_future">தேர்ந்தெடுக்கப்பட்ட நேரம் எதிர்காலத்தில் இருக்க வேண்டும்!</string>
-    <string name="compose_scheduled_plus">நேரங்குறித்த தகவல்களை பயன்படுத்த QUIK+ஐ நீங்கள் பூட்டவிழ்க்க வேண்டும்</string>
     <string name="compose_scheduled_toast">நேரங்குறிக்கப்பட்ட தகவல்களுக்கு சேர்க்கப்பட்டது</string>
     <string name="compose_hint">ஒரு தகவலை எழுது…</string>
     <string name="compose_menu_copy">சொற்சரத்தை நகலெடு</string>
@@ -150,7 +148,6 @@
     <string name="backup_location_summary">Set folder</string>
     <string name="backup_restore_title">மீட்டமை</string>
     <string name="backup_restore_summary">காப்புப்பிரதியைத் தேர்ந்தெடு</string>
-    <string name="backup_restore_error_plus">காப்புப்பிரதி மற்றும் மீட்டமைப்பை பயன்படுத்த QUIK+ஐ பூட்டவிழ்க்கவும்</string>
     <string name="backup_restore_error_backup"> செயலில் காப்புப்பிரதி…</string>
     <string name="backup_restore_error_restore">செயலில் மீட்டெடுப்பு…</string>
     <string name="backup_restore_confirm_title">காப்புப்பிரதியிலிருந்து மீட்டமை</string>
@@ -293,38 +290,6 @@
     <string name="about_contact_title">தொடர்பு</string>
     <string name="about_license_title">உரிமம்</string>
     <string name="about_copyright_title">பதிப்புரிமை</string>
-    <string name="qksms_plus_description_title">உருவாக்கத்தை ஆதரி, அனைத்தயும் பூட்டவிழ்</string>
-    <string name="qksms_plus_description_summary">பட்டினகிடக்கின்ற உருவாக்குநரை வெறும் %sக்கு தாங்கள் காப்பாற்றலாம்</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">%1$s %2$s க்கு வாழ்நாள் தரமுயர்த்தல்</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">%1$s %2$s க்கு நன்கொடையளி + பூட்டவிழ்</string>
-    <string name="qksms_plus_thanks_title">QUIKஐ ஆதரித்ததற்கு நன்றி!</string>
-    <string name="qksms_plus_thanks_summary">எல்லா QUIK+ அம்சங்களுக்கும் இப்போது உமக்கு அனுகல் உண்டு</string>
-    <string name="qksms_plus_error">பிழை ஏற்பட்டது, மீண்டும் முயலவும்</string>
-    <string name="qksms_plus_free_title">QUIK+ is free for F-Droid users! If you\'d like to support development, a donation would be highly appreciated.</string>
-    <string name="qksms_plus_donate">PayPal மூலம் நன்கொடையளி</string>
-    <string name="qksms_plus_coming_soon">விரைவில் வருகிறது</string>
-    <string name="qksms_plus_themes_title">உயர்தர தோற்றங்கள்</string>
-    <string name="qksms_plus_themes_summary">Unlock beautiful theme colors not available on the Material Design palette</string>
-    <string name="qksms_plus_emoji_title">தனிப்பயன் தானியங்கு-உருவடி</string>
-    <string name="qksms_plus_emoji_summary">தனிப்பயன் தானியங்கு-உருவடி குறுக்குவழிகளை உருவாக்கு</string>
-    <string name="qksms_plus_backup_title">தகவல் காப்புப்பிரதி</string>
-    <string name="qksms_plus_backup_summary">Automatically back up your messages. Never again worry about losing your history if you change phones or your phone gets lost</string>
-    <string name="qksms_plus_scheduled_title">திட்டமிடப்பட்ட தகவல்கள்</string>
-    <string name="qksms_plus_scheduled_summary">குறிப்பிட்ட நேரம் மற்றும் தேதியில் தகவல்கள் தானாக அனுப்பப்பட  நேரங்குறி</string>
-    <string name="qksms_plus_delayed_title">தாமத அனுப்பல்</string>
-    <string name="qksms_plus_delayed_summary">உமது தகவலை அனுப்பும்முன் சில விநாடிகள் காத்திரு</string>
-    <string name="qksms_plus_night_title">தானியங்கு இரவு பயன்முறை</string>
-    <string name="qksms_plus_night_summary">நாளின் நேரத்தின் அடிப்படையில் இரவு பயன்முறையை இயக்கு</string>
-    <string name="qksms_plus_blacklist_title">மேம்பட்ட தடுத்தல்</string>
-    <string name="qksms_plus_blacklist_summary">Block messages that contain keywords or match patterns</string>
-    <string name="qksms_plus_forward_title">தானாக-முன்னனுப்பு</string>
-    <string name="qksms_plus_forward_summary">Automatically forward messages from certain senders</string>
-    <string name="qksms_plus_respond_title">தானாக-விடையளி</string>
-    <string name="qksms_plus_respond_summary">முன்னே அமைத்த விடையுடன் உள்வருங் குறுந்தகவல்களுக்கு தானாக விடையளி</string>
-    <string name="qksms_plus_more_title">மேலும்</string>
-    <string name="qksms_plus_more_summary">QUIK is under active development, and your purchase will include all future QUIK+ features!</string>
     <string name="widget_loading">ஏற்றுகிறது...</string>
     <string name="widget_more">மேலும் உரையாடல்களை பார்</string>
     <string name="qkreply_menu_read">படித்ததாகக் குறி</string>
@@ -355,7 +320,6 @@
     <string name="button_set">அமை</string>
     <string name="button_undo">செயல்தவிர்</string>
     <string name="toast_copied">நகலெடுக்கப்பட்டது</string>
-    <string name="toast_qksms_plus">இதைப் பயன்படுத்த கட்டாயம் QUIK+ ஐப் பூட்டவிழ்க்க வேண்டும்</string>
     <plurals name="notification_new_messages">
         <item quantity="one">புது தகவல்</item>
         <item quantity="other">%s புது தகவல்கள்</item>

@@ -69,7 +69,6 @@
     <string name="drawer_settings">設定</string>
     <string name="drawer_help">ヘルプとフィードバック</string>
     <string name="drawer_invite">友達を招待</string>
-    <string name="drawer_plus_banner_summary">素敵な新機能を解放して、開発をサポート</string>
     <string name="rate_title">QUIK をお楽みいただいていますか？</string>
     <string name="rate_summary">Google Play で愛を共有して私たちを評価してください！</string>
     <string name="rate_okay">OK！</string>
@@ -95,7 +94,6 @@
     <string name="compose_vcard_label">連絡先カード</string>
     <string name="compose_scheduled_for">送信予約</string>
     <string name="compose_scheduled_future">今より先の時間を選択してください！</string>
-    <string name="compose_scheduled_plus">メッセージの送信予約には、QUIK+ のロックを解除する必要があります</string>
     <string name="compose_scheduled_toast">送信予約メッセージに追加されました</string>
     <string name="compose_hint">メッセージを書いてください…</string>
     <string name="compose_menu_copy">テキストをコピー</string>
@@ -149,7 +147,6 @@
     <string name="backup_location_summary">フォルダーを設定</string>
     <string name="backup_restore_title">復元</string>
     <string name="backup_restore_summary">バックアップを選択</string>
-    <string name="backup_restore_error_plus">バックアップと復元を使用するには QUIK+ のロックを解除してください</string>
     <string name="backup_restore_error_backup">バックアップ中…</string>
     <string name="backup_restore_error_restore">復元中…</string>
     <string name="backup_restore_confirm_title">バックアップから復元</string>
@@ -289,38 +286,6 @@
     <string name="about_contact_title">お問い合わせ</string>
     <string name="about_license_title">ライセンス</string>
     <string name="about_copyright_title">著作権</string>
-    <string name="qksms_plus_description_title">開発をサポートして、すべての機能のロックを解除</string>
-    <string name="qksms_plus_description_summary">%s だけ飢えている開発者を助けることができます</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">%1$s %2$s で買い切りのアップグレード</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">%1$s %2$s でロック解除と寄付</string>
-    <string name="qksms_plus_thanks_title">QUIK を支援いただきありがとうございます！</string>
-    <string name="qksms_plus_thanks_summary">QUIK+ のすべての機能にアクセスできます</string>
-    <string name="qksms_plus_error">エラーが発生しました。もう一度やり直してください</string>
-    <string name="qksms_plus_free_title">QUIK+ は F-Droid ユーザーには無料です！開発をサポートしたい場合は、気軽に寄付をしてください。</string>
-    <string name="qksms_plus_donate">PayPal で寄付</string>
-    <string name="qksms_plus_coming_soon">近日登場</string>
-    <string name="qksms_plus_themes_title">プレミアムテーマ</string>
-    <string name="qksms_plus_themes_summary">マテリアルデザインパレットで利用できない美しいテーマカラーのロックを解除します</string>
-    <string name="qksms_plus_emoji_title">カスタム自動絵文字</string>
-    <string name="qksms_plus_emoji_summary">カスタム自動絵文字のショートカットを作成します</string>
-    <string name="qksms_plus_backup_title">メッセージのバックアップ</string>
-    <string name="qksms_plus_backup_summary">メッセージを自動的にバックアップします。携帯電話を変更したり、お使いの携帯電話をなくしても、もう二度と履歴がなくなる心配はいりません</string>
-    <string name="qksms_plus_scheduled_title">送信予約メッセージ</string>
-    <string name="qksms_plus_scheduled_summary">メッセージが特定の日時に自動的に送信されるように予約する</string>
-    <string name="qksms_plus_delayed_title">遅延送信</string>
-    <string name="qksms_plus_delayed_summary">メッセージを送信する前に、数秒間待ちます</string>
-    <string name="qksms_plus_night_title">自動夜間モード</string>
-    <string name="qksms_plus_night_summary">時間に基づいて夜間モードを有効にします</string>
-    <string name="qksms_plus_blacklist_title">高度なブロック</string>
-    <string name="qksms_plus_blacklist_summary">キーワードを含む、またはパターンに一致するメッセージをブロックします</string>
-    <string name="qksms_plus_forward_title">自動転送</string>
-    <string name="qksms_plus_forward_summary">特定の差出人からのメッセージを自動的に転送します</string>
-    <string name="qksms_plus_respond_title">自動応答</string>
-    <string name="qksms_plus_respond_summary">あらかじめ設定された応答で、受信したメッセージに自動的に返信します</string>
-    <string name="qksms_plus_more_title">その他</string>
-    <string name="qksms_plus_more_summary">QUIK は活発に開発中で、購入にはすべての将来の QUIK+ 機能が含まれます！</string>
     <string name="widget_loading">読み込み中...</string>
     <string name="widget_more">さらに会話を表示</string>
     <string name="qkreply_menu_read">既読にする</string>
@@ -351,7 +316,6 @@
     <string name="button_set">設定</string>
     <string name="button_undo">元に戻す</string>
     <string name="toast_copied">コピーしました</string>
-    <string name="toast_qksms_plus">使用するには QUIK+ のロックを解除する必要があります</string>
     <plurals name="notification_new_messages">
         <item quantity="other">%s 件の新着メッセージ</item>
     </plurals>

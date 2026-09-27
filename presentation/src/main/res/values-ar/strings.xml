@@ -69,7 +69,6 @@
     <string name="drawer_settings">الإعدادات</string>
     <string name="drawer_help">المساعدة والتواصل مع المبرمج</string>
     <string name="drawer_invite">دعوة الأصدقاء</string>
-    <string name="drawer_plus_banner_summary">فتح ميزات رائعة جديدة ، و دعم التطوير</string>
     <string name="rate_title">هل QUIK ممتع ؟</string>
     <string name="rate_summary">أظهر محبتك وقيّمنا على متجر Google Play!</string>
     <string name="rate_okay">حسناً!</string>
@@ -100,7 +99,6 @@
     <string name="compose_vcard_label">بطاقة جهة الاتصال</string>
     <string name="compose_scheduled_for">الموعد المحدد:</string>
     <string name="compose_scheduled_future">الوقت المحدّد يجب أن يكون مستقبلاً!</string>
-    <string name="compose_scheduled_plus">يلزمك فك QUIK+ لاستخدام التراسل المجدول</string>
     <string name="compose_scheduled_toast">أضيفت إلى الرسائل المجدولة</string>
     <string name="compose_hint">كتابة رسالة…</string>
     <string name="compose_menu_copy">نسخ النص</string>
@@ -154,7 +152,6 @@
     <string name="backup_location_summary">تعيين المجلد</string>
     <string name="backup_restore_title">استعادة</string>
     <string name="backup_restore_summary">اختر نسخة احتياطية</string>
-    <string name="backup_restore_error_plus">يرجى إلغاء تأمين QUIK+ للتمكن من استخدام النسخ الاحتياطي والاستعادة</string>
     <string name="backup_restore_error_backup">النسخ الاحتياطي قيد التقدم…</string>
     <string name="backup_restore_error_restore">الاستعادة قيد التقدُّم…</string>
     <string name="backup_restore_confirm_title">الاستعادة من النسخ الاحتياطي</string>
@@ -309,39 +306,6 @@
     <string name="about_contact_title">للاتصال</string>
     <string name="about_license_title">الترخيص</string>
     <string name="about_copyright_title">حقوق النسخ</string>
-    <string name="qksms_plus_description_title">دعم التطوير و فتح جميع المزايا</string>
-    <string name="qksms_plus_description_summary">يمكنك إنقاذ المطوّر الجائع ب %s فقط</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">ترقية مدى الحياة ل %1$s%2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">افتح + التبرع ل %1$s%2$s</string>
-    <string name="qksms_plus_thanks_title">شكراً لكم على دعم QUIK!</string>
-    <string name="qksms_plus_thanks_summary">جميع ميزات QUIK+ متاحة لك الآن</string>
-    <string name="qksms_plus_error">حدث خطا, يرجى اعادة المحاولة</string>
-    <string name="qksms_plus_free_title">QUIK+ مجاني لمستخدمي متجر ف-درويد! لا تتردد في التبرع إن كنت ترغب دعم تطوير هذا التطبيق.</string>
-    <string name="qksms_plus_donate">التبرع عن طريق بي بال</string>
-    <string name="qksms_plus_coming_soon">قريباً</string>
-    <string name="qksms_plus_themes_title">سمات فاخرة</string>
-    <string name="qksms_plus_themes_summary">استفد من ألوان رائعة للسمات لاتوجد في لوح ألوان Material Design</string>
-    <string name="qksms_plus_emoji_title">إيموجي تلقائية ومخصصة</string>
-    <string name="qksms_plus_emoji_summary">إنشاء اختصارات إيموجي تلقائية ومخصّصة</string>
-    <string name="qksms_plus_backup_title">النسخ الاحتياطي للرسائل</string>
-    <string name="qksms_plus_backup_summary">النسخ الاحتياطي التلقائي لرسائلك.
-لا تقلق ثانية من فقد سجلات رسائلك عندما تغير جوالك أو عند فقده</string>
-    <string name="qksms_plus_scheduled_title">الرسائل المجدولة</string>
-    <string name="qksms_plus_scheduled_summary">جدولة الرسائل ليتم إرسالها تلقائياً في وقت وتاريخ محدد</string>
-    <string name="qksms_plus_delayed_title">إرسال متأخر</string>
-    <string name="qksms_plus_delayed_summary">انتظر بضع ثوان قبل إرسال رسالتك</string>
-    <string name="qksms_plus_night_title">الوضع الليلي التلقائي</string>
-    <string name="qksms_plus_night_summary">تمكين الوضع الليلي استناداً على الوقت من اليوم</string>
-    <string name="qksms_plus_blacklist_title">الحظر المتقدم</string>
-    <string name="qksms_plus_blacklist_summary">حظر الرسائل التي تحوي كلمات أو تطابق أنماطاً</string>
-    <string name="qksms_plus_forward_title">إعادة التوجيه التلقائية</string>
-    <string name="qksms_plus_forward_summary">أعد التوجيه تلقائياً للرسائل من مرسلين معينين</string>
-    <string name="qksms_plus_respond_title">الرد التلقائي</string>
-    <string name="qksms_plus_respond_summary">الرد تلقائياً على الرسائل الواردة برسالة محددة مسبقاً</string>
-    <string name="qksms_plus_more_title">المزيد</string>
-    <string name="qksms_plus_more_summary">QUIK قيد التطوير النشط ، مشتراك سيتضمن كل ميزات QUIK+ المستقبلية!</string>
     <string name="widget_loading">تحميل…</string>
     <string name="widget_more">عرض المزيد من المحادثات</string>
     <string name="qkreply_menu_read">مقروء</string>
@@ -372,7 +336,6 @@
     <string name="button_set">تعيين</string>
     <string name="button_undo">تراجع</string>
     <string name="toast_copied">تم النسخ</string>
-    <string name="toast_qksms_plus">استخدام هذه الميزة يتطلب فتح QUIK+</string>
     <plurals name="notification_new_messages">
         <item quantity="zero">لا رسائل جديدة</item>
         <item quantity="one">رسالة جديدة</item>

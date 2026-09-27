@@ -69,7 +69,6 @@
     <string name="drawer_settings">설정</string>
     <string name="drawer_help">도움말 &amp; 피드백</string>
     <string name="drawer_invite">친구 초대하기</string>
-    <string name="drawer_plus_banner_summary">새롭고 놀라운 기능을 사용할 수 있고, 개발자에게 지원도 할 수 있습니다</string>
     <string name="rate_title">QUIK 앱을 잘 사용하고 계신가요?</string>
     <string name="rate_summary">Google Play 스토어에 리뷰를 남겨주세요!</string>
     <string name="rate_okay">좋아요!</string>
@@ -95,7 +94,6 @@
     <string name="compose_vcard_label">연락처</string>
     <string name="compose_scheduled_for">예정</string>
     <string name="compose_scheduled_future">선택한 시간은 반드시 현재 이후의 시간으로 설정해야 합니다</string>
-    <string name="compose_scheduled_plus">메시지 예약 전송 기능을 사용하려면 QUIK+를 구입해야 합니다</string>
     <string name="compose_scheduled_toast">예약된 메시지에 저장됨</string>
     <string name="compose_hint">메시지 작성 중...</string>
     <string name="compose_menu_copy">문자 복사하기</string>
@@ -149,7 +147,6 @@
     <string name="backup_location_summary">Set folder</string>
     <string name="backup_restore_title">복원</string>
     <string name="backup_restore_summary">백업 선택하기</string>
-    <string name="backup_restore_error_plus">QUIK+을 구입하여 백업과 복원기능을 사용하세요</string>
     <string name="backup_restore_error_backup">백업 중...</string>
     <string name="backup_restore_error_restore">복원 중...</string>
     <string name="backup_restore_confirm_title">복원을 할까요?</string>
@@ -289,38 +286,6 @@
     <string name="about_contact_title">연락처</string>
     <string name="about_license_title">라이선스</string>
     <string name="about_copyright_title">저작권</string>
-    <string name="qksms_plus_description_title">개발을 지원하고 모든 기능을 해제하세요.</string>
-    <string name="qksms_plus_description_summary">배고픈 개발자를 위해 %s 만큼만으로도 구할 수 있습니다.</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">%1$s %2$s 으로 평생 업그레이드</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">%1$s %2$s 으로 프리미엄 기능 잠금 해제 및 기부</string>
-    <string name="qksms_plus_thanks_title">QUIK를 지원해 주셔서 감사합니다!</string>
-    <string name="qksms_plus_thanks_summary">이제 모든 QUIK+ 기능에 액세스할 수 있습니다</string>
-    <string name="qksms_plus_error">An error has occurred, please try again</string>
-    <string name="qksms_plus_free_title">QUIK+는 F-Droid 사용자들에게 무료입니다! 만약 여러분이 개발을 지원하고 싶으시다면, 기부해 주시기 바랍니다.</string>
-    <string name="qksms_plus_donate">페이팔을 통해 기부</string>
-    <string name="qksms_plus_coming_soon">출시 예정</string>
-    <string name="qksms_plus_themes_title">프리미엄 테마</string>
-    <string name="qksms_plus_themes_summary">Material Design 팔레트에선 볼 수 없던 아름다운 테마를 잠금해제 하세요!</string>
-    <string name="qksms_plus_emoji_title">사용자 지정 이모티콘</string>
-    <string name="qksms_plus_emoji_summary">사용자 지정 이모티콘 바로 가기 만들기</string>
-    <string name="qksms_plus_backup_title">메시지 백업</string>
-    <string name="qksms_plus_backup_summary">자동으로 메시지를 백업해서 휴대폰을 바꾸거나 잊어버려도 문제없죠!</string>
-    <string name="qksms_plus_scheduled_title">예약 전송 메시지</string>
-    <string name="qksms_plus_scheduled_summary">특정한 시간에 메시지가 보내지도록 메시지 전송을 예약하세요</string>
-    <string name="qksms_plus_delayed_title">지연 전송</string>
-    <string name="qksms_plus_delayed_summary">지연 전송이라는 멋진 기능이 있답니다!</string>
-    <string name="qksms_plus_night_title">자동 나이트 모드</string>
-    <string name="qksms_plus_night_summary">시간에 따라 나이트 모드 설정하기</string>
-    <string name="qksms_plus_blacklist_title">고급 차단 기능</string>
-    <string name="qksms_plus_blacklist_summary">특정 키워드 및 패턴이 있을 때 차단합니다</string>
-    <string name="qksms_plus_forward_title">자동 전달</string>
-    <string name="qksms_plus_forward_summary">자동으로 특정한 보낸 사람으로부터 메시지를 전달합니다</string>
-    <string name="qksms_plus_respond_title">자동 응답</string>
-    <string name="qksms_plus_respond_summary">미리 설정된 응답으로 받은 메시지에 자동으로 응답합니다</string>
-    <string name="qksms_plus_more_title">더보기</string>
-    <string name="qksms_plus_more_summary">QUIK는 개발이 활성화되어 있고 여러분의 구입이 모든 미래의 QUIK+ 기능들이 포함될 것입니다!</string>
     <string name="widget_loading">불러오는 중…</string>
     <string name="widget_more">더 많은 대화 보기</string>
     <string name="qkreply_menu_read">읽음으로 표시</string>
@@ -351,7 +316,6 @@
     <string name="button_set">설정</string>
     <string name="button_undo">되돌리기</string>
     <string name="toast_copied">복사됨</string>
-    <string name="toast_qksms_plus">이 기능을 사용하려면 QUIK+ 를 잠금 해제해야 합니다.</string>
     <plurals name="notification_new_messages">
         <item quantity="other">새로운 메세지
 

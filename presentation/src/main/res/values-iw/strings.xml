@@ -69,7 +69,6 @@
     <string name="drawer_settings">הגדרות</string>
     <string name="drawer_help">עזרה ומשוב</string>
     <string name="drawer_invite">הזמנת חברים</string>
-    <string name="drawer_plus_banner_summary">לחשוף תכונות מדהימות ולתמוך בפיתוח</string>
     <string name="rate_title">QUIK נושא חן בעיניך?</string>
     <string name="rate_summary">נשמח לקבל ממך דירוג ב־Google Play!</string>
     <string name="rate_okay">כמובן!</string>
@@ -98,7 +97,6 @@
     <string name="compose_vcard_label">כרטיס קשר</string>
     <string name="compose_scheduled_for">תזמון למועד:</string>
     <string name="compose_scheduled_future">הזמן הנבחר חייב להיות בעתיד!</string>
-    <string name="compose_scheduled_plus">עליך לשחרר את QUIK+‎ כדי להשתמש בהודעות מתוזמנות</string>
     <string name="compose_scheduled_toast">הוספה להודעות המתוזמנות</string>
     <string name="compose_hint">כתוב הודעה…</string>
     <string name="compose_menu_copy">העתק טקסט</string>
@@ -152,7 +150,6 @@
     <string name="backup_location_summary">הגדרת תיקייה</string>
     <string name="backup_restore_title">שחזור</string>
     <string name="backup_restore_summary">בחר גיבוי</string>
-    <string name="backup_restore_error_plus">נא לשחרר את QUIK+‎ כדי להשתמש בגיבוי ובשחזור</string>
     <string name="backup_restore_error_backup">מתבצע גיבוי…</string>
     <string name="backup_restore_error_restore">מתבצע שחזור…</string>
     <string name="backup_restore_confirm_title">שחזר מגיבוי</string>
@@ -301,38 +298,6 @@
     <string name="about_contact_title">איש קשר</string>
     <string name="about_license_title">רישיון</string>
     <string name="about_copyright_title">זכויות יוצרים</string>
-    <string name="qksms_plus_description_title">לתמיכה בפיתוח, ניתן לשחרר את הכול</string>
-    <string name="qksms_plus_description_summary">באפשרותך להציל מפתח גווע ברעב עבור %s בלבד</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">שדרוג לכל החיים תמורת %1$s %2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">שחרור ותרומה תמורת %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">תודה לך על תמיכתך ב־QUIK!</string>
-    <string name="qksms_plus_thanks_summary">כעת יש לך גישה לכל התכונות של QUIK+‎</string>
-    <string name="qksms_plus_error">אירעה שגיאה, נא לנסות שוב</string>
-    <string name="qksms_plus_free_title">התכנית QUIK+‎ מוגשת בחינם למשתמשי F-Droid! אם מעניין אותך לתמוך בפיתוח, אפשר להגיש תרומה.</string>
-    <string name="qksms_plus_donate">תרומה באמצעות PayPal</string>
-    <string name="qksms_plus_coming_soon">בקרוב</string>
-    <string name="qksms_plus_themes_title">ערכות עיצוב פרימיום</string>
-    <string name="qksms_plus_themes_summary">חשיפת צבעי ערכות עיצוב שאינן זמינות בערת הצבעים של עיצובי Material</string>
-    <string name="qksms_plus_emoji_title">אימוג׳י אוטומטי בהתאמה אישית</string>
-    <string name="qksms_plus_emoji_summary">יצירת קיצורי דרך מותאמים אישית לאימוג׳י</string>
-    <string name="qksms_plus_backup_title">גיבוי הודעות</string>
-    <string name="qksms_plus_backup_summary">גיבוי ההודעות שלך אוטומטית. לעולם לא תטריד אותך האפשרות שההיסטוריה שלך תלך לאיבוד עקב החלפת טלפונים או אבדן טלפון</string>
-    <string name="qksms_plus_scheduled_title">הודעות מתוזמנות</string>
-    <string name="qksms_plus_scheduled_summary">תזמון הודעות לשליחה אוטומטית במועדים שנקבעו מראש</string>
-    <string name="qksms_plus_delayed_title">שליחה מושהית</string>
-    <string name="qksms_plus_delayed_summary">להמתין מספר שניות בטרם שליחת ההודעה</string>
-    <string name="qksms_plus_night_title">מצב לילה אוטומטי</string>
-    <string name="qksms_plus_night_summary">הפעלת מצב לילה בהתאם לשעה ביום</string>
-    <string name="qksms_plus_blacklist_title">חסימה מתקדמת</string>
-    <string name="qksms_plus_blacklist_summary">חסימת הודעות שמכילות מילות מפתח או שהן תואמות לדפוס מסוים</string>
-    <string name="qksms_plus_forward_title">העברה אוטומטית</string>
-    <string name="qksms_plus_forward_summary">העברה אוטומטית של הודעות משולחים מסוימים</string>
-    <string name="qksms_plus_respond_title">תגובה אוטומטית</string>
-    <string name="qksms_plus_respond_summary">להגיב אוטומטית להודעות נכנסות עם תשובה שנכתבה מראש</string>
-    <string name="qksms_plus_more_title">עוד</string>
-    <string name="qksms_plus_more_summary">הפיתוח של QUIK מתקיים בימים אלו והרכישה שלך תכלול את כל התכונות העתידיות של QUIK+‎!</string>
     <string name="widget_loading">בטעינה…</string>
     <string name="widget_more">הצגת התכתבויות נוספות</string>
     <string name="qkreply_menu_read">סימון כהודעה שנקראה</string>
@@ -363,7 +328,6 @@
     <string name="button_set">הגדרה</string>
     <string name="button_undo">החזרה</string>
     <string name="toast_copied">הועתק</string>
-    <string name="toast_qksms_plus">עליך לשחרר את QUIK+‎ כדי להשתמש בזה</string>
     <plurals name="notification_new_messages">
         <item quantity="one">הודעה חדשה</item>
         <item quantity="two">%s הודעות חדשות</item>

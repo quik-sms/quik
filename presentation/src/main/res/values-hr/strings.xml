@@ -69,7 +69,6 @@
     <string name="drawer_settings">Postavke</string>
     <string name="drawer_help">Pomoć i povratne informacije</string>
     <string name="drawer_invite">Pozovi prijatelje</string>
-    <string name="drawer_plus_banner_summary">Otključajte čudesne nove značajke i podržite razvoj</string>
     <string name="rate_title">Uživate u QUIK?</string>
     <string name="rate_summary">Podijelite malo ljubavi i ocijenite nas na Google Playu!</string>
     <string name="rate_okay">U REDU!</string>
@@ -97,7 +96,6 @@
     <string name="compose_vcard_label">Kartica kontakta</string>
     <string name="compose_scheduled_for">Zakazano za</string>
     <string name="compose_scheduled_future">Odabrano vrijeme mora biti u budućnosti!</string>
-    <string name="compose_scheduled_plus">Morate otključati QUIK+ za zakazivanje poruke</string>
     <string name="compose_scheduled_toast">Dodano u zakazane poruke</string>
     <string name="compose_hint">Napiši poruku…</string>
     <string name="compose_menu_copy">Kopiraj tekst</string>
@@ -151,7 +149,6 @@
     <string name="backup_location_summary">Set folder</string>
     <string name="backup_restore_title">Vraćanje</string>
     <string name="backup_restore_summary">Odaberite sig. kopiju</string>
-    <string name="backup_restore_error_plus">Otključajte QUIK+ za korištenje sig. kopiranja i vraćanja podataka</string>
     <string name="backup_restore_error_backup">Sigurno kopiranje u tijeku…</string>
     <string name="backup_restore_error_restore">Vraćanje podataka u tijeku…</string>
     <string name="backup_restore_confirm_title">Vrati iz sigurnosne kopije</string>
@@ -297,38 +294,6 @@
     <string name="about_contact_title">Kontakt</string>
     <string name="about_license_title">Licencija</string>
     <string name="about_copyright_title">Autorska prava</string>
-    <string name="qksms_plus_description_title">Podržite razvoj, otključajte sve</string>
-    <string name="qksms_plus_description_summary">Možete spasiti izgladnjelog programera za samo %s</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">Doživotna nadogradnja za %1$s %2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">Otključajte + donirajte za %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">Hvala vam za podržavanje QUIK!</string>
-    <string name="qksms_plus_thanks_summary">Sada imate pristup svim QUIK+ značajkama</string>
-    <string name="qksms_plus_error">Dogodila se greška, pokušajte ponovno</string>
-    <string name="qksms_plus_free_title">QUIK+ ke besplatan za korisnike F-Droida! Ako želite podržati razvoj, vrlo smo zahvalni na donacijama.</string>
-    <string name="qksms_plus_donate">Donirajte putem PayPala</string>
-    <string name="qksms_plus_coming_soon">Uskoro dolazi</string>
-    <string name="qksms_plus_themes_title">Premium teme</string>
-    <string name="qksms_plus_themes_summary">Otključajte lijepe boje tema koje nisu dostupne na paleti materijalnog dizajna</string>
-    <string name="qksms_plus_emoji_title">Prilagođeni automatski emoji</string>
-    <string name="qksms_plus_emoji_summary">Stvorite prilagođene prečace za automatski emoji</string>
-    <string name="qksms_plus_backup_title">Sigurnosno kopiranje poruka</string>
-    <string name="qksms_plus_backup_summary">Automatski sigurnosno kopirajte svoje poruke. Nikad više nemojte brinuti zbog gubitka povijesti ako promijenite telefon ili ga izgubite</string>
-    <string name="qksms_plus_scheduled_title">Zakazane poruke</string>
-    <string name="qksms_plus_scheduled_summary">Zakažite poruke za automatsko slanje u specificirano vrijeme</string>
-    <string name="qksms_plus_delayed_title">Odgođeno slanje</string>
-    <string name="qksms_plus_delayed_summary">Pričekajte nekoliko sekundi prije slanja poruke</string>
-    <string name="qksms_plus_night_title">Automatski noćni način</string>
-    <string name="qksms_plus_night_summary">Omogućite noćni način prema dobi dana</string>
-    <string name="qksms_plus_blacklist_title">Napredno blokiranje</string>
-    <string name="qksms_plus_blacklist_summary">Blokirajte poruke koje sadrže ključne riječi ili obrasce</string>
-    <string name="qksms_plus_forward_title">Automatsko prosljeđivanje</string>
-    <string name="qksms_plus_forward_summary">Automatski proslijedite poruke određenih pošiljatelja</string>
-    <string name="qksms_plus_respond_title">Automatsko odgovaranje</string>
-    <string name="qksms_plus_respond_summary">Automatski odgovorite na poruke sa prilagođenim odgovorima</string>
-    <string name="qksms_plus_more_title"> Više</string>
-    <string name="qksms_plus_more_summary">QUIK aktivno se razvija i vaša kupnja sadržat će sve buduće QUIK+ značajke!</string>
     <string name="widget_loading">Učitavanje…</string>
     <string name="widget_more">Prikaži više razgovora</string>
     <string name="qkreply_menu_read">Označi kao pročitano</string>
@@ -359,7 +324,6 @@
     <string name="button_set">Postavi</string>
     <string name="button_undo">Poništi</string>
     <string name="toast_copied">Kopirano</string>
-    <string name="toast_qksms_plus">Morate otključati QUIK+ za korištenje ovog</string>
     <plurals name="notification_new_messages">
         <item quantity="one">Nova poruka</item>
         <item quantity="few">%s nove poruke</item>

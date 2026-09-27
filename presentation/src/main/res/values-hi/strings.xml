@@ -69,7 +69,6 @@
     <string name="drawer_settings">सेटिंग्स</string>
     <string name="drawer_help">मदद और प्रतिक्रिया</string>
     <string name="drawer_invite">मित्रों को आमंत्रित करें</string>
-    <string name="drawer_plus_banner_summary">अद्भुत नई सुविधाओं को अनलॉक करें, और विकास का समर्थन करें</string>
     <string name="rate_title">QUIK का आनंद ले रहे?</string>
     <string name="rate_summary">कुछ प्यार साझा करें और गूगल प्ले पर हमें मूल्यांकन करें</string>
     <string name="rate_okay">ठीक!</string>
@@ -96,7 +95,6 @@
     <string name="compose_vcard_label">संपर्क कार्ड</string>
     <string name="compose_scheduled_for">निर्धारित समय:</string>
     <string name="compose_scheduled_future">चयनित समय भविष्य में होना चाहिए!</string>
-    <string name="compose_scheduled_plus">आप QUIK + अनुसूचित संदेश का उपयोग करने के लिए अनलॉक करना होगा</string>
     <string name="compose_scheduled_toast">अनुसूचित संदेशों में जोड़ा गया</string>
     <string name="compose_hint">संदेश लिखें</string>
     <string name="compose_menu_copy">पाठ की प्रतिलिपि बनाएं</string>
@@ -150,7 +148,6 @@
     <string name="backup_location_summary">Set folder</string>
     <string name="backup_restore_title">पुनर्स्थापित</string>
     <string name="backup_restore_summary">किसी बैकअप का चयन करें</string>
-    <string name="backup_restore_error_plus">बैकअप का उपयोग करने और पुनर्स्थापित करने के लिए कृपया QUIK+ अनलॉक करें</string>
     <string name="backup_restore_error_backup">Backup in progress…</string>
     <string name="backup_restore_error_restore"> पुनःस्थापन प्रगति में…</string>
     <string name="backup_restore_confirm_title">बैकअप से रीस्टोर करें</string>
@@ -293,38 +290,6 @@
     <string name="about_contact_title">संपर्क</string>
     <string name="about_license_title">लाइसेंस</string>
     <string name="about_copyright_title">कॉपीराइट</string>
-    <string name="qksms_plus_description_title">विकास का समर्थन करें, सब कुछ अनलॉक करें</string>
-    <string name="qksms_plus_description_summary">You can save a starving developer for just %s</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">Lifetime upgrade for %1$s %2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">Unlock + donate for %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">Thank you for supporting QUIK!</string>
-    <string name="qksms_plus_thanks_summary">You now have access to all QUIK+ features</string>
-    <string name="qksms_plus_error">एक त्रूटि हुई: कृपया फिर से कोशिश करें</string>
-    <string name="qksms_plus_free_title">QUIK+ F-Droid उपयोगकर्ताओं के लिए निःशुल्क है! यदि आप विकास का समर्थन करना चाहते हैं, तो दान की अत्यधिक सराहना की जाएगी।</string>
-    <string name="qksms_plus_donate">पेपैल के माध्यम से दान करें</string>
-    <string name="qksms_plus_coming_soon">जल्द आ रहा है</string>
-    <string name="qksms_plus_themes_title">प्रीमियम थीम</string>
-    <string name="qksms_plus_themes_summary">मटीरियल डिज़ाइन पैलेट पर उपलब्ध नहीं होने वाले सुंदर थीम रंगों को अनलॉक करें</string>
-    <string name="qksms_plus_emoji_title">कस्टम ऑटो-इमोजी</string>
-    <string name="qksms_plus_emoji_summary">कस्टम ऑटो-इमोजी शॉर्टकट बनाएं</string>
-    <string name="qksms_plus_backup_title">संदेश बैकअप</string>
-    <string name="qksms_plus_backup_summary">अपने संदेशों का स्वचालित रूप से बैकअप लें। यदि आप फ़ोन बदलते हैं या आपका फ़ोन खो जाता है, तो अपना इतिहास खोने के बारे में फिर कभी चिंता न करें</string>
-    <string name="qksms_plus_scheduled_title">अनुसूचित संदेश</string>
-    <string name="qksms_plus_scheduled_summary">संदेशों को एक विशिष्ट समय और तिथि पर स्वचालित रूप से भेजे जाने के लिए अनुसूचित करें</string>
-    <string name="qksms_plus_delayed_title">Delayed sending</string>
-    <string name="qksms_plus_delayed_summary">अपना संदेश भेजने से पहले कुछ सेकंड प्रतीक्षा करें</string>
-    <string name="qksms_plus_night_title">स्वचालित रात मोड</string>
-    <string name="qksms_plus_night_summary">दिन के समय के आधार पर रात्रि मोड सक्षम करें</string>
-    <string name="qksms_plus_blacklist_title">उन्नत अवरोधन</string>
-    <string name="qksms_plus_blacklist_summary">कीवर्ड या मिलान पैटर्न वाले संदेशों को ब्लॉक करें</string>
-    <string name="qksms_plus_forward_title">स्व-फ़ॉरवर्ड</string>
-    <string name="qksms_plus_forward_summary">कुछ प्रेषकों के संदेशों को स्वचालित रूप से अग्रेषित करें</string>
-    <string name="qksms_plus_respond_title">स्व-प्रतिक्रिया</string>
-    <string name="qksms_plus_respond_summary">पूर्व निर्धारित प्रतिक्रिया के साथ आने वाले संदेशों का स्वचालित रूप से जवाब दें</string>
-    <string name="qksms_plus_more_title">अधिक</string>
-    <string name="qksms_plus_more_summary">QUIK सक्रिय विकास के अधीन है, और आपकी खरीदारी में भविष्य की सभी QUIK+ सुविधाएँ शामिल होंगी!</string>
     <string name="widget_loading">तैयार हो रहा है…</string>
     <string name="widget_more">अधिक वार्तालाप देखें</string>
     <string name="qkreply_menu_read">पढ़ा हुआ चिह्नित करें</string>
@@ -355,7 +320,6 @@
     <string name="button_set">सेट करें</string>
     <string name="button_undo">पूर्ववत करें</string>
     <string name="toast_copied">प्रतिलिपि बनाई गई हैं।</string>
-    <string name="toast_qksms_plus">इसका उपयोग करने के लिए आपको QUIK+ को अनलॉक करना होगा</string>
     <plurals name="notification_new_messages">
         <item quantity="one">नई संदेश</item>
         <item quantity="other">%s नए संदेश</item>

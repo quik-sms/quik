@@ -69,7 +69,6 @@
     <string name="drawer_settings">Definições</string>
     <string name="drawer_help">Ajuda e comentários</string>
     <string name="drawer_invite">Convidar amigos</string>
-    <string name="drawer_plus_banner_summary">Desbloqueie mais funcionalidades e ajude no desenvolvimento</string>
     <string name="rate_title">Gosta do QUIK?</string>
     <string name="rate_summary">Mostre o seu contentamento e avalie a aplicação em GitHub!</string>
     <string name="rate_okay">OK!</string>
@@ -97,7 +96,6 @@
     <string name="compose_vcard_label">Cartão do contacto</string>
     <string name="compose_scheduled_for">Hora/data do agendamento:</string>
     <string name="compose_scheduled_future">A data/hora escolhida tem que ser no futuro!</string>
-    <string name="compose_scheduled_plus">Para utilizar esta funcionalidade, necessita de QUIK+</string>
     <string name="compose_scheduled_toast">Adicionada às mensagens agendadas</string>
     <string name="compose_hint">Escrever uma mensagem…</string>
     <string name="compose_menu_copy">Copiar texto</string>
@@ -151,7 +149,6 @@
     <string name="backup_location_summary">Definir pasta</string>
     <string name="backup_restore_title">Restaurar</string>
     <string name="backup_restore_summary">Selecionar backup</string>
-    <string name="backup_restore_error_plus">Tem que ter QUIK+ para poder usar o backup e restauro</string>
     <string name="backup_restore_error_backup">A criar backup…</string>
     <string name="backup_restore_error_restore">A restaurar…</string>
     <string name="backup_restore_confirm_title">Restaurar de backup</string>
@@ -297,38 +294,6 @@
     <string name="about_contact_title">Contactos</string>
     <string name="about_license_title">Licença</string>
     <string name="about_copyright_title">Copyright</string>
-    <string name="qksms_plus_description_title">Apoiar o desenvolvimento, desbloquear tudo</string>
-    <string name="qksms_plus_description_summary">Pode ajudar o programador com apenas %s</string>
-    <!-- Substitutions are for price and currency. Ex: Lifetime upgrade for $1.99 USD -->
-    <string name="qksms_plus_upgrade">Atualização vitalícia para %1$s %2$s</string>
-    <!-- Substitutions are for price and currency. Ex: Unlock + donate for $4.99 USD -->
-    <string name="qksms_plus_upgrade_donate">Desbloquear + com uma doação de %1$s %2$s</string>
-    <string name="qksms_plus_thanks_title">Obrigado por apoiar o QUIK!</string>
-    <string name="qksms_plus_thanks_summary">Agora, tem acesso a todas as funções do QUIK+</string>
-    <string name="qksms_plus_error">Ocorreu um erro. Por favor tente novamente.</string>
-    <string name="qksms_plus_free_title">O QUIK+ é gratuito para os utilizadores F-Droid! Se quiser ajudar no desenvolvimento, pode efetuar um donativo.</string>
-    <string name="qksms_plus_donate">Donativos por PayPal</string>
-    <string name="qksms_plus_coming_soon">Brevemente</string>
-    <string name="qksms_plus_themes_title">Temas premium</string>
-    <string name="qksms_plus_themes_summary">Desbloquear diversos temas não disponíveis na paleta Material Design</string>
-    <string name="qksms_plus_emoji_title">Emoji personalizado</string>
-    <string name="qksms_plus_emoji_summary">Criar atalhos personalizados para os emoji</string>
-    <string name="qksms_plus_backup_title">Backup de mensagens</string>
-    <string name="qksms_plus_backup_summary">Backup automático das mensagens. Nunca mais terá que se preocupar com o histórico caso troque de telefone.</string>
-    <string name="qksms_plus_scheduled_title">Mensagens agendadas</string>
-    <string name="qksms_plus_scheduled_summary">Agendar mensagens para envio automático à hora/data especificada</string>
-    <string name="qksms_plus_delayed_title">Atraso de envio</string>
-    <string name="qksms_plus_delayed_summary">Esperar alguns segundos antes de enviar a mensagem</string>
-    <string name="qksms_plus_night_title">Modo noturno automático</string>
-    <string name="qksms_plus_night_summary">Ativar modo noturno tendo por base a hora do dia</string>
-    <string name="qksms_plus_blacklist_title">Bloqueio avançado</string>
-    <string name="qksms_plus_blacklist_summary">Bloquear mensagens através de palavras-chave ou padrões</string>
-    <string name="qksms_plus_forward_title">Reencaminhamento automático</string>
-    <string name="qksms_plus_forward_summary">Reencaminhar automaticamente as mensagens de alguns remetentes</string>
-    <string name="qksms_plus_respond_title">Resposta automática</string>
-    <string name="qksms_plus_respond_summary">Enviar automaticamente um resposta tendo por base os modelos</string>
-    <string name="qksms_plus_more_title">Mais</string>
-    <string name="qksms_plus_more_summary">Esta aplicação está a ser desenvolvida e a sua compra disponibiliza todas as futuras funcionalidades do QUIK+!</string>
     <string name="widget_loading">A carregar…</string>
     <string name="widget_more">Ver mais conversas</string>
     <string name="qkreply_menu_read">Marcar como lida</string>
@@ -359,7 +324,6 @@
     <string name="button_set">Definir</string>
     <string name="button_undo">Anular</string>
     <string name="toast_copied">Copiada</string>
-    <string name="toast_qksms_plus">Tem que ter QUIK+ para esta funcionalidade</string>
     <plurals name="notification_new_messages">
         <item quantity="one">1 nova mensagem</item>
         <item quantity="many">%s novas mensagens</item>
