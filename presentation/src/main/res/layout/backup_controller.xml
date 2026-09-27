@@ -167,7 +167,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="12dp"
-            android:src="@drawable/ic_star_black_24dp"
+            android:src="@drawable/ic_file_upload_black_24dp"
             tools:tint="@color/textPrimaryDark" />
 
         <dev.octoshrimpy.quik.common.widget.QkTextView
@@ -176,7 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/title_qksms_plus"
+            android:text="@string/backup_now"
             android:textColor="@color/textPrimaryDark"
             android:textStyle="bold"
             app:textSize="primary" />

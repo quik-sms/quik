@@ -30,7 +30,6 @@ import android.provider.Settings
 import android.provider.Telephony
 import androidx.core.net.toUri
 import dev.octoshrimpy.quik.BuildConfig
-import dev.octoshrimpy.quik.manager.BillingManager
 import dev.octoshrimpy.quik.manager.PermissionManager
 import javax.inject.Inject
 import dev.octoshrimpy.quik.feature.notificationprefs.NotificationPrefsActivity
@@ -42,7 +41,6 @@ import dev.octoshrimpy.quik.manager.NotificationManager
  */
 class ExternalNavigator @Inject constructor(
     context: Context,
-    private val billingManager: BillingManager,
     private val permissions: PermissionManager,
     private val notificationManager: NotificationManager
 ) : QkNavigator(context) {
@@ -98,15 +96,15 @@ class ExternalNavigator @Inject constructor(
         intent.data = "mailto:".toUri()
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("quik@octo.sh"))
         intent.putExtra(Intent.EXTRA_SUBJECT, "QUIK Support")
-        intent.putExtra(Intent.EXTRA_TEXT, StringBuilder("\n\n")
-            .append("\n\n--- Please write your message above this line ---\n\n")
-            .append("Package: ${context.packageName}\n")
-            .append("Version: ${BuildConfig.VERSION_NAME}\n")
-            .append("Device: ${Build.BRAND} ${Build.MODEL}\n")
-            .append("SDK: ${Build.VERSION.SDK_INT}\n")
-            .append("Upgraded"
-                .takeIf { billingManager.upgradeStatus.blockingFirst() } ?: "")
-            .toString())
+        intent.putExtra(
+            Intent.EXTRA_TEXT, StringBuilder("\n\n")
+                .append("\n\n--- Please write your message above this line ---\n\n")
+                .append("Package: ${context.packageName}\n")
+                .append("Version: ${BuildConfig.VERSION_NAME}\n")
+                .append("Device: ${Build.BRAND} ${Build.MODEL}\n")
+                .append("SDK: ${Build.VERSION.SDK_INT}\n")
+                .toString()
+        )
         startActivityExternal(intent)
     }
 

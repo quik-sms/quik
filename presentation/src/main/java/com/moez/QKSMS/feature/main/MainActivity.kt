@@ -94,7 +94,8 @@ class MainActivity : QkThemedActivity(), MainView {
     }
     override val homeIntent: Subject<Unit> = PublishSubject.create()
     override val navigationIntent: Observable<NavItem> by lazy {
-        Observable.merge(listOf(
+        Observable.merge(
+            listOf(
                 backPressedSubject,
                 binding.drawer.inbox.clicks().map { NavItem.INBOX },
                 binding.drawer.archived.clicks().map { NavItem.ARCHIVED },
@@ -104,12 +105,10 @@ class MainActivity : QkThemedActivity(), MainView {
                 binding.drawer.messageUtils.clicks().map { NavItem.MESSAGE_UTILS },
                 binding.drawer.settings.clicks().map { NavItem.SETTINGS },
                 binding.drawer.about.clicks().map { NavItem.ABOUT },
-//                plus.clicks().map { NavItem.PLUS },
-//                help.clicks().map { NavItem.HELP },
-                binding.drawer.invite.clicks().map { NavItem.INVITE }))
+                binding.drawer.invite.clicks().map { NavItem.INVITE })
+        )
     }
     override val optionsItemIntent: Subject<Int> = PublishSubject.create()
-//    override val plusBannerIntent by lazy { plusBanner.clicks() }
     override val dismissRatingIntent by lazy { binding.drawer.rateDismiss.clicks() }
     override val rateIntent by lazy { binding.drawer.rateOkay.clicks() }
     override val conversationsSelectedIntent by lazy { conversationsAdapter.selectionChanges }
@@ -187,16 +186,13 @@ class MainActivity : QkThemedActivity(), MainView {
                             binding.drawer.archivedIcon.imageTintList = tintList
                         }
 
-                    // Miscellaneous views
-                    listOf(binding.drawer.plusBadge1, binding.drawer.plusBadge2).forEach { badge ->
-                        badge.setBackgroundTint(theme.theme)
-                        badge.setTextColor(theme.textPrimary)
-                    }
-                    syncingBinding.syncingProgress.progressTintList = ColorStateList.valueOf(theme.theme)
-                    syncingBinding.syncingProgress.indeterminateTintList = ColorStateList.valueOf(theme.theme)
-                    binding.drawer.plusIcon.setTint(theme.theme)
-                    binding.drawer.rateIcon.setTint(theme.theme)
-                    binding.compose.setBackgroundTint(theme.theme)
+                // Miscellaneous views
+                syncingBinding.syncingProgress.progressTintList =
+                    ColorStateList.valueOf(theme.theme)
+                syncingBinding.syncingProgress.indeterminateTintList =
+                    ColorStateList.valueOf(theme.theme)
+                binding.drawer.rateIcon.setTint(theme.theme)
+                binding.compose.setBackgroundTint(theme.theme)
 
                     // Set the FAB compose icon color
                     binding.compose.setTint(theme.textPrimary)
@@ -266,11 +262,6 @@ class MainActivity : QkThemedActivity(), MainView {
             findItem(R.id.rename)?.isVisible = selectedConversations == 1
         }
 
-        listOf(binding.drawer.plusBadge1, binding.drawer.plusBadge2).forEach { badge ->
-            badge.isVisible = drawerBadgesExperiment.variant && !state.upgraded
-        }
-//        plus.isVisible = state.upgraded
-        binding.drawer.plusBanner.isVisible = !state.upgraded
         binding.drawer.rateLayout.setVisible(state.showRating)
 
         binding.compose.setVisible(state.page is Inbox || state.page is Archived)

@@ -201,16 +201,6 @@ class BackupController : QkController<BackupControllerBinding, BackupView, Backu
         selectedBackupDetailsDialog.setShowing(state.selectedBackupDetails != null)
 
         stopRestoreDialog.setShowing(state.showStopRestoreDialog)
-
-        binding.fabIcon.setImageResource(when (state.upgraded) {
-            true -> R.drawable.ic_file_upload_black_24dp
-            false -> R.drawable.ic_star_black_24dp
-        })
-
-        binding.fabLabel.setText(when (state.upgraded) {
-            true -> R.string.backup_now
-            false -> R.string.title_qksms_plus
-        })
     }
 
     override fun setBackupLocationClicks(): Observable<*> = binding.location.clicks()

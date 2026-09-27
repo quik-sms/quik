@@ -41,11 +41,12 @@ class ScheduledActivity : QkThemedActivity(), ScheduledView {
 
     private lateinit var binding: ScheduledActivityBinding
 
-    @Inject lateinit var scheduledMessageAdapter: ScheduledMessageAdapter
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var scheduledMessageAdapter: ScheduledMessageAdapter
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override val composeIntent by lazy { binding.compose.clicks() }
-    override val upgradeIntent by lazy { binding.upgrade.clicks() }
     override val messagesSelectedIntent by lazy { scheduledMessageAdapter.selectionChanges }
     override val optionsItemIntent: Subject<Int> = PublishSubject.create()
     override val deleteScheduledMessages: Subject<List<Long>> = PublishSubject.create()
@@ -74,20 +75,20 @@ class ScheduledActivity : QkThemedActivity(), ScheduledView {
             binding.sampleMessage.setTextColor(theme.textPrimary)
             binding.compose.setTint(theme.textPrimary)
             binding.compose.setBackgroundTint(theme.theme)
-            binding.upgrade.setBackgroundTint(theme.theme)
-            binding.upgradeIcon.setTint(theme.textPrimary)
-            binding.upgradeLabel.setTextColor(theme.textPrimary)
         }
     }
 
     override fun render(state: ScheduledState) {
         scheduledMessageAdapter.updateData(state.scheduledMessages)
 
-        setTitle(when {
-            (state.selectedMessages > 0) ->
-                getString(R.string.compose_title_selected, state.selectedMessages)
-            else -> getString(R.string.scheduled_title)
-        })
+        setTitle(
+            when {
+                (state.selectedMessages > 0) ->
+                    getString(R.string.compose_title_selected, state.selectedMessages)
+
+                else -> getString(R.string.scheduled_title)
+            }
+        )
 
         // show/hide menu items
         toolbar?.menu?.findItem(R.id.select_all)?.isVisible =
@@ -102,8 +103,7 @@ class ScheduledActivity : QkThemedActivity(), ScheduledView {
             ((scheduledMessageAdapter.itemCount != 0) && (state.selectedMessages == 1))
 
         // show compose button
-        binding.compose.isVisible = state.upgraded && (state.conversationId == null)
-        binding.upgrade.isVisible = !state.upgraded
+        binding.compose.isVisible = state.conversationId == null
     }
 
     override fun onBackPressed() = backPressedIntent.onNext(Unit)
@@ -117,7 +117,11 @@ class ScheduledActivity : QkThemedActivity(), ScheduledView {
         AlertDialog.Builder(this)
             .setTitle(R.string.dialog_delete_title)
             .setMessage(resources.getQuantityString(R.plurals.dialog_delete_chat, count, count))
-            .setPositiveButton(R.string.button_delete) { _, _ -> deleteScheduledMessages.onNext(messages) }
+            .setPositiveButton(R.string.button_delete) { _, _ ->
+                deleteScheduledMessages.onNext(
+                    messages
+                )
+            }
             .setNegativeButton(R.string.button_cancel, null)
             .show()
     }
@@ -127,7 +131,11 @@ class ScheduledActivity : QkThemedActivity(), ScheduledView {
         AlertDialog.Builder(this)
             .setTitle(R.string.main_menu_send_now)
             .setMessage(resources.getQuantityString(R.plurals.dialog_send_now, count, count))
-            .setPositiveButton(R.string.main_menu_send_now) { _, _ -> sendScheduledMessages.onNext(messages) }
+            .setPositiveButton(R.string.main_menu_send_now) { _, _ ->
+                sendScheduledMessages.onNext(
+                    messages
+                )
+            }
             .setNegativeButton(R.string.button_cancel, null)
             .show()
     }

@@ -39,7 +39,6 @@ import dev.octoshrimpy.quik.interactor.SpeakThreads
 import dev.octoshrimpy.quik.interactor.SyncContacts
 import dev.octoshrimpy.quik.interactor.SyncMessages
 import dev.octoshrimpy.quik.listener.ContactAddedListener
-import dev.octoshrimpy.quik.manager.BillingManager
 import dev.octoshrimpy.quik.manager.ChangelogManager
 import dev.octoshrimpy.quik.manager.PermissionManager
 import dev.octoshrimpy.quik.manager.RatingManager
@@ -63,7 +62,6 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    billingManager: BillingManager,
     contactAddedListener: ContactAddedListener,
     markAllSeen: MarkAllSeen,
     migratePreferences: MigratePreferences,
@@ -104,13 +102,9 @@ class MainViewModel @Inject constructor(
 
         // Show the syncing UI
         disposables += syncRepository.syncProgress
-                .sample(16, TimeUnit.MILLISECONDS)
-                .distinctUntilChanged()
-                .subscribe { syncing -> newState { copy(syncing = syncing) } }
-
-        // Update the upgraded status
-        disposables += billingManager.upgradeStatus
-                .subscribe { upgraded -> newState { copy(upgraded = upgraded) } }
+            .sample(16, TimeUnit.MILLISECONDS)
+            .distinctUntilChanged()
+            .subscribe { syncing -> newState { copy(syncing = syncing) } }
 
         // Show the rating UI
         disposables += ratingManager.shouldShowRating
@@ -328,42 +322,69 @@ class MainViewModel @Inject constructor(
             .subscribe { open -> newState { copy(drawerOpen = open) } }
 
         view.navigationIntent
-                .withLatestFrom(state) { drawerItem, state ->
-                    newState { copy(drawerOpen = false) }
-                    when (drawerItem) {
-                        NavItem.BACK -> when {
-                            state.drawerOpen -> Unit
-                            state.page is Searching -> view.clearSearch()
-                            state.page is Inbox && state.page.selected > 0 -> view.clearSelection()
-                            state.page is Archived && state.page.selected > 0 -> view.clearSelection()
-                            state.page !is Inbox -> {
-                                newState { copy(page = Inbox(data = conversationRepo.getConversations(prefs.unreadAtTop.get()))) }
+            .withLatestFrom(state) { drawerItem, state ->
+                newState { copy(drawerOpen = false) }
+                when (drawerItem) {
+                    NavItem.BACK -> when {
+                        state.drawerOpen -> Unit
+                        state.page is Searching -> view.clearSearch()
+                        state.page is Inbox && state.page.selected > 0 -> view.clearSelection()
+                        state.page is Archived && state.page.selected > 0 -> view.clearSelection()
+                        state.page !is Inbox -> {
+                            newState {
+                                copy(
+                                    page = Inbox(
+                                        data = conversationRepo.getConversations(
+                                            prefs.unreadAtTop.get()
+                                        )
+                                    )
+                                )
                             }
-                            else -> newState { copy(hasError = true) }
                         }
-                        NavItem.BACKUP -> navigator.showBackup()
-                        NavItem.SCHEDULED -> navigator.showScheduled(null)
-                        NavItem.BLOCKING -> navigator.showBlockedConversations()
-                        NavItem.MESSAGE_UTILS -> navigator.showMessageUtils()
-                        NavItem.SETTINGS -> navigator.showSettings()
-                        NavItem.ABOUT -> navigator.showAbout()
-//                        NavItem.PLUS -> navigator.showQksmsPlusActivity("main_menu")
-//                        NavItem.HELP -> navigator.showSupport()
-                        NavItem.INVITE -> externalNavigator.showInvite()
-                        else -> Unit
+
+                        else -> newState { copy(hasError = true) }
                     }
-                    drawerItem
+
+                    NavItem.BACKUP -> navigator.showBackup()
+                    NavItem.SCHEDULED -> navigator.showScheduled(null)
+                    NavItem.BLOCKING -> navigator.showBlockedConversations()
+                    NavItem.MESSAGE_UTILS -> navigator.showMessageUtils()
+                    NavItem.SETTINGS -> navigator.showSettings()
+                    NavItem.ABOUT -> navigator.showAbout()
+                    NavItem.INVITE -> externalNavigator.showInvite()
+                    else -> Unit
                 }
-                .distinctUntilChanged()
-                .doOnNext { drawerItem ->
-                    when (drawerItem) {
-                        NavItem.INBOX -> newState { copy(page = Inbox(data = conversationRepo.getConversations(prefs.unreadAtTop.get()))) }
-                        NavItem.ARCHIVED -> newState { copy(page = Archived(data = conversationRepo.getConversations(prefs.unreadAtTop.get(), true))) }
-                        else -> Unit
+                drawerItem
+            }
+            .distinctUntilChanged()
+            .doOnNext { drawerItem ->
+                when (drawerItem) {
+                    NavItem.INBOX -> newState {
+                        copy(
+                            page = Inbox(
+                                data = conversationRepo.getConversations(
+                                    prefs.unreadAtTop.get()
+                                )
+                            )
+                        )
                     }
+
+                    NavItem.ARCHIVED -> newState {
+                        copy(
+                            page = Archived(
+                                data = conversationRepo.getConversations(
+                                    prefs.unreadAtTop.get(),
+                                    true
+                                )
+                            )
+                        )
+                    }
+
+                    else -> Unit
                 }
-                .autoDisposable(view.scope())
-                .subscribe()
+            }
+            .autoDisposable(view.scope())
+            .subscribe()
 
         view.optionsItemIntent
             .filter { itemId -> itemId == R.id.select_all }
@@ -466,13 +487,6 @@ class MainViewModel @Inject constructor(
             .mapNotNull { conversationId -> conversationRepo.getConversation(conversationId) }
             .autoDisposable(view.scope())
             .subscribe { conversation -> view.showRenameDialog(conversation.name) }
-
-//        view.plusBannerIntent
-//                .autoDisposable(view.scope())
-//                .subscribe {
-//                    newState { copy(drawerOpen = false) }
-//                    navigator.showQksmsPlusActivity("main_banner")
-//                }
 
         view.rateIntent
                 .autoDisposable(view.scope())

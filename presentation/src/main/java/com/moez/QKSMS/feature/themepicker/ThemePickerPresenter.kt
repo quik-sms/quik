@@ -24,7 +24,6 @@ import com.uber.autodispose.autoDisposable
 import dev.octoshrimpy.quik.common.Navigator
 import dev.octoshrimpy.quik.common.base.QkPresenter
 import dev.octoshrimpy.quik.common.util.Colors
-import dev.octoshrimpy.quik.manager.BillingManager
 import dev.octoshrimpy.quik.manager.WidgetManager
 import dev.octoshrimpy.quik.util.Preferences
 import io.reactivex.rxkotlin.Observables
@@ -34,7 +33,6 @@ import javax.inject.Named
 class ThemePickerPresenter @Inject constructor(
     prefs: Preferences,
     @Named("recipientId") private val recipientId: Long,
-    private val billingManager: BillingManager,
     private val colors: Colors,
     private val navigator: Navigator,
     private val widgetManager: WidgetManager
@@ -74,24 +72,14 @@ class ThemePickerPresenter @Inject constructor(
 
         // Update the theme, when apply is clicked
         view.applyHsvThemeClicks()
-                .withLatestFrom(view.hsvThemeSelected()) { _, color -> color }
-                .withLatestFrom(billingManager.upgradeStatus) { color, upgraded ->
-                    if (!upgraded) {
-                        view.showQksmsPlusSnackbar()
-                    } else {
-                        theme.set(color)
-                        if (recipientId == 0L) {
-                            widgetManager.updateTheme()
-                        }
-                    }
+            .withLatestFrom(view.hsvThemeSelected()) { _, color ->
+                theme.set(color)
+                if (recipientId == 0L) {
+                    widgetManager.updateTheme()
                 }
-                .autoDisposable(view.scope())
-                .subscribe()
-
-        // Show QKSMS+ activity
-        view.viewQksmsPlusClicks()
-                .autoDisposable(view.scope())
-                .subscribe { navigator.showQksmsPlusActivity("settings_theme") }
+            }
+            .autoDisposable(view.scope())
+            .subscribe()
 
         // Reset the theme
         view.clearHsvThemeClicks()

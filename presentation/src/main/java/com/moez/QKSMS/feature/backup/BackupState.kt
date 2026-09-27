@@ -28,6 +28,4 @@ data class BackupState(
     val showSelectedBackupError: Boolean = false,
     val selectedBackupDetails: String? = null,
     val showStopRestoreDialog: Boolean = false,
-
-    val upgraded: Boolean = true
 )

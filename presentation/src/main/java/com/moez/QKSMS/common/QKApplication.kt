@@ -39,7 +39,6 @@ import dev.octoshrimpy.quik.common.util.FileLoggingTree
 import dev.octoshrimpy.quik.injection.AppComponentManager
 import dev.octoshrimpy.quik.injection.appComponent
 import dev.octoshrimpy.quik.interactor.SpeakThreads
-import dev.octoshrimpy.quik.manager.BillingManager
 import dev.octoshrimpy.quik.manager.ReferralManager
 import dev.octoshrimpy.quik.migration.QkMigration
 import dev.octoshrimpy.quik.migration.QkRealmMigration
@@ -59,17 +58,25 @@ class QKApplication : Application(), HasActivityInjector, HasBroadcastReceiverIn
      * Inject these so that they are forced to initialize
      */
     @Suppress("unused")
-    @Inject lateinit var qkMigration: QkMigration
+    @Inject
+    lateinit var qkMigration: QkMigration
 
-    @Inject lateinit var billingManager: BillingManager
-    @Inject lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
-    @Inject lateinit var dispatchingBroadcastReceiverInjector: DispatchingAndroidInjector<BroadcastReceiver>
-    @Inject lateinit var dispatchingServiceInjector: DispatchingAndroidInjector<Service>
-    @Inject lateinit var fileLoggingTree: FileLoggingTree
-    @Inject lateinit var nightModeManager: NightModeManager
-    @Inject lateinit var realmMigration: QkRealmMigration
-    @Inject lateinit var referralManager: ReferralManager
-    @Inject lateinit var workerFactory: WorkerFactory
+    @Inject
+    lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
+    @Inject
+    lateinit var dispatchingBroadcastReceiverInjector: DispatchingAndroidInjector<BroadcastReceiver>
+    @Inject
+    lateinit var dispatchingServiceInjector: DispatchingAndroidInjector<Service>
+    @Inject
+    lateinit var fileLoggingTree: FileLoggingTree
+    @Inject
+    lateinit var nightModeManager: NightModeManager
+    @Inject
+    lateinit var realmMigration: QkRealmMigration
+    @Inject
+    lateinit var referralManager: ReferralManager
+    @Inject
+    lateinit var workerFactory: WorkerFactory
 
     override fun onCreate() {
         super.onCreate()
@@ -91,8 +98,6 @@ class QKApplication : Application(), HasActivityInjector, HasBroadcastReceiverIn
 
         GlobalScope.launch(Dispatchers.IO) {
             referralManager.trackReferrer()
-            billingManager.checkForPurchases()
-            billingManager.queryProducts()
         }
 
         nightModeManager.updateCurrentTheme()

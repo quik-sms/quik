@@ -33,7 +33,6 @@ import dagger.Provides
 import dev.octoshrimpy.quik.blocking.BlockingClient
 import dev.octoshrimpy.quik.blocking.BlockingManager
 import dev.octoshrimpy.quik.common.ViewModelFactory
-import dev.octoshrimpy.quik.common.util.BillingManagerImpl
 import dev.octoshrimpy.quik.common.util.NotificationManagerImpl
 import dev.octoshrimpy.quik.common.util.ShortcutManagerImpl
 import dev.octoshrimpy.quik.feature.conversationinfo.injection.ConversationInfoComponent
@@ -44,7 +43,6 @@ import dev.octoshrimpy.quik.manager.ActiveConversationManager
 import dev.octoshrimpy.quik.manager.ActiveConversationManagerImpl
 import dev.octoshrimpy.quik.manager.AlarmManager
 import dev.octoshrimpy.quik.manager.AlarmManagerImpl
-import dev.octoshrimpy.quik.manager.BillingManager
 import dev.octoshrimpy.quik.manager.ChangelogManager
 import dev.octoshrimpy.quik.manager.ChangelogManagerImpl
 import dev.octoshrimpy.quik.manager.KeyManager
@@ -137,10 +135,8 @@ class AppModule(private var application: Application) {
     // Manager
 
     @Provides
-    fun provideBillingManager(manager: BillingManagerImpl): BillingManager = manager
-
-    @Provides
-    fun provideActiveConversationManager(manager: ActiveConversationManagerImpl): ActiveConversationManager = manager
+    fun provideActiveConversationManager(manager: ActiveConversationManagerImpl): ActiveConversationManager =
+        manager
 
     @Provides
     fun provideAlarmManager(manager: AlarmManagerImpl): AlarmManager = manager

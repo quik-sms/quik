@@ -24,7 +24,6 @@ import io.reactivex.Observable
 interface ScheduledView : QkView<ScheduledState> {
 
     val composeIntent: Observable<*>
-    val upgradeIntent: Observable<*>
     val messagesSelectedIntent: Observable<List<Long>>
     val optionsItemIntent: Observable<Int>
     val deleteScheduledMessages: Observable<List<Long>>
