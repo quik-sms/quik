@@ -26,6 +26,13 @@ data class SubscriptionInfoCompat(private val subscriptionInfo: SubscriptionInfo
 
     val simSlotIndex get() = subscriptionInfo.simSlotIndex
 
-    val displayName: CharSequence get() = subscriptionInfo.displayName
+    /**
+     * It is extremely rare, but it is possible, in the case of a misconfigured SIM,
+     * to have displayName be null, or blank.
+     * If that happens, we can use simSlotIndex to provide a fallback
+     */
+    val safeDisplayName: CharSequence
+        get() = subscriptionInfo.displayName.takeUnless {it.isNullOrBlank()} ?: "SIM ${simSlotIndex + 1}"
 
+    val displayName: CharSequence? get() = subscriptionInfo.displayName
 }
