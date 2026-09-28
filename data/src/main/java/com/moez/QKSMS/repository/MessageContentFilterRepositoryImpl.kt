@@ -22,9 +22,17 @@ import dev.octoshrimpy.quik.model.MessageContentFilter
 import dev.octoshrimpy.quik.model.MessageContentFilterData
 import io.realm.Realm
 import io.realm.RealmResults
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class MessageContentFilterRepositoryImpl @Inject constructor() : MessageContentFilterRepository {
+
+    private data class Matcher(val regex: Regex, val lowercaseBody: Boolean)
+
+    private val matcherCache = ConcurrentHashMap<Long, Matcher>()
+
     override fun createFilter(data: MessageContentFilterData) {
         Realm.getDefaultInstance().use { realm ->
             realm.refresh()
@@ -59,20 +67,33 @@ class MessageContentFilterRepositoryImpl @Inject constructor() : MessageContentF
                 .any { filter ->
                     if (isContact && !filter.includeContacts) {
                         false
-                    } else if (filter.isRegex) {
-                        Regex(filter.value).matches(messageBody)
-                    } else if (filter.caseSensitive) {
-                        val regexp = "[\\s\\S]*\\b" + Regex.escape(filter.value) + "\\b[\\s\\S]*"
-                        Regex(regexp).matches(messageBody)
                     } else {
-                        val regexp = "[\\s\\S]*\\b" + Regex.escape(filter.value.lowercase()) + "\\b[\\s\\S]*"
-                        Regex(regexp).matches(messageBody.lowercase())
+                        val m = matcherCache.getOrPut(filter.id) { compileMatcher(filter) }
+                        val body = if (m.lowercaseBody) messageBody.lowercase() else messageBody
+                        m.regex.containsMatchIn(body)
                     }
                 }
         }
     }
 
+    private fun compileMatcher(filter: MessageContentFilter): Matcher = when {
+        filter.isRegex -> {
+            val opts = mutableSetOf(RegexOption.DOT_MATCHES_ALL)
+            if (!filter.caseSensitive) opts.add(RegexOption.IGNORE_CASE)
+            Matcher(Regex(filter.value, opts), lowercaseBody = false)
+        }
+        filter.caseSensitive -> {
+            val pattern = "\\b" + Regex.escape(filter.value) + "\\b"
+            Matcher(Regex(pattern), lowercaseBody = false)
+        }
+        else -> {
+            val pattern = "\\b" + Regex.escape(filter.value.lowercase()) + "\\b"
+            Matcher(Regex(pattern), lowercaseBody = true)
+        }
+    }
+
     override fun removeFilter(id: Long) {
+        matcherCache.remove(id)
         Realm.getDefaultInstance().use { realm ->
             realm.executeTransaction {
                 realm.where(MessageContentFilter::class.java)

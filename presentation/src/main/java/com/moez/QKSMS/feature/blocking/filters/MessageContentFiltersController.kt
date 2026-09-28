@@ -18,7 +18,11 @@
  */
 package dev.octoshrimpy.quik.feature.blocking.filters
 
+import android.net.Uri
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.jakewharton.rxbinding2.view.clicks
@@ -27,9 +31,11 @@ import com.uber.autodispose.autoDisposable
 import dev.octoshrimpy.quik.R
 import dev.octoshrimpy.quik.common.base.QkController
 import dev.octoshrimpy.quik.common.util.Colors
+import dev.octoshrimpy.quik.common.util.QkActivityResultContracts
 import dev.octoshrimpy.quik.common.util.extensions.setBackgroundTint
 import dev.octoshrimpy.quik.common.util.extensions.setTint
 import dev.octoshrimpy.quik.common.widget.PreferenceView
+import dev.octoshrimpy.quik.feature.blocking.BlockingActivity
 import dev.octoshrimpy.quik.injection.appComponent
 import dev.octoshrimpy.quik.model.MessageContentFilterData
 import dev.octoshrimpy.quik.databinding.MessageContentFiltersControllerBinding
@@ -47,6 +53,8 @@ class MessageContentFiltersController : QkController<MessageContentFiltersContro
 
     private val adapter = MessageContentFiltersAdapter()
     private val saveFilterSubject: Subject<MessageContentFilterData> = PublishSubject.create()
+    private val importClickSubject: Subject<Unit> = PublishSubject.create()
+    private val importFileSelectedSubject: Subject<Uri> = PublishSubject.create()
 
     init {
         appComponent.inject(this)
@@ -61,6 +69,20 @@ class MessageContentFiltersController : QkController<MessageContentFiltersContro
         presenter.bindIntents(this)
         setTitle(R.string.message_content_filters_title)
         showBackButton(true)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.message_content_filters, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.import_json) {
+            importClickSubject.onNext(Unit)
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onViewCreated() {
@@ -78,6 +100,47 @@ class MessageContentFiltersController : QkController<MessageContentFiltersContro
     override fun removeFilter(): Observable<Long> = adapter.removeMessageContentFilter
     override fun addFilter(): Observable<*> = binding.add.clicks()
     override fun saveFilter(): Observable<MessageContentFilterData> = saveFilterSubject
+    override fun importClicks(): Observable<*> = importClickSubject
+    override fun importFileSelected(): Observable<Uri> = importFileSelectedSubject
+
+    override fun selectImportFile() {
+        val host = activity as BlockingActivity
+        host.importDocumentCallback = { uri ->
+            importFileSelectedSubject.onNext(uri)
+            host.importDocumentCallback = null
+        }
+        host.openDocument.launch(QkActivityResultContracts.OpenDocumentParams(
+            mimeTypes = listOf("application/json", "text/plain", "application/octet-stream")
+        ))
+    }
+
+    override fun showImportResult(imported: Int, skipped: Int) {
+        AlertDialog.Builder(activity!!)
+            .setTitle(R.string.message_content_filters_import_result_title)
+            .setMessage(resources!!.getQuantityString(
+                R.plurals.message_content_filters_import_result,
+                imported, imported, skipped
+            ))
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
+    }
+
+    override fun showImportError() {
+        AlertDialog.Builder(activity!!)
+            .setTitle(R.string.message_content_filters_import_error_title)
+            .setMessage(R.string.message_content_filters_import_error)
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
+    }
+
+    override fun showRegexErrors(phrases: List<String>) {
+        val message = phrases.joinToString(separator = "\n") { "• $it" }
+        AlertDialog.Builder(activity!!)
+            .setTitle(R.string.message_content_filters_import_regex_errors_title)
+            .setMessage(message)
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
+    }
 
     override fun showAddDialog() {
         val layout = MessageContentFiltersAddDialogBinding.inflate(LayoutInflater.from(activity))

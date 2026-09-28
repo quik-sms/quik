@@ -83,6 +83,8 @@ open class Message : RealmObject() {
 
     var sendAsGroup: Boolean = false
 
+    var junk: Boolean = false
+
     fun getUri(): Uri {
         if (contentId == 0L)
             return Uri.EMPTY

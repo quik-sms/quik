@@ -18,6 +18,7 @@
  */
 package dev.octoshrimpy.quik.feature.blocking
 
+import android.net.Uri
 import android.os.Bundle
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
@@ -25,12 +26,19 @@ import com.bluelinelabs.conductor.RouterTransaction
 import dagger.android.AndroidInjection
 import dev.octoshrimpy.quik.R
 import dev.octoshrimpy.quik.common.base.QkThemedActivity
+import dev.octoshrimpy.quik.common.util.QkActivityResultContracts
 import dev.octoshrimpy.quik.databinding.ContainerActivityBinding
 
 class BlockingActivity : QkThemedActivity() {
 
     private lateinit var router: Router
     private lateinit var binding: ContainerActivityBinding
+
+    var importDocumentCallback: ((Uri) -> Unit)? = null
+
+    val openDocument = registerForActivityResult(QkActivityResultContracts.OpenDocument()) { uri ->
+        if (uri != null && uri != Uri.EMPTY) importDocumentCallback?.invoke(uri)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
