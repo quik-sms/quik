@@ -45,7 +45,7 @@ interface ConversationRepository {
 
     fun getConversation(threadId: Long): Conversation?
 
-    fun updateSendAsGroup(threadId: Long, sendAsGroup: Boolean): Unit?
+    fun setSendAsGroup(threadId: Long, sendAsGroup: Boolean)
 
     fun getUnseenIds(archived: Boolean = false): List<Long>
 
