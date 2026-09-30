@@ -211,7 +211,7 @@ class ConversationRepositoryImpl @Inject constructor(
                 .findFirst()
         }
 
-    override fun updateSendAsGroup(threadId: Long, sendAsGroup: Boolean) =
+    override fun setSendAsGroup(threadId: Long, sendAsGroup: Boolean) =
         Realm.getDefaultInstance().use { realm ->
             realm.refresh()
 

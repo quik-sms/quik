@@ -162,7 +162,7 @@ class ConversationInfoPresenter @Inject constructor(
         view.sendAsGroupClicks()
             .observeOn(Schedulers.io())
             .withLatestFrom(conversation) { _, conversation ->
-                conversationRepo.updateSendAsGroup(
+                conversationRepo.setSendAsGroup(
                     conversation.id,
                     !conversation.sendAsGroup
                 )
