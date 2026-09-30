@@ -96,13 +96,15 @@ class ConversationInfoPresenter @Inject constructor(
                         return@combineLatest
                     }
 
-                    data += conversation.recipients.map(::ConversationInfoRecipient)
-                    data += ConversationInfoItem.ConversationInfoSettings(
-                            name = conversation.name,
-                            recipients = conversation.recipients,
-                            archived = conversation.archived,
-                            blocked = conversation.blocked)
-                    data += parts.map(::ConversationInfoMedia)
+                data += conversation.recipients.map(::ConversationInfoRecipient)
+                data += ConversationInfoItem.ConversationInfoSettings(
+                    name = conversation.name,
+                    recipients = conversation.recipients,
+                    sendAsGroup = conversation.sendAsGroup,
+                    archived = conversation.archived,
+                    blocked = conversation.blocked
+                )
+                data += parts.map(::ConversationInfoMedia)
 
                     newState { copy(data = data) }
                 }
@@ -155,6 +157,17 @@ class ConversationInfoPresenter @Inject constructor(
                 .flatMapCompletable { it }
                 .autoDisposable(view.scope())
                 .subscribe()
+
+        // Toggle if messages should send as group or to each person individually
+        view.sendAsGroupClicks()
+            .observeOn(Schedulers.io())
+            .withLatestFrom(conversation) { _, conversation ->
+                conversationRepo.updateSendAsGroup(
+                    conversation.id,
+                    !conversation.sendAsGroup
+                )
+            }
+            .autoDisposable(view.scope()).subscribe()
 
         // Show the notifications settings for the conversation
         view.notificationClicks()

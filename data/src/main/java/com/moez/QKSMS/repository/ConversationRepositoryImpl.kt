@@ -215,12 +215,12 @@ class ConversationRepositoryImpl @Inject constructor(
         Realm.getDefaultInstance().use { realm ->
             realm.refresh()
 
-            realm.where(Conversation::class.java)
-                .equalTo("id", threadId)
-                .findFirst()
-                ?.let { conversation ->
-                    realm.executeTransaction { conversation.sendAsGroup = sendAsGroup }
-                }
+            realm.executeTransaction {
+                realm.where(Conversation::class.java)
+                    .equalTo("id", threadId)
+                    .findFirst()
+                    ?.sendAsGroup = sendAsGroup
+            }
         }
 
     override fun getUnseenIds(archived: Boolean) =
