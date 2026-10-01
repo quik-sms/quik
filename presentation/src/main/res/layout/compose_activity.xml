@@ -115,7 +115,7 @@
         android:id="@+id/sendAsGroupBackground"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorSurface"
         app:layout_constraintBottom_toBottomOf="@id/sendAsGroupSummary"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
@@ -363,7 +363,7 @@
         app:tint="?android:textColorSecondary"
         tools:visibility="visible" />
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
         android:layout_width="match_parent"
@@ -405,14 +405,7 @@
 
         </LinearLayout>
 
-    </androidx.appcompat.widget.Toolbar>
-
-    <View
-        android:id="@+id/titleBarShadow"
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@drawable/ab_shadow"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/attaching"

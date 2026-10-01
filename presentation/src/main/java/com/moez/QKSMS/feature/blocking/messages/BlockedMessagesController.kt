@@ -26,7 +26,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.Toolbar
+import com.google.android.material.appbar.MaterialToolbar
 import dev.octoshrimpy.quik.R
 import dev.octoshrimpy.quik.common.base.QkController
 import dev.octoshrimpy.quik.common.util.Colors
@@ -94,7 +94,7 @@ class BlockedMessagesController : QkController<BlockedMessagesControllerBinding,
     override fun render(state: BlockedMessagesState) {
         blockedMessagesAdapter.updateData(state.data)
 
-        val toolbarMenu = themedActivity?.findViewById<Toolbar>(R.id.toolbar)?.menu
+        val toolbarMenu = themedActivity?.findViewById<MaterialToolbar>(R.id.toolbar)?.menu
         toolbarMenu?.findItem(R.id.block)?.isVisible = state.selected > 0
         toolbarMenu?.findItem(R.id.delete)?.isVisible = state.selected > 0
 

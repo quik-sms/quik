@@ -25,12 +25,11 @@
     android:background="?attr/selectableItemBackground"
     tools:parentTag="dev.octoshrimpy.quik.common.widget.RadioPreferenceView">
 
-    <androidx.appcompat.widget.AppCompatRadioButton
+    <com.google.android.material.radiobutton.MaterialRadioButton
         android:id="@+id/radioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:src="@drawable/radio_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/titleView"
         app:layout_constraintStart_toStartOf="parent"

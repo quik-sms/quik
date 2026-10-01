@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
             android:animateLayoutChanges="true"
@@ -62,7 +62,7 @@
                 tools:textSize="16sp"
                 android:focusable="true"
                 android:nextFocusRight="@+id/compose" />
-        </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <dev.octoshrimpy.quik.common.widget.QkTextView
             android:id="@+id/empty"
@@ -103,15 +103,7 @@
             app:layout_constraintBottom_toTopOf="@id/bottom"
             app:layout_constraintEnd_toEndOf="parent"
             tools:backgroundTint="@color/tools_theme"
-            app:tint="@color/white" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="8dp"
-            android:background="@drawable/ab_shadow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:tint="?attr/colorOnPrimary" />
 
         <View
             android:id="@+id/bottom"

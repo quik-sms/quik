@@ -31,8 +31,9 @@ import androidx.core.text.italic
 import dev.octoshrimpy.quik.R
 import dev.octoshrimpy.quik.common.util.Colors
 import dev.octoshrimpy.quik.common.util.DateFormatter
+import dev.octoshrimpy.quik.common.util.WidgetPalette
+import dev.octoshrimpy.quik.common.util.WidgetPaletteResolver
 import dev.octoshrimpy.quik.common.util.extensions.dpToPx
-import dev.octoshrimpy.quik.common.util.extensions.getColorCompat
 import dev.octoshrimpy.quik.injection.appComponent
 import dev.octoshrimpy.quik.model.Contact
 import dev.octoshrimpy.quik.model.Conversation
@@ -52,6 +53,7 @@ class WidgetAdapter(intent: Intent) : RemoteViewsService.RemoteViewsFactory {
 
     @Inject lateinit var context: Context
     @Inject lateinit var colors: Colors
+    @Inject lateinit var widgetPaletteResolver: WidgetPaletteResolver
     @Inject lateinit var conversationRepo: ConversationRepository
     @Inject lateinit var dateFormatter: DateFormatter
     @Inject lateinit var prefs: Preferences
@@ -62,28 +64,19 @@ class WidgetAdapter(intent: Intent) : RemoteViewsService.RemoteViewsFactory {
     private var conversations: List<Conversation> = listOf()
     private val appWidgetManager by lazy { AppWidgetManager.getInstance(context) }
 
-    private val night get() = prefs.night.get()
-    private val black get() = prefs.black.get()
-    private val theme get() = colors.theme()
-    private val background
-        get() = context.getColorCompat(when {
-            night && black -> R.color.black
-            night && !black -> R.color.backgroundDark
-            else -> R.color.white
-        })
-    private val textPrimary
-        get() = context.getColorCompat(if (night) R.color.textPrimaryDark else R.color.textPrimary)
-    private val textSecondary
-        get() = context.getColorCompat(if (night) R.color.textSecondaryDark else R.color.textSecondary)
-    private val textTertiary
-        get() = context.getColorCompat(if (night) R.color.textTertiaryDark else R.color.textTertiary)
+    private lateinit var palette: WidgetPalette
+    private lateinit var theme: Colors.Theme
 
     override fun onCreate() {
         appComponent.inject(this)
+        palette = widgetPaletteResolver.resolve()
+        theme = colors.theme()
     }
 
     override fun onDataSetChanged() {
         conversations = conversationRepo.getConversationsSnapshot(prefs.unreadAtTop.get())
+        palette = widgetPaletteResolver.resolve()
+        theme = colors.theme()
 
         val remoteViews = RemoteViews(context.packageName, R.layout.widget)
         appWidgetManager.partiallyUpdateAppWidget(appWidgetId, remoteViews)
@@ -116,7 +109,7 @@ class WidgetAdapter(intent: Intent) : RemoteViewsService.RemoteViewsFactory {
         remoteViews.setInt(R.id.avatar, "setBackgroundColor", theme.theme)
         remoteViews.setTextColor(R.id.initial, theme.textPrimary)
         remoteViews.setInt(R.id.icon, "setColorFilter", theme.textPrimary)
-        remoteViews.setInt(R.id.avatarMask, "setColorFilter", background)
+        remoteViews.setInt(R.id.avatarMask, "setColorFilter", palette.background)
 
         val contact = conversation.recipients.map { recipient ->
             recipient.contact ?: Contact().apply { numbers.add(PhoneNumber().apply { address = recipient.address }) }
@@ -139,14 +132,17 @@ class WidgetAdapter(intent: Intent) : RemoteViewsService.RemoteViewsFactory {
         tryOrNull(false) { remoteViews.setImageViewBitmap(R.id.photo, futureGet.get()) }
 
         // Name
-        remoteViews.setTextColor(R.id.name, textPrimary)
+        remoteViews.setTextColor(R.id.name, palette.textPrimary)
         remoteViews.setTextViewText(R.id.name, boldText(buildSpannedString {
             append(conversation.getTitle())
         }, conversation.unread))
 
         // Date
         val timestamp = conversation.date.takeIf { it > 0 }?.let(dateFormatter::getConversationTimestamp)
-        remoteViews.setTextColor(R.id.date, if (conversation.unread) textPrimary else textTertiary)
+        remoteViews.setTextColor(
+            R.id.date,
+            if (conversation.unread) palette.textPrimary else palette.textTertiary
+        )
         remoteViews.setTextViewText(R.id.date, boldText(timestamp, conversation.unread))
 
         // Snippet
@@ -159,7 +155,10 @@ class WidgetAdapter(intent: Intent) : RemoteViewsService.RemoteViewsFactory {
             conversation.me -> context.getString(R.string.main_sender_you, conversation.snippet)
             else -> conversation.snippet
         }
-        remoteViews.setTextColor(R.id.snippet, if (conversation.unread) textPrimary else textTertiary)
+        remoteViews.setTextColor(
+            R.id.snippet,
+            if (conversation.unread) palette.textPrimary else palette.textTertiary
+        )
         remoteViews.setTextViewText(R.id.snippet, boldText(snippet, conversation.unread))
         remoteViews.setTextViewText(R.id.snippet, italicText(snippet, conversation.draft.isNotEmpty()))
 
@@ -176,7 +175,7 @@ class WidgetAdapter(intent: Intent) : RemoteViewsService.RemoteViewsFactory {
 
     private fun getOverflowView(): RemoteViews {
         val view = RemoteViews(context.packageName, R.layout.widget_loading)
-        view.setTextColor(R.id.loadingText, textSecondary)
+        view.setTextColor(R.id.loadingText, palette.textSecondary)
         view.setTextViewText(R.id.loadingText, context.getString(R.string.widget_more))
         view.setOnClickFillInIntent(
             R.id.loadingText,
