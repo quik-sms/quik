@@ -623,7 +623,7 @@ class ComposeViewModel @Inject constructor(
             .doOnNext { newSendAsGroup -> newState { copy(sendAsGroup = newSendAsGroup) } }
             .observeOn(Schedulers.io())
             .withLatestFrom(conversation) { newSendAsGroup, conversation ->
-                conversationRepo.updateSendAsGroup(conversation.id, newSendAsGroup)
+                conversationRepo.setSendAsGroup(conversation.id, newSendAsGroup)
             }
             .autoDisposable(view.scope())
             .subscribe()

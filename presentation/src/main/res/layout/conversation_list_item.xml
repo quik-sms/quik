@@ -84,6 +84,19 @@
         android:src="@drawable/ic_baseline_push_pin_24"
         app:tint="?android:attr/textColorTertiary"
         android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/sendIndividually"
+        app:layout_constraintTop_toTopOf="@id/snippet"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/sendIndividually"
+        android:layout_width="20dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="4dp"
+        android:src="@drawable/ic_campaign_black_24dp"
+        app:tint="?android:attr/textColorTertiary"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/scheduled"
         app:layout_constraintTop_toTopOf="@id/snippet"
         tools:visibility="visible" />

@@ -485,7 +485,7 @@ class ComposeActivity : QkThemedActivity(), ComposeView {
 
         binding.loading.setVisible(state.loading)
 
-        binding.sendAsGroup.setVisible(state.recipientCount > 1)
+        binding.sendAsGroup.isVisible = state.editingMode && state.recipientCount > 1
         binding.sendAsGroupSwitch.isChecked = state.sendAsGroup
         binding.sendAsGroupSummary.setText(
             if (binding.sendAsGroupSwitch.isChecked) R.string.compose_send_group_summary_on

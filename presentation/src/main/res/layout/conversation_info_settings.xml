@@ -19,6 +19,7 @@
   -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -35,6 +36,15 @@
         android:layout_height="wrap_content"
         app:icon="@drawable/ic_people_black_24dp"
         app:title="@string/info_name" />
+
+    <dev.octoshrimpy.quik.common.widget.PreferenceView
+        android:id="@+id/sendAsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_message_black_24dp"
+        app:title="@string/compose_send_group_title"
+        app:widget="@layout/settings_switch_widget"
+        tools:summary="@string/compose_send_group_summary_off" />
 
     <dev.octoshrimpy.quik.common.widget.PreferenceView
         android:id="@+id/notifications"

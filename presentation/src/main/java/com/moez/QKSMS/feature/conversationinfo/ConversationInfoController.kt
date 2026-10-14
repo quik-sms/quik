@@ -104,6 +104,7 @@ class ConversationInfoController(
     override fun themeClicks(): Observable<Long> = adapter.themeClicks
     override fun nameClicks(): Observable<*> = adapter.nameClicks
     override fun nameChanges(): Observable<String> = nameChangeSubject
+    override fun sendAsGroupClicks(): Observable<Unit> = adapter.sendAsGroupClicks
     override fun notificationClicks(): Observable<*> = adapter.notificationClicks
     override fun markUnreadClicks(): Observable<*> = adapter.markUnreadClicks
     override fun archiveClicks(): Observable<*> = adapter.archiveClicks
