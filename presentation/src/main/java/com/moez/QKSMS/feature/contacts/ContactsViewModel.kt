@@ -29,6 +29,9 @@ import dev.octoshrimpy.quik.feature.compose.editing.PhoneNumberAction
 import dev.octoshrimpy.quik.filter.ContactFilter
 import dev.octoshrimpy.quik.filter.ContactGroupFilter
 import dev.octoshrimpy.quik.interactor.SetDefaultPhoneNumber
+import dev.octoshrimpy.quik.interactor.SyncContacts
+import dev.octoshrimpy.quik.listener.ContactAddedListener
+import dev.octoshrimpy.quik.manager.PermissionManager
 import dev.octoshrimpy.quik.model.Contact
 import dev.octoshrimpy.quik.model.ContactGroup
 import dev.octoshrimpy.quik.model.Conversation
@@ -40,21 +43,26 @@ import dev.octoshrimpy.quik.util.PhoneNumberUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.Observables
+import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 import io.realm.RealmList
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.rx2.awaitFirst
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class ContactsViewModel @Inject constructor(
     sharing: Boolean,
     serializedChips: HashMap<String, String?>,
+    contactAddedListener: ContactAddedListener,
     private val contactFilter: ContactFilter,
     private val contactGroupFilter: ContactGroupFilter,
     private val contactsRepo: ContactRepository,
     private val conversationRepo: ConversationRepository,
     private val phoneNumberUtils: PhoneNumberUtils,
-    private val setDefaultPhoneNumber: SetDefaultPhoneNumber
+    private val setDefaultPhoneNumber: SetDefaultPhoneNumber,
+    private val permissionManager: PermissionManager,
+    private val syncContacts: SyncContacts
 ) : QkViewModel<ContactsContract, ContactsState>(ContactsState()) {
 
     private val contactGroups: Observable<List<ContactGroup>> by lazy { contactsRepo.getUnmanagedContactGroups() }
@@ -73,6 +81,17 @@ class ContactsViewModel @Inject constructor(
             }
 
     private var shouldOpenKeyboard: Boolean = true
+
+    init {
+        disposables += syncContacts
+
+        if (permissionManager.hasContacts()) {
+            disposables += contactAddedListener.listen()
+                    .debounce(1, TimeUnit.SECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe { syncContacts.execute(Unit) }
+        }
+    }
 
     override fun bindView(view: ContactsContract) {
         super.bindView(view)
