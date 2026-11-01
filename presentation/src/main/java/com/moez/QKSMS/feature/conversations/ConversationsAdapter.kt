@@ -175,7 +175,7 @@ class ConversationsAdapter @Inject constructor(
 
         // Mark read on preview open
         try {
-            conversationRepository.markRead(listOf(conversation.id))
+            messageRepository.markRead(listOf(conversation.id))
         } catch (e: Exception) {
             // ignore
         }
@@ -189,4 +189,4 @@ class ConversationsAdapter @Inject constructor(
 
 
 }
-# trigger
+
