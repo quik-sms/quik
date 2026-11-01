@@ -20,8 +20,10 @@ package dev.octoshrimpy.quik.feature.conversations
 
 import android.content.Context
 import android.graphics.Typeface
+import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.text.buildSpannedString
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +37,9 @@ import dev.octoshrimpy.quik.common.util.extensions.resolveThemeColor
 import dev.octoshrimpy.quik.common.util.extensions.setTint
 import dev.octoshrimpy.quik.databinding.ConversationListItemBinding
 import dev.octoshrimpy.quik.model.Conversation
+import dev.octoshrimpy.quik.model.Message
+import dev.octoshrimpy.quik.repository.ConversationRepository
+import dev.octoshrimpy.quik.repository.MessageRepository
 import dev.octoshrimpy.quik.util.PhoneNumberUtils
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -42,7 +47,9 @@ import javax.inject.Inject
 class ConversationsAdapter @Inject constructor(
     private val colors: Colors,
     private val context: Context,
+    private val conversationRepository: ConversationRepository,
     private val dateFormatter: DateFormatter,
+    private val messageRepository: MessageRepository,
     private val navigator: Navigator,
     private val phoneNumberUtils: PhoneNumberUtils
 ) : QkRealmAdapter<Conversation, QkBindingViewHolder<ConversationListItemBinding>>() {
@@ -88,11 +95,11 @@ class ConversationsAdapter @Inject constructor(
                 }
             }
             binding.root.setOnLongClickListener {
-                val conversation = getItem(adapterPosition) ?: return@setOnLongClickListener true
-                toggleSelection(conversation.id)
-                binding.root.isActivated = isSelected(conversation.id)
-                true
-            }
+                            val conversation = getItem(adapterPosition) ?: return@setOnLongClickListener true
+                            binding.root.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                            showConversationPreview(conversation)
+                            true
+                        }
         }
     }
 
@@ -141,8 +148,42 @@ class ConversationsAdapter @Inject constructor(
         return if (getItem(position)?.unread == false) 0 else 1
     }
 
+    private fun showConversationPreview(conversation: Conversation) {
+        val messages = messageRepository.getMessagesSync(conversation.id)
+        val previewMessages = messages.sortedBy { it.date }.takeLast(6)
+        val previewText = if (previewMessages.isEmpty()) {
+            conversation.snippet
+        } else {
+            previewMessages.joinToString("\n") { msg ->
+                val sender = if (msg.isMe()) "You" else msg.address
+                val body = msg.getSummary().ifBlank { "[media]" }
+                "$sender: $body"
+            }
+        }
+
+        val dialog = AlertDialog.Builder(context)
+            .setTitle(conversation.getTitle())
+            .setMessage(previewText)
+            .setPositiveButton("Open") { _, _ ->
+                navigator.showConversation(conversation.id)
+            }
+            .setNegativeButton(R.string.button_cancel, null)
+            .setNeutralButton("Select") { _, _ ->
+                toggleSelection(conversation.id)
+            }
+            .create()
+
+        // Mark read on preview open
+        try {
+            conversationRepository.markRead(listOf(conversation.id))
+        } catch (e: Exception) {
+            // ignore
+        }
+
+        dialog.show()
+    }
+
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView)
         disposables.clear()
     }
 
