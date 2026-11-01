@@ -38,7 +38,7 @@ import dev.octoshrimpy.quik.common.util.extensions.setTint
 import dev.octoshrimpy.quik.databinding.ConversationListItemBinding
 import dev.octoshrimpy.quik.model.Conversation
 import dev.octoshrimpy.quik.model.Message
-import dev.octoshrimpy.quik.repository.ConversationRepository
+import dev.octoshrimpy.quik.interactor.DeleteConversations
 import dev.octoshrimpy.quik.repository.MessageRepository
 import dev.octoshrimpy.quik.util.PhoneNumberUtils
 import io.reactivex.disposables.CompositeDisposable
@@ -47,7 +47,7 @@ import javax.inject.Inject
 class ConversationsAdapter @Inject constructor(
     private val colors: Colors,
     private val context: Context,
-    private val conversationRepository: ConversationRepository,
+    private val deleteConversations: DeleteConversations,
     private val dateFormatter: DateFormatter,
     private val messageRepository: MessageRepository,
     private val navigator: Navigator,
@@ -167,9 +167,13 @@ class ConversationsAdapter @Inject constructor(
             .setPositiveButton("Open") { _, _ ->
                 navigator.showConversation(conversation.id)
             }
-            .setNegativeButton(R.string.button_cancel, null)
-            .setNeutralButton("Select") { _, _ ->
+            .setNeutralButton("More actions") { _, _ ->
                 toggleSelection(conversation.id)
+            }
+            .setNegativeButton("Delete") { _, _ ->
+                deleteConversations.execute(listOf(conversation.id)) {
+                    // no-op
+                }
             }
             .create()
 
