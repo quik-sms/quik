@@ -19,6 +19,7 @@
 package dev.octoshrimpy.quik.feature.blocking.filters
 
 import dev.octoshrimpy.quik.common.base.QkViewContract
+import dev.octoshrimpy.quik.model.MessageContentFilter
 import dev.octoshrimpy.quik.model.MessageContentFilterData
 import io.reactivex.Observable
 
@@ -26,8 +27,11 @@ interface MessageContentFiltersView : QkViewContract<MessageContentFiltersState>
 
     fun removeFilter(): Observable<Long>
     fun addFilter(): Observable<*>
+    fun editFilter(): Observable<Long>
     fun saveFilter(): Observable<MessageContentFilterData>
+    fun updateFilter(): Observable<Pair<Long, MessageContentFilterData>>
 
     fun showAddDialog()
+    fun showEditDialog(filter: MessageContentFilter)
 
 }

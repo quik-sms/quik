@@ -80,6 +80,22 @@ class MessageContentFilterRepositoryImpl @Inject constructor() : MessageContentF
         }
     }
 
+    override fun updateFilter(id: Long, data: MessageContentFilterData) {
+        Realm.getDefaultInstance().use { realm ->
+            realm.executeTransaction {
+                realm.where(MessageContentFilter::class.java)
+                    .equalTo("id", id)
+                    .findFirst()
+                    ?.apply {
+                        value = data.value
+                        caseSensitive = data.caseSensitive
+                        isRegex = data.isRegex
+                        includeContacts = data.includeContacts
+                    }
+            }
+        }
+    }
+
     override fun removeFilter(id: Long) {
         Realm.getDefaultInstance().use { realm ->
             realm.executeTransaction {

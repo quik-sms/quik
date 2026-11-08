@@ -32,6 +32,7 @@ import dev.octoshrimpy.quik.common.util.extensions.setTint
 import dev.octoshrimpy.quik.common.widget.PreferenceView
 import dev.octoshrimpy.quik.util.tryOrNull
 import dev.octoshrimpy.quik.injection.appComponent
+import dev.octoshrimpy.quik.model.MessageContentFilter
 import dev.octoshrimpy.quik.model.MessageContentFilterData
 import dev.octoshrimpy.quik.databinding.MessageContentFiltersControllerBinding
 import dev.octoshrimpy.quik.databinding.MessageContentFiltersAddDialogBinding
@@ -48,6 +49,7 @@ class MessageContentFiltersController : QkController<MessageContentFiltersContro
 
     private val adapter = MessageContentFiltersAdapter()
     private val saveFilterSubject: Subject<MessageContentFilterData> = PublishSubject.create()
+    private val updateFilterSubject: Subject<Pair<Long, MessageContentFilterData>> = PublishSubject.create()
 
     init {
         appComponent.inject(this)
@@ -78,10 +80,29 @@ class MessageContentFiltersController : QkController<MessageContentFiltersContro
 
     override fun removeFilter(): Observable<Long> = adapter.removeMessageContentFilter
     override fun addFilter(): Observable<*> = binding.add.clicks()
+    override fun editFilter(): Observable<Long> = adapter.editMessageContentFilter
     override fun saveFilter(): Observable<MessageContentFilterData> = saveFilterSubject
+    override fun updateFilter(): Observable<Pair<Long, MessageContentFilterData>> = updateFilterSubject
 
-    override fun showAddDialog() {
+    override fun showAddDialog() = showFilterDialog(null)
+
+    override fun showEditDialog(filter: MessageContentFilter) = showFilterDialog(filter)
+
+    private fun showFilterDialog(existing: MessageContentFilter?) {
         val layout = MessageContentFiltersAddDialogBinding.inflate(LayoutInflater.from(activity))
+        // Snapshot the id now; the Realm object is live and the dialog outlives this call
+        val existingId = existing?.id
+
+        val isRegexChecked = { layout.regexp.checkbox?.isChecked ?: false }
+        val syncCaseSensitivity = { layout.caseSensitivity.isEnabled = !isRegexChecked() }
+
+        existing?.let { filter ->
+            layout.input.setText(filter.value)
+            layout.caseSensitivity.checkbox?.isChecked = filter.caseSensitive
+            layout.regexp.checkbox?.isChecked = filter.isRegex
+            layout.contacts.checkbox?.isChecked = filter.includeContacts
+            syncCaseSensitivity()
+        }
 
         (0 until layout.addDialog.childCount)
             .map { index -> layout.addDialog.getChildAt(index) }
@@ -91,19 +112,19 @@ class MessageContentFiltersController : QkController<MessageContentFiltersContro
             .autoDisposable(scope())
             .subscribe { pref ->
                 pref.checkbox?.let { it.isChecked = !it.isChecked }
-                val regexChecked = layout.regexp.checkbox?.isChecked ?: false
-                layout.caseSensitivity.isEnabled = !regexChecked
+                syncCaseSensitivity()
             }
 
+        val positiveLabel = if (existingId == null) R.string.message_content_filters_dialog_create else R.string.button_save
         val dialog = AlertDialog.Builder(activity!!)
                 .setView(layout.root)
-                .setPositiveButton(R.string.message_content_filters_dialog_create, null)
+                .setPositiveButton(positiveLabel, null)
                 .setNegativeButton(R.string.button_cancel) { _, _ -> }
                 .show()
 
         // Overriding the positive button listener so the dialog stays open on validation errors
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-            val regexChecked = layout.regexp.checkbox?.isChecked ?: false
+            val regexChecked = isRegexChecked()
             val text = layout.input.text.toString().trim()
             when {
                 text.isBlank() -> layout.input.error = activity!!.getString(
@@ -114,14 +135,14 @@ class MessageContentFiltersController : QkController<MessageContentFiltersContro
                         R.string.message_content_filters_dialog_error_invalid_regex)
 
                 else -> {
-                    saveFilterSubject.onNext(
-                        MessageContentFilterData(
-                            text,
-                            (layout.caseSensitivity.checkbox?.isChecked == true) && !regexChecked,
-                            regexChecked,
-                            layout.contacts.checkbox?.isChecked == true
-                        )
+                    val data = MessageContentFilterData(
+                        text,
+                        (layout.caseSensitivity.checkbox?.isChecked == true) && !regexChecked,
+                        regexChecked,
+                        layout.contacts.checkbox?.isChecked == true
                     )
+                    if (existingId == null) saveFilterSubject.onNext(data)
+                    else updateFilterSubject.onNext(existingId to data)
                     dialog.dismiss()
                 }
             }
