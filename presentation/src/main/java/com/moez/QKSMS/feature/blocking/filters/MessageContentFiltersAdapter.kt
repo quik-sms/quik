@@ -32,10 +32,15 @@ import dev.octoshrimpy.quik.databinding.MessageContentFilterListItemBinding
 class MessageContentFiltersAdapter : QkRealmAdapter<MessageContentFilter, QkBindingViewHolder<MessageContentFilterListItemBinding>>() {
 
     val removeMessageContentFilter: Subject<Long> = PublishSubject.create()
+    val editMessageContentFilter: Subject<Long> = PublishSubject.create()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QkBindingViewHolder<MessageContentFilterListItemBinding> {
         val binding = MessageContentFilterListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return QkBindingViewHolder(binding).apply {
+            binding.root.setOnClickListener {
+                val filter = getItem(adapterPosition) ?: return@setOnClickListener
+                editMessageContentFilter.onNext(filter.id)
+            }
             binding.removeFilter.setOnClickListener {
                 val filter = getItem(adapterPosition) ?: return@setOnClickListener
                 removeMessageContentFilter.onNext(filter.id)
