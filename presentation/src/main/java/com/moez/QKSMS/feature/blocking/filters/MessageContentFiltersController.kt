@@ -30,6 +30,7 @@ import dev.octoshrimpy.quik.common.util.Colors
 import dev.octoshrimpy.quik.common.util.extensions.setBackgroundTint
 import dev.octoshrimpy.quik.common.util.extensions.setTint
 import dev.octoshrimpy.quik.common.widget.PreferenceView
+import dev.octoshrimpy.quik.util.tryOrNull
 import dev.octoshrimpy.quik.injection.appComponent
 import dev.octoshrimpy.quik.model.MessageContentFilterData
 import dev.octoshrimpy.quik.databinding.MessageContentFiltersControllerBinding
@@ -96,23 +97,35 @@ class MessageContentFiltersController : QkController<MessageContentFiltersContro
 
         val dialog = AlertDialog.Builder(activity!!)
                 .setView(layout.root)
-                .setPositiveButton(R.string.message_content_filters_dialog_create) { _, _ ->
-                    var text = layout.input.text.toString();
-                    if (!text.isBlank()) {
-                        val regexChecked = layout.regexp.checkbox?.isChecked ?: false
-                        if (!regexChecked) text = text.trim()
-                        saveFilterSubject.onNext(
-                            MessageContentFilterData(
-                                text,
-                                (layout.caseSensitivity.checkbox?.isChecked == true) && !regexChecked,
-                                regexChecked,
-                                layout.contacts.checkbox?.isChecked == true
-                            )
-                        )
-                    }
-                }
+                .setPositiveButton(R.string.message_content_filters_dialog_create, null)
                 .setNegativeButton(R.string.button_cancel) { _, _ -> }
-        dialog.show()
+                .show()
+
+        // Overriding the positive button listener so the dialog stays open on validation errors
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            val regexChecked = layout.regexp.checkbox?.isChecked ?: false
+            val text = layout.input.text.toString().trim()
+            when {
+                text.isBlank() -> layout.input.error = activity!!.getString(
+                    R.string.message_content_filters_dialog_error_empty)
+
+                regexChecked && tryOrNull(logOnError = false) { Regex(text) } == null ->
+                    layout.input.error = activity!!.getString(
+                        R.string.message_content_filters_dialog_error_invalid_regex)
+
+                else -> {
+                    saveFilterSubject.onNext(
+                        MessageContentFilterData(
+                            text,
+                            (layout.caseSensitivity.checkbox?.isChecked == true) && !regexChecked,
+                            regexChecked,
+                            layout.contacts.checkbox?.isChecked == true
+                        )
+                    )
+                    dialog.dismiss()
+                }
+            }
+        }
     }
 
 }
