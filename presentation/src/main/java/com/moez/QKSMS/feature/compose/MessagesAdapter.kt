@@ -332,23 +332,22 @@ class MessagesAdapter @Inject constructor(
 
         // Bind the timestamp
         val subscription = subs.find { it.subscriptionId == message.subId }
+        val showSim = subscription != null && subs.size > 1
 
         timestamp.apply {
             text = dateFormatter.getMessageTimestamp(message.date)
             setVisible(
                     ((message.date - (previous?.date ?: 0))
                         .millisecondsToMinutes() >= BubbleUtils.TIMESTAMP_THRESHOLD) ||
-                            (message.subId != previous?.subId) &&
-                            (subscription != null)
+                            (subscription != null &&
+                                    (message.subId != previous?.subId || showSim))
             )
         }
 
         simIndex.text = subscription?.simSlotIndex?.plus(1)?.toString()
 
-        ((message.subId != previous?.subId) && (subscription != null) && (subs.size > 1)).also {
-            sim.setVisible(it)
-            simIndex.setVisible(it)
-        }
+        sim.setVisible(showSim)
+        simIndex.setVisible(showSim)
 
         // Bind the grouping
         holder.itemView.setPadding(
