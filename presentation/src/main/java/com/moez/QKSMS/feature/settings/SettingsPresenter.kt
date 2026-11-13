@@ -29,6 +29,7 @@ import dev.octoshrimpy.quik.common.util.Colors
 import dev.octoshrimpy.quik.common.util.DateFormatter
 import dev.octoshrimpy.quik.common.util.extensions.makeToast
 import dev.octoshrimpy.quik.interactor.SyncMessages
+import dev.octoshrimpy.quik.manager.WidgetManager
 import dev.octoshrimpy.quik.repository.SyncRepository
 import dev.octoshrimpy.quik.util.NightModeManager
 import dev.octoshrimpy.quik.util.Preferences
@@ -39,15 +40,16 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SettingsPresenter @Inject constructor(
-    colors: Colors,
     syncRepo: SyncRepository,
+    private val colors: Colors,
     private val context: Context,
     private val dateFormatter: DateFormatter,
     private val navigator: Navigator,
     private val externalNavigator: ExternalNavigator,
     private val nightModeManager: NightModeManager,
     private val prefs: Preferences,
-    private val syncMessages: SyncMessages
+    private val syncMessages: SyncMessages,
+    private val widgetManager: WidgetManager
 ) : QkPresenter<SettingsView, SettingsState>(SettingsState(
         nightModeId = prefs.nightMode.get()
 )) {
@@ -76,6 +78,9 @@ class SettingsPresenter @Inject constructor(
 
         disposables += prefs.black.asObservable()
                 .subscribe { black -> newState { copy(black = black) } }
+
+        disposables += prefs.dynamicColors.asObservable()
+                .subscribe { dynamicColors -> newState { copy(dynamicColors = dynamicColors) } }
 
         disposables += prefs.notifications().asObservable()
                 .subscribe { enabled -> newState { copy(notificationsEnabled = enabled) } }
@@ -175,6 +180,15 @@ class SettingsPresenter @Inject constructor(
                         }
 
                         R.id.black -> prefs.black.set(!prefs.black.get())
+
+                        R.id.dynamicColors -> {
+                            if (!colors.dynamicColorsSupported) {
+                                context.makeToast(R.string.settings_dynamic_colors_unsupported)
+                            } else {
+                                prefs.dynamicColors.set(!prefs.dynamicColors.get())
+                                widgetManager.updateTheme()
+                            }
+                        }
 
                         R.id.autoEmoji -> prefs.autoEmoji.set(!prefs.autoEmoji.get())
 
