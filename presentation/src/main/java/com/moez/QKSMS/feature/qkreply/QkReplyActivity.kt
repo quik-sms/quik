@@ -154,7 +154,7 @@ class QkReplyActivity : QkThemedActivity(), QkReplyView {
         binding.counter.setVisible(binding.counter.text.isNotBlank())
 
         binding.sim.setVisible(state.subscription != null)
-        binding.sim.contentDescription = getString(R.string.compose_sim_cd, state.subscription?.displayName)
+        binding.sim.contentDescription = getString(R.string.compose_sim_cd, state.subscription?.safeDisplayName)
         binding.simIndex.text = "${state.subscription?.simSlotIndex?.plus(1)}"
 
         binding.send.isEnabled = state.canSend
