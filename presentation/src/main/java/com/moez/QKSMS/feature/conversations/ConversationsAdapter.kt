@@ -129,6 +129,9 @@ class ConversationsAdapter @Inject constructor(
 
         binding.scheduled.isVisible = conversation.id in hasScheduledConversation
 
+        binding.sendIndividually.isVisible =
+            !conversation.sendAsGroup && conversation.recipients.size > 1
+
         binding.pinned.isVisible = conversation.pinned
         binding.unread.setTint(theme)
     }
