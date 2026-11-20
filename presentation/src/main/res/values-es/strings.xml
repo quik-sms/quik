@@ -471,25 +471,4 @@
     <string name="deduplicating_messages_finished">¡Finalizó la desduplicación de mensajes!</string>
     <string name="deduplicating_messages_no_messages">No se encontraron mensajes duplicados.</string>
     <string name="deduplicating_messages_failed">La desduplición de mensajes falló, por favor inténtalo de nuevo</string>
-    <string name="about_copyright" translatable="false"></string>
-    <string name="blocking_manager_call_control_title" translatable="false"></string>
-    <string name="notification_foreground_worker_channel_name"></string>
-    <string name="about_contact" translatable="false"></string>
-    <string name="changelog_fixed" translatable="false"></string>
-    <string name="changelog_version" translatable="false"></string>
-    <string name="about_developer"></string>
-    <string name="changelog_removed" translatable="false"></string>
-    <string name="changelog_title" translatable="false"></string>
-    <string name="changelog_improved" translatable="false"></string>
-    <string name="about_source" translatable="false"></string>
-    <string name="blocking_manager_sia_title" translatable="false"></string>
-    <string name="changelog_added" translatable="false"></string>
-    <string name="changelog_dismiss" translatable="false"></string>
-    <string name="backup_restore_dialog_summary" translatable="false"></string>
-    <string name="about_changelog" translatable="false"></string>
-    <string name="changelog_more" translatable="false"></string>
-    <string name="about_license" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
-    <string name="theme_plus" translatable="false"></string>
-    <string name="blocking_manager_call_blocker_title" translatable="false"></string>
 </resources>

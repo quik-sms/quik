@@ -468,28 +468,4 @@
     <string name="message_content_filters_dialog_title">Fjern matchende meldinger</string>
     <string name="speak_unseen_messages">Snakk usette meldinger</string>
     <string name="compose_attach_file_cd">Legg til fil</string>
-    <string name="about_copyright" translatable="false"></string>
-    <string name="blocking_manager_call_control_title" translatable="false"></string>
-    <string name="about_contact" translatable="false"></string>
-    <string name="changelog_fixed" translatable="false"></string>
-    <string name="deduplicating_messages_finished"></string>
-    <string name="changelog_version" translatable="false"></string>
-    <string name="deduplicating_messages_failed"></string>
-    <string name="auto_deduplicate_messages_summary"></string>
-    <string name="deduplicating_messages_no_messages"></string>
-    <string name="auto_deduplicate_messages_title"></string>
-    <string name="changelog_removed" translatable="false"></string>
-    <string name="changelog_title" translatable="false"></string>
-    <string name="changelog_improved" translatable="false"></string>
-    <string name="about_source" translatable="false"></string>
-    <string name="blocking_manager_sia_title" translatable="false"></string>
-    <string name="changelog_added" translatable="false"></string>
-    <string name="changelog_dismiss" translatable="false"></string>
-    <string name="backup_restore_dialog_summary" translatable="false"></string>
-    <string name="about_changelog" translatable="false"></string>
-    <string name="changelog_more" translatable="false"></string>
-    <string name="about_license" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
-    <string name="theme_plus" translatable="false"></string>
-    <string name="blocking_manager_call_blocker_title" translatable="false"></string>
 </resources>
