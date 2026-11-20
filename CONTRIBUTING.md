@@ -22,7 +22,7 @@ Once you have done this, simply use the app as normal, and report any bugs you c
 
 
 ## Translate
-To translate this app join our [Weblate project](https://hosted.weblate.org/engage/quik/). From here you can begin editing strings on the web. We have a few guidelines for translations: 
+To translate this app join our [Weblate project](https://hosted.weblate.org/engage/quik/). From here you can begin editing strings on the web. We have a few guidelines for translations:
 * Insert a backslash `\` before any apostrophe `'` or quotes `"`.
 * Use a backtick `` ` `` instead of single quotes.
 * Follow the punctuation in the English strings as much as possible. For example, don't add a `.` when there is none in the original strings.
@@ -31,36 +31,56 @@ To translate this app join our [Weblate project](https://hosted.weblate.org/enga
 We recommend checking out the [Weblate documentation](https://docs.weblate.org/en/latest/index.html), and if you need any help please open an issue.
 
 
-## Update the Wiki 
+## Update the Wiki
 To update the wiki, simply navigate to the [wiki tab](https://github.com/octoshrimpy/quik/wiki) in this repository, find the file that you want to edit, and click `Edit Page`. Edit and commit your change. For more sizable changes, or feedback and questions, please comment in [this discussion](https://github.com/octoshrimpy/quik/discussions/174).
 
 
-## Fix Bugs 
-1. Find a bug that needs fixing. 
+## Fix Bugs
+1. Find a bug that needs fixing.
 2. Check for duplicates / resolved issues within the issues tab.
     - Create new issue only if not already existing.
 3. Fork the repository.
 4. Create a new branch, named according to issue you are fixing.
 5. Make your change.
-6. Test your change, either by building an APK or running on an emulator. 
+6. Test your change, either by building an APK or running on an emulator.
 7. Submit a pull request with your change.
 
 **We have a build action on each pull request.**\
 **If build fails, please edit the pull request in order to make the build succeed.**
 
 
-## Add Features 
+## Add Features
 1. Check for duplicates / resolved within issues tab.
     - Submit the feature request only if not already existing.
 2. Fork the repository.
 3. Create a new branch, named according to the request you are implementing.
-4. Make your change. 
+4. Make your change.
     - **Note: Please make sure to provide detailed comments within your code to make reviewers and future contributors' lives easier.**
-5. Test your change, either by building an APK or running on an emulator. 
+5. Test your change, either by building an APK or running on an emulator.
 6. Submit a pull request with your change.
 
 **We have a build action on each pull request.**\
 **If build fails, please edit the pull request in order to make the build succeed.**
+
+
+## Git Hooks (Optional but Recommended)
+We enforce code style (KtLint via Spotless) and code quality (Android Lint) on all Pull Requests. To catch these errors locally before you push, you can install our pre-commit hook:
+
+```bash
+./gradlew installGitHooks
+```
+
+If the installation fails, you may need to manually specify the Java version for Gradle. This can be done by editing `gradle.properties` with the following:
+
+```
+org.gradle.java.home=/path/to/jdk17
+```
+
+Once installed, the hook will:
+1. **Auto-fix formatting:** It will run `spotlessApply` and automatically stage the fixes for you (unless you are doing a partial commit with `git add -p`, in which case it will safely abort to protect your unstaged changes).
+2. **Check for bugs:** It will run Android Lint and block the commit if any errors are found, pointing you to the report.
+
+*(If you ever need to bypass the hook in an emergency, use `git commit --no-verify`).*
 
 
 ## Helpful Tips
