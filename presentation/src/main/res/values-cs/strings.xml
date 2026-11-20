@@ -39,7 +39,7 @@
     <string name="main_menu_archive">Archivovat</string>
     <string name="main_menu_unarchive">Obnovit z archivu</string>
     <string name="main_menu_delete">Smazat</string>
-    <string name="main_menu_add_contact">Přidat do kontaktů</string>
+    <string name="main_menu_add_contact">Přidat do kontaktů</string>
     <string name="main_menu_pin">Připnout nahoru</string>
     <string name="main_menu_unpin">Odepnout</string>
     <string name="main_menu_read">Označit jako přečtené</string>
@@ -47,7 +47,7 @@
     <string name="main_menu_block">Blokovat</string>
     <string name="main_syncing">Synchronizace zpráv…</string>
     <string name="main_sender_you">Vy: %s</string>
-    <string name="main_message_results_title">Výsledky ve zprávách</string>
+    <string name="main_message_results_title">Výsledky ve zprávách</string>
     <string name="main_message_results">%d zpráv</string>
     <string name="inbox_empty_text">Zde se objeví vaše konverzace</string>
     <string name="inbox_search_empty_text">Žádné výsledky</string>
@@ -57,8 +57,8 @@
     <string name="main_default_sms_message">Nastavte si QUIK jako výchozí SMS aplikaci</string>
     <string name="main_default_sms_change">Nastavit</string>
     <string name="main_permission_required">Vyžadováno oprávnění</string>
-    <string name="main_permission_sms">QUIK potřebuje oprávnění pro odesílání a zobrazení SMS zpráv</string>
-    <string name="main_permission_contacts">QUIK potřebuje oprávnění pro zobrazení vašich kontaktů</string>
+    <string name="main_permission_sms">QUIK potřebuje oprávnění pro odesílání a zobrazení SMS zpráv</string>
+    <string name="main_permission_contacts">QUIK potřebuje oprávnění pro zobrazení vašich kontaktů</string>
     <string name="main_permission_notifications">QUIK potřebuje povolení k zobrazování oznámení</string>
     <string name="main_permission_allow">Povolit</string>
     <string name="drawer_inbox">Příchozí zprávy</string>
@@ -67,7 +67,7 @@
     <string name="drawer_blocking">Blokování</string>
     <string name="drawer_more">Více</string>
     <string name="drawer_settings">Nastavení</string>
-    <string name="drawer_help">Nápověda a zpětná vazba</string>
+    <string name="drawer_help">Nápověda a zpětná vazba</string>
     <string name="drawer_invite">Pozvat přátele</string>
     <string name="rate_title">Líbí se Vám QUIK?</string>
     <string name="rate_summary">Sdílejte trochu lásky a ohodnoťte nás na Google Play!</string>
@@ -97,7 +97,7 @@
     <string name="compose_vcard_label">Karta kontaktu</string>
     <string name="compose_scheduled_for">Plánovaný čas:</string>
     <string name="compose_scheduled_future">Vybraný čas musí teprve nastat (musí být v budoucnu)!</string>
-    <string name="compose_scheduled_toast">Přidáno do naplánovaných zpráv</string>
+    <string name="compose_scheduled_toast">Přidáno do naplánovaných zpráv</string>
     <string name="compose_hint">Napsat zprávu…</string>
     <string name="compose_menu_copy">Kopírovat text</string>
     <string name="compose_menu_forward">Přeposlat</string>
@@ -143,7 +143,7 @@
     <string name="gallery_toast_saved">Uloženo do galerie</string>
     <string name="backup_title">Záloha a obnovení</string>
     <string name="backup_backing_up">Zálohování zpráv</string>
-    <string name="backup_restoring">Obnovení ze zálohy</string>
+    <string name="backup_restoring">Obnovení ze zálohy</string>
     <string name="backup_loading">Načítání…</string>
     <string name="backup_never">Nikdy</string>
     <string name="backup_location_title">Umístění zálohy</string>
@@ -152,9 +152,9 @@
     <string name="backup_restore_summary">Vybrat zálohu</string>
     <string name="backup_restore_error_backup">Zálohování…</string>
     <string name="backup_restore_error_restore">Probíhá obnova…</string>
-    <string name="backup_restore_confirm_title">Obnovit ze zálohy</string>
+    <string name="backup_restore_confirm_title">Obnovit ze zálohy</string>
     <string name="backup_restore_stop_title">Zastavit obnovu</string>
-    <string name="backup_restore_stop_message">Dříve obnovené zprávy zůstanou ve vašem zařízení</string>
+    <string name="backup_restore_stop_message">Dříve obnovené zprávy zůstanou ve vašem zařízení</string>
     <string name="backup_select_location_rationale_title">Vyberte umístění zálohy</string>
     <string name="backup_select_location_rationale_message">Vyberte složku, do které chcete uložit zálohy</string>
     <string name="backup_details">%1$s\n%2$d messages</string>
@@ -166,18 +166,18 @@
     <string name="backup_disclaimer">Momentálně jsou pro zálohování a obnovení podporovány pouze SMS. MMS podpora a plánované zálohy budou přidány již brzy!</string>
     <string name="backup_now">Zálohovat nyní</string>
     <string name="backup_progress_parsing">Analyzování zálohy…</string>
-    <string name="backup_progress_running">%d/%d zpráv</string>
+    <string name="backup_progress_running">%d/%d zpráv</string>
     <string name="backup_progress_saving">Ukládání zálohy…</string>
     <string name="backup_progress_syncing">Synchronizace zpráv…</string>
     <string name="backup_progress_finished">Hotovo!</string>
-    <string name="backup_notification_channel_name">Zálohování a obnovení</string>
+    <string name="backup_notification_channel_name">Zálohování a obnovení</string>
     <string name="scheduled_title">Naplánováno</string>
-    <string name="scheduled_empty_description">Automaticky odeslat zprávu v přesný okamžik, který chcete</string>
+    <string name="scheduled_empty_description">Automaticky odeslat zprávu v přesný okamžik, který chcete</string>
     <string name="scheduled_empty_message_1">Zdar! Kdy máš narozeniny?</string>
-    <string name="scheduled_empty_message_2">23. prosince</string>
+    <string name="scheduled_empty_message_2">23. prosince</string>
     <string name="scheduled_empty_message_3">Všechno nejlepší! Hleďme, ještě že si je pamatuji</string>
     <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
-    <string name="scheduled_empty_message_3_timestamp">Posíláno 23. prosince</string>
+    <string name="scheduled_empty_message_3_timestamp">Posíláno 23. prosince</string>
     <string name="scheduled_compose_cd">Naplánovat zprávu</string>
     <string name="scheduled_options_title">Naplánovaná zpráva</string>
     <string-array name="scheduled_options">
@@ -214,7 +214,7 @@
     <string name="settings_qkreply_tap_dismiss_summary">Pro ukončení klepněte kamkoli mimo okno zprávy</string>
     <string name="settings_delayed_title">Zpožděné odeslání</string>
     <string name="settings_swipe_actions">Akce přejetí</string>
-    <string name="settings_swipe_actions_summary">Nastavení akcí pro přejetí v konverzacích</string>
+    <string name="settings_swipe_actions_summary">Nastavení akcí pro přejetí v konverzacích</string>
     <string name="settings_swipe_actions_right">Přejetí vpravo</string>
     <string name="settings_swipe_actions_left">Přejetí vlevo</string>
     <string name="settings_swipe_actions_change">ZMĚNIT</string>
@@ -232,9 +232,9 @@
     <string name="settings_signature_title">Podpis</string>
     <string name="settings_signature_summary">Přidat podpis na konec vašich zpráv</string>
     <string name="settings_unicode_title">Odstranit diakritiku</string>
-    <string name="settings_unicode_summary">Odstranit diakritiku v odesílaných SMS zprávách</string>
+    <string name="settings_unicode_summary">Odstranit diakritiku v odesílaných SMS zprávách</string>
     <string name="settings_mobile_title">Pouze mobilní čísla</string>
-    <string name="settings_mobile_summary">Při psaní zprávy zobrazit pouze mobilní telefonní čísla</string>
+    <string name="settings_mobile_summary">Při psaní zprávy zobrazit pouze mobilní telefonní čísla</string>
     <string name="settings_auto_delete">Automaticky odstranit staré zprávy</string>
     <string name="settings_auto_delete_dialog_message">Zprávy budou odstraněny po zadaném počtu dní</string>
     <string name="settings_auto_delete_dialog_hint">Počet dní</string>
@@ -251,21 +251,21 @@
     <string name="settings_long_as_mms_summary">Nedaří-li se odeslat vaše dlouhé zprávy, nebo jsou-li poslány v nesprávném pořadí, lze je odeslat jako MMS. Mohou být účtovány další poplatky</string>
     <string name="settings_mms_size_title">Automaticky komprimovat MMS přílohy</string>
     <string name="settings_sync_title">Synchronizovat zprávy</string>
-    <string name="settings_sync_summary">Opětovná synchronizace zpráv s nativní Android SMS databází</string>
+    <string name="settings_sync_summary">Opětovná synchronizace zpráv s nativní Android SMS databází</string>
     <string name="settings_about_title">O aplikaci QUIK</string>
     <string name="settings_version">Verze %s</string>
     <string name="settings_logging_enabled">Ladící protokolování zapnuto</string>
     <string name="settings_logging_disabled">Ladící protokolování vypnuto</string>
-    <string name="settings_delay_duration_hint">Zadejte prodlevu (v sekundách)</string>
+    <string name="settings_delay_duration_hint">Zadejte prodlevu (v sekundách)</string>
     <string name="blocking_title">Blokování</string>
     <string name="blocking_drop_title">Zahodit zprávy</string>
-    <string name="blocking_drop_summary">Zahodit příchozí zprávy od blokovaných odesílatelů namísto jejich skrytí</string>
+    <string name="blocking_drop_summary">Zahodit příchozí zprávy od blokovaných odesílatelů namísto jejich skrytí</string>
     <string name="blocking_conversations">Blokované konverzace</string>
     <string name="blocking_manager_title">Správce blokování</string>
-    <string name="blocking_manager_qksms_summary">Vestavěné blokování v QUIK</string>
+    <string name="blocking_manager_qksms_summary">Vestavěné blokování v QUIK</string>
     <string name="blocking_manager_call_blocker_summary">Blokujte spamové zprávy, čísla a neznámé hovory pomocí černé listiny a plánování</string>
     <string name="blocking_manager_call_control_summary">Automatické filtrování hovorů a zpráv na jednom místě. Community IQ™ poskytuje ochranu před nevyžádanými zprávami od komunitou označených spammerů</string>
-    <string name="blocking_manager_sia_summary">Automaticky filtrovat zprávy od nevyžádaných čísel pomocí aplikace „Můžu to zvednout?“</string>
+    <string name="blocking_manager_sia_summary">Automaticky filtrovat zprávy od nevyžádaných čísel pomocí aplikace „Můžu to zvednout?“</string>
     <string name="blocking_manager_copy_title">Kopírovat blokovaná čísla</string>
     <string name="blocking_manager_copy_summary">Pokračovat do %s a zkopírovat stávající zablokovaná čísla</string>
     <string name="blocked_numbers_title">Blokovaná čísla</string>
@@ -491,4 +491,23 @@
     <string name="compose_reactions_title">Reakce</string>
     <string name="about_developer">Skvělý tým lidí z celého světa!</string>
     <string name="notification_foreground_worker_channel_name">Oznámení pro pracovníka o přijetí zprávy</string>
+    <string name="about_copyright" translatable="false"></string>
+    <string name="blocking_manager_call_control_title" translatable="false"></string>
+    <string name="about_contact" translatable="false"></string>
+    <string name="changelog_fixed" translatable="false"></string>
+    <string name="changelog_version" translatable="false"></string>
+    <string name="changelog_removed" translatable="false"></string>
+    <string name="changelog_title" translatable="false"></string>
+    <string name="changelog_improved" translatable="false"></string>
+    <string name="about_source" translatable="false"></string>
+    <string name="blocking_manager_sia_title" translatable="false"></string>
+    <string name="changelog_added" translatable="false"></string>
+    <string name="changelog_dismiss" translatable="false"></string>
+    <string name="backup_restore_dialog_summary" translatable="false"></string>
+    <string name="about_changelog" translatable="false"></string>
+    <string name="changelog_more" translatable="false"></string>
+    <string name="about_license" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="theme_plus" translatable="false"></string>
+    <string name="blocking_manager_call_blocker_title" translatable="false"></string>
 </resources>
