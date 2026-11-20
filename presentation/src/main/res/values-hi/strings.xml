@@ -149,7 +149,7 @@
     <string name="backup_restore_title">पुनर्स्थापित</string>
     <string name="backup_restore_summary">किसी बैकअप का चयन करें</string>
     <string name="backup_restore_error_backup">Backup in progress…</string>
-    <string name="backup_restore_error_restore"> पुनःस्थापन प्रगति में…</string>
+    <string name="backup_restore_error_restore">पुनःस्थापन प्रगति में…</string>
     <string name="backup_restore_confirm_title">बैकअप से रीस्टोर करें</string>
     <string name="backup_restore_stop_title">पुनर्स्थापना बंद करो</string>
     <string name="backup_restore_stop_message">संदेश जो पहले ही बहाल हो चुके हैं वे आपके डिवाइस पर बने रहेंगे</string>
@@ -175,7 +175,7 @@
     <string name="scheduled_empty_message_2">यह 23 दिसंबर को था</string>
     <string name="scheduled_empty_message_3">जन्मदिन की शुभकामनाएं! देखो, मैं कौन सा मित्र हूं, तुम्हारा जन्मदिन याद कर रहा हूं</string>
     <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
-    <string name="scheduled_empty_message_3_timestamp">23 दिसंबर को भेजा जा रहा है </string>
+    <string name="scheduled_empty_message_3_timestamp">23 दिसंबर को भेजा जा रहा है</string>
     <string name="scheduled_compose_cd">एक संदेश अनुसूचित करें</string>
     <string name="scheduled_options_title">निर्धारित संदेश</string>
     <string-array name="scheduled_options">
@@ -471,4 +471,25 @@
     <string name="error_stt_toast">माफ़ करें, स्पीच-टू-टेक्स्ट लोड करने में त्रुटि हुई।</string>
     <string name="stt_toast_extra_prompt">अपना संदेश बोलें</string>
     <string name="messages_text_share_file_error">ओह! साझा करते समय कुछ गड़बड़ हो गई</string>
+    <string name="about_copyright" translatable="false"></string>
+    <string name="blocking_manager_call_control_title" translatable="false"></string>
+    <string name="notification_foreground_worker_channel_name"></string>
+    <string name="about_contact" translatable="false"></string>
+    <string name="changelog_fixed" translatable="false"></string>
+    <string name="changelog_version" translatable="false"></string>
+    <string name="about_developer"></string>
+    <string name="changelog_removed" translatable="false"></string>
+    <string name="changelog_title" translatable="false"></string>
+    <string name="changelog_improved" translatable="false"></string>
+    <string name="about_source" translatable="false"></string>
+    <string name="blocking_manager_sia_title" translatable="false"></string>
+    <string name="changelog_added" translatable="false"></string>
+    <string name="changelog_dismiss" translatable="false"></string>
+    <string name="backup_restore_dialog_summary" translatable="false"></string>
+    <string name="about_changelog" translatable="false"></string>
+    <string name="changelog_more" translatable="false"></string>
+    <string name="about_license" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="theme_plus" translatable="false"></string>
+    <string name="blocking_manager_call_blocker_title" translatable="false"></string>
 </resources>
