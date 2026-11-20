@@ -78,9 +78,9 @@
     <string name="drawer_settings">Paramètres</string>
     <string name="drawer_help">Aide &amp; commentaires</string>
     <string name="drawer_invite">Inviter des amis</string>
-    <string name="rate_title">Vous aimez QUIK ?</string>
+    <string name="rate_title">Vous aimez QUIK ?</string>
     <string name="rate_summary">Partagez votre amour et laissez nous une étoile sur GitHub !</string>
-    <string name="rate_okay">OK !</string>
+    <string name="rate_okay">OK !</string>
     <string name="rate_dismiss">ANNULER</string>
     <string name="dialog_delete_title">Supprimer</string>
     <plurals name="dialog_delete_message">
@@ -99,7 +99,7 @@
         <item quantity="other">Voulez-vous vraiment envoyer %d messages maintenant ?</item>
     </plurals>
     <string name="dialog_edit_scheduled_message_title">Modifier le message</string>
-    <string name="dialog_edit_scheduled_message">Modifier ce message va le retirer des messages programmés.\n\nAssurez-vous de le réenvoyer au prochain écran, ou il sera perdu.\n\nVoulez-vous continuer ?</string>
+    <string name="dialog_edit_scheduled_message">Modifier ce message va le retirer des messages programmés.\n\nAssurez-vous de le réenvoyer au prochain écran, ou il sera perdu.\n\nVoulez-vous continuer ?</string>
     <string name="dialog_edit_scheduled_message_positive_button">Oui, modifier le message</string>
     <string name="dialog_clear_compose_title">Effacer le message</string>
     <string name="dialog_clear_compose">Effacer ce message ? Cette action ne peut être annulée.</string>
@@ -118,7 +118,7 @@
     <string name="compose_send_group_summary">Les destinataires et les réponses seront visibles par tout le monde</string>
     <string name="compose_messages_empty">C’est le début de votre conversation. Dites quelque chose de sympa !</string>
     <string name="compose_vcard_label">Fiche du contact</string>
-    <string name="compose_scheduled_for">Heure d\'envoi prévue :</string>
+    <string name="compose_scheduled_for">Heure d\'envoi prévue :</string>
     <string name="compose_scheduled_future">Le moment choisi doit être dans le futur !</string>
     <string name="compose_scheduled_toast">Ajouté aux messages programmés</string>
     <string name="compose_hint">Écrire un message…</string>
@@ -483,7 +483,7 @@
     <string name="error_stt_toast">Désolé, il y a eu une erreur au chargement du fournisseur de saisie vocale.</string>
     <string name="stt_toast_extra_prompt">Exprimez votre message</string>
     <string name="messages_text_share_file_error">Oups ! Quelque chose s’est mal déroulé pendant le partage</string>
-    <string name="main_sender_draft">Brouillon : %s</string>
+    <string name="main_sender_draft">Brouillon : %s</string>
     <string name="compose_scheduled_view">Messages programmés pour cette conversation</string>
     <string name="scheduled_send_cd">Programmer l\'envoi de ce message</string>
     <string name="message_content_filters_title">Filtres de contenu des messages</string>
