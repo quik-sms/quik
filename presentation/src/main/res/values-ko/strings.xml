@@ -317,9 +317,7 @@
     <string name="button_undo">되돌리기</string>
     <string name="toast_copied">복사됨</string>
     <plurals name="notification_new_messages">
-        <item quantity="other">새로운 메세지
-
-%s 개의 새로운 메시지</item>
+        <item quantity="other">새로운 메세지 %s 개의 새로운 메시지</item>
     </plurals>
     <string name="notification_message_failed_title">메시지 전송 실패</string>
     <string name="notification_message_failed_text">%s 에게 보낼 메시지 전송이 실패했습니다</string>
@@ -370,4 +368,115 @@
         <item>웃음</item>
         <item>괜찮아요</item>
     </string-array>
+    <string name="settings_notification_previews_summary"></string>
+    <string name="dialog_edit_scheduled_message"></string>
+    <string name="main_menu_edit_message"></string>
+    <string name="deduplicate_messages_category"></string>
+    <string name="about_copyright" translatable="false"></string>
+    <string name="compose_send_group_summary_off"></string>
+    <plurals name="dialog_delete_chat">
+    </plurals>
+    <string name="compose_message_attachment"></string>
+    <string name="blocking_manager_call_control_title" translatable="false"></string>
+    <plurals name="dialog_send_now">
+    </plurals>
+    <string name="messageLinkHandling_dialog_positive"></string>
+    <string name="message_content_filters_title"></string>
+    <string name="scheduled_send_cd"></string>
+    <string name="notification_foreground_worker_channel_name"></string>
+    <string name="message_content_filters_dialog_title"></string>
+    <string name="dialog_clear_compose_title"></string>
+    <string name="notification_foreground_worker_text"></string>
+    <string name="deduplicate_message_confirmation_dialog_message"></string>
+    <string name="messages_text_share_file_error"></string>
+    <string name="compose_toast_drag_stt"></string>
+    <string name="message_content_filters_dialog_regex_switch"></string>
+    <string name="about_contact" translatable="false"></string>
+    <string name="menu_mms_part_open"></string>
+    <string name="messageLinkHandling_dialog_title"></string>
+    <string name="scheduled_menu_edit_message"></string>
+    <string name="changelog_fixed" translatable="false"></string>
+    <string name="compose_message_sim"></string>
+    <string name="scheduled_menu_send_now"></string>
+    <string name="compose_record_audio_msg_cd"></string>
+    <string name="deduplicating_messages_finished"></string>
+    <string name="changelog_version" translatable="false"></string>
+    <string name="message_content_filters_empty"></string>
+    <string name="error_stt_toast"></string>
+    <string name="settings_unread_at_top_title"></string>
+    <string name="compose_menu_show_status"></string>
+    <plurals name="toast_unarchived">
+    </plurals>
+    <string name="compose_schedule_cancel_cd"></string>
+    <string name="deduplicating_messages_failed"></string>
+    <string name="speak_unseen_messages"></string>
+    <string name="button_clear"></string>
+    <string name="auto_deduplicate_messages_summary"></string>
+    <string name="about_developer"></string>
+    <string name="stt_toast_extra_prompt"></string>
+    <string name="deduplicating_messages_no_messages"></string>
+    <string name="settings_notification_silent_summary"></string>
+    <string name="speak_no_messages"></string>
+    <string name="settings_unread_at_top_summary"></string>
+    <string name="compose_reactions_title"></string>
+    <string name="clipboard_too_large_to_copy"></string>
+    <string name="auto_deduplicate_messages_title"></string>
+    <string name="messageLinkHandling_dialog_negative"></string>
+    <string name="menu_mms_part_share"></string>
+    <string name="main_menu_rename_conversation"></string>
+    <string name="main_sender_draft"></string>
+    <string name="settings_disable_screenshots_title"></string>
+    <string name="changelog_removed" translatable="false"></string>
+    <string name="clipboard_unable_to_copy_to"></string>
+    <string name="compose_no_valid_recipients"></string>
+    <string name="changelog_title" translatable="false"></string>
+    <string name="message_content_filters_add_cd"></string>
+    <string name="settings_system_show_stt_title"></string>
+    <string name="notification_foreground_worker_title"></string>
+    <string name="dialog_edit_scheduled_message_title"></string>
+    <string name="compose_message_item"></string>
+    <string name="messageLinkHandling_dialog_body"></string>
+    <string name="compose_audio_message_cd"></string>
+    <string name="compose_message_send_now"></string>
+    <string name="dialog_edit_scheduled_message_positive_button"></string>
+    <string name="message_management_title"></string>
+    <string name="attachment_missing"></string>
+    <string name="compose_send_group_summary_on"></string>
+    <string name="changelog_improved" translatable="false"></string>
+    <string name="compose_record_audio_msg_abort_cd"></string>
+    <string name="about_source" translatable="false"></string>
+    <string name="compose_record_audio_msg_attach_cd"></string>
+    <string name="blocking_manager_sia_title" translatable="false"></string>
+    <string name="changelog_added" translatable="false"></string>
+    <string name="main_menu_send_now"></string>
+    <string name="all_conversations_widget_title"></string>
+    <plurals name="toast_archived">
+    </plurals>
+    <string name="notification_message_failed_action"></string>
+    <string name="changelog_dismiss" translatable="false"></string>
+    <string name="backup_restore_dialog_summary" translatable="false"></string>
+    <string name="message_content_filters_dialog_contacts_switch"></string>
+    <string name="compose_scheduled_view"></string>
+    <string name="deduplicate_messages_title"></string>
+    <string name="about_changelog" translatable="false"></string>
+    <string name="changelog_more" translatable="false"></string>
+    <string name="compose_message_cancel"></string>
+    <string name="settings_diable_screenshots_summary"></string>
+    <string name="settings_mms_weblink_title"></string>
+    <string name="about_license" translatable="false"></string>
+    <string name="message_content_filters_dialog_hint"></string>
+    <string name="settings_notification_silent_title"></string>
+    <string name="compose_attach_file_cd"></string>
+    <string name="dialog_clear_compose"></string>
+    <string name="message_content_filters_dialog_case_switch"></string>
+    <string name="main_menu_select_all"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="theme_plus" translatable="false"></string>
+    <string name="deduplicate_messages_summary"></string>
+    <string name="message_body_too_long_to_display"></string>
+    <string name="compose_record_audio_msg_play_pause_cd"></string>
+    <string name="blocking_manager_call_blocker_title" translatable="false"></string>
+    <string name="main_sync_emojis"></string>
+    <string name="message_content_filters_dialog_create"></string>
+    <string name="menu_mms_part_forward"></string>
 </resources>
