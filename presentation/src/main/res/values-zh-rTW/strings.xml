@@ -174,7 +174,7 @@
     <string name="scheduled_empty_message_2">是 12 月 23 日</string>
     <string name="scheduled_empty_message_3">生日快樂！看看我是一個多麼棒的朋友，我還記得你的生日</string>
     <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
-    <string name="scheduled_empty_message_3_timestamp">在 12 月 23 日傳送 </string>
+    <string name="scheduled_empty_message_3_timestamp">在 12 月 23 日傳送</string>
     <string name="scheduled_compose_cd">新增排程訊息</string>
     <string name="scheduled_options_title">排程訊息</string>
     <string-array name="scheduled_options">
@@ -273,11 +273,9 @@
     <string name="blocking_block_title">封鎖</string>
     <string name="blocking_unblock_title">解除封鎖</string>
     <plurals name="blocking_block_external">
-        <item quantity="one">前往 %s 並封鎖這個號碼</item>
         <item quantity="other">前往 %s 並封鎖這些號碼</item>
     </plurals>
     <plurals name="blocking_unblock_external">
-        <item quantity="one">前往 %s 並解鎖這個號碼</item>
         <item quantity="other">前往 %s 並解鎖這些號碼</item>
     </plurals>
     <string name="about_title">關於</string>
@@ -319,7 +317,6 @@
     <string name="button_undo">復原</string>
     <string name="toast_copied">已複製</string>
     <plurals name="notification_new_messages">
-        <item quantity="one">新訊息</item>
         <item quantity="other">%s 條新訊息</item>
     </plurals>
     <string name="notification_message_failed_title">訊息未傳送</string>
@@ -467,4 +464,23 @@
     <string name="compose_reactions_title">反應</string>
     <string name="about_developer">一支來自世界各地的優秀團隊！</string>
     <string name="notification_foreground_worker_channel_name">接收訊息服務通知</string>
+    <string name="about_copyright" translatable="false"></string>
+    <string name="blocking_manager_call_control_title" translatable="false"></string>
+    <string name="about_contact" translatable="false"></string>
+    <string name="changelog_fixed" translatable="false"></string>
+    <string name="changelog_version" translatable="false"></string>
+    <string name="changelog_removed" translatable="false"></string>
+    <string name="changelog_title" translatable="false"></string>
+    <string name="changelog_improved" translatable="false"></string>
+    <string name="about_source" translatable="false"></string>
+    <string name="blocking_manager_sia_title" translatable="false"></string>
+    <string name="changelog_added" translatable="false"></string>
+    <string name="changelog_dismiss" translatable="false"></string>
+    <string name="backup_restore_dialog_summary" translatable="false"></string>
+    <string name="about_changelog" translatable="false"></string>
+    <string name="changelog_more" translatable="false"></string>
+    <string name="about_license" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="theme_plus" translatable="false"></string>
+    <string name="blocking_manager_call_blocker_title" translatable="false"></string>
 </resources>
