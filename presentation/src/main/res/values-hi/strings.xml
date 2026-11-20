@@ -471,25 +471,4 @@
     <string name="error_stt_toast">माफ़ करें, स्पीच-टू-टेक्स्ट लोड करने में त्रुटि हुई।</string>
     <string name="stt_toast_extra_prompt">अपना संदेश बोलें</string>
     <string name="messages_text_share_file_error">ओह! साझा करते समय कुछ गड़बड़ हो गई</string>
-    <string name="about_copyright" translatable="false"></string>
-    <string name="blocking_manager_call_control_title" translatable="false"></string>
-    <string name="notification_foreground_worker_channel_name"></string>
-    <string name="about_contact" translatable="false"></string>
-    <string name="changelog_fixed" translatable="false"></string>
-    <string name="changelog_version" translatable="false"></string>
-    <string name="about_developer"></string>
-    <string name="changelog_removed" translatable="false"></string>
-    <string name="changelog_title" translatable="false"></string>
-    <string name="changelog_improved" translatable="false"></string>
-    <string name="about_source" translatable="false"></string>
-    <string name="blocking_manager_sia_title" translatable="false"></string>
-    <string name="changelog_added" translatable="false"></string>
-    <string name="changelog_dismiss" translatable="false"></string>
-    <string name="backup_restore_dialog_summary" translatable="false"></string>
-    <string name="about_changelog" translatable="false"></string>
-    <string name="changelog_more" translatable="false"></string>
-    <string name="about_license" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
-    <string name="theme_plus" translatable="false"></string>
-    <string name="blocking_manager_call_blocker_title" translatable="false"></string>
 </resources>
