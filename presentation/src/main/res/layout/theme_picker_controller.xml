@@ -29,7 +29,7 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorSurface"
         android:elevation="8dp"
         android:orientation="horizontal"
         android:paddingStart="12dp"

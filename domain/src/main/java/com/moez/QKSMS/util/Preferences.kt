@@ -106,6 +106,7 @@ class Preferences @Inject constructor(
     val nightStart = rxPrefs.getString("nightStart", "18:00")
     val nightEnd = rxPrefs.getString("nightEnd", "6:00")
     val black = rxPrefs.getBoolean("black", false)
+    val dynamicColors = rxPrefs.getBoolean("dynamicColors", false)
     val autoColor = rxPrefs.getBoolean("autoColor", true)
     val systemFont = rxPrefs.getBoolean("systemFont", false)
     val showStt = rxPrefs.getBoolean("showStt", true)
