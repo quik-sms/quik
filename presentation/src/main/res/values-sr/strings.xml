@@ -34,7 +34,7 @@
     <string name="menu_mms_part_save">Сачувај у галерију</string>
     <string name="compose_menu_share">Подели</string>
     <string name="main_drawer_open_cd">Отвори панел за навигацију</string>
-    <string name="main_title_selected">%d  обележено</string>
+    <string name="main_title_selected">%d обележено</string>
     <string name="main_menu_clear">Обриши</string>
     <string name="main_menu_archive">Сачувај</string>
     <string name="main_menu_unarchive">Врати у примљене</string>

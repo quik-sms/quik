@@ -385,12 +385,10 @@
     <string name="scheduled_menu_edit_message">Editar mensaje</string>
     <plurals name="dialog_delete_chat">
         <item quantity="one">¿Estás seguro que quieres eliminar el mensaje?</item>
-        <item quantity="many"/>
         <item quantity="other">¿Estás seguro que quieres %d mensajes?</item>
     </plurals>
     <plurals name="dialog_send_now">
         <item quantity="one">¿Estás seguro que quieres enviar el mensaje?</item>
-        <item quantity="many"/>
         <item quantity="other">¿Estás seguro que quieres enviar %d mensajes?</item>
     </plurals>
     <string name="dialog_edit_scheduled_message_title">Editar mensaje</string>
@@ -443,12 +441,10 @@
     <string name="button_clear">Borrar</string>
     <plurals name="toast_archived">
         <item quantity="one">Conversación archivada</item>
-        <item quantity="many"/>
         <item quantity="other">%d conversaciones archivadas</item>
     </plurals>
     <plurals name="toast_unarchived">
         <item quantity="one">Conversación desarchivada</item>
-        <item quantity="many"/>
         <item quantity="other">%d conversaciones desarchivadas</item>
     </plurals>
     <string name="notification_foreground_worker_title">Recibiendo mensaje</string>

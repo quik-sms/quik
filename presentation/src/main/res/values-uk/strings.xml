@@ -78,7 +78,7 @@
         <item quantity="one">Ви впевнені, що хочете видалити цю бесіду?</item>
         <item quantity="few">Ви впевнені, що хочете видалити %d бесіди?</item>
         <item quantity="many">Ви впевнені, що хочете видалити %d бесід?</item>
-        <item quantity="other">Ви впевнені, що хочете видалити %d бесіди?</item>
+        <item quantity="other">Ви впевнені, що хочете видалити %d бесід?</item>
     </plurals>
     <string-array name="message_options">
         <item>Скопіювати текст</item>
@@ -177,7 +177,7 @@
     <string name="scheduled_empty_message_2">23-го грудня</string>
     <string name="scheduled_empty_message_3">З Днем народження! Дивись, який я чудовий друг, згадав про твій день народження</string>
     <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
-    <string name="scheduled_empty_message_3_timestamp">Надіслано: 23 грудня </string>
+    <string name="scheduled_empty_message_3_timestamp">Надіслано: 23 грудня</string>
     <string name="scheduled_compose_cd">Запланувати повідомлення</string>
     <string name="scheduled_options_title">Заплановане повідомлення</string>
     <string-array name="scheduled_options">

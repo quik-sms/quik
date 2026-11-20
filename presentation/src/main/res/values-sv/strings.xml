@@ -175,7 +175,7 @@
     <string name="scheduled_empty_message_2">Den är den 23:e December</string>
     <string name="scheduled_empty_message_3">Grattis på födelsedagen! Se vilken fin vän jag är som kommer ihåg din födelsedag</string>
     <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
-    <string name="scheduled_empty_message_3_timestamp">Skickar den 23:e December </string>
+    <string name="scheduled_empty_message_3_timestamp">Skickar den 23:e December</string>
     <string name="scheduled_compose_cd">Schemalägg ett meddelande</string>
     <string name="scheduled_options_title">Schemalagt meddelande</string>
     <string-array name="scheduled_options">

@@ -209,7 +209,7 @@
     <string name="settings_notification_wake_title">فتح الشاشة</string>
     <string name="settings_vibration_title">الاهتزاز</string>
     <string name="settings_ringtone_title">الصوت</string>
-    <string name="settings_ringtone_none">بدون نغمة </string>
+    <string name="settings_ringtone_none">بدون نغمة</string>
     <string name="settings_qkreply_title">رد QK</string>
     <string name="settings_qkreply_summary">نافذة منبثقة للرسائل الجديدة</string>
     <string name="settings_qkreply_tap_dismiss_title">إلمس للاستبعاد</string>

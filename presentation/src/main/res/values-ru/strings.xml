@@ -177,7 +177,7 @@
     <string name="scheduled_empty_message_2">Он был 23 декабря</string>
     <string name="scheduled_empty_message_3">С днём рождения! Посмотрите, какой я отличный друг, помнящий о вашем дне рождения</string>
     <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
-    <string name="scheduled_empty_message_3_timestamp">Отправка 23 декабря </string>
+    <string name="scheduled_empty_message_3_timestamp">Отправка 23 декабря</string>
     <string name="scheduled_compose_cd">Запланировать сообщение</string>
     <string name="scheduled_options_title">Запланированное сообщение</string>
     <string-array name="scheduled_options">
