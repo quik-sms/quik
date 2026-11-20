@@ -21,6 +21,7 @@ package dev.octoshrimpy.quik.feature.blocking.filters
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDisposable
 import dev.octoshrimpy.quik.common.base.QkPresenter
+import dev.octoshrimpy.quik.extensions.mapNotNull
 import dev.octoshrimpy.quik.repository.MessageContentFilterRepository
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -45,11 +46,22 @@ class MessageContentFiltersPresenter @Inject constructor(
             .autoDisposable(view.scope())
             .subscribe { view.showAddDialog() }
 
+        view.editFilter()
+            .mapNotNull(filterRepo::getMessageContentFilter)
+            .autoDisposable(view.scope())
+            .subscribe(view::showEditDialog)
+
         view.saveFilter()
             .observeOn(Schedulers.io())
             .subscribeOn(Schedulers.io())
             .autoDisposable(view.scope())
             .subscribe { filterData -> filterRepo.createFilter(filterData) }
+
+        view.updateFilter()
+            .observeOn(Schedulers.io())
+            .subscribeOn(Schedulers.io())
+            .autoDisposable(view.scope())
+            .subscribe { (id, filterData) -> filterRepo.updateFilter(id, filterData) }
     }
 
 }
