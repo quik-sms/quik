@@ -450,4 +450,46 @@
     <string name="error_stt_toast">Sorry, er was een fout bij het laden van de spraak-naar-tekst provider.</string>
     <string name="stt_toast_extra_prompt">Spreek uw bericht</string>
     <string name="messages_text_share_file_error">Oeps! Iets ging er fout bij het delen</string>
+    <string name="deduplicate_messages_category"></string>
+    <string name="about_copyright" translatable="false"></string>
+    <string name="compose_send_group_summary_off"></string>
+    <string name="blocking_manager_call_control_title" translatable="false"></string>
+    <string name="notification_foreground_worker_channel_name"></string>
+    <string name="message_content_filters_dialog_title"></string>
+    <string name="notification_foreground_worker_text"></string>
+    <string name="deduplicate_message_confirmation_dialog_message"></string>
+    <string name="message_content_filters_dialog_regex_switch"></string>
+    <string name="about_contact" translatable="false"></string>
+    <string name="changelog_fixed" translatable="false"></string>
+    <string name="deduplicating_messages_finished"></string>
+    <string name="changelog_version" translatable="false"></string>
+    <string name="deduplicating_messages_failed"></string>
+    <string name="auto_deduplicate_messages_summary"></string>
+    <string name="about_developer"></string>
+    <string name="deduplicating_messages_no_messages"></string>
+    <string name="compose_reactions_title"></string>
+    <string name="auto_deduplicate_messages_title"></string>
+    <string name="changelog_removed" translatable="false"></string>
+    <string name="changelog_title" translatable="false"></string>
+    <string name="notification_foreground_worker_title"></string>
+    <string name="compose_message_item"></string>
+    <string name="message_management_title"></string>
+    <string name="compose_send_group_summary_on"></string>
+    <string name="changelog_improved" translatable="false"></string>
+    <string name="about_source" translatable="false"></string>
+    <string name="blocking_manager_sia_title" translatable="false"></string>
+    <string name="changelog_added" translatable="false"></string>
+    <string name="changelog_dismiss" translatable="false"></string>
+    <string name="backup_restore_dialog_summary" translatable="false"></string>
+    <string name="deduplicate_messages_title"></string>
+    <string name="about_changelog" translatable="false"></string>
+    <string name="changelog_more" translatable="false"></string>
+    <string name="about_license" translatable="false"></string>
+    <string name="message_content_filters_dialog_hint"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="theme_plus" translatable="false"></string>
+    <string name="deduplicate_messages_summary"></string>
+    <string name="blocking_manager_call_blocker_title" translatable="false"></string>
+    <string name="main_sync_emojis"></string>
+    <string name="message_content_filters_dialog_create"></string>
 </resources>
