@@ -22,6 +22,8 @@ import dev.octoshrimpy.quik.model.MessageContentFilter
 import dev.octoshrimpy.quik.model.MessageContentFilterData
 import io.realm.Realm
 import io.realm.RealmResults
+import timber.log.Timber
+import java.util.regex.PatternSyntaxException
 import javax.inject.Inject
 
 class MessageContentFilterRepositoryImpl @Inject constructor() : MessageContentFilterRepository {
@@ -60,7 +62,12 @@ class MessageContentFilterRepositoryImpl @Inject constructor() : MessageContentF
                     if (isContact && !filter.includeContacts) {
                         false
                     } else if (filter.isRegex) {
-                        Regex(filter.value).matches(messageBody)
+                        try {
+                            Regex(filter.value).matches(messageBody)
+                        } catch (e: PatternSyntaxException) {
+                            Timber.w("Invalid regex in content filter, skipping")
+                            false
+                        }
                     } else if (filter.caseSensitive) {
                         val regexp = "[\\s\\S]*\\b" + Regex.escape(filter.value) + "\\b[\\s\\S]*"
                         Regex(regexp).matches(messageBody)
