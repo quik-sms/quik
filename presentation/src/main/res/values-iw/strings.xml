@@ -77,7 +77,6 @@
     <plurals name="dialog_delete_message">
         <item quantity="one">אתה בטוח שברצונך למחוק ההתכתבות זאת?</item>
         <item quantity="two">למחוק את %d ההתכתבויות האלה?</item>
-        <item quantity="many">למחוק את %d ההתכתבויות האלה?</item>
         <item quantity="other">למחוק את %d ההתכתבויות האלה?</item>
     </plurals>
     <string-array name="message_options">
@@ -244,7 +243,6 @@
     <plurals name="settings_auto_delete_summary">
         <item quantity="one">לאחר יום</item>
         <item quantity="two">לאחר יומיים</item>
-        <item quantity="many">לאחר %d ימים</item>
         <item quantity="other">לאחר %d ימים</item>
     </plurals>
     <string name="settings_long_as_mms_title">לשלוח הודעות ארוכות כ־MMS</string>
@@ -281,13 +279,11 @@
     <plurals name="blocking_block_external">
         <item quantity="one">להמשיך אל %s ולחסום את המספר הזה</item>
         <item quantity="two">להמשיך אל %s ולחסום את המספרים האלו</item>
-        <item quantity="many">להמשיך אל %s ולחסום את המספרים האלו</item>
         <item quantity="other">להמשיך אל %s ולחסום את המספרים האלו</item>
     </plurals>
     <plurals name="blocking_unblock_external">
         <item quantity="one">להמשיך אל %s ולאפשר את המספר הזה</item>
         <item quantity="two">להמשיך אל %s ולאפשר את המספרים האלו</item>
-        <item quantity="many">להמשיך אל %s ולאפשר את המספרים האלו</item>
         <item quantity="other">להמשיך אל %s ולאפשר את המספרים האלו</item>
     </plurals>
     <string name="about_title">על אודות</string>
@@ -331,7 +327,6 @@
     <plurals name="notification_new_messages">
         <item quantity="one">הודעה חדשה</item>
         <item quantity="two">%s הודעות חדשות</item>
-        <item quantity="many">%s הודעות חדשות</item>
         <item quantity="other">%s הודעות חדשות</item>
     </plurals>
     <string name="notification_message_failed_title">הודעה לא נשלחה</string>
@@ -487,4 +482,23 @@
     <string name="auto_deduplicate_messages_title">למחוק הודעות כפולות אוטומטית</string>
     <string name="auto_deduplicate_messages_summary">מחיקת הודעות כפולות תבוצע במהלך סנכרון. נא לשים לב, הפעולה הזאת תמחק הודעות אוטומטית ולמרות שהסיכוי שזאת הודעה כפולה שגויה הוא נמוך מאוד, זה עדיין אפשרי.\nנא לנקוט במשנה זהירות.</string>
     <string name="deduplicating_messages_finished">מחיקת ההודעות הכפולות הסתיימה!</string>
+    <string name="about_copyright" translatable="false"></string>
+    <string name="blocking_manager_call_control_title" translatable="false"></string>
+    <string name="about_contact" translatable="false"></string>
+    <string name="changelog_fixed" translatable="false"></string>
+    <string name="changelog_version" translatable="false"></string>
+    <string name="changelog_removed" translatable="false"></string>
+    <string name="changelog_title" translatable="false"></string>
+    <string name="changelog_improved" translatable="false"></string>
+    <string name="about_source" translatable="false"></string>
+    <string name="blocking_manager_sia_title" translatable="false"></string>
+    <string name="changelog_added" translatable="false"></string>
+    <string name="changelog_dismiss" translatable="false"></string>
+    <string name="backup_restore_dialog_summary" translatable="false"></string>
+    <string name="about_changelog" translatable="false"></string>
+    <string name="changelog_more" translatable="false"></string>
+    <string name="about_license" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="theme_plus" translatable="false"></string>
+    <string name="blocking_manager_call_blocker_title" translatable="false"></string>
 </resources>
