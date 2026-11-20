@@ -220,7 +220,7 @@
     <string name="scheduled_empty_message_2">C’est le 23 décembre</string>
     <string name="scheduled_empty_message_3">Joyeux anniversaire ! Regarde le grand ami que je suis, je me souviens de ton anniversaire</string>
     <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
-    <string name="scheduled_empty_message_3_timestamp">Envoyé le 23 décembre </string>
+    <string name="scheduled_empty_message_3_timestamp">Envoyé le 23 décembre</string>
     <string name="scheduled_compose_cd">Programmer un message</string>
     <string name="scheduled_options_title">Message programmé</string>
     <string name="attachment_missing">Manquant</string>
