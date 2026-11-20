@@ -78,7 +78,7 @@
         <item quantity="one">Ви впевнені, що хочете видалити цю бесіду?</item>
         <item quantity="few">Ви впевнені, що хочете видалити %d бесіди?</item>
         <item quantity="many">Ви впевнені, що хочете видалити %d бесід?</item>
-        <item quantity="other">Ви впевнені, що хочете видалити %d бесіди?</item>
+        <item quantity="other">Ви впевнені, що хочете видалити %d бесід?</item>
     </plurals>
     <string-array name="message_options">
         <item>Скопіювати текст</item>
@@ -177,7 +177,7 @@
     <string name="scheduled_empty_message_2">23-го грудня</string>
     <string name="scheduled_empty_message_3">З Днем народження! Дивись, який я чудовий друг, згадав про твій день народження</string>
     <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
-    <string name="scheduled_empty_message_3_timestamp">Надіслано: 23 грудня </string>
+    <string name="scheduled_empty_message_3_timestamp">Надіслано: 23 грудня</string>
     <string name="scheduled_compose_cd">Запланувати повідомлення</string>
     <string name="scheduled_options_title">Заплановане повідомлення</string>
     <string-array name="scheduled_options">
@@ -491,4 +491,23 @@
     <string name="error_stt_toast">Вибачте, сталася помилка завантаження провайдера Speech-To-Text.</string>
     <string name="stt_toast_extra_prompt">Проговорити ваше повідомлення</string>
     <string name="messages_text_share_file_error">Ой! Щось пішло не так під час обміну</string>
+    <string name="about_copyright" translatable="false"></string>
+    <string name="blocking_manager_call_control_title" translatable="false"></string>
+    <string name="about_contact" translatable="false"></string>
+    <string name="changelog_fixed" translatable="false"></string>
+    <string name="changelog_version" translatable="false"></string>
+    <string name="changelog_removed" translatable="false"></string>
+    <string name="changelog_title" translatable="false"></string>
+    <string name="changelog_improved" translatable="false"></string>
+    <string name="about_source" translatable="false"></string>
+    <string name="blocking_manager_sia_title" translatable="false"></string>
+    <string name="changelog_added" translatable="false"></string>
+    <string name="changelog_dismiss" translatable="false"></string>
+    <string name="backup_restore_dialog_summary" translatable="false"></string>
+    <string name="about_changelog" translatable="false"></string>
+    <string name="changelog_more" translatable="false"></string>
+    <string name="about_license" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="theme_plus" translatable="false"></string>
+    <string name="blocking_manager_call_blocker_title" translatable="false"></string>
 </resources>
