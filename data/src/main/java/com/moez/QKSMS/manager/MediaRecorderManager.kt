@@ -25,6 +25,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.core.net.toFile
 import dev.octoshrimpy.quik.util.FileUtils
+import timber.log.Timber
 import java.util.UUID
 
 object MediaRecorderManager : MediaRecorder() {
@@ -54,8 +55,7 @@ object MediaRecorderManager : MediaRecorder() {
             recordingState = RecordingState.Initial
 
             uri
-        }
-        catch (e: Exception) {
+        } catch (_: Exception) {
             Uri.EMPTY
         }
     }
@@ -69,7 +69,8 @@ object MediaRecorderManager : MediaRecorder() {
                 ""
             )
             if (e is Exception)
-                throw e
+                recordingState = RecordingState.Error
+            Timber.e(e)
 
             uri = newUri
 
@@ -95,8 +96,7 @@ object MediaRecorderManager : MediaRecorder() {
             recordingState = RecordingState.Recording
 
             uri
-        }
-        catch (e: Exception) {
+        } catch (_: Exception) {
             Uri.EMPTY
         }
     }
