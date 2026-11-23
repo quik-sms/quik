@@ -39,7 +39,7 @@ object MediaRecorderManager : MediaRecorder() {
     }
 
     const val AUDIO_FILE_PREFIX = "recorded-"
-    const val AUDIO_FILE_SUFFIX = ".3ga"
+    const val AUDIO_FILE_SUFFIX = ".amr"
 
     private var recordingState: RecordingState = RecordingState.Initial
 
@@ -79,8 +79,8 @@ object MediaRecorderManager : MediaRecorder() {
 
             // configure
             setAudioSource(AudioSource.MIC)
-            setOutputFormat(OutputFormat.THREE_GPP)
-            setAudioEncoder(AudioEncoder.AMR_WB)
+            setOutputFormat(OutputFormat.AMR_NB)
+            setAudioEncoder(AudioEncoder.AMR_NB)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
                 preferredDevice = preferredAudioDevice
