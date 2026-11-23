@@ -42,6 +42,7 @@ interface MainView : QkView<MainState> {
     val changelogMoreIntent: Observable<*>
     val undoArchiveIntent: Observable<Unit>
     val snackbarButtonIntent: Observable<Unit>
+    val snackbarDismissIntent: Observable<Unit>
 
     fun requestDefaultSms()
     fun requestPermissions()
