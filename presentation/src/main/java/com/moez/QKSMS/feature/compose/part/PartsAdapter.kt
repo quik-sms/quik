@@ -28,6 +28,8 @@ import dev.octoshrimpy.quik.databinding.MessageListItemInBinding
 import dev.octoshrimpy.quik.databinding.MessageListItemOutBinding
 import dev.octoshrimpy.quik.extensions.isSmil
 import dev.octoshrimpy.quik.extensions.isText
+import dev.octoshrimpy.quik.extensions.isImage
+import dev.octoshrimpy.quik.extensions.isVideo
 import dev.octoshrimpy.quik.feature.compose.BubbleUtils.canGroup
 import dev.octoshrimpy.quik.feature.compose.MessagesAdapter
 import dev.octoshrimpy.quik.model.Message
@@ -53,6 +55,9 @@ class PartsAdapter @Inject constructor(
         }
 
     val clicks: Observable<Long> = Observable.merge(partBinders.map { it.clicks })
+
+    val hasMediaPreview: Boolean
+        get() = data.any { it.isImage() || it.isVideo() }
 
     private lateinit var message: Message
     private var previous: Message? = null
