@@ -40,6 +40,7 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:hint="@string/message_content_filters_dialog_hint"
+        android:inputType="textMultiLine|textNoSuggestions|textVisiblePassword"
         android:paddingStart="24dp"
         android:paddingTop="16dp"
         android:paddingEnd="24dp"
