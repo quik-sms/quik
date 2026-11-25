@@ -32,6 +32,8 @@ interface MessageContentFilterRepository {
 
     fun isBlocked(messageBody: String, address: String, contactsRepo: ContactRepository): Boolean
 
+    fun updateFilter(id: Long, data: MessageContentFilterData)
+
     fun removeFilter(id: Long)
 
 }
