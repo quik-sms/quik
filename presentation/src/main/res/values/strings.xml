@@ -190,6 +190,7 @@
     <string name="message_status_sending">Sending…</string>
     <string name="message_status_delivered">Delivered %s</string>
     <string name="message_status_failed">Failed to send. Tap to try again</string>
+    <string name="message_status_sim">SIM %1$d</string>
     <string name="message_body_too_long_to_display">⚠ Message is long. Copy or Save for the full text</string>
 
     <string name="info_title">Details</string>
