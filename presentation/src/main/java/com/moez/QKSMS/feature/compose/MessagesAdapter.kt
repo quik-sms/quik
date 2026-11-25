@@ -39,6 +39,9 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.net.toUri
+import androidx.core.view.doOnLayout
+import androidx.core.view.updateLayoutParams
+import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.view.clicks
 import com.moez.QKSMS.common.QkMediaPlayer
 import dev.octoshrimpy.quik.R
@@ -142,7 +145,7 @@ class MessagesAdapter @Inject constructor(
 
         val view: View
         val body: TextView
-        val parts: View
+        val parts: RecyclerView
         val status: View
 
         if (viewType == VIEW_TYPE_MESSAGE_OUT) {
@@ -164,6 +167,9 @@ class MessagesAdapter @Inject constructor(
         }
 
         body.hyphenationFrequency = Layout.HYPHENATION_FREQUENCY_NONE
+        body.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            updatePreviewWidth(body, parts)
+        }
 
         // register recycler view with compose activity for context menus
         partContextMenuRegistrar.onNext(parts)
@@ -209,7 +215,7 @@ class MessagesAdapter @Inject constructor(
         val simIndex: TextView
         val sim: ImageView
         val body: TextView
-        val parts: androidx.recyclerview.widget.RecyclerView
+        val parts: RecyclerView
         val reactions: View
         val reactionText: TextView
         val status: TextView
@@ -424,7 +430,23 @@ class MessagesAdapter @Inject constructor(
             clicks.subscribe(partClicks)    // part clicks gets passed back to compose view model
         }
 
+        // Reset recycled rows before measuring the new message's text bubble.
+        parts.updateLayoutParams { width = ViewGroup.LayoutParams.WRAP_CONTENT }
+        body.doOnLayout { updatePreviewWidth(body, parts) }
+
         showEmojiReactions(reactions, reactionText, message)
+    }
+
+    private fun updatePreviewWidth(body: TextView, parts: RecyclerView) {
+        val hasPreview = (parts.adapter as? PartsAdapter)?.hasMediaPreview == true
+        val width = if (hasPreview && body.visibility == View.VISIBLE && body.width > 0) {
+            body.width
+        } else {
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        }
+        if (parts.layoutParams.width != width) {
+            parts.updateLayoutParams { this.width = width }
+        }
     }
 
     private fun showEmojiReactions(reactionsContainer: View, reactionTextView: TextView, message: Message) {

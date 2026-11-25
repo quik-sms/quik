@@ -59,7 +59,14 @@ class ImageBinder @Inject constructor(colors: Colors, private val context: Conte
         }
 
         tryOrNull(true) {
-            GlideApp.with(context).load(part.getUri()).fitCenter().into(binding.thumbnail)
+            val previewSize = context.resources.getDimensionPixelSize(R.dimen.message_bubble_max_width)
+            val preview = GlideApp.with(context).load(part.getUri())
+                .override(previewSize, previewSize)
+                .fitCenter()
+            if (part.isVideo()) {
+                preview.frame(0L)
+            }
+            preview.into(binding.thumbnail)
         }
     }
 

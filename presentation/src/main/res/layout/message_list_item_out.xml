@@ -166,6 +166,7 @@
                         android:backgroundTint="?attr/bubbleColor"
                         android:gravity="start|center_vertical"
                         android:minHeight="36dp"
+                        android:maxWidth="@dimen/message_bubble_max_width"
                         android:textIsSelectable="true" />
 
                     <LinearLayout

@@ -128,6 +128,7 @@
                     android:background="@drawable/message_only"
                     android:gravity="start|center_vertical"
                     android:minHeight="36dp"
+                    android:maxWidth="@dimen/message_bubble_max_width"
                     android:textIsSelectable="true"
                     tools:backgroundTint="@color/tools_theme"
                     tools:text="@tools:sample/lorem/random" />
