@@ -25,6 +25,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.core.net.toFile
 import dev.octoshrimpy.quik.util.FileUtils
+import timber.log.Timber
 import java.util.UUID
 
 object MediaRecorderManager : MediaRecorder() {
@@ -38,7 +39,7 @@ object MediaRecorderManager : MediaRecorder() {
     }
 
     const val AUDIO_FILE_PREFIX = "recorded-"
-    const val AUDIO_FILE_SUFFIX = ".3ga"
+    const val AUDIO_FILE_SUFFIX = ".amr"
 
     private var recordingState: RecordingState = RecordingState.Initial
 
@@ -54,8 +55,7 @@ object MediaRecorderManager : MediaRecorder() {
             recordingState = RecordingState.Initial
 
             uri
-        }
-        catch (e: Exception) {
+        } catch (_: Exception) {
             Uri.EMPTY
         }
     }
@@ -69,7 +69,8 @@ object MediaRecorderManager : MediaRecorder() {
                 ""
             )
             if (e is Exception)
-                throw e
+                recordingState = RecordingState.Error
+            Timber.e(e)
 
             uri = newUri
 
@@ -78,8 +79,8 @@ object MediaRecorderManager : MediaRecorder() {
 
             // configure
             setAudioSource(AudioSource.MIC)
-            setOutputFormat(OutputFormat.THREE_GPP)
-            setAudioEncoder(AudioEncoder.AMR_WB)
+            setOutputFormat(OutputFormat.AMR_NB)
+            setAudioEncoder(AudioEncoder.AMR_NB)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
                 preferredDevice = preferredAudioDevice
@@ -95,8 +96,7 @@ object MediaRecorderManager : MediaRecorder() {
             recordingState = RecordingState.Recording
 
             uri
-        }
-        catch (e: Exception) {
+        } catch (_: Exception) {
             Uri.EMPTY
         }
     }
