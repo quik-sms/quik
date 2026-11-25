@@ -21,19 +21,19 @@ package dev.octoshrimpy.quik.common.widget
 import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
-import androidx.appcompat.widget.SwitchCompat
-import dev.octoshrimpy.quik.R
+import com.google.android.material.materialswitch.MaterialSwitch
 import dev.octoshrimpy.quik.common.util.Colors
-import dev.octoshrimpy.quik.common.util.extensions.resolveThemeColor
-import dev.octoshrimpy.quik.common.util.extensions.withAlpha
 import dev.octoshrimpy.quik.injection.appComponent
-import dev.octoshrimpy.quik.util.Preferences
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class QkSwitch @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : SwitchCompat(context, attrs) {
+class QkSwitch @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : MaterialSwitch(context, attrs) {
 
     @Inject lateinit var colors: Colors
-    @Inject lateinit var prefs: Preferences
+
+    private var themeDisposable: Disposable? = null
+    private val defaultTrackTintList by lazy { trackTintList }
 
     init {
         if (!isInEditMode) {
@@ -45,20 +45,34 @@ class QkSwitch @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         super.onAttachedToWindow()
 
         if (!isInEditMode) {
-            val states = arrayOf(
-                    intArrayOf(-android.R.attr.state_enabled),
-                    intArrayOf(android.R.attr.state_checked),
-                    intArrayOf())
-
-            thumbTintList = ColorStateList(states, intArrayOf(
-                    context.resolveThemeColor(R.attr.switchThumbDisabled),
-                    colors.theme().theme,
-                    context.resolveThemeColor(R.attr.switchThumbEnabled)))
-
-            trackTintList = ColorStateList(states, intArrayOf(
-                    context.resolveThemeColor(R.attr.switchTrackDisabled),
-                    colors.theme().theme.withAlpha(0x4D),
-                    context.resolveThemeColor(R.attr.switchTrackEnabled)))
+            themeDisposable?.dispose()
+            themeDisposable = colors.themeObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { theme -> updateThemeColors(theme.theme) }
         }
+    }
+
+    override fun onDetachedFromWindow() {
+        themeDisposable?.dispose()
+        themeDisposable = null
+        super.onDetachedFromWindow()
+    }
+
+    private fun updateThemeColors(themeColor: Int) {
+        defaultTrackTintList?.let { tintList ->
+            trackTintList = tintList.withCheckedColor(themeColor)
+        }
+    }
+
+    private fun ColorStateList.withCheckedColor(color: Int): ColorStateList {
+        val stateSpecs = arrayOf(
+                intArrayOf(-android.R.attr.state_enabled),
+                intArrayOf(android.R.attr.state_checked),
+                intArrayOf())
+        val resolvedColors = stateSpecs.map { stateSpec ->
+            getColorForState(stateSpec, defaultColor)
+        }.toIntArray()
+        resolvedColors[1] = color
+        return ColorStateList(stateSpecs, resolvedColors)
     }
 }
