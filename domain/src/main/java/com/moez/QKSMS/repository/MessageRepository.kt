@@ -99,6 +99,12 @@ interface MessageRepository {
 
     fun deleteMessages(messageIds: Collection<Long>)
 
+    fun getJunkMessages(): RealmResults<Message>
+
+    fun markJunk(messageIds: Collection<Long>)
+
+    fun restoreJunk(messageIds: Collection<Long>)
+
     fun getOldMessageCounts(maxAgeDays: Int): Map<Long, Int>
 
     fun deleteOldMessages(maxAgeDays: Int)

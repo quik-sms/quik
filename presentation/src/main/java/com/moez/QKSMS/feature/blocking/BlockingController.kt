@@ -32,6 +32,7 @@ import dev.octoshrimpy.quik.feature.blocking.manager.BlockingManagerController
 import dev.octoshrimpy.quik.feature.blocking.messages.BlockedMessagesController
 import dev.octoshrimpy.quik.feature.blocking.numbers.BlockedNumbersController
 import dev.octoshrimpy.quik.feature.blocking.filters.MessageContentFiltersController
+import dev.octoshrimpy.quik.feature.blocking.junk.JunkController
 import dev.octoshrimpy.quik.injection.appComponent
 import dev.octoshrimpy.quik.databinding.BlockingControllerBinding
 import javax.inject.Inject
@@ -45,6 +46,7 @@ class BlockingController : QkController<BlockingControllerBinding, BlockingView,
     override val blockedNumbersIntent get() = binding.blockedNumbers.clicks()
     override val messageContentFiltersIntent get() = binding.messageContentFilters.clicks()
     override val blockedMessagesIntent get() = binding.blockedMessages.clicks()
+    override val junkIntent get() = binding.junk.clicks()
     override val dropClickedIntent get() = binding.drop.clicks()
 
     @Inject lateinit var colors: Colors
@@ -71,6 +73,7 @@ class BlockingController : QkController<BlockingControllerBinding, BlockingView,
         binding.blockingManager.summary = state.blockingManager
         binding.drop.checkbox?.isChecked = state.dropEnabled
         binding.blockedMessages.isEnabled = !state.dropEnabled
+        binding.junk.isEnabled = !state.dropEnabled
     }
 
     override fun openBlockedNumbers() {
@@ -93,6 +96,12 @@ class BlockingController : QkController<BlockingControllerBinding, BlockingView,
 
     override fun openBlockingManager() {
         router.pushController(RouterTransaction.with(BlockingManagerController())
+                .pushChangeHandler(QkChangeHandler())
+                .popChangeHandler(QkChangeHandler()))
+    }
+
+    override fun openJunk() {
+        router.pushController(RouterTransaction.with(JunkController())
                 .pushChangeHandler(QkChangeHandler())
                 .popChangeHandler(QkChangeHandler()))
     }

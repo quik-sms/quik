@@ -112,6 +112,15 @@ class SyncRepositoryImpl @Inject constructor(
                         .findAll()
                 ).associateBy { conversation -> conversation.id }.toMutableMap()
 
+                val persistedJunk = realm.copyFromRealm(
+                    realm.where(Message::class.java)
+                        .equalTo("junk", true)
+                        .findAll()
+                ).mapNotNull { message ->
+                    if (message.contentId == 0L || message.type.isEmpty()) null
+                    else (message.type to message.contentId)
+                }.toHashSet()
+
                 removeOldMessages(realm)
 
                 keys.reset()
@@ -161,6 +170,7 @@ class SyncRepositoryImpl @Inject constructor(
                                         )
                                     }
                                 }
+                                junk = (type to contentId) in persistedJunk
                             }
                             realm.insertOrUpdate(message)
                         }
@@ -197,6 +207,7 @@ class SyncRepositoryImpl @Inject constructor(
                                     sendAsGroup = persistedConversation.sendAsGroup
                                 }
                                 lastMessage = realm.where(Message::class.java)
+                                    .equalTo("junk", false)
                                     .sort("date", Sort.DESCENDING)
                                     .equalTo("threadId", id)
                                     .findFirst()
@@ -287,8 +298,8 @@ class SyncRepositoryImpl @Inject constructor(
         // If we don't have a valid id, return null
         val contentId = tryOrNull(false) { ContentUris.parseId(uri) } ?: return null
 
-        // Check if the message already exists, so we can reuse the id
-        val existingId = Realm.getDefaultInstance().use { realm ->
+        // Check if the message already exists, so we can reuse the id and junk flag
+        val existing = Realm.getDefaultInstance().use { realm ->
             realm.refresh()
             realm.where(Message::class.java)
                 .equalTo("type", type)
@@ -300,8 +311,10 @@ class SyncRepositoryImpl @Inject constructor(
                 .equalTo("contentId", 0L)
                 .endGroup()
                 .findFirst()
-                ?.id
+                ?.let { message -> Pair(message.id, message.junk) }
         }
+        val existingId = existing?.first
+        val existingJunk = existing?.second == true
 
         // The uri might be something like content://mms/inbox/id
         // The box might change though, so we should just use the mms/id uri
@@ -318,6 +331,7 @@ class SyncRepositoryImpl @Inject constructor(
             val columnsMap = CursorToMessage.MessageColumns(cursor)
             cursorToMessage.map(Pair(cursor, columnsMap)).apply {
                 existingId?.let { this.id = it }
+                junk = existingJunk
 
                 if (isMms()) {
                     parts = RealmList<MmsPart>().apply {
