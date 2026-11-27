@@ -31,6 +31,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 // TODO: Once we have a custom dialog based on conductor, turn this into a controller
@@ -51,6 +52,7 @@ class BlockingDialog @Inject constructor(
                 .distinct()
 
         if (addresses.isEmpty()) {
+            Timber.w("No addresses found for conversations $conversationIds, nothing to block/unblock")
             return@launch
         }
 

@@ -272,6 +272,10 @@ class ConversationRepositoryImpl @Inject constructor(
 
     override fun getConversations(vararg threadIds: Long): RealmResults<Conversation> =
         Realm.getDefaultInstance()
+            // Callers may run on a background thread. A Realm there doesn't auto-update and can
+            // still be pinned to an old version, which hides conversations created since (e.g.
+            // a new spam thread the user is trying to block). Refresh before querying.
+            .apply { refresh() }
             .where(Conversation::class.java)
             .anyOf("id", threadIds)
             .findAll()
