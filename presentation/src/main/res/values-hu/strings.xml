@@ -473,4 +473,6 @@
     <string name="compose_reactions_title">Reakciók</string>
     <string name="about_developer">Egy csodálatos emberekből álló csapat a világ minden tájáról!</string>
     <string name="notification_foreground_worker_channel_name">Üzenetfogadás értesítés</string>
+    <string name="main_permission_dismiss">Elvetés</string>
+    <string name="message_status_sim">SIM %1$d</string>
 </resources>

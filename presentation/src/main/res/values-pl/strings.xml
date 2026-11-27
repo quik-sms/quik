@@ -509,4 +509,6 @@
     <string name="deduplicating_messages_failed">Deduplikacja wiadomości nie powiodła się. Spróbuj ponownie</string>
     <string name="about_developer">Zespół wspaniałych ludzi z całego świata!</string>
     <string name="notification_foreground_worker_channel_name">Powiadomienie dla modułu obsługującego odbiór wiadomości</string>
+    <string name="main_permission_dismiss">Odrzuć</string>
+    <string name="message_status_sim">SIM %1$d</string>
 </resources>

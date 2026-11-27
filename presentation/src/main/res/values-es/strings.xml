@@ -45,7 +45,7 @@
     <string name="main_menu_read">Marcar como leído</string>
     <string name="main_menu_unread">Marcar como no leído</string>
     <string name="main_menu_block">Bloquear</string>
-    <string name="main_syncing">Sincronización de mensajes...</string>
+    <string name="main_syncing">Sincronización de mensajes…</string>
     <string name="main_sender_you">Tú: %s</string>
     <string name="main_message_results_title">Resultados en los mensajes</string>
     <string name="main_message_results">%d mensajes</string>
@@ -59,7 +59,7 @@
     <string name="main_permission_required">Se requiere permiso</string>
     <string name="main_permission_sms">QUIK necesita permiso para enviar y ver mensajes SMS</string>
     <string name="main_permission_contacts">QUIK necesita permiso para ver sus contactos</string>
-    <string name="main_permission_notifications">QUIK needs permission to display notifications</string>
+    <string name="main_permission_notifications">QUIK necesita permiso para mostrar notificaciones</string>
     <string name="main_permission_allow">Permitir</string>
     <string name="drawer_inbox">Recibidos</string>
     <string name="drawer_archived">Archivar</string>
@@ -71,7 +71,7 @@
     <string name="drawer_invite">Invitar amigos</string>
     <string name="rate_title">¿Te diviertes con QUIK?</string>
     <string name="rate_summary">Comparte un poco de amor y puntúanos en Google Play!</string>
-    <string name="rate_okay">DE ACUERDO</string>
+    <string name="rate_okay">¡DE ACUERDO!</string>
     <string name="rate_dismiss">DESESTIMAR</string>
     <string name="dialog_delete_title">Eliminar</string>
     <plurals name="dialog_delete_message">
@@ -144,7 +144,7 @@
     <string name="backup_restoring">Restaurar desde copia de seguridad</string>
     <string name="backup_loading">Cargando…</string>
     <string name="backup_never">Nunca</string>
-    <string name="backup_location_title">Backup location</string>
+    <string name="backup_location_title">Ubicación de la copia de seguridad</string>
     <string name="backup_location_summary">Set folder</string>
     <string name="backup_restore_title">Restaurar</string>
     <string name="backup_restore_summary">Seleccione una copia de seguridad</string>
@@ -385,12 +385,10 @@
     <string name="scheduled_menu_edit_message">Editar mensaje</string>
     <plurals name="dialog_delete_chat">
         <item quantity="one">¿Estás seguro que quieres eliminar el mensaje?</item>
-        <item quantity="many"/>
         <item quantity="other">¿Estás seguro que quieres %d mensajes?</item>
     </plurals>
     <plurals name="dialog_send_now">
         <item quantity="one">¿Estás seguro que quieres enviar el mensaje?</item>
-        <item quantity="many"/>
         <item quantity="other">¿Estás seguro que quieres enviar %d mensajes?</item>
     </plurals>
     <string name="dialog_edit_scheduled_message_title">Editar mensaje</string>
@@ -443,12 +441,10 @@
     <string name="button_clear">Borrar</string>
     <plurals name="toast_archived">
         <item quantity="one">Conversación archivada</item>
-        <item quantity="many"/>
         <item quantity="other">%d conversaciones archivadas</item>
     </plurals>
     <plurals name="toast_unarchived">
         <item quantity="one">Conversación desarchivada</item>
-        <item quantity="many"/>
         <item quantity="other">%d conversaciones desarchivadas</item>
     </plurals>
     <string name="notification_foreground_worker_title">Recibiendo mensaje</string>

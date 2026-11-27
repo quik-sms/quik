@@ -143,7 +143,7 @@
     <string name="gallery_toast_saved">Uložené do galérie</string>
     <string name="backup_title">Záloha a obnovenie</string>
     <string name="backup_backing_up">Zálohovanie správ</string>
-    <string name="backup_restoring">Obnovenie zo zálohy</string>
+    <string name="backup_restoring">Obnovenie zo zálohy</string>
     <string name="backup_loading">Načítavanie…</string>
     <string name="backup_never">Nikdy</string>
     <string name="backup_location_title">Backup location</string>

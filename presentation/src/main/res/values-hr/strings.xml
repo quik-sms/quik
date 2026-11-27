@@ -65,7 +65,7 @@
     <string name="drawer_archived">Arhivirano</string>
     <string name="drawer_scheduled">Zakazano</string>
     <string name="drawer_blocking">Blokiranje</string>
-    <string name="drawer_more"> Više</string>
+    <string name="drawer_more">Više</string>
     <string name="drawer_settings">Postavke</string>
     <string name="drawer_help">Pomoć i povratne informacije</string>
     <string name="drawer_invite">Pozovi prijatelje</string>
@@ -320,7 +320,7 @@
     <string name="button_delete">Izbriši</string>
     <string name="button_save">Spremi</string>
     <string name="button_stop">Zaustavi</string>
-    <string name="button_more"> Više</string>
+    <string name="button_more">Više</string>
     <string name="button_set">Postavi</string>
     <string name="button_undo">Poništi</string>
     <string name="toast_copied">Kopirano</string>

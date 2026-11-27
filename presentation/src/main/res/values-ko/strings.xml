@@ -317,9 +317,7 @@
     <string name="button_undo">되돌리기</string>
     <string name="toast_copied">복사됨</string>
     <plurals name="notification_new_messages">
-        <item quantity="other">새로운 메세지
-
-%s 개의 새로운 메시지</item>
+        <item quantity="other">새로운 메세지 %s 개의 새로운 메시지</item>
     </plurals>
     <string name="notification_message_failed_title">메시지 전송 실패</string>
     <string name="notification_message_failed_text">%s 에게 보낼 메시지 전송이 실패했습니다</string>

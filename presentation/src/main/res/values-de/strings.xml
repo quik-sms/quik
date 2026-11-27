@@ -175,7 +175,7 @@
     <string name="scheduled_empty_message_2">Er ist am 23. Dezember</string>
     <string name="scheduled_empty_message_3">Alles Gute zum Geburtstag! Schau, was für ein großartiger Freund ich bin, dass ich an deinen Geburtstag denke</string>
     <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
-    <string name="scheduled_empty_message_3_timestamp">Am 23. Dezember senden </string>
+    <string name="scheduled_empty_message_3_timestamp">Am 23. Dezember senden</string>
     <string name="scheduled_compose_cd">Eine Nachricht planen</string>
     <string name="scheduled_options_title">Geplante Nachricht</string>
     <string-array name="scheduled_options">

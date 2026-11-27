@@ -50,7 +50,7 @@
     <string name="main_message_results_title">İletilerdeki sonuçlar</string>
     <string name="main_message_results">%d ileti</string>
     <string name="inbox_empty_text">Konuşmalarınız burada görünür</string>
-    <string name="inbox_search_empty_text"> Sonuç Yok</string>
+    <string name="inbox_search_empty_text">Sonuç Yok</string>
     <string name="archived_empty_text">Arşivlenmiş konuşmalarınız burada görünür</string>
     <string name="main_fab_cd">Yeni konuşma başlat</string>
     <string name="main_default_sms_title">Yine iletileşmeyi seviyorum</string>
@@ -175,7 +175,7 @@
     <string name="scheduled_empty_message_2">23 Aralık\'ta</string>
     <string name="scheduled_empty_message_3">Doğum günün kutlu olsun! Doğum gününü hatırladığım harika arkadaşım</string>
     <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
-    <string name="scheduled_empty_message_3_timestamp">23  Aralık\'ta gönder</string>
+    <string name="scheduled_empty_message_3_timestamp">23 Aralık\'ta gönder</string>
     <string name="scheduled_compose_cd">Bir ileti zamanla</string>
     <string name="scheduled_options_title">Zamanlanmış ileti</string>
     <string-array name="scheduled_options">
@@ -246,8 +246,8 @@
     <string name="settings_long_as_mms_title">Uzun iletileri MMS olarak gönder</string>
     <string name="settings_long_as_mms_summary">Uzun metin iletileriniz gönderilemiyorsa veya yanlış sırada gönderiliyorsa, onları MMS iletileri olarak gönderebilirsiniz. Ek ücretler uygulanabilir</string>
     <string name="settings_mms_size_title">Otomatik-MMS ekleri sıkıştır</string>
-    <string name="settings_sync_title"> İletileri eşitle</string>
-    <string name="settings_sync_summary">İletilerinizi  Android SMS veritabanı ile yeniden senkronize edin</string>
+    <string name="settings_sync_title">İletileri eşitle</string>
+    <string name="settings_sync_summary">İletilerinizi Android SMS veritabanı ile yeniden senkronize edin</string>
     <string name="settings_about_title">QUIK Hakkında</string>
     <string name="settings_version">Sürüm %s</string>
     <string name="settings_logging_enabled">Hata ayıklama günlüğü etkin</string>

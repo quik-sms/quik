@@ -88,7 +88,7 @@
     <string name="compose_number_picker_once">মাত্র একবার</string>
     <string name="compose_number_picker_always">সর্বদা</string>
     <string name="compose_title_selected">%d নির্বাচিত</string>
-    <string name="compose_subtitle_results">%2$d এর %1$d টি ফলাফল </string>
+    <string name="compose_subtitle_results">%2$d এর %1$d টি ফলাফল</string>
     <string name="compose_send_group_title">গ্রুপ বার্তা হিসেবে পাঠাও</string>
     <string name="compose_send_group_summary">প্রাপক এবং উত্তর সবার চোখে পড়বে</string>
     <string name="compose_messages_empty">এখানে তোমার আলাপ শুরু হয়। সুন্দর কিছু বলো!</string>
@@ -140,10 +140,10 @@
     <string name="gallery_error">মিডিয়া লোড করা যায়নি</string>
     <string name="gallery_toast_saved">গ্যালারীতে সেভ করুন</string>
     <string name="backup_title">ব্যাকআপ ও পুনরুদ্ধার</string>
-    <string name="backup_backing_up">মেসেজ ব্যাকআপ হচ্ছে </string>
-    <string name="backup_restoring">ব্যাকআপ হতে পুনরুদ্ধার হচ্ছে </string>
+    <string name="backup_backing_up">মেসেজ ব্যাকআপ হচ্ছে</string>
+    <string name="backup_restoring">ব্যাকআপ হতে পুনরুদ্ধার হচ্ছে</string>
     <string name="backup_loading">লোড হচ্ছে…</string>
-    <string name="backup_never">কখনই না </string>
+    <string name="backup_never">কখনই না</string>
     <string name="backup_location_title">Backup location</string>
     <string name="backup_location_summary">Set folder</string>
     <string name="backup_restore_title">পুনরুদ্ধার</string>
@@ -161,8 +161,8 @@
     <string name="backup_selected_backup_details_title">Backup details</string>
     <string name="backup_restore_dialog_title">ব্যাকআপ গুলো</string>
     <string name="backup_restore_dialog_empty">কোন ব্যাকআপ পাওয়া যায়নি</string>
-    <string name="backup_disclaimer">এইমুহুর্তে, ব্যাকআপ এবং পুনরুদ্ধার শুধুমাত্র এসএমএস এ করতে পারবেন । এমএমএস সাপর্ট  ও  শিডিউল  ব্যাকআপ শীঘ্রই আসছে!</string>
-    <string name="backup_now">ব্যাকআপ করুন </string>
+    <string name="backup_disclaimer">এইমুহুর্তে, ব্যাকআপ এবং পুনরুদ্ধার শুধুমাত্র এসএমএস এ করতে পারবেন । এমএমএস সাপর্ট ও শিডিউল ব্যাকআপ শীঘ্রই আসছে!</string>
+    <string name="backup_now">ব্যাকআপ করুন</string>
     <string name="backup_progress_parsing">ব্যাক-আপ পার্স করা হচ্ছে…</string>
     <string name="backup_progress_running">%d/%d বার্তা</string>
     <string name="backup_progress_saving">ব্যাক-আপ সংরক্ষণ করা হচ্ছে…</string>
@@ -175,7 +175,7 @@
     <string name="scheduled_empty_message_2">ওটা ২৩শে ডিসেম্বরে</string>
     <string name="scheduled_empty_message_3">শুভ জন্মদিন! দেখো তোমার জন্মদিন মনে রাখায় আমি কতো ভালো একটা বন্ধু</string>
     <!--&#x200A; is a special character required at the end of this string to fix it's formatting in the app -->
-    <string name="scheduled_empty_message_3_timestamp">২৩শে ডিসেম্বর পাঠানো হচ্ছে </string>
+    <string name="scheduled_empty_message_3_timestamp">২৩শে ডিসেম্বর পাঠানো হচ্ছে</string>
     <string name="scheduled_compose_cd">পরবর্তীতে পাঠানোর জন্য একটি বার্তা পরিকল্পনা করো</string>
     <string name="scheduled_options_title">পরিকল্পিত বার্তা</string>
     <string-array name="scheduled_options">
