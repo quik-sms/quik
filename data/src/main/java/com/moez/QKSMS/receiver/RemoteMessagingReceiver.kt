@@ -32,9 +32,13 @@ import javax.inject.Inject
 
 class RemoteMessagingReceiver : BroadcastReceiver() {
     @Inject lateinit var conversationRepo: ConversationRepository
+
     @Inject lateinit var markRead: MarkRead
+
     @Inject lateinit var messageRepo: MessageRepository
+
     @Inject lateinit var sendNewMessage: SendNewMessage
+
     @Inject lateinit var subscriptionManager: SubscriptionManagerCompat
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -47,7 +51,7 @@ class RemoteMessagingReceiver : BroadcastReceiver() {
 
         markRead.execute(listOf(threadId))
 
-        val lastMessage = messageRepo.getMessages(threadId).lastOrNull()
+        val lastMessage = messageRepo.getMessages(threadId).last()
         val conversation = conversationRepo.getConversation(threadId)
 
         val pendingRepository = goAsync()
@@ -59,8 +63,8 @@ class RemoteMessagingReceiver : BroadcastReceiver() {
                 0,
                 conversation?.recipients?.map { it.address } ?: return,
                 remoteInput.getCharSequence("body").toString(),
-                conversation.sendAsGroup
-            )
+                conversation.sendAsGroup,
+            ),
         ) { pendingRepository.finish() }
     }
 }
