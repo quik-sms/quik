@@ -56,10 +56,16 @@ class BlockingRepositoryImpl @Inject constructor(
     }
 
     override fun getBlockedNumber(id: Long): BlockedNumber? {
-        return Realm.getDefaultInstance()
-                .where(BlockedNumber::class.java)
-                .equalTo("id", id)
-                .findFirst()
+        // Called from background threads, where an unrefreshed Realm can be pinned
+        // to an old version and miss numbers blocked since. Refresh, and return an
+        // unmanaged copy so the instance can be closed.
+        return Realm.getDefaultInstance().use { realm ->
+            realm.refresh()
+            realm.where(BlockedNumber::class.java)
+                    .equalTo("id", id)
+                    .findFirst()
+                    ?.let(realm::copyFromRealm)
+        }
     }
 
     override fun isBlocked(address: String): Boolean {
