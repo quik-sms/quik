@@ -46,6 +46,7 @@ import dev.octoshrimpy.quik.model.PhoneNumber
 import dev.octoshrimpy.quik.model.Recipient
 import dev.octoshrimpy.quik.model.SyncLog
 import dev.octoshrimpy.quik.interactor.DeduplicateMessages
+import dev.octoshrimpy.quik.util.ContactNumberIndex
 import dev.octoshrimpy.quik.util.PhoneNumberUtils
 import dev.octoshrimpy.quik.util.tryOrNull
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -208,6 +209,7 @@ class SyncRepositoryImpl @Inject constructor(
 
                 // Sync recipients
                 val contacts = realm.copyToRealmOrUpdate(getContacts())
+                val contactIndex = ContactNumberIndex(phoneNumberUtils, contacts)
                 recipientCursor?.use {
                     recipientCursor.forEach { cursor ->
                         tryOrNull {
@@ -219,14 +221,7 @@ class SyncRepositoryImpl @Inject constructor(
                                 )
                             )
                             val rec = cursorToRecipient.map(cursor).apply {
-                                contact = contacts.firstOrNull { c ->
-                                    c.numbers.any { num ->
-                                        phoneNumberUtils.compare(
-                                            address,
-                                            num.address
-                                        )
-                                    }
-                                }
+                                contact = contactIndex.find(address)
                             }
                             realm.insertOrUpdate(rec)
                         }
@@ -356,6 +351,11 @@ class SyncRepositoryImpl @Inject constructor(
         // Load all the contacts
         var contacts = getContacts()
 
+        // Index the numbers before taking the write lock. Matching every recipient against every
+        // number with phoneNumberUtils.compare, inside the transaction, used to hold the lock for
+        // 10+ seconds on large contact lists, and incoming messages couldn't be stored (ANR)
+        val contactIndex = ContactNumberIndex(phoneNumberUtils, contacts)
+
         Realm.getDefaultInstance()?.use { realm ->
             val recipients = realm.where(Recipient::class.java).findAll()
 
@@ -367,10 +367,10 @@ class SyncRepositoryImpl @Inject constructor(
                 realm.insertOrUpdate(getContactGroups(contacts))
 
                 // Update all the recipients with the new contacts
+                val contactsByKey = contacts.associateBy { contact -> contact.lookupKey }
                 recipients.forEach { recipient ->
-                    recipient.contact = contacts.find { contact ->
-                        contact.numbers.any { phoneNumberUtils.compare(recipient.address, it.address) }
-                    }
+                    recipient.contact = contactIndex.find(recipient.address)
+                            ?.let { contact -> contactsByKey[contact.lookupKey] }
                 }
 
                 realm.insertOrUpdate(recipients)
