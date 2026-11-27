@@ -97,6 +97,10 @@ class ScheduledMessageRepositoryImpl @Inject constructor() : ScheduledMessageRep
 
     override fun getAllScheduledMessageIdsSnapshot(): List<Long> {
         Realm.getDefaultInstance().use { realm ->
+            // Called from HousekeepingWorker, which deletes the attachments of any scheduled message
+            // missing from this list. Refresh so recently scheduled messages aren't missing
+            realm.refresh()
+
             return realm
                 .where(ScheduledMessage::class.java)
                 .sort("date")
