@@ -121,6 +121,10 @@ class BackupRepositoryImpl @Inject constructor(
 
         // Map all the messages into our object we'll use for the Json mapping
         val backupMessages = Realm.getDefaultInstance().use { realm ->
+            // This runs on a background thread, where a cached Realm instance can be pinned to an
+            // old version. Refresh so the backup includes the latest messages
+            realm.refresh()
+
             // Get the messages from realm
             val messages = realm.where(Message::class.java).sort("date").findAll().createSnapshot()
             messageCount = messages.size
