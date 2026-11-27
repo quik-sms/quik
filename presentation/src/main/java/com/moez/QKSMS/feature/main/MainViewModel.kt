@@ -219,6 +219,12 @@ class MainViewModel @Inject constructor(
             .autoDisposable(view.scope())
             .subscribe()
 
+        // Reflect whether the user has dismissed the notification permission hint
+        prefs.notificationPermissionHintDismissed.asObservable()
+            .distinctUntilChanged()
+            .autoDisposable(view.scope())
+            .subscribe { dismissed -> newState { copy(notificationPermissionHintDismissed = dismissed) } }
+
         // If we go from not having all SMS permissions to having them, sync messages
         view.activityResumedIntent
             .filter { resumed -> resumed }
@@ -613,6 +619,10 @@ class MainViewModel @Inject constructor(
                 }
                 .autoDisposable(view.scope())
                 .subscribe()
+
+        view.snackbarDismissIntent
+                .autoDisposable(view.scope())
+                .subscribe { prefs.notificationPermissionHintDismissed.set(true) }
     }
 
 }

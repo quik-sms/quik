@@ -118,6 +118,7 @@ class MainActivity : QkThemedActivity(), MainView {
     override val changelogMoreIntent by lazy { changelogDialog.moreClicks }
     override val undoArchiveIntent: Subject<Unit> = PublishSubject.create()
     override val snackbarButtonIntent: Subject<Unit> = PublishSubject.create()
+    override val snackbarDismissIntent: Subject<Unit> = PublishSubject.create()
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)[MainViewModel::class.java]
@@ -150,6 +151,9 @@ class MainActivity : QkThemedActivity(), MainView {
             it.snackbarButton.clicks()
                 .autoDisposable(scope(Lifecycle.Event.ON_DESTROY))
                 .subscribe(snackbarButtonIntent)
+            it.snackbarDismiss.clicks()
+                .autoDisposable(scope(Lifecycle.Event.ON_DESTROY))
+                .subscribe(snackbarDismissIntent)
         }
 
         syncingBinding = MainSyncingBinding.bind(binding.syncing.inflate()).also {
@@ -319,7 +323,7 @@ class MainActivity : QkThemedActivity(), MainView {
                 snackbarBinding.root.isVisible = (!state.defaultSms ||
                         !state.smsPermission ||
                         !state.contactPermission ||
-                        !state.notificationPermission)
+                        (!state.notificationPermission && !state.notificationPermissionHintDismissed))
             }
 
             is SyncRepository.SyncProgress.Running -> {
@@ -343,6 +347,13 @@ class MainActivity : QkThemedActivity(), MainView {
                 snackbarBinding.root.isVisible = false
             }
         }
+
+        // Only the notification permission is optional, so only offer to dismiss the hint when
+        // it's the sole thing missing
+        snackbarBinding.snackbarDismiss.isVisible = state.defaultSms &&
+                state.smsPermission &&
+                state.contactPermission &&
+                !state.notificationPermission
 
         when {
             !state.defaultSms -> {

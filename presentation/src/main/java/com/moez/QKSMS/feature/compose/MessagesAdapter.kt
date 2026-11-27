@@ -459,7 +459,12 @@ class MessagesAdapter @Inject constructor(
         next: Message?
     ) {
         statusView.apply {
-            text = when {
+            val simLabel = subs.find { it.subscriptionId == message.subId }
+                ?.simSlotIndex
+                ?.plus(1)
+                ?.takeIf { subs.size > 1 }
+                ?.let { context.getString(R.string.message_status_sim, it) }
+            val statusText = when {
                 message.isSending() -> context.getString(R.string.message_status_sending)
                 message.isDelivered() -> context.getString(
                     R.string.message_status_delivered,
@@ -473,6 +478,7 @@ class MessagesAdapter @Inject constructor(
                         dateFormatter.getTimestamp(message.date)}"
                 else -> dateFormatter.getTimestamp(message.date)
             }
+            text = simLabel?.let { "$statusText • $it" } ?: statusText
 
             val age = TimeUnit.MILLISECONDS.toMinutes(
                 System.currentTimeMillis() - message.date

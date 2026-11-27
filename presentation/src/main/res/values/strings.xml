@@ -77,6 +77,7 @@
     <string name="main_permission_contacts">QUIK needs permission to view your contacts</string>
     <string name="main_permission_notifications">QUIK needs permission to display notifications</string>
     <string name="main_permission_allow">Allow</string>
+    <string name="main_permission_dismiss">Dismiss</string>
 
     <string name="scheduled_menu_send_now">Send now</string>
     <string name="scheduled_menu_edit_message">Edit message</string>
@@ -190,6 +191,7 @@
     <string name="message_status_sending">Sending…</string>
     <string name="message_status_delivered">Delivered %s</string>
     <string name="message_status_failed">Failed to send. Tap to try again</string>
+    <string name="message_status_sim">SIM %1$d</string>
     <string name="message_body_too_long_to_display">⚠ Message is long. Copy or Save for the full text</string>
 
     <string name="info_title">Details</string>
