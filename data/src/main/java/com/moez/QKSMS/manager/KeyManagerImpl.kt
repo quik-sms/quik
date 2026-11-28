@@ -32,6 +32,7 @@ class KeyManagerImpl @Inject constructor() : KeyManager {
     /**
      * Should be called when a new sync is being started
      */
+    @Synchronized
     override fun reset() {
         initialized = true
         maxValue = 0L
@@ -39,10 +40,18 @@ class KeyManagerImpl @Inject constructor() : KeyManager {
 
     /**
      * Returns a valid ID that can be used to store a new message
+     *
+     * Synchronized because messages are stored from several threads at once (receiving, sending,
+     * syncing). Without it, two callers can get the same ID and one message overwrites the other.
      */
+    @Synchronized
     override fun newId(): Long {
         if (!initialized) {
             maxValue = Realm.getDefaultInstance().use { realm ->
+                // The thread's cached instance may be mid-transaction (saveEmojiReaction asks for an
+                // ID inside executeTransaction): refresh() throws there, and a write transaction
+                // already sees the latest version
+                if (!realm.isInTransaction) realm.refresh()
                 realm.where(Message::class.java).max("id")?.toLong() ?: 0L
             }
             initialized = true
