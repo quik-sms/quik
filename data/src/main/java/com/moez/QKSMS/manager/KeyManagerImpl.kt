@@ -48,7 +48,10 @@ class KeyManagerImpl @Inject constructor() : KeyManager {
     override fun newId(): Long {
         if (!initialized) {
             maxValue = Realm.getDefaultInstance().use { realm ->
-                realm.refresh()
+                // The thread's cached instance may be mid-transaction (saveEmojiReaction asks for an
+                // ID inside executeTransaction): refresh() throws there, and a write transaction
+                // already sees the latest version
+                if (!realm.isInTransaction) realm.refresh()
                 realm.where(Message::class.java).max("id")?.toLong() ?: 0L
             }
             initialized = true
