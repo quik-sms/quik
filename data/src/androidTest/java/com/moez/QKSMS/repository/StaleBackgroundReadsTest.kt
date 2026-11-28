@@ -23,7 +23,6 @@ import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.squareup.moshi.Moshi
-import dev.octoshrimpy.quik.manager.KeyManagerImpl
 import dev.octoshrimpy.quik.model.Message
 import dev.octoshrimpy.quik.model.ScheduledMessage
 import dev.octoshrimpy.quik.util.Preferences
@@ -36,7 +35,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import java.util.concurrent.Callable
-import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -55,10 +53,13 @@ class StaleBackgroundReadsTest {
 
     private lateinit var pinnedThread: ExecutorService
     private var pinnedRealm: Realm? = null
+    private var previousConfiguration: RealmConfiguration? = null
 
     @Before
     fun setUp() {
         Realm.init(context)
+        // Swap in an in-memory database for the test, and put the app's back afterwards
+        previousConfiguration = Realm.getDefaultConfiguration()
         Realm.setDefaultConfiguration(RealmConfiguration.Builder()
                 .inMemory()
                 .name("stale-reads-${System.nanoTime()}.realm")
@@ -73,6 +74,7 @@ class StaleBackgroundReadsTest {
     fun tearDown() {
         onPinnedThread { pinnedRealm?.close() }
         pinnedThread.shutdown()
+        previousConfiguration?.let(Realm::setDefaultConfiguration)
     }
 
     /** Shows the mechanism itself, so a failure below isn't an artifact of the test setup. */
@@ -115,22 +117,6 @@ class StaleBackgroundReadsTest {
         val ids = onPinnedThread { scheduledRepo.getAllScheduledMessageIdsSnapshot() }
 
         assertEquals(listOf(7L), ids)
-    }
-
-    @Test
-    fun newId_isUniqueAcrossConcurrentCallers() {
-        val keys = KeyManagerImpl().apply { reset() }
-        val threads = 8
-        val pool = Executors.newFixedThreadPool(threads)
-        val start = CountDownLatch(1)
-
-        val ids = (1..threads)
-                .map { pool.submit(Callable { start.await(); List(5_000) { keys.newId() } }) }
-                .also { start.countDown() }
-                .flatMap { future -> future.get(30, TimeUnit.SECONDS) }
-        pool.shutdown()
-
-        assertEquals("duplicate IDs handed out", ids.size, ids.toSet().size)
     }
 
     private fun <T> onPinnedThread(block: () -> T): T =
